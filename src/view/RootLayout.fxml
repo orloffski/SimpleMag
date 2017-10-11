@@ -1,77 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="rootLayout" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RootController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <left>
-      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" BorderPane.alignment="CENTER">
+   <bottom>
+      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="cashbox" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openCashboxView" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <image>
-                  <Image url="@../../resources/images/cashbox.png" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Продажи" />
-            <ImageView fx:id="stock" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openStockView" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <image>
-                  <Image url="@../../resources/images/stock.png" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Склад" />
-            <ImageView fx:id="finance" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openFinanceView" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <image>
-                  <Image url="@../../resources/images/finance.png" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Финансы" />
-            <ImageView fx:id="chart" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openChartView" pickOnBounds="true" preserveRatio="true">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-               <image>
-                  <Image url="@../../resources/images/chart.png" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Статистика" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Продажи">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Text>
+                  <ImageView fx:id="cashbox" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openCashboxView" onMouseEntered="#cashboxImageEntered" onMouseExited="#cashboxImageExited" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../resources/images/cashbox.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Склад">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Text>
+                  <ImageView fx:id="stock" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openStockView" onMouseEntered="#stockImageEntered" onMouseExited="#stockImageExited" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../resources/images/stock.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Финансы">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Text>
+                  <ImageView fx:id="finance" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openFinanceView" onMouseEntered="#financeImageEntered" onMouseExited="#financeImageExited" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../resources/images/finance.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Статистика">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Text>
+                  <ImageView fx:id="chart" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openChartView" onMouseEntered="#chartImageEntered" onMouseExited="#chartImageExited" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../resources/images/chart.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
          </children>
-      </VBox>
-   </left>
+      </HBox>
+   </bottom>
 </BorderPane>
