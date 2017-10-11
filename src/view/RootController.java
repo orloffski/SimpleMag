@@ -1,11 +1,13 @@
 package view;
 
-import application.Main;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 
 public class RootController {
+	
+	@FXML
+    private BorderPane rootLayout;
 	
 	@FXML
 	private ImageView cashbox;
@@ -18,8 +20,6 @@ public class RootController {
 	
 	@FXML
 	private ImageView chart;
-		
-	private Main main;
 	
 	public RootController() {
 	}
@@ -29,28 +29,28 @@ public class RootController {
 		
 	}
 	
-	public void setMain(Main main) {
-		this.main = main;
-	}
-	
 	@FXML
-	private void openCashboxView() {
-		System.out.print("cashbox opened");
+	private void openCashboxView(){
+		CashboxController controller = new CashboxController();
+		rootLayout.setCenter(controller.getRootNode());
 	}
 	
 	@FXML
 	private void openStockView() {
-		System.out.print("stock opened");
+		StockController controller = new StockController();
+		rootLayout.setCenter(controller.getRootNode());
 	}
 	
 	@FXML
 	private void openFinanceView() {
-		System.out.print("finance opened");
+		FinanceController controller = new FinanceController();
+		rootLayout.setCenter(controller.getRootNode());
 	}
 	
 	@FXML
 	private void openChartView() {
-		System.out.print("chart opened");
+		ChartController controller = new ChartController();
+		rootLayout.setCenter(controller.getRootNode());
 	}
 
 }
