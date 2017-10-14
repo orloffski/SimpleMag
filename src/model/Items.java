@@ -9,16 +9,18 @@ public class Items {
 	
 	private final IntegerProperty id;
 	private final StringProperty vendorCode;
+	private final StringProperty vendorCountry;
 	private final StringProperty name;
 	
 	public Items() {
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 	
-	public Items(Integer id, String vendorCode, String name) {
+	public Items(Integer id, String vendorCode, String name, String vendorCountry) {
 		this.id = new SimpleIntegerProperty(id);
 		this.vendorCode = new SimpleStringProperty(vendorCode);
 		this.name = new SimpleStringProperty(name);
+		this.vendorCountry = new SimpleStringProperty(vendorCountry);
 	}
 	
 	public int getId() {
@@ -43,6 +45,18 @@ public class Items {
 
     public StringProperty vendorCodeProperty() {
         return vendorCode;
+    }
+    
+    public String getVendorCountry() {
+        return vendorCountry.get();
+    }
+
+    public void setVendorCountry(String vendorCountry) {
+        this.vendorCountry.set(vendorCountry);
+    }
+
+    public StringProperty vendorCountryProperty() {
+        return vendorCountry;
     }
     
     public String getName() {

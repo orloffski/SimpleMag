@@ -18,13 +18,7 @@ public class StockController {
 	private ImageView items;
 	
 	@FXML
-	private ImageView receipts;
-	
-	@FXML
-	private ImageView returns;
-	
-	@FXML
-	private ImageView transfers;
+	private ImageView invoices;
 	
 	public StockController() {
 	}
@@ -36,22 +30,21 @@ public class StockController {
 	
 	@FXML
 	private void openItemsView(){
-        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/ItemsView.fxml"));
+		BorderPane paneView = null;
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/ItemsView.fxml"));
+        try {
+        	paneView = (BorderPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        stockRootLayout.setCenter(paneView);
 	}
 	
 	@FXML
-	private void openReceiptsView(){
-        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/ReceiptsView.fxml"));
-	}
-	
-	@FXML
-	private void openReturnsView(){
-        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/ReturnsView.fxml"));
-	}
-	
-	@FXML
-	private void openTransfersView(){
-        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/TransfersView.fxml"));
+	private void openInvoicesView(){
+        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/InvoicesView.fxml"));
 	}
 	
 	public AnchorPane getRootNode() {
