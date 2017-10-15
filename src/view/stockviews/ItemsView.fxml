@@ -25,13 +25,13 @@
    <right>
       <VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="70.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="add" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="add" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#addItem" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../resources/images/add.png" />
                </image>
             </ImageView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Новый" />
-            <ImageView fx:id="edit" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="edit" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#editItem" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../resources/images/edit.png" />
                </image>

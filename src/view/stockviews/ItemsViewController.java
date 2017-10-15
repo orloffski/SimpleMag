@@ -1,18 +1,26 @@
 package view.stockviews;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import application.DBClass;
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Items;
 
 public class ItemsViewController {
@@ -62,6 +70,37 @@ public class ItemsViewController {
 	}
 	
 	@FXML
+	private void addItem() {
+		Items item = new Items(0, null, null, null);
+		
+		boolean okClicked = openAddEditItemDialog(item);
+		if(okClicked) {
+			data.clear();
+			buildData();
+		}
+	}
+	
+	@FXML
+	private void editItem() {
+		Items item = itemsTable.getSelectionModel().getSelectedItem();
+		
+		if(item != null) {
+			boolean okClicked = openAddEditItemDialog(item);
+			if(okClicked) {
+				data.clear();
+				buildData();
+			}
+		}else {
+			Alert alert = new Alert(AlertType.WARNING);
+	        alert.setTitle("Не выбран товар для изменения");
+	        alert.setContentText("Для изменения товара выберите товар из списка");
+
+	        alert.showAndWait();
+		}
+		
+	}
+	
+	@FXML
 	private void deleteItem() {	
 		int indexToDelete = itemsTable.getSelectionModel().getSelectedIndex();
 		Items itemToDelete = itemsTable.getSelectionModel().getSelectedItem();
@@ -76,6 +115,12 @@ public class ItemsViewController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}else {
+			Alert alert = new Alert(AlertType.WARNING);
+	        alert.setTitle("Не выбран товар для удаления");
+	        alert.setContentText("Для удаления товара из системы выберите товар из списка");
+
+	        alert.showAndWait();
 		}
 	}
 	
@@ -96,5 +141,30 @@ public class ItemsViewController {
 	    catch(Exception e){
 	          e.printStackTrace();           
 	    }
+	}
+	
+	private boolean openAddEditItemDialog(Items item) {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/ItemCard.fxml"));
+        try {
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Добавление товара");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        ItemCardController cardController = loader.getController();
+	        cardController.setDialogStage(dialogStage);
+	        cardController.setItem(item);
+	        
+	        dialogStage.showAndWait();
+	        
+	        return cardController.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        return false;
 	}
 }
