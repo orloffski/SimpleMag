@@ -71,7 +71,7 @@ public class ItemsViewController {
 	
 	@FXML
 	private void addItem() {
-		Items item = new Items(0, null, null, null);
+		Items item = new Items(0, null, null, null, 0);
 		
 		boolean okClicked = openAddEditItemDialog(item);
 		if(okClicked) {
@@ -133,7 +133,8 @@ public class ItemsViewController {
 	            Items item = new Items(rs.getInt("id"), 
 	            		rs.getString("vendor_code"), 
 	            		rs.getString("name"),
-	            		rs.getString("vendor_country"));
+	            		rs.getString("vendor_country"),
+	            		rs.getInt("unit_id"));
 	            data.add(item);   	       
 	        }
 	        itemsTable.setItems(data);

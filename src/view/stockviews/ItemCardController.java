@@ -117,7 +117,6 @@ public class ItemCardController {
 	            units.add(unit.getUnit());
 	        }
 	    }catch(Exception e){
-	    	System.out.println("SQL Error");
 	          e.printStackTrace();           
 	    }
 		
@@ -142,6 +141,7 @@ public class ItemCardController {
 			vendorCode.setText(item.getVendorCode());
 			name.setText(item.getName());
 			vendorCountry.setText(item.getVendorCountry());
+			unitComboBox.setValue(units.get(item.getUnitId()));
 		}
 	}
 	

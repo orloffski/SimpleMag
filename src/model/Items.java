@@ -11,17 +11,31 @@ public class Items {
 	private final StringProperty vendorCode;
 	private final StringProperty vendorCountry;
 	private final StringProperty name;
+	private final IntegerProperty unitId;
 	
 	public Items() {
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 	}
 	
-	public Items(Integer id, String vendorCode, String name, String vendorCountry) {
+	public Items(Integer id, String vendorCode, String name, String vendorCountry, Integer unitId) {
 		this.id = new SimpleIntegerProperty(id);
 		this.vendorCode = new SimpleStringProperty(vendorCode);
 		this.name = new SimpleStringProperty(name);
 		this.vendorCountry = new SimpleStringProperty(vendorCountry);
+		this.unitId = new SimpleIntegerProperty(unitId);
 	}
+	
+	public int getUnitId() {
+        return unitId.get();
+    }
+
+    public void setUnitId(int unitId) {
+        this.unitId.set(unitId);
+    }
+
+    public IntegerProperty unitIdProperty() {
+        return unitId;
+    }
 	
 	public int getId() {
         return id.get();
