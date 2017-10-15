@@ -64,7 +64,7 @@
    <top>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" BorderPane.alignment="TOP_LEFT">
          <BorderPane.margin>
-            <Insets left="10.0" top="10.0" />
+            <Insets left="50.0" top="10.0" />
          </BorderPane.margin>
          <children>
             <Label contentDisplay="CENTER" text="Поиск">
