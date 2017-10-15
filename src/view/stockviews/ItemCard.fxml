@@ -10,17 +10,19 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.ItemCardController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.ItemCardController">
    <children>
       <GridPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="178.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="307.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="201.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="279.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -32,6 +34,8 @@
             <TextField fx:id="vendorCountry" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Единицы измерения" GridPane.rowIndex="3" />
             <ComboBox fx:id="unitComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="barcodeBtn" mnemonicParsing="false" onMouseClicked="#openBarcodeTable" text="Управление штрихкодами" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" text="Управление ценами товара" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">

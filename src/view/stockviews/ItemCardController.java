@@ -1,17 +1,25 @@
 package view.stockviews;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.DBClass;
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Items;
 import model.Units;
@@ -36,6 +44,9 @@ public class ItemCardController {
 	
 	@FXML
 	private TextField vendorCountry; 
+	
+	@FXML
+	private Button barcodeBtn;
 
 	@FXML
 	private void initialize() {
@@ -150,5 +161,28 @@ public class ItemCardController {
 			return true;
 		
 		return false;
+	}
+	
+	@FXML
+	private void openBarcodeTable() {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/BarcodesView.fxml"));
+        try {
+        	BorderPane page = (BorderPane) loader.load();
+			Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Штрихкоды");
+	        dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        BarcodesViewController cardController = loader.getController();
+	        cardController.setDialogStage(dialogStage);
+	        cardController.setItem(item);
+	        
+	        dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
