@@ -141,7 +141,7 @@ public class ItemCardController {
 			vendorCode.setText(item.getVendorCode());
 			name.setText(item.getName());
 			vendorCountry.setText(item.getVendorCountry());
-			unitComboBox.setValue(units.get(item.getUnitId()));
+			unitComboBox.setValue(units.get(item.getUnitId() - 1));
 		}
 	}
 	

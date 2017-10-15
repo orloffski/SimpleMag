@@ -10,6 +10,8 @@ import application.DBClass;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -49,6 +52,9 @@ public class ItemsViewController {
     
     @FXML
 	private ImageView delete;
+    
+    @FXML
+    private TextField filter;
 	
 	@FXML
 	private void initialize() {
@@ -59,7 +65,7 @@ public class ItemsViewController {
 		dbClass = new DBClass();
 	    try{
 	    	connection = dbClass.getConnection();
-	        buildData();
+	        buildData();	        	    
 	    }
 	    catch(ClassNotFoundException ce){
 	    	ce.printStackTrace();
@@ -138,10 +144,37 @@ public class ItemsViewController {
 	            data.add(item);   	       
 	        }
 	        itemsTable.setItems(data);
+	        
+	        addFilter();
 	    }
 	    catch(Exception e){
 	          e.printStackTrace();           
 	    }
+	}
+	
+	public void addFilter() {
+		FilteredList<Items> filteredData = new FilteredList<>(data, p -> true);
+        
+        filter.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(item -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (item.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches name.
+                } else if (item.getVendorCode().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches vendor code.
+                }
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<Items> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(itemsTable.comparatorProperty());
+        itemsTable.setItems(sortedData);
 	}
 	
 	private boolean openAddEditItemDialog(Items item) {
