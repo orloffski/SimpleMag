@@ -8,8 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import view.stockviews.ItemsViewController;
 
 public class StockController {
+	
+	private Main main;
 	
 	@FXML
     private BorderPane stockRootLayout;
@@ -39,6 +42,8 @@ public class StockController {
 			e.printStackTrace();
 		}
         
+        ItemsViewController controller = loader.getController();
+		controller.setMain(main);
         stockRootLayout.setCenter(paneView);
 	}
 	
@@ -63,4 +68,8 @@ public class StockController {
         
         return paneView;
 	}
+	
+	public void setMain(Main main) {
+        this.main = main;
+    }
 }

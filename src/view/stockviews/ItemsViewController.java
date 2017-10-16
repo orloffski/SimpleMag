@@ -29,6 +29,8 @@ import model.Items;
 
 public class ItemsViewController {
 	
+	private Main main;
+	
 	private ObservableList<Items> data;
 	private DBClass dbClass;
 	private Connection connection;
@@ -187,20 +189,26 @@ public class ItemsViewController {
 	        dialogStage.setTitle("Добавление товара");
 	        dialogStage.getIcons().add(new Image("file:resources/images/goods.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(main.getPrimaryStage());
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 	        
-	        ItemCardController cardController = loader.getController();
-	        cardController.setDialogStage(dialogStage);
-	        cardController.setItem(item);
+	        ItemCardController controller = loader.getController();
+	        controller.setMain(main);
+	        controller.setDialogStage(dialogStage);
+	        controller.setItem(item);
 	        
 	        dialogStage.showAndWait();
 	        
-	        return cardController.isOkClicked();
+	        return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         
         return false;
 	}
+	
+	public void setMain(Main main) {
+        this.main = main;
+    }
 }

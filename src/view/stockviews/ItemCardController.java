@@ -26,6 +26,8 @@ import model.Units;
 
 public class ItemCardController {
 	
+	private Main main;
+	
 	private Connection connection;
 	private Items item;
 	private Stage dialogStage;
@@ -173,6 +175,7 @@ public class ItemCardController {
 	        dialogStage.setTitle("Штрихкоды");
 	        dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(main.getPrimaryStage());
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 	        
@@ -185,4 +188,8 @@ public class ItemCardController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setMain(Main main) {
+        this.main = main;
+    }
 }

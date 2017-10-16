@@ -1,12 +1,19 @@
 package view;
 
+import java.io.IOException;
+
+import application.Main;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 public class RootController {
+	
+	private Main main;
 	
 	@FXML
     private BorderPane rootLayout;
@@ -38,8 +45,18 @@ public class RootController {
 	
 	@FXML
 	private void openStockView() {
-		StockController controller = new StockController();
-		rootLayout.setCenter(controller.getRootNode());
+		AnchorPane paneView = null;
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/StockView.fxml"));
+        try {
+			paneView = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+		StockController controller = loader.getController();
+		controller.setMain(main);
+		rootLayout.setCenter(paneView);
 	}
 	
 	@FXML
@@ -136,5 +153,7 @@ public class RootController {
 		smallerImage(stock);
 	}
 	
-	
+	public void setMain(Main main) {
+        this.main = main;
+    }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import view.RootController;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -38,6 +39,8 @@ public class Main extends Application {
             scene = new Scene(rootLayout);
             
             primaryStage.setScene(scene);
+            RootController controller = loader.getController();
+            controller.setMain(this);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
