@@ -35,7 +35,7 @@
             <Label text="Единицы измерения" GridPane.rowIndex="3" />
             <ComboBox fx:id="unitComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button fx:id="barcodeBtn" mnemonicParsing="false" onMouseClicked="#openBarcodeTable" text="Управление штрихкодами" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" text="Управление ценами товара" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" onMouseClicked="#openPriceView" text="Управление ценами товара" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">

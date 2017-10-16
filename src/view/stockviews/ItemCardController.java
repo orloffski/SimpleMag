@@ -189,6 +189,30 @@ public class ItemCardController {
 		}
 	}
 	
+	@FXML
+	private void openPriceView() {
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/PricesView.fxml"));
+        try {
+        	BorderPane page = (BorderPane) loader.load();
+			Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Цены");
+	        dialogStage.getIcons().add(new Image("file:resources/images/price.png"));
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(main.getPrimaryStage());
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        PricesController cardController = loader.getController();
+	        cardController.setDialogStage(dialogStage);
+	        cardController.setItem(item);
+	        
+	        dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setMain(Main main) {
         this.main = main;
     }
