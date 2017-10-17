@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import view.stockviews.invoices.InvoicesViewController;
 import view.stockviews.items.ItemsViewController;
 
 public class StockController {
@@ -49,7 +50,18 @@ public class StockController {
 	
 	@FXML
 	private void openInvoicesView(){
-        stockRootLayout.setCenter(getLoadedPane("/view/stockviews/InvoicesView.fxml"));
+		BorderPane paneView = null;
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/invoices/InvoicesView.fxml"));
+        try {
+        	paneView = (BorderPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        InvoicesViewController controller = loader.getController();
+		controller.setMain(main);
+        stockRootLayout.setCenter(paneView);
 	}
 	
 	public AnchorPane getRootNode() {
