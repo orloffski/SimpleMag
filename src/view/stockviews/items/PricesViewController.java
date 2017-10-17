@@ -92,6 +92,7 @@ public class PricesViewController {
 			connection = new DBClass().getConnection();
 			String SQL = "INSERT INTO prices SET price = '" 
 					+ priceChangeField.getText().toString() + "', "
+					+ "reason = 'manual', "
 					+ "item_id = '"
 					+ itemId + "';";
 			connection.createStatement().executeUpdate(SQL);
