@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.ItemsViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.items.ItemsViewController">
    <center>
       <TableView fx:id="itemsTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" BorderPane.alignment="CENTER">
         <columns>
@@ -33,13 +33,13 @@
          <children>
             <ImageView fx:id="add" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#addItem" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/images/add.png" />
+                  <Image url="@../../../../resources/images/add.png" />
                </image>
             </ImageView>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Новый" />
             <ImageView fx:id="edit" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#editItem" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/images/edit.png" />
+                  <Image url="@../../../../resources/images/edit.png" />
                </image>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -48,7 +48,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Изменть" />
             <ImageView fx:id="delete" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#deleteItem" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/images/delete.png" />
+                  <Image url="@../../../../resources/images/delete.png" />
                </image>
                <VBox.margin>
                   <Insets top="10.0" />

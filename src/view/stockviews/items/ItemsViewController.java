@@ -1,4 +1,4 @@
-package view.stockviews;
+package view.stockviews.items;
 
 import java.sql.SQLException;
 import java.io.IOException;
@@ -182,7 +182,7 @@ public class ItemsViewController {
 	
 	private boolean openAddEditItemDialog(Items item) {
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/ItemCard.fxml"));
+        loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemCard.fxml"));
         try {
 			AnchorPane page = (AnchorPane) loader.load();
 			Stage dialogStage = new Stage();

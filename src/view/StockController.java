@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import view.stockviews.ItemsViewController;
+import view.stockviews.items.ItemsViewController;
 
 public class StockController {
 	
@@ -35,7 +35,7 @@ public class StockController {
 	private void openItemsView(){
 		BorderPane paneView = null;
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/ItemsView.fxml"));
+        loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemsView.fxml"));
         try {
         	paneView = (BorderPane) loader.load();
 		} catch (IOException e) {

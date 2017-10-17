@@ -1,4 +1,4 @@
-package view.stockviews;
+package view.stockviews.items;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import model.Items;
 import model.Prices;
 
-public class PricesController {
+public class PricesViewController {
 	
 	private ObservableList<Prices> data;
 	private Connection connection;

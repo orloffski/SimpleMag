@@ -1,4 +1,4 @@
-package view.stockviews;
+package view.stockviews.items;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

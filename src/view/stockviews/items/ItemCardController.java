@@ -1,4 +1,4 @@
-package view.stockviews;
+package view.stockviews.items;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -168,7 +168,7 @@ public class ItemCardController {
 	@FXML
 	private void openBarcodeTable() {
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/BarcodesView.fxml"));
+        loader.setLocation(Main.class.getResource("/view/stockviews/items/BarcodesView.fxml"));
         try {
         	BorderPane page = (BorderPane) loader.load();
 			Stage dialogStage = new Stage();
@@ -192,7 +192,7 @@ public class ItemCardController {
 	@FXML
 	private void openPriceView() {
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/PricesView.fxml"));
+        loader.setLocation(Main.class.getResource("/view/stockviews/items/PricesView.fxml"));
         try {
         	BorderPane page = (BorderPane) loader.load();
 			Stage dialogStage = new Stage();
@@ -203,7 +203,7 @@ public class ItemCardController {
 	        Scene scene = new Scene(page);
 	        dialogStage.setScene(scene);
 	        
-	        PricesController cardController = loader.getController();
+	        PricesViewController cardController = loader.getController();
 	        cardController.setDialogStage(dialogStage);
 	        cardController.setItem(item);
 	        
