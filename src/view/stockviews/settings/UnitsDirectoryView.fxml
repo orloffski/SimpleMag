@@ -48,9 +48,14 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#delete" text="удалить">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
             <Button fx:id="closeBtn" mnemonicParsing="false" onMouseClicked="#close" text="закрыть">
                <HBox.margin>
-                  <Insets left="190.0" />
+                  <Insets left="120.0" />
                </HBox.margin>
             </Button>
          </children>
