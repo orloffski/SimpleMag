@@ -52,7 +52,25 @@ public class SettingsViewController {
 	
 	@FXML
 	private void openCounterparties() {
-		
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/settings/CounterpartiesDirectoryView.fxml"));
+        try {
+        	BorderPane page = (BorderPane) loader.load();
+			Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Контрагенты");
+	        dialogStage.getIcons().add(new Image("file:resources/images/counterparties.png"));
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(main.getPrimaryStage());
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+	        
+	        CounterpartiesDirectoryViewController counterpartiesController = loader.getController();
+	        counterpartiesController.setDialogStage(dialogStage);
+	        
+	        dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setMain(Main main) {

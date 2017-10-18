@@ -19,8 +19,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.AddEditMode;
-import model.Barcodes;
-import model.Items;
 import model.Units;
 
 public class UnitsDirectoryViewController {
@@ -34,7 +32,7 @@ public class UnitsDirectoryViewController {
 	private Units unit;
 	
 	@FXML
-	private TableView unitsTable;
+	private TableView<Units> unitsTable;
 	
 	@FXML
     private TableColumn<Units, String> unitColumn;
