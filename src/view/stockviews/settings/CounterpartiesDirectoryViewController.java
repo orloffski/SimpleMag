@@ -137,7 +137,7 @@ public class CounterpartiesDirectoryViewController {
 						+ nameTextField.getText().toString() + "', "
 						+ "unn = '"
 						+ unnTextField.getText().toString() + "', "
-						+ "adress = ' "
+						+ "adress = '"
 						+ adressTextField.getText().toString() + "';";
 				connection.createStatement().executeUpdate(SQL);
 			} catch (ClassNotFoundException e) {
@@ -152,7 +152,7 @@ public class CounterpartiesDirectoryViewController {
 						+ nameTextField.getText().toString() + "', "
 						+ "unn = '"
 						+ unnTextField.getText().toString() + "', "
-						+ "adress = ' "
+						+ "adress = '"
 						+ adressTextField.getText().toString() + "' "
 						+ "WHERE id = "
 						+ counterparty.getId() + ";";
