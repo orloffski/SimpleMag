@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.InvoicesViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.InvoicesViewController">
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Receipts" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
+      <TableView minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="#" />
+            <TableColumn prefWidth="75.0" text="Тип" />
+            <TableColumn prefWidth="75.0" text="Статус" />
+          <TableColumn prefWidth="75.0" text="Дата" />
+            <TableColumn prefWidth="75.0" text="Контрагент" />
+            <TableColumn prefWidth="75.0" text="Количество" />
+            <TableColumn prefWidth="75.0" text="Сумма" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
    </center>
+   <top>
+      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

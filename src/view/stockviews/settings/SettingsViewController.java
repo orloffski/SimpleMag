@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import view.stockviews.items.BarcodesViewController;
 
 public class SettingsViewController {
 
