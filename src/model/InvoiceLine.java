@@ -18,12 +18,13 @@ public class InvoiceLine {
 	private final StringProperty itemName;
 	private final DoubleProperty vendorPrice;
 	private final DoubleProperty retailPrice;
+	private final IntegerProperty count;
 	
 	public InvoiceLine() {
-		this(null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
@@ -33,9 +34,22 @@ public class InvoiceLine {
 		this.itemName = new SimpleStringProperty(itemName);
 		this.vendorPrice = new SimpleDoubleProperty(vendorPrice);
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
+		this.count = new SimpleIntegerProperty(count);
 	}
 	
-	public int getId() {
+	public int getCount() {
+        return count.get();
+    }
+
+    public void setCount(int count) {
+        this.count.set(count);
+    }
+
+    public IntegerProperty countProperty() {
+        return count;
+    }
+    
+    public int getId() {
         return id.get();
     }
 
