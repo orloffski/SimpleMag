@@ -18,12 +18,14 @@ public class InvoiceHeader {
 	private final DoubleProperty summ;
 	private final IntegerProperty counterpartyId;
 	private final StringProperty lastcreated;
+	private final IntegerProperty recipientId;
+	private final StringProperty recipientName;
 	
 	public InvoiceHeader() {
-		this(null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null, nul);
 	}
 	
-	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated) {
+	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName) {
 		this.id = new SimpleIntegerProperty(id);
 		this.number = new SimpleStringProperty(number);
 		this.type = new SimpleStringProperty(type);
@@ -33,9 +35,23 @@ public class InvoiceHeader {
 		this.summ = new SimpleDoubleProperty(summ);
 		this.counterpartyId = new SimpleIntegerProperty(counterpartyId);
 		this.lastcreated = new SimpleStringProperty(lastcreated);
+		this.recipientId = new SimpleIntegerProperty(recipientId);
+		this.recipientName = new SimpleStringProperty(recipientName);
 	}
 	
-	public int getId() {
+	public int getRecipientd() {
+        return recipientId.get();
+    }
+
+    public void setRecipientId(int recipientId) {
+        this.recipientId.set(recipientId);
+    }
+
+    public IntegerProperty recipientIdProperty() {
+        return recipientId;
+    }
+    
+    public int getId() {
         return id.get();
     }
 
@@ -139,7 +155,19 @@ public class InvoiceHeader {
         this.lastcreated.set(lastcreated);
     }
 
-    public StringProperty lastcreatedProperty() {
+    public StringProperty lastCreatedProperty() {
         return lastcreated;
+    }
+    
+    public String getRecipientName() {
+        return recipientName.get();
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName.set(recipientName);
+    }
+
+    public StringProperty recipientNameProperty() {
+        return recipientName;
     }
 }
