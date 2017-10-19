@@ -17,12 +17,13 @@ public class InvoiceHeader {
 	private final IntegerProperty count;
 	private final DoubleProperty summ;
 	private final IntegerProperty counterpartyId;
+	private final StringProperty lastcreated;
 	
 	public InvoiceHeader() {
-		this(null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId) {
+	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated) {
 		this.id = new SimpleIntegerProperty(id);
 		this.number = new SimpleStringProperty(number);
 		this.type = new SimpleStringProperty(type);
@@ -31,6 +32,7 @@ public class InvoiceHeader {
 		this.count = new SimpleIntegerProperty(count);
 		this.summ = new SimpleDoubleProperty(summ);
 		this.counterpartyId = new SimpleIntegerProperty(counterpartyId);
+		this.lastcreated = new SimpleStringProperty(lastcreated);
 	}
 	
 	public int getId() {
@@ -127,5 +129,17 @@ public class InvoiceHeader {
 
     public StringProperty counterpartyProperty() {
         return counterparty;
+    }
+    
+    public String getLastcreated() {
+        return lastcreated.get();
+    }
+
+    public void setLastcreated(String lastcreated) {
+        this.lastcreated.set(lastcreated);
+    }
+
+    public StringProperty lastcreatedProperty() {
+        return lastcreated;
     }
 }
