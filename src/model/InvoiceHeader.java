@@ -136,7 +136,7 @@ public class InvoiceHeader {
     }
     
     public String getCounterparty() {
-        return status.get();
+        return counterparty.get();
     }
 
     public void setCounterparty(String counterparty) {
