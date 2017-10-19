@@ -22,7 +22,7 @@ public class InvoiceHeader {
 	private final StringProperty recipientName;
 	
 	public InvoiceHeader() {
-		this(null, null, null, null, null, null, null, null, null, null, nul);
+		this(null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
 	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName) {
@@ -155,7 +155,7 @@ public class InvoiceHeader {
         this.lastcreated.set(lastcreated);
     }
 
-    public StringProperty lastCreatedProperty() {
+    public StringProperty lastcreatedProperty() {
         return lastcreated;
     }
     
