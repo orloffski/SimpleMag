@@ -9,8 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.items.ItemsViewController">
    <center>
@@ -28,48 +26,15 @@
          </BorderPane.margin>
       </TableView>
    </center>
-   <right>
-      <VBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="70.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="add" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#addItem" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../resources/images/add.png" />
-               </image>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Новый" />
-            <ImageView fx:id="edit" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#editItem" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../resources/images/edit.png" />
-               </image>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Изменть" />
-            <ImageView fx:id="delete" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#deleteItem" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../resources/images/delete.png" />
-               </image>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Удалить" />
-         </children>
-         <BorderPane.margin>
-            <Insets top="25.0" />
-         </BorderPane.margin>
-      </VBox>
-   </right>
    <top>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" BorderPane.alignment="TOP_LEFT">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
-            <Insets left="50.0" top="10.0" />
+            <Insets />
          </BorderPane.margin>
          <children>
-            <Label contentDisplay="CENTER" text="Поиск">
+            <Label contentDisplay="CENTER" text="Фильтр">
                <HBox.margin>
-                  <Insets />
+                  <Insets left="50.0" />
                </HBox.margin>
                <padding>
                   <Insets top="5.0" />
@@ -80,6 +45,30 @@
                   <Insets left="10.0" top="2.0" />
                </HBox.margin>
             </TextField>
+            <ImageView fx:id="add" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#addItem" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../../../resources/images/add.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="edit" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#editItem" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/images/edit.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="delete" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteItem" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../../../resources/images/delete.png" />
+               </image>
+            </ImageView>
          </children>
       </HBox>
    </top>
