@@ -35,7 +35,7 @@
                   <Insets left="50.0" />
                </HBox.margin>
             </Label>
-            <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
+            <TextField fx:id="filter" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>

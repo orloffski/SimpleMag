@@ -8,10 +8,14 @@ import application.DBClass;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import model.InvoiceHeader;
+import model.Items;
 
 public class InvoicesViewController {
 	
@@ -44,6 +48,9 @@ public class InvoicesViewController {
 
 	@FXML
     private TableColumn<InvoiceHeader, Number> summColumn;
+	
+	@FXML
+    private TextField filter;
 
 	@FXML
 	private void initialize() {
@@ -88,11 +95,34 @@ public class InvoicesViewController {
 	        }
 	        invoicesTable.setItems(data);
 	        
-	        //addFilter();
+	        addFilter();
 	    }
 	    catch(Exception e){
 	          e.printStackTrace();           
 	    }
+	}
+	
+	public void addFilter() {
+		FilteredList<InvoiceHeader> filteredData = new FilteredList<>(data, p -> true);
+        
+        filter.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(invoice -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (invoice.getNumber().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches name.
+                }
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<InvoiceHeader> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(invoicesTable.comparatorProperty());
+        invoicesTable.setItems(sortedData);
 	}
 	
 	public void setMain(Main main) {
