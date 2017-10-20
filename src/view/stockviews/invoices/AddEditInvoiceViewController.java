@@ -1,14 +1,17 @@
 package view.stockviews.invoices;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import application.DBClass;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +32,7 @@ public class AddEditInvoiceViewController {
 	private Connection connection;
 	private Stage dialogStage;
 	private InvoiceHeader invoice;
+	private List<InvoiceLine> invoiceLines;
 	private AddEditMode mode;
 	private boolean okClicked = false;
 	
@@ -75,8 +79,24 @@ public class AddEditInvoiceViewController {
     private TableColumn<InvoiceLine, Number> retailPrice;
 	
 	@FXML
-	private void initialize() {
-		
+	private Button documentSet; 
+	
+	@FXML
+	private void documentSetAction() {
+		String newStatus = invoice.getStatus().equals("проведен")?"не проведен":"проведен";
+		try{      
+			PreparedStatement statement = 
+					connection.prepareStatement("UPDATE invoices_headers SET status = ?  WHERE number = ?");
+			statement.setString(1, newStatus);
+			statement.setString(2, invoice.getNumber());
+			statement.executeUpdate();
+			
+			status.setValue(newStatus);
+			documentSet.setText(newStatus.equals("проведен")?"отмена проведения":"провести");
+			this.invoice.setStatus(newStatus);
+		}catch(Exception e){
+	          e.printStackTrace();           
+	    }
 	}
 	
 	public void setInvoice(InvoiceHeader invoice) {
@@ -118,6 +138,8 @@ public class AddEditInvoiceViewController {
 			createDate.setText(invoice.getLastcreated().split(" ")[0]);
 			count.setText(String.valueOf(invoice.getCount()));
 			summ.setText(String.valueOf(invoice.getSumm()));
+			
+			documentSet.setText(invoice.getStatus().equals("проведен")?"отмена проведения":"провести");
 		}else {
 			dialogStage.setTitle("Создание накладной");
 			this.mode = AddEditMode.ADD;
