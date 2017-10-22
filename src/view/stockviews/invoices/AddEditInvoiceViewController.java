@@ -89,22 +89,7 @@ public class AddEditInvoiceViewController {
 	@FXML
 	private void initialize() {
 		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-			String newType = "";
-
-			switch (newValue){
-				case "Поступление":
-					newType = "REC";
-					break;
-				case "Возврат":
-					newType = "RET";
-					break;
-				case "Перемещение":
-					newType = "DEL";
-					break;
-				case "Ввод начальных остатков":
-					newType = "INI";
-					break;
-			}
+			String newType = NumberUtils.getDocSuffix(newValue);
 			number.setText(NumberUtils.getNextDocNumber(newType));
 		}));
 	}

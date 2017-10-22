@@ -8,10 +8,6 @@ import java.sql.SQLException;
 
 public class NumberUtils {
 
-    // REC = RECEIPT
-    // RET = RETURN
-    // DEL = DELIVERY
-    // INI = INITIAL
     public static final String getNextDocNumber(String newType){
         String number = "";
         int numberInt;
@@ -41,5 +37,30 @@ public class NumberUtils {
 
 
         return number;
+    }
+
+    // REC = RECEIPT
+    // RET = RETURN
+    // DEL = DELIVERY
+    // INI = INITIAL
+    public static final String getDocSuffix(String docType){
+        String newType = "";
+
+        switch (docType){
+            case "Поступление":
+                newType = "REC";
+                break;
+            case "Возврат":
+                newType = "RET";
+                break;
+            case "Перемещение":
+                newType = "DEL";
+                break;
+            case "Ввод начальных остатков":
+                newType = "INI";
+                break;
+        }
+
+        return newType;
     }
 }
