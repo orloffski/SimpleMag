@@ -72,16 +72,14 @@ public class RootController {
 	}
 	
 	private void biggerImage(ImageView image) {
-		final double SCALE = 1.3; // коэффициент увеличения
-	    final double DURATION = 300; // время анимации в мс
+		final double SCALE = 1.3;
+	    final double DURATION = 300;
 
-	    // создаём анимацию увеличения картинки     
 	    final ScaleTransition animationGrow = 
 	    		new ScaleTransition(Duration.millis(DURATION), image);
 	    animationGrow.setToX(SCALE);
 	    animationGrow.setToY(SCALE);
 
-	    // и уменьшения
 	    final ScaleTransition animationShrink = 
 	    		new ScaleTransition(Duration.millis(DURATION), image);
 	    animationShrink.setToX(1);
@@ -94,16 +92,14 @@ public class RootController {
 	}
 	
 	private void smallerImage(ImageView image) {
-		final double SCALE = 1.3; // коэффициент увеличения
-	    final double DURATION = 300; // время анимации в мс
+		final double SCALE = 1.3;
+	    final double DURATION = 300;
 
-	    // создаём анимацию увеличения картинки     
 	    final ScaleTransition animationGrow = 
 	    		new ScaleTransition(Duration.millis(DURATION), image);
 	    animationGrow.setToX(SCALE);
 	    animationGrow.setToY(SCALE);
 
-	    // и уменьшения
 	    final ScaleTransition animationShrink = 
 	    		new ScaleTransition(Duration.millis(DURATION), image);
 	    animationShrink.setToX(1);

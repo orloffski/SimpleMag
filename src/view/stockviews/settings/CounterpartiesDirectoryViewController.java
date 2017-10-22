@@ -76,21 +76,18 @@ public class CounterpartiesDirectoryViewController {
 	    	connection = dbClass.getConnection();
 	        buildData();	        	    
 	    }
-	    catch(ClassNotFoundException ce){
+	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
 	    }
-	    catch(SQLException ce){
-	    	ce.printStackTrace();
-	    }		 
-	    
-	    counterpartiesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+		counterpartiesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 	        if (newSelection != null) {
 	        	counterparty = (Counterparties) counterpartiesTable.getSelectionModel().getSelectedItem();
 	            mode = AddEditMode.EDIT;
 	            nameTextField.setText(counterparty.getName());
 	            unnTextField.setText(counterparty.getUnn());
 	            adressTextField.setText(counterparty.getAdress());
-	            addEditBtn.setText("изменить");
+	            addEditBtn.setText("РР·РјРµРЅРёС‚СЊ");
 	        }
 	    });
 	}
@@ -117,13 +114,13 @@ public class CounterpartiesDirectoryViewController {
 			}
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран еконтрагент для удаления");
-	        alert.setContentText("Для удаления еконтрагент выберите из списка");
+	        alert.setTitle("РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ РєРѕРЅС‚СЂР°РіРµРЅС‚Р° РІС‹Р±РµСЂРёС‚Рµ РµРіРѕ РёР· СЃРїРёСЃРєР°");
 
 	        alert.showAndWait();
 		}
 		
-        addEditBtn.setText("добавить");
+        addEditBtn.setText("Р”РѕР±Р°РІРёС‚СЊ");
 		data.clear();
 		buildData();
     }
@@ -165,7 +162,7 @@ public class CounterpartiesDirectoryViewController {
 		}
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("добавить");
+        addEditBtn.setText("Р”РѕР±Р°РІРёС‚СЊ");
 		
 		data.clear();
 		buildData();
@@ -174,7 +171,7 @@ public class CounterpartiesDirectoryViewController {
 		adressTextField.setText("");
 	}
 	
-	public void buildData(){			
+	private void buildData(){
 		data = FXCollections.observableArrayList();
 	    try{      
 	        String SQL = "SELECT * FROM counterparties ORDER BY id";            
@@ -195,7 +192,7 @@ public class CounterpartiesDirectoryViewController {
 	    }
 	}
 	
-	public void addFilter() {
+	private void addFilter() {
 		FilteredList<Counterparties> filteredData = new FilteredList<>(data, p -> true);
         
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -218,7 +215,7 @@ public class CounterpartiesDirectoryViewController {
         counterpartiesTable.setItems(sortedData);
 	}
 
-	public void setDialogStage(Stage dialogStage) {
+	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;      
     }
 }

@@ -31,9 +31,9 @@ public class SettingsViewController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/settings/UnitsDirectoryView.fxml"));
         try {
-        	BorderPane page = (BorderPane) loader.load();
+        	BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Единицы измерения");
+	        dialogStage.setTitle("Р•РґРёРЅРёС†С‹ РёР·РјРµСЂРµРЅРёСЏ");
 	        dialogStage.getIcons().add(new Image("file:resources/images/goods.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(main.getPrimaryStage());
@@ -54,9 +54,9 @@ public class SettingsViewController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/settings/CounterpartiesDirectoryView.fxml"));
         try {
-        	BorderPane page = (BorderPane) loader.load();
+        	BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Контрагенты");
+	        dialogStage.setTitle("РљРѕРЅС‚СЂР°РіРµРЅС‚С‹");
 	        dialogStage.getIcons().add(new Image("file:resources/images/counterparties.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(main.getPrimaryStage());

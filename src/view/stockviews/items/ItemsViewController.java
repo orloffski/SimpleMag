@@ -101,8 +101,8 @@ public class ItemsViewController {
 			}
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран товар для изменения");
-	        alert.setContentText("Для изменения товара выберите товар из списка");
+	        alert.setTitle("РћС€РёР±РєР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° РІС‹Р±РµСЂРёС‚Рµ С‚РѕРІР°СЂ РёР· СЃРїРёСЃРєР°");
 
 	        alert.showAndWait();
 		}
@@ -126,8 +126,8 @@ public class ItemsViewController {
 			}
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран товар для удаления");
-	        alert.setContentText("Для удаления товара из системы выберите товар из списка");
+	        alert.setTitle("РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ РІС‹Р±РµСЂРёС‚Рµ РєР°СЂС‚РѕС‡РєСѓ С‚РѕРІР°СЂР° РёР· СЃРїРёСЃРєР°");
 
 	        alert.showAndWait();
 		}
@@ -184,9 +184,8 @@ public class ItemsViewController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemCard.fxml"));
         try {
-			AnchorPane page = (AnchorPane) loader.load();
+			AnchorPane page = loader.load();
 			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Добавление товара");
 	        dialogStage.getIcons().add(new Image("file:resources/images/goods.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(main.getPrimaryStage());

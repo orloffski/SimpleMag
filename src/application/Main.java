@@ -16,12 +16,11 @@ public class Main extends Application {
 
 	private Stage primaryStage;
     private BorderPane rootLayout;
-    private Scene scene;
-	
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("ÃËÌËÃ‡„");
+        this.primaryStage.setTitle("–ú–∏–Ω–∏–ú–∞–≥");
         
         this.primaryStage.getIcons().add(new Image("file:resources/images/shop.png"));
 
@@ -30,13 +29,13 @@ public class Main extends Application {
         showMainView();
     }
     
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = loader.load();
 
-            scene = new Scene(rootLayout);
+            Scene scene = new Scene(rootLayout);
             
             primaryStage.setScene(scene);
             RootController controller = loader.getController();
@@ -47,11 +46,11 @@ public class Main extends Application {
         }
     }
     
-    public void showMainView() {
+    private void showMainView() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/MainView.fxml"));
-            AnchorPane mainView = (AnchorPane) loader.load();
+            AnchorPane mainView = loader.load();
 
             rootLayout.setCenter(mainView);
         } catch (IOException e) {

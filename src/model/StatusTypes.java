@@ -5,12 +5,12 @@ import javafx.collections.ObservableList;
 
 public enum StatusTypes {
 
-	ENTERED("проведен"),
-	NOENTERED("не проведен");
+	ENTERED("РџСЂРѕРІРµРґРµРЅ"),
+	NOENTERED("РќРµ РїСЂРѕРІРµРґРµРЅ");
 	
 private final String type;
 	
-	private StatusTypes(final String type) {
+	StatusTypes(final String type) {
         this.type = type;
     }
 	
@@ -23,9 +23,9 @@ private final String type;
 		StatusTypes[] states = values();
 		ObservableList<String> names = FXCollections.observableArrayList();
 
-	    for (int i = 0; i < states.length; i++) {
-	    	names.add(states[i].toString());
-	    }
+		for (StatusTypes state : states) {
+			names.add(state.toString());
+		}
 
 	    return names;
 	}

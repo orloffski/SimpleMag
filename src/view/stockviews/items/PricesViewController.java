@@ -69,11 +69,11 @@ public class PricesViewController {
 	    }
 	}
 	
-	public void setDialogStage(Stage dialogStage) {
+	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 	
-	public void setItem(Items item) {
+	void setItem(Items item) {
 		itemLabel.setText(item.getVendorCode().toString() + " " + item.getName().toString());
 		itemId = item.getId();
 		buildData(itemId);

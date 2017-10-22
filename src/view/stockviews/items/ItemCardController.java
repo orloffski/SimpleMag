@@ -54,9 +54,7 @@ public class ItemCardController {
 	private void initialize() {
 		try {
 			connection = new DBClass().getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		init();
@@ -110,8 +108,8 @@ public class ItemCardController {
 			dialogStage.close();
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Некорректное заполнение");
-	        alert.setContentText("Не заполнены обязательные поля! Поля Артикул и Наименование обязательны!");
+	        alert.setTitle("РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° Р·Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РїРѕР»СЏ");
 
 	        alert.showAndWait();
 		}
@@ -136,33 +134,33 @@ public class ItemCardController {
 		unitComboBox.setItems(units);
 	}
 	
-	public boolean isOkClicked() {
+	boolean isOkClicked() {
         return okClicked;
     }
 	
-	public void setDialogStage(Stage dialogStage) {
+	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 	
-	public void setItem(Items item) {
+	void setItem(Items item) {
 		this.item = item;
 		
 		if(this.item.getId() > 0) {
 			newItem = false;
-			dialogStage.setTitle("Изменение товара");
+			dialogStage.setTitle("РР·РјРµРЅРµРЅРёРµ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР°");
 			
 			vendorCode.setText(item.getVendorCode());
 			name.setText(item.getName());
 			vendorCountry.setText(item.getVendorCountry());
 			unitComboBox.setValue(units.get(item.getUnitId() - 1));
+		}else{
+			dialogStage.setTitle("РЎРѕР·РґР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР°");
 		}
 	}
 	
 	private boolean checkItem() {
-		if(vendorCode.getText().length() != 0 && name.getText().length() != 0)
-			return true;
-		
-		return false;
+		return vendorCode.getText().length() != 0 && name.getText().length() != 0;
+
 	}
 	
 	@FXML
@@ -170,9 +168,9 @@ public class ItemCardController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/items/BarcodesView.fxml"));
         try {
-        	BorderPane page = (BorderPane) loader.load();
+        	BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Штрихкоды");
+	        dialogStage.setTitle("РЁС‚СЂРёС…РєРѕРґС‹");
 	        dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(main.getPrimaryStage());
@@ -194,9 +192,9 @@ public class ItemCardController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/items/PricesView.fxml"));
         try {
-        	BorderPane page = (BorderPane) loader.load();
+        	BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Цены");
+	        dialogStage.setTitle("Р¦РµРЅС‹");
 	        dialogStage.getIcons().add(new Image("file:resources/images/price.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(main.getPrimaryStage());

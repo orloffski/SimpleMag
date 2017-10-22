@@ -4,14 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public enum InvoicesTypes {
-	RECEIPT("поступление"),
-	RETURN("возврат"),
-	DELIVERY("перемещение"),
-	INITIAL("ввод начальных остатков");
+	RECEIPT("РџРѕСЃС‚СѓРїР»РµРЅРёРµ"),
+	RETURN("Р’РѕР·РІСЂР°С‚"),
+	DELIVERY("РџРµСЂРµРјРµС‰РµРЅРёРµ"),
+	INITIAL("Р’РІРѕРґ РЅР°С‡Р°Р»СЊРЅС‹С… РѕСЃС‚Р°С‚РєРѕРІ");
 	
 	private final String type;
 	
-	private InvoicesTypes(final String type) {
+	InvoicesTypes(final String type) {
         this.type = type;
     }
 	
@@ -24,9 +24,9 @@ public enum InvoicesTypes {
 		InvoicesTypes[] states = values();
 		ObservableList<String> names = FXCollections.observableArrayList();
 
-	    for (int i = 0; i < states.length; i++) {
-	    	names.add(states[i].toString());
-	    }
+		for (InvoicesTypes state : states) {
+			names.add(state.toString());
+		}
 
 	    return names;
 	}

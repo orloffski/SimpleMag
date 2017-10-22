@@ -16,15 +16,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.AddEditMode;
 import model.InvoiceHeader;
 import model.InvoiceLine;
 import model.InvoicesTypes;
-import model.StatusTypes;
 
 public class AddEditInvoiceViewController {
-	
+
 	private Main main;
 	private ObservableList<String> counterpartiesData;
 	private ObservableList<InvoiceLine> InvoiceLineData;
@@ -43,7 +44,7 @@ public class AddEditInvoiceViewController {
 	private ComboBox<String> type;
 	
 	@FXML
-    private ComboBox<String> status;
+    private Text status;
 	
 	@FXML
     private TextField createDate;
@@ -82,8 +83,11 @@ public class AddEditInvoiceViewController {
 	private Button documentSet; 
 	
 	@FXML
+	private ImageView addLine; 
+	
+	@FXML
 	private void documentSetAction() {
-		String newStatus = invoice.getStatus().equals("проведен")?"не проведен":"проведен";
+		String newStatus = invoice.getStatus().equals("РџСЂРѕРІРµРґРµРЅ")?"РќРµ РїСЂРѕРІРµРґРµРЅ":"РџСЂРѕРІРµРґРµРЅ";
 		try{      
 			PreparedStatement statement = 
 					connection.prepareStatement("UPDATE invoices_headers SET status = ?  WHERE number = ?");
@@ -91,33 +95,29 @@ public class AddEditInvoiceViewController {
 			statement.setString(2, invoice.getNumber());
 			statement.executeUpdate();
 			
-			status.setValue(newStatus);
-			documentSet.setText(newStatus.equals("проведен")?"отмена проведения":"провести");
+			status.setText(newStatus);
+			documentSet.setText(newStatus.equals("РџСЂРѕРІРµРґРµРЅ")?"РћС‚РјРµРЅР° РїСЂРѕРІРµРґРµРЅРёСЏ":"РџСЂРѕРІРµРґРµРЅРёРµ");
 			this.invoice.setStatus(newStatus);
 		}catch(Exception e){
 	          e.printStackTrace();           
 	    }
 	}
 	
-	public void setInvoice(InvoiceHeader invoice) {
+	void setInvoice(InvoiceHeader invoice) {
 		this.invoice = invoice;
 		
 		dbClass = new DBClass();
 	    try{
 	    	connection = dbClass.getConnection();	        	    
 	    }
-	    catch(ClassNotFoundException ce){
+	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
 	    }
-	    catch(SQLException ce){
-	    	ce.printStackTrace();
-	    }
-		
+
 		type.setItems(InvoicesTypes.getTypes());
-		status.setItems(StatusTypes.getTypes());
 		
 		if(this.invoice != null) {
-			dialogStage.setTitle("Редактирование накладной");
+			dialogStage.setTitle("РР·РјРµРЅРµРЅРёРµ РґРѕРєСѓРјРµРЅС‚Р°");
 			this.mode = AddEditMode.EDIT;
 			
 			itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
@@ -132,16 +132,16 @@ public class AddEditInvoiceViewController {
 			loadCounterParties(invoice.getCounterparty());
 			
 			type.setValue(invoice.getType());
-			status.setValue(invoice.getStatus());
+			status.setText(invoice.getStatus());
 			
 			number.setText(invoice.getNumber());
 			createDate.setText(invoice.getLastcreated().split(" ")[0]);
 			count.setText(String.valueOf(invoice.getCount()));
 			summ.setText(String.valueOf(invoice.getSumm()));
 			
-			documentSet.setText(invoice.getStatus().equals("проведен")?"отмена проведения":"провести");
+			documentSet.setText(invoice.getStatus().equals("РџСЂРѕРІРµРґРµРЅ")?"РћС‚РјРµРЅР° РїСЂРѕРІРµРґРµРЅРёСЏ":"РџСЂРѕРІРµРґРµРЅРёРµ");
 		}else {
-			dialogStage.setTitle("Создание накладной");
+			dialogStage.setTitle("РЎРѕР·РґР°РЅРёРµ РґРѕРєСѓРјРµРЅС‚Р°");
 			this.mode = AddEditMode.ADD;
 			loadCounterParties("");
 		}
@@ -193,15 +193,15 @@ public class AddEditInvoiceViewController {
 	    }
 	}
 	
-	public void setDialogStage(Stage dialogStage) {
+	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 	
 	public void setMain(Main main) {
-        this.main = main;
+		this.main = main;
     }
 	
-	public boolean isOkClicked() {
+	boolean isOkClicked() {
         return okClicked;
     }
 }

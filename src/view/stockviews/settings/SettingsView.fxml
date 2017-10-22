@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.settings.SettingsViewController">
+<BorderPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.settings.SettingsViewController">
    <center>
       <GridPane prefHeight="450.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -44,7 +44,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label text="Поставщики" GridPane.rowIndex="1" />
+            <Label text="Контрагенты" GridPane.rowIndex="1" />
             <Label text="Единицы измерения" />
             <Button fx:id="counterpartiesBtn" mnemonicParsing="false" onMouseClicked="#openCounterparties" text="Справочник" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>

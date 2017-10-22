@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ChartController {
 
-	public ChartController() {
+	ChartController() {
 	}
 	
 	@FXML
@@ -17,13 +17,13 @@ public class ChartController {
 		
 	}
 	
-	public AnchorPane getRootNode() {
+	AnchorPane getRootNode() {
 		AnchorPane rootView = null;
 		
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/ChartView.fxml"));
         try {
-        	rootView = (AnchorPane) loader.load();
+        	rootView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

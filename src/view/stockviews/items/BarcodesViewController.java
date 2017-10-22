@@ -103,8 +103,8 @@ public class BarcodesViewController {
 			}
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран штрихкод для удаления");
-	        alert.setContentText("Для удаления штрихкода выберите из списка");
+	        alert.setTitle("РќРµ РІС‹Р±СЂР°РЅ С€С‚СЂРёС…РєРѕРґ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ РІС‹Р±РµСЂРёС‚Рµ С€С‚СЂРёС…РєРѕРґ РёР· СЃРїРёСЃРєР°");
 
 	        alert.showAndWait();
 		}

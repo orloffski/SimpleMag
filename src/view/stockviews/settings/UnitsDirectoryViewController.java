@@ -63,19 +63,16 @@ public class UnitsDirectoryViewController {
 	    	connection = dbClass.getConnection();
 	        buildData();	        	    
 	    }
-	    catch(ClassNotFoundException ce){
+	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
 	    }
-	    catch(SQLException ce){
-	    	ce.printStackTrace();
-	    }
-	    
-	    unitsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+		unitsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 	        if (newSelection != null) {
 	            unit = (Units) unitsTable.getSelectionModel().getSelectedItem();
 	            mode = AddEditMode.EDIT;
 	            addEditUnit.setText(unit.getUnit());
-	            addEditBtn.setText("изменить");
+	            addEditBtn.setText("РР·РјРµРЅРёС‚СЊ");
 	        }
 	    });
 	}
@@ -102,14 +99,14 @@ public class UnitsDirectoryViewController {
 			}
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран ед.изм. для удаления");
-	        alert.setContentText("Для удаления ед.изм. выберите из списка");
+	        alert.setTitle("РћС€РёР±РєР° СѓРґР°Р»РµРЅРёСЏ");
+	        alert.setContentText("Р”Р»СЏ СѓРґР°Р»РµРЅРёСЏ РІС‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РёР· СЃРїРёСЃРєР°");
 
 	        alert.showAndWait();
 		}
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("добавить");
+        addEditBtn.setText("Р”РѕР±Р°РІРёС‚СЊ");
 		data.clear();
 		buildData();
 		addEditUnit.setText("");
@@ -144,14 +141,14 @@ public class UnitsDirectoryViewController {
 		}
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("добавить");
+        addEditBtn.setText("Р”РѕР±Р°РІРёС‚СЊ");
 		
 		data.clear();
 		buildData();
 		addEditUnit.setText("");
 	}
 	
-	public void buildData(){			
+	private void buildData(){
 		data = FXCollections.observableArrayList();
 	    try{      
 	        String SQL = "SELECT * FROM units ORDER BY id";            
@@ -170,7 +167,7 @@ public class UnitsDirectoryViewController {
 	    }
 	}
 	
-	public void addFilter() {
+	private void addFilter() {
 		FilteredList<Units> filteredData = new FilteredList<>(data, p -> true);
         
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -193,7 +190,7 @@ public class UnitsDirectoryViewController {
         unitsTable.setItems(sortedData);
 	}
 	
-	public void setDialogStage(Stage dialogStage) {
+	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;      
     }
 }

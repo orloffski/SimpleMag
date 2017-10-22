@@ -42,7 +42,7 @@ public class StockController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemsView.fxml"));
         try {
-        	paneView = (BorderPane) loader.load();
+        	paneView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +58,7 @@ public class StockController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/invoices/InvoicesView.fxml"));
         try {
-        	paneView = (BorderPane) loader.load();
+        	paneView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +74,7 @@ public class StockController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/settings/SettingsView.fxml"));
         try {
-        	paneView = (BorderPane) loader.load();
+        	paneView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,12 +88,12 @@ public class StockController {
 		return getLoadedPane("/view/StockView.fxml");
 	}
 	
-	public AnchorPane getLoadedPane(String viewLocation) {
+	private AnchorPane getLoadedPane(String viewLocation) {
 		AnchorPane paneView = null;
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource(viewLocation));
         try {
-        	paneView = (AnchorPane) loader.load();
+        	paneView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

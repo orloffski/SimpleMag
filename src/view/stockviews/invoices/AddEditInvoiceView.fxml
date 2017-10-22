@@ -7,11 +7,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.AddEditInvoiceViewController">
    <top>
@@ -68,11 +71,11 @@
             </ComboBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ComboBox fx:id="status" disable="true">
+                  <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0" text="Не проведен">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
-                  </ComboBox>
+                  </Text>
                   <Button fx:id="documentSet" mnemonicParsing="false" onMouseClicked="#documentSetAction" text="Провести">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -88,6 +91,18 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </ComboBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ImageView fx:id="addLine" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../resources/images/add.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </HBox>
          </children>
       </GridPane>
    </top>

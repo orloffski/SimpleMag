@@ -83,10 +83,7 @@ public class InvoicesViewController {
 	    	connection = dbClass.getConnection();
 	        buildData();	        	    
 	    }
-	    catch(ClassNotFoundException ce){
-	    	ce.printStackTrace();
-	    }
-	    catch(SQLException ce){
+	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
 	    }
 	}
@@ -115,7 +112,7 @@ public class InvoicesViewController {
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/invoices/AddEditInvoiceView.fxml"));
         try {
-			BorderPane page = (BorderPane) loader.load();
+			BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
 	        dialogStage.getIcons().add(new Image("file:resources/images/invoices.png"));
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -138,7 +135,7 @@ public class InvoicesViewController {
         return false;
 	}
 	
-	public void buildData(){
+	private void buildData(){
 		data = FXCollections.observableArrayList();
 	    try{      
 	        String SQL = "SELECT * FROM invoices_headers ORDER BY id";            
@@ -167,7 +164,7 @@ public class InvoicesViewController {
 	    }
 	}
 	
-	public void addFilter() {
+	private void addFilter() {
 		FilteredList<InvoiceHeader> filteredData = new FilteredList<>(data, p -> true);
         
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
