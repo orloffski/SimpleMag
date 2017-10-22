@@ -82,21 +82,32 @@ public class ItemCardController {
 							+ "unit_id = "
 							+ "(SELECT id FROM units WHERE unit = '" + unitComboBox.getValue()
 							+ "');";
+
+					int inserted = connection.createStatement().executeUpdate(SQL);
+
+					if(inserted == 1){
+						SQL = "SELECT * FROM items ORDER BY id DESC LIMIT 1";
+						ResultSet rs = connection.createStatement().executeQuery(SQL);
+
+						if(rs.next()) {
+							this.item = new Items(rs.getInt("id"),
+									rs.getString("vendor_code"),
+									rs.getString("name"),
+									rs.getString("vendor_country"),
+									rs.getInt("unit_id"));
+						}
+					}
 				}else {
 					SQL = "UPDATE items "
-							+ "SET vendor_code = '"
-							+ vendorCode.getText().toString() + "', "
-							+ "name = '" 
-							+ name.getText().toString() + "', "
+							+ "SET vendor_code = '" + vendorCode.getText().toString() + "', "
+							+ "name = '" + name.getText().toString() + "', "
 							+ "vendor_country = '"
 							+ (vendorCountry.getText() != null ? vendorCountry.getText().toString() : "") + "', "
-							+ "unit_id = "
-							+ "(SELECT id FROM units WHERE unit = '" + unitComboBox.getValue() + "') "
-							+ "WHERE id = "
-							+ this.item.getId() + ";";
+							+ "unit_id = " + "(SELECT id FROM units WHERE unit = '" + unitComboBox.getValue() + "') "
+							+ "WHERE id = " + this.item.getId() + ";";
+
+					connection.createStatement().executeUpdate(SQL);
 				}
-				
-		        connection.createStatement().executeUpdate(SQL);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
@@ -105,7 +116,7 @@ public class ItemCardController {
 			}			
 			
 			okClicked = true;
-			dialogStage.close();
+			//dialogStage.close();
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
 	        alert.setTitle("Ошибка сохранения");
