@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.AddEditInvoiceViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.AddEditInvoiceViewController">
    <top>
       <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -93,7 +93,7 @@
             </ComboBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <ImageView fx:id="addLine" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="addLine" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#addLine" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../resources/images/add.png" />
                      </image>
@@ -107,7 +107,7 @@
       </GridPane>
    </top>
    <center>
-      <TableView fx:id="invoiceLinesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="invoiceLinesTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="itemName" prefWidth="75.0" text="Товар" />
           <TableColumn fx:id="itemCount" prefWidth="75.0" text="Количество" />

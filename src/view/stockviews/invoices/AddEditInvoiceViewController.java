@@ -1,29 +1,28 @@
 package view.stockviews.invoices;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import application.DBClass;
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 import model.AddEditMode;
 import model.InvoiceHeader;
 import model.InvoiceLine;
 import model.InvoicesTypes;
 import utils.NumberUtils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 public class AddEditInvoiceViewController {
 
@@ -93,6 +92,10 @@ public class AddEditInvoiceViewController {
 			number.setText(NumberUtils.getNextDocNumber(newType));
 		}));
 	}
+
+	@FXML
+	private void addLine(){
+	}
 	
 	@FXML
 	private void documentSetAction() {
@@ -128,12 +131,23 @@ public class AddEditInvoiceViewController {
 		if(this.invoice != null) {
 			dialogStage.setTitle("Изменение документа");
 			this.mode = AddEditMode.EDIT;
+
+			invoiceLinesTable.setEditable(true);
 			
 			itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+
 			itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty());
+			itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
 			vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty());
+			vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
 			vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty());
+			vat.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
 			extraPrice.setCellValueFactory(cellData -> cellData.getValue().extraPriceProperty());
+			extraPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
 			retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
 			
 			loadInvoiceLines(invoice.getNumber());

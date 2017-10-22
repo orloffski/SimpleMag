@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.InvoicesViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.invoices.InvoicesViewController">
    <center>
-      <TableView fx:id="invoicesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="invoicesTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="numberColumn" prefWidth="75.0" text="#" />
             <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Тип" />
