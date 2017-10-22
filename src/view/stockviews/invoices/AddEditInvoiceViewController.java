@@ -23,6 +23,7 @@ import model.AddEditMode;
 import model.InvoiceHeader;
 import model.InvoiceLine;
 import model.InvoicesTypes;
+import utils.NumberUtils;
 
 public class AddEditInvoiceViewController {
 
@@ -83,7 +84,30 @@ public class AddEditInvoiceViewController {
 	private Button documentSet; 
 	
 	@FXML
-	private ImageView addLine; 
+	private ImageView addLine;
+
+	@FXML
+	private void initialize() {
+		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+			String newType = "";
+
+			switch (newValue){
+				case "Поступление":
+					newType = "REC";
+					break;
+				case "Возврат":
+					newType = "RET";
+					break;
+				case "Перемещение":
+					newType = "DEL";
+					break;
+				case "Ввод начальных остатков":
+					newType = "INI";
+					break;
+			}
+			number.setText(NumberUtils.getNextDocNumber(newType));
+		}));
+	}
 	
 	@FXML
 	private void documentSetAction() {

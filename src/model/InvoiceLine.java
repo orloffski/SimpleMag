@@ -19,6 +19,8 @@ public class InvoiceLine {
 	private final DoubleProperty vendorPrice;
 	private final DoubleProperty retailPrice;
 	private final IntegerProperty count;
+
+	private boolean toDelete;
 	
 	public InvoiceLine() {
 		this(null, null, null, null, null, null, null, null, null, null);
@@ -35,6 +37,8 @@ public class InvoiceLine {
 		this.vendorPrice = new SimpleDoubleProperty(vendorPrice);
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
 		this.count = new SimpleIntegerProperty(count);
+
+		this.toDelete = false;
 	}
 	
 	public int getCount() {
@@ -155,5 +159,13 @@ public class InvoiceLine {
 
     public DoubleProperty retailPriceProperty() {
         return retailPrice;
+    }
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
     }
 }
