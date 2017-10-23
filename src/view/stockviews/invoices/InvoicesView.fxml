@@ -56,7 +56,7 @@
                   <Image url="@../../../../resources/images/edit.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="deleteBtn" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="deleteBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteInvoice" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../resources/images/delete.png" />
                </image>

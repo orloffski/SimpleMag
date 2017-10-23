@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceLine.java" afterPath="$PROJECT_DIR$/src/model/InvoiceLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesView.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,11 +30,10 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="141" column="103" lean-forward="false" selection-start-line="141" selection-start-column="103" selection-end-line="141" selection-end-column="103" />
+            <state relative-caret-position="67">
+              <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />
@@ -42,6 +41,30 @@
                 <marker date="1508721776966" expanded="true" signature="10268:10355" ph="SELECT * FRO... invoices_lines" />
                 <marker date="1508721776966" expanded="true" signature="11756:11796" ph="SELECT * FRO... counterparties" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoicesViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="67">
+              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+              <folding>
+                <marker date="1508722433714" expanded="true" signature="3314:3355" ph="DELETE FROM " />
+                <marker date="1508722433714" expanded="true" signature="3469:3520" ph="DELETE FROM " />
+                <marker date="1508722433714" expanded="true" signature="4775:4817" ph="SELECT * FRO... invoices_headers" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoiceLine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="43" column="5" lean-forward="false" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,9 +130,9 @@
         <option value="$PROJECT_DIR$/src/view/stockviews/items/ItemCardController.java" />
         <option value="$PROJECT_DIR$/src/utils/NumberUtils.java" />
         <option value="$PROJECT_DIR$/src/model/InvoiceHeader.java" />
-        <option value="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
-        <option value="$PROJECT_DIR$/src/model/InvoiceLine.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
+        <option value="$PROJECT_DIR$/src/model/InvoiceLine.java" />
+        <option value="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
       </list>
     </option>
   </component>
@@ -159,6 +182,12 @@
               <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
               <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
@@ -340,12 +369,12 @@
       <updated>1508510690250</updated>
       <workItem from="1508510700985" duration="53000" />
       <workItem from="1508514779061" duration="2782000" />
-      <workItem from="1508662345941" duration="31803000" />
+      <workItem from="1508662345941" duration="32611000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34638000" />
+    <option name="totallyTimeSpent" value="35446000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -360,7 +389,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6038035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6038035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -397,7 +426,6 @@
           <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />
@@ -413,7 +441,9 @@
         <state relative-caret-position="2210">
           <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
           <folding>
-            <marker date="1508719318469" expanded="true" signature="4000:4042" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508722433714" expanded="true" signature="3314:3355" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="3469:3520" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="4775:4817" ph="SELECT * FRO... invoices_headers" />
           </folding>
         </state>
       </provider>
@@ -703,16 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="78" column="89" lean-forward="false" selection-start-line="78" selection-start-column="89" selection-end-line="78" selection-end-column="89" />
-          <folding>
-            <marker date="1508719318469" expanded="true" signature="4000:4042" ph="SELECT * FRO... invoices_headers" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/AddEditMode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -791,24 +811,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="e#1955#1956#0" expanded="true" />
-            <element signature="e#2004#2005#0" expanded="true" />
-            <element signature="e#2044#2045#0" expanded="true" />
-            <element signature="e#2079#2080#0" expanded="true" />
-            <element signature="e#2110#2111#0" expanded="true" />
-            <element signature="e#2159#2160#0" expanded="true" />
-            <element signature="e#2199#2200#0" expanded="true" />
-            <element signature="e#2240#2241#0" expanded="true" />
-            <element signature="e#2283#2284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -821,13 +823,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="43" column="5" lean-forward="false" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding>
+            <marker date="1508722433714" expanded="true" signature="3314:3355" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="3469:3520" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="4775:4817" ph="SELECT * FRO... invoices_headers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="141" column="103" lean-forward="false" selection-start-line="141" selection-start-column="103" selection-end-line="141" selection-end-column="103" />
+        <state relative-caret-position="67">
+          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />

@@ -2,6 +2,7 @@ package view.stockviews.invoices;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -105,6 +106,29 @@ public class InvoicesViewController {
 		if(okClicked) {
 			data.clear();
 			buildData();
+		}
+	}
+
+	@FXML
+	private void deleteInvoice(){
+		int indexToDelete = invoicesTable.getSelectionModel().getSelectedIndex();
+		InvoiceHeader invoice = invoicesTable.getSelectionModel().getSelectedItem();
+		String invoiceNumber = invoice.getNumber();
+		int invoiceId = invoice.getId();
+
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement("DELETE FROM invoices_headers WHERE id = ?");
+			statement.setInt(1, invoiceId);
+			statement.executeUpdate();
+
+			statement = connection.prepareStatement("DELETE FROM invoices_lines WHERE invoice_number = ?");
+			statement.setString(1, invoiceNumber);
+			statement.executeUpdate();
+
+			data.remove(indexToDelete);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
