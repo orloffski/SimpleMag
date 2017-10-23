@@ -98,8 +98,11 @@ public class AddEditInvoiceViewController {
     private TableColumn<InvoiceLine, Number> retailPrice;
 	
 	@FXML
-	private Button documentSet; 
-	
+	private Button documentSet;
+
+	@FXML
+	private Button documentSave;
+
 	@FXML
 	private ImageView addLine;
 
@@ -211,6 +214,7 @@ public class AddEditInvoiceViewController {
 	
 	@FXML
 	private void documentSetAction() {
+		documentSave.setDisable(true);
 		try{
 			if(this.invoice == null){
 				String SQL = "INSERT INTO invoices_headers SET "
