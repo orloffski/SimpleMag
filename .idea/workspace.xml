@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/BarcodesItems.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/view/stockviews/BarcodeItemsView.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/view/stockviews/BarcodeItemsViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceLine.java" afterPath="$PROJECT_DIR$/src/model/InvoiceLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,60 +28,59 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-604">
-              <caret line="246" column="62" lean-forward="false" selection-start-line="246" selection-start-column="62" selection-end-line="246" selection-end-column="62" />
+            <state relative-caret-position="619">
+              <caret line="400" column="37" lean-forward="false" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <marker date="1508734693392" expanded="true" signature="2847:2883" ph="SELECT * FRO... barcodes" />
-                <marker date="1508734693392" expanded="true" signature="2847:2884" ph="SELECT * FRO... items" />
-                <marker date="1508734693392" expanded="true" signature="2847:2899" ph="SELECT * FRO... items" />
-                <marker date="1508734693392" expanded="true" signature="2847:2901" ph="SELECT * FRO... items" />
-                <marker date="1508734693392" expanded="true" signature="3292:3322" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3333" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3382" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3403" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3424" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3425" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3447" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3448" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3473" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3489" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3490" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3501" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3526" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="3292:3527" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="4157:4196" ph="DELETE FROM " />
-                <marker date="1508734693392" expanded="true" signature="4620:4817" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="4620:4841" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="5465:5685" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="5709:5764" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508734693392" expanded="true" signature="6517:6590" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7292" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7295" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7313" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7339" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7363" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7429" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7227:7430" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508734693392" expanded="true" signature="7451:7482" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508734693392" expanded="true" signature="7451:7506" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508734693392" expanded="true" signature="15039:15227" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15598" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15622" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15652" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15673" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15700" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15726" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15760" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15785" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="15434:15836" ph="UPDATE invoi... " />
-                <marker date="1508734693392" expanded="true" signature="16316:16403" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508734693392" expanded="true" signature="17804:17844" ph="SELECT * FRO... counterparties" />
+                <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
+                <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
+                <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+                <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
+                <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+                <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
+                <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
+                <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
               </folding>
             </state>
           </provider>
@@ -475,12 +467,12 @@
       <updated>1508510690250</updated>
       <workItem from="1508510700985" duration="53000" />
       <workItem from="1508514779061" duration="2782000" />
-      <workItem from="1508662345941" duration="44841000" />
+      <workItem from="1508662345941" duration="46875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47676000" />
+    <option name="totallyTimeSpent" value="49710000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -495,7 +487,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5689382" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5689382" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -535,53 +527,52 @@
             <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <marker date="1508734693392" expanded="true" signature="2847:2883" ph="SELECT * FRO... barcodes" />
-            <marker date="1508734693392" expanded="true" signature="2847:2884" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="2847:2899" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="2847:2901" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="3292:3322" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3333" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3382" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3403" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3424" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3425" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3447" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3448" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3473" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3489" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3490" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3501" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3526" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3527" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="4157:4196" ph="DELETE FROM " />
-            <marker date="1508734693392" expanded="true" signature="4620:4817" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="4620:4841" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="5465:5685" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="5709:5764" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="6517:6590" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7292" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7295" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7313" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7339" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7363" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7429" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7430" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7451:7482" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="7451:7506" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="15039:15227" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15598" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15622" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15652" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15673" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15700" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15726" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15760" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15785" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15836" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="16316:16403" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508734693392" expanded="true" signature="17804:17844" ph="SELECT * FRO... counterparties" />
+            <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
+            <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+            <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>
@@ -1043,60 +1034,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-604">
-          <caret line="246" column="62" lean-forward="false" selection-start-line="246" selection-start-column="62" selection-end-line="246" selection-end-column="62" />
+        <state relative-caret-position="619">
+          <caret line="400" column="37" lean-forward="false" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <marker date="1508734693392" expanded="true" signature="2847:2883" ph="SELECT * FRO... barcodes" />
-            <marker date="1508734693392" expanded="true" signature="2847:2884" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="2847:2899" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="2847:2901" ph="SELECT * FRO... items" />
-            <marker date="1508734693392" expanded="true" signature="3292:3322" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3333" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3382" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3403" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3424" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3425" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3447" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3448" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3473" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3489" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3490" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3501" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3526" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="3292:3527" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="4157:4196" ph="DELETE FROM " />
-            <marker date="1508734693392" expanded="true" signature="4620:4817" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="4620:4841" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="5465:5685" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="5709:5764" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="6517:6590" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7292" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7295" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7313" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7339" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7363" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7429" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7227:7430" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508734693392" expanded="true" signature="7451:7482" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="7451:7506" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508734693392" expanded="true" signature="15039:15227" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15598" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15622" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15652" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15673" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15700" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15726" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15760" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15785" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="15434:15836" ph="UPDATE invoi... " />
-            <marker date="1508734693392" expanded="true" signature="16316:16403" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508734693392" expanded="true" signature="17804:17844" ph="SELECT * FRO... counterparties" />
+            <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
+            <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
+            <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+            <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
+            <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>

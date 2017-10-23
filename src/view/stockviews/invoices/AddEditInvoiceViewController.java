@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import utils.NumberUtils;
 import view.stockviews.BarcodeItemsViewController;
@@ -79,7 +80,7 @@ public class AddEditInvoiceViewController {
     private TableColumn<InvoiceLine, Number> itemCount;
 	
 	@FXML
-    private TableColumn<InvoiceLine, Number> vendorPrice;
+    private TableColumn<InvoiceLine, Double> vendorPrice;
 
 	@FXML
 	private TableColumn<InvoiceLine, Number> vendorSummVat;
@@ -369,11 +370,11 @@ public class AddEditInvoiceViewController {
                 invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
                 invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
-		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty());
-		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty().asObject());
+		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		vendorPrice.setOnEditCommit(t -> updateInvoiceLine(
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
-				t.getNewValue().intValue(),
+				t.getNewValue().doubleValue(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem()));
