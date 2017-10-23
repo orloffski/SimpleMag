@@ -466,15 +466,11 @@ public class AddEditInvoiceViewController {
 		invoice.setFullSumm(invoiceRetailPrice);
 
 		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
-//		this.summ.setText(String.valueOf(invoice.getSumm()));
 		this.summ.setText(String.format( "%.2f", invoice.getSumm() ).replace(",","."));
-//		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
 		this.summVat.setText(String.format( "%.2f",
 				Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()).replace(",","."));
-//		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
 		this.summIncludeVat.setText(String.format( "%.2f",
 				Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()).replace(",","."));
-//		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 		this.fullDocSumm.setText(String.format( "%.2f", invoice.getFullSumm() ).replace(",","."));
 
 		setLineToDB(oldLine);
