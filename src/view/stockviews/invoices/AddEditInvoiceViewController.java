@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AddEditInvoiceViewController {
@@ -36,7 +37,9 @@ public class AddEditInvoiceViewController {
 	private List<InvoiceLine> invoiceLines;
 	private AddEditMode mode;
 	private boolean okClicked = false;
-	
+
+	private DecimalFormat df = new DecimalFormat("#.##");
+
 	@FXML
     private TextField number;
 	
@@ -53,10 +56,19 @@ public class AddEditInvoiceViewController {
     private ComboBox<String> counterparty;
 	
 	@FXML
-    private TextField count;
+    private Text count;
 	
 	@FXML
-    private TextField summ;
+    private Text summ;
+
+	@FXML
+	private Text summVat;
+
+	@FXML
+	private Text summIncludeVat;
+
+	@FXML
+	private Text fullDocSumm;
 	
 	@FXML
 	private TableView<InvoiceLine> invoiceLinesTable;
@@ -69,6 +81,12 @@ public class AddEditInvoiceViewController {
 	
 	@FXML
     private TableColumn<InvoiceLine, Number> vendorPrice;
+
+	@FXML
+	private TableColumn<InvoiceLine, Number> vendorSummVat;
+
+	@FXML
+	private TableColumn<InvoiceLine, Number> vendorSummInclVat;
 	
 	@FXML
     private TableColumn<InvoiceLine, Number> vat;
@@ -132,46 +150,104 @@ public class AddEditInvoiceViewController {
 			dialogStage.setTitle("Изменение документа");
 			this.mode = AddEditMode.EDIT;
 
-			invoiceLinesTable.setEditable(true);
-			
-			itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
-
-			itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty());
-			itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-
-			vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty());
-			vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-
-			vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty());
-			vat.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-
-			extraPrice.setCellValueFactory(cellData -> cellData.getValue().extraPriceProperty());
-			extraPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-
-			retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
-			
-			loadInvoiceLines(invoice.getNumber());
-			
-			loadCounterParties(invoice.getCounterparty());
-			
-			type.setValue(invoice.getType());
-			status.setText(invoice.getStatus());
-			
-			number.setText(invoice.getNumber());
-			createDate.setText(invoice.getLastcreated().split(" ")[0]);
-			count.setText(String.valueOf(invoice.getCount()));
-			summ.setText(String.valueOf(invoice.getSumm()));
+			initDocumentForEdit();
 			
 			documentSet.setText(invoice.getStatus().equals("Проведен")?"Отмена проведения":"Проведение");
 		}else {
 			dialogStage.setTitle("Создание документа");
 			this.mode = AddEditMode.ADD;
 			loadCounterParties("");
+			loadInvoiceLines("0");
 		}
+	}
+
+	private void initDocumentForEdit(){
+		invoiceLinesTable.setEditable(true);
+
+		itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+
+		itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty());
+		itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		itemCount.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<InvoiceLine, Number>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<InvoiceLine, Number> t) {
+				updateInvoiceLine(t.getNewValue().intValue(),
+						invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+						invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+						invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+						invoiceLinesTable.getSelectionModel().getSelectedItem());
+			}
+		});
+
+		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty());
+		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
+		vendorSummVat.setCellValueFactory(cellData -> cellData.getValue().summVatProperty());
+
+		vendorSummInclVat.setCellValueFactory(cellData -> cellData.getValue().summIncludeVatProperty());
+
+		vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty());
+		vat.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
+		extraPrice.setCellValueFactory(cellData -> cellData.getValue().extraPriceProperty());
+		extraPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+
+		retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
+
+		loadInvoiceLines(invoice.getNumber());
+
+		loadCounterParties(invoice.getCounterparty());
+
+		type.setValue(invoice.getType());
+		type.setEditable(false);
+		status.setText(invoice.getStatus());
+
+		number.setText(invoice.getNumber());
+		createDate.setText(invoice.getLastcreated().split(" ")[0]);
+	}
+
+	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine){
+		int oldCount = oldLine.getCount();
+		double oldVendorPrice = oldLine.getVendorPrice();
+		double oldVatSumm = oldLine.getSummVat();
+		double oldSummInclVat = oldLine.getSummIncludeVat();
+		double oldRetailPrice = oldLine.getRetailPrice();
+
+		oldLine.setCount(count);
+		oldLine.setVendorPrice(vendorPrice);
+		oldLine.setVat(vat);
+		oldLine.setExtraPrice(extraPrice);
+
+		double newVendorSumm = count * vendorPrice;
+		newVendorSumm = (double)((int)(newVendorSumm * 100))/100;
+
+		double newLineVat = (vendorPrice * (vat + 100)/100 - vendorPrice) * count;
+		newLineVat = (double)((int)(newLineVat * 100))/100;
+
+		oldLine.setSummVat(newLineVat);
+		oldLine.setSummIncludeVat(newLineVat + newVendorSumm);
+		oldLine.setRetailPrice(vendorPrice * (vat + 100)/100 * (extraPrice + 100)/100);
+
+		// сумма поставщика
+		//double invoiceSumm = Double.parseDouble(this.summ.getText());
+		invoice.setSumm(invoice.getSumm() - (oldCount * oldVendorPrice) + (oldLine.getCount() * oldLine.getVendorPrice()));
+
+		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
+		this.summ.setText(String.valueOf(invoice.getSumm()));
+		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
+		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
+
+		invoiceLinesTable.refresh();
 	}
 	
 	private void loadInvoiceLines(String invoiceNimber) {
 		InvoiceLineData = FXCollections.observableArrayList();
+		int itemsCount = 0;
+		double itemsSumm = 0;
+		double summVat = 0;
+		double summIncludeVat = 0;
+		double fullDocSumm = invoice != null ? invoice.getFullSumm() : 0;
+
 		try{      
 	        String SQL = "SELECT * FROM invoices_lines WHERE invoice_number = '" + invoiceNimber + "' ORDER BY id";            
 	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
@@ -186,16 +262,29 @@ public class AddEditInvoiceViewController {
 	        			rs.getInt("extra_price"),
 	        			rs.getDouble("retail_price"),
 	        			rs.getString("item_name"),
-	        			rs.getInt("count")
+	        			rs.getInt("count"),
+						rs.getDouble("summ_vat"),
+						rs.getDouble("summ_incl_vat")
 	        			);
-	        	InvoiceLineData.add(line);   	       
+	        	InvoiceLineData.add(line);
+
+	        	itemsCount += line.getCount();
+				itemsSumm += line.getCount() * line.getVendorPrice();
+				summVat += line.getSummVat();
+				summIncludeVat += line.getSummIncludeVat();
 	        }
-	        
+
 	        invoiceLinesTable.setItems(InvoiceLineData);
 	    }
 	    catch(Exception e){
 	          e.printStackTrace();           
 	    }
+
+		this.summIncludeVat.setText(String.valueOf(summIncludeVat));
+		this.summVat.setText(String.valueOf(summVat));
+		this.count.setText(String.valueOf(itemsCount));
+		this.summ.setText(String.valueOf(itemsSumm));
+		this.fullDocSumm.setText(String.valueOf(fullDocSumm));
 	}
 	
 	private void loadCounterParties(String value) {

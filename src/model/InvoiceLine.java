@@ -19,12 +19,14 @@ public class InvoiceLine {
 	private final DoubleProperty vendorPrice;
 	private final DoubleProperty retailPrice;
 	private final IntegerProperty count;
-	
+	private final DoubleProperty summVat;
+	private final DoubleProperty summIncludeVat;
+
 	public InvoiceLine() {
-		this(null, null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summIncludeVat) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
@@ -35,9 +37,35 @@ public class InvoiceLine {
 		this.vendorPrice = new SimpleDoubleProperty(vendorPrice);
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
 		this.count = new SimpleIntegerProperty(count);
+		this.summVat = new SimpleDoubleProperty(summVat);
+		this.summIncludeVat = new SimpleDoubleProperty(summIncludeVat);
 	}
-	
-	public int getCount() {
+
+    public double getSummIncludeVat() {
+        return summIncludeVat.get();
+    }
+
+    public DoubleProperty summIncludeVatProperty() {
+        return summIncludeVat;
+    }
+
+    public void setSummIncludeVat(double summIncludeVat) {
+        this.summIncludeVat.set(summIncludeVat);
+    }
+
+    public double getSummVat() {
+        return summVat.get();
+    }
+
+    public DoubleProperty summVatProperty() {
+        return summVat;
+    }
+
+    public void setSummVat(double summVat) {
+        this.summVat.set(summVat);
+    }
+
+    public int getCount() {
         return count.get();
     }
 

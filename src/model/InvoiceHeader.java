@@ -20,12 +20,13 @@ public class InvoiceHeader {
 	private final StringProperty lastcreated;
 	private final IntegerProperty recipientId;
 	private final StringProperty recipientName;
-	
+	private final DoubleProperty fullSumm;
+
 	public InvoiceHeader() {
-		this(null, null, null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName) {
+	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName, Double fullSumm) {
 		this.id = new SimpleIntegerProperty(id);
 		this.number = new SimpleStringProperty(number);
 		this.type = new SimpleStringProperty(type);
@@ -37,9 +38,26 @@ public class InvoiceHeader {
 		this.lastcreated = new SimpleStringProperty(lastcreated);
 		this.recipientId = new SimpleIntegerProperty(recipientId);
 		this.recipientName = new SimpleStringProperty(recipientName);
+        this.fullSumm = new SimpleDoubleProperty(fullSumm);
 	}
-	
-	public int getRecipientd() {
+
+    public double getFullSumm() {
+        return fullSumm.get();
+    }
+
+    public DoubleProperty fullSummProperty() {
+        return fullSumm;
+    }
+
+    public void setFullSumm(double fullSumm) {
+        this.fullSumm.set(fullSumm);
+    }
+
+    public int getRecipientId() {
+        return recipientId.get();
+    }
+
+    public int getRecipientd() {
         return recipientId.get();
     }
 

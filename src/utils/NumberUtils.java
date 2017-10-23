@@ -21,7 +21,6 @@ public class NumberUtils {
             if(rs.next()){
                 number = rs.getString("number");
                 number = number.substring(3, number.length());
-                System.out.println(number);
             }else{
                 number = "0";
             }

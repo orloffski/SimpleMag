@@ -76,7 +76,7 @@ public class InvoicesViewController {
 		lastcreatedColumn.setCellValueFactory(cellData -> cellData.getValue().lastcreatedProperty());
 		counterpartyColumn.setCellValueFactory(cellData -> cellData.getValue().counterpartyProperty());
 		countColumn.setCellValueFactory(cellData -> cellData.getValue().countProperty());
-		summColumn.setCellValueFactory(cellData -> cellData.getValue().summProperty());
+		summColumn.setCellValueFactory(cellData -> cellData.getValue().fullSummProperty());
 		
 		dbClass = new DBClass();
 	    try{
@@ -152,7 +152,8 @@ public class InvoicesViewController {
 	            		rs.getInt("counterparty_id"),
 	            		rs.getString("lastcreated"),
 	            		rs.getInt("recipient_id"),
-	            		rs.getString("recipient_name"));
+	            		rs.getString("recipient_name"),
+						rs.getDouble("full_summ"));
 	            data.add(invoice);   	       
 	        }
 	        invoicesTable.setItems(data);
