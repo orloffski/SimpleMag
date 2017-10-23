@@ -70,10 +70,7 @@ public class ItemsViewController {
 	    	connection = dbClass.getConnection();
 	        buildData();	        	    
 	    }
-	    catch(ClassNotFoundException ce){
-	    	ce.printStackTrace();
-	    }
-	    catch(SQLException ce){
+	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
 	    }
 	}
