@@ -190,8 +190,12 @@ public class AddEditInvoiceViewController {
 		}
 
 		invoice.setCount(invoice.getCount() - line.getCount());
-		invoice.setSumm(invoice.getSumm() - line.getCount() * line.getVendorPrice());
-		invoice.setFullSumm(invoice.getFullSumm() - line.getCount() * line.getRetailPrice());
+		invoice.setSumm(Double.parseDouble(String.format( "%.2f",
+				invoice.getSumm() - line.getCount() * line.getVendorPrice()).replace(",",".")));
+//		invoice.setSumm(invoice.getSumm() - line.getCount() * line.getVendorPrice());
+		invoice.setFullSumm(Double.parseDouble(String.format( "%.2f",
+				invoice.getFullSumm() - line.getCount() * line.getRetailPrice()).replace(",",".")));
+//		invoice.setFullSumm(invoice.getFullSumm() - line.getCount() * line.getRetailPrice());
 
 		try{
 			String SQL = "UPDATE invoices_headers "
@@ -207,7 +211,9 @@ public class AddEditInvoiceViewController {
 
 		this.count.setText(String.valueOf(invoice.getCount()));
 		this.summ.setText(String.valueOf(invoice.getSumm()));
-		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - line.getSummVat()));
+		this.summVat.setText(String.format( "%.2f",
+				Double.parseDouble(this.summVat.getText()) - line.getSummVat()).replace(",","."));
+//		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - line.getSummVat()));
 		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat()));
 		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 	}
@@ -460,10 +466,16 @@ public class AddEditInvoiceViewController {
 		invoice.setFullSumm(invoiceRetailPrice);
 
 		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
-		this.summ.setText(String.valueOf(invoice.getSumm()));
-		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
-		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
-		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
+//		this.summ.setText(String.valueOf(invoice.getSumm()));
+		this.summ.setText(String.format( "%.2f", invoice.getSumm() ).replace(",","."));
+//		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
+		this.summVat.setText(String.format( "%.2f",
+				Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()).replace(",","."));
+//		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
+		this.summIncludeVat.setText(String.format( "%.2f",
+				Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()).replace(",","."));
+//		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
+		this.fullDocSumm.setText(String.format( "%.2f", invoice.getFullSumm() ).replace(",","."));
 
 		setLineToDB(oldLine);
 		setHeaderToDB(invoice);
@@ -545,11 +557,11 @@ public class AddEditInvoiceViewController {
 	          e.printStackTrace();           
 	    }
 
-		this.summIncludeVat.setText(String.valueOf(summIncludeVat));
-		this.summVat.setText(String.valueOf(summVat));
+		this.summIncludeVat.setText(String.format( "%.2f", summIncludeVat ).replace(",","."));
+		this.summVat.setText(String.format( "%.2f", summVat ).replace(",","."));
 		this.count.setText(String.valueOf(itemsCount));
-		this.summ.setText(String.valueOf(itemsSumm));
-		this.fullDocSumm.setText(String.valueOf(fullDocSumm));
+		this.summ.setText(String.format( "%.2f", itemsSumm ).replace(",","."));
+		this.fullDocSumm.setText(String.format( "%.2f", fullDocSumm ).replace(",","."));
 	}
 	
 	private void loadCounterParties(String value) {
