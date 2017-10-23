@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -28,59 +29,38 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="400" column="37" lean-forward="false" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
+            <state relative-caret-position="960">
+              <caret line="454" column="0" lean-forward="false" selection-start-line="454" selection-start-column="0" selection-end-line="454" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
-                <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
-                <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
-                <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
-                <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
-                <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
-                <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
+                <marker date="1508760052947" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+                <marker date="1508760052947" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+                <marker date="1508760052947" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+                <marker date="1508760052947" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508760052947" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508760052947" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+                <marker date="1508760052947" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508760052947" expanded="true" signature="15384:15572" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:15943" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:15967" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:15997" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16018" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16045" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16071" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16105" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16130" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="true" signature="15779:16181" ph="UPDATE invoi... " />
+                <marker date="1508760052947" expanded="false" signature="16400:17998" ph="{...}" />
+                <marker date="1508760052947" expanded="true" signature="16661:16748" ph="SELECT * FRO... invoices_lines" />
+                <marker date="1508760052947" expanded="true" signature="18149:18189" ph="SELECT * FRO... counterparties" />
+                <marker date="1508760052947" expanded="false" signature="18641:18652" ph=" { " />
+                <marker date="1508760052947" expanded="false" signature="18683:18689" ph=" }" />
+                <marker date="1508760052947" expanded="false" signature="18723:18728" ph=" { " />
+                <marker date="1508760052947" expanded="false" signature="18745:18751" ph=" }" />
+                <marker date="1508760052947" expanded="false" signature="18776:18787" ph=" { " />
+                <marker date="1508760052947" expanded="false" signature="18804:18810" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -472,7 +452,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49710000" />
+    <option name="totallyTimeSpent" value="50831000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -484,16 +464,16 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5674342" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5689382" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5674342" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25113463" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -501,10 +481,32 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5689382" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,61 +520,98 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="41" column="5" lean-forward="false" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+          <folding>
+            <marker date="1508722433714" expanded="true" signature="3314:3355" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="3469:3520" ph="DELETE FROM " />
+            <marker date="1508722433714" expanded="true" signature="4775:4817" ph="SELECT * FRO... invoices_headers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5582">
+          <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1508760052947" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+            <marker date="1508760052947" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508760052947" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+            <marker date="1508760052947" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="15384:15572" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15943" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15967" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15997" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16018" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16045" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16071" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16105" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16130" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16181" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="false" signature="16400:17998" ph="{...}" />
+            <marker date="1508760052947" expanded="true" signature="16661:16748" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508760052947" expanded="true" signature="18149:18189" ph="SELECT * FRO... counterparties" />
+            <marker date="1508760052947" expanded="false" signature="18641:18652" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18683:18689" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18723:18728" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18745:18751" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18776:18787" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18804:18810" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1615">
           <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
-            <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
-            <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
+            <marker date="1508760052947" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+            <marker date="1508760052947" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508760052947" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+            <marker date="1508760052947" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="15384:15572" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15943" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15967" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15997" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16018" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16045" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16071" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16105" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16130" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16181" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="false" signature="16400:17998" ph="{...}" />
+            <marker date="1508760052947" expanded="true" signature="16661:16748" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508760052947" expanded="true" signature="18149:18189" ph="SELECT * FRO... counterparties" />
+            <marker date="1508760052947" expanded="false" signature="18641:18652" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18683:18689" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18723:18728" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18745:18751" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18776:18787" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18804:18810" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -593,7 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -609,7 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -617,7 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -632,63 +668,15 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/LocaleMessages_en_EN.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/LocaleMessages_ru_RU.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/MainMessages_en_EN.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/I18n.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="59" lean-forward="false" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/MainMessages_ru_RU.properties">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/LocaleMessages_en_EN.properties" />
+    <entry file="file://$PROJECT_DIR$/resources/LocaleMessages_ru_RU.properties" />
+    <entry file="file://$PROJECT_DIR$/resources/MainMessages_en_EN.properties" />
+    <entry file="file://$PROJECT_DIR$/src/application/I18n.java" />
+    <entry file="file://$PROJECT_DIR$/resources/MainMessages_ru_RU.properties" />
     <entry file="file://$PROJECT_DIR$/src/application/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-374">
           <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -696,7 +684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -731,7 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
           <caret line="71" column="9" lean-forward="true" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -752,7 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -760,7 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -768,7 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -776,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -784,7 +766,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1564">
           <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -792,7 +773,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1326">
           <caret line="90" column="4" lean-forward="false" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -800,7 +780,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="39" column="20" lean-forward="false" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -811,7 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -822,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
           <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -830,7 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,7 +826,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,7 +833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,10 +840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="57" column="5" lean-forward="false" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-          <folding>
-            <element signature="e#2101#2102#0" expanded="true" />
-            <element signature="e#2141#2142#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -877,7 +847,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -885,7 +854,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -893,7 +861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,7 +875,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -931,7 +896,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -950,10 +914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="28" lean-forward="false" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#873#874#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,59 +994,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="400" column="37" lean-forward="false" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
+        <state relative-caret-position="960">
+          <caret line="454" column="0" lean-forward="false" selection-start-line="454" selection-start-column="0" selection-end-line="454" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <marker date="1508757893891" expanded="true" signature="2899:2935" ph="SELECT * FRO... barcodes" />
-            <marker date="1508757893891" expanded="true" signature="2899:2936" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="2899:2953" ph="SELECT * FRO... items" />
-            <marker date="1508757893891" expanded="true" signature="3344:3374" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3385" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3434" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3455" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3476" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3477" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3499" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3500" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3525" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3541" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3542" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3553" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3578" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="4209:4248" ph="DELETE FROM " />
-            <marker date="1508757893891" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="4672:4893" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7344" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7347" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7365" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7391" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7415" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7279:7482" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508757893891" expanded="true" signature="7503:7534" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508757893891" expanded="true" signature="15105:15293" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15664" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15688" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15718" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15739" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15766" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15792" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15826" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15851" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="15500:15902" ph="UPDATE invoi... " />
-            <marker date="1508757893891" expanded="true" signature="16382:16469" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508757893891" expanded="true" signature="17870:17910" ph="SELECT * FRO... counterparties" />
+            <marker date="1508760052947" expanded="true" signature="2899:2951" ph="SELECT * FRO... items" />
+            <marker date="1508760052947" expanded="true" signature="3344:3579" ph="INSERT INTO invoices_lines... " />
+            <marker date="1508760052947" expanded="true" signature="4209:4248" ph="DELETE FROM " />
+            <marker date="1508760052947" expanded="true" signature="4672:4869" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="5517:5737" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="5761:5816" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="6569:6642" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="7279:7481" ph="INSERT INTO invoices_headers... " />
+            <marker date="1508760052947" expanded="true" signature="7503:7558" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508760052947" expanded="true" signature="15384:15572" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15943" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15967" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:15997" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16018" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16045" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16071" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16105" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16130" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="true" signature="15779:16181" ph="UPDATE invoi... " />
+            <marker date="1508760052947" expanded="false" signature="16400:17998" ph="{...}" />
+            <marker date="1508760052947" expanded="true" signature="16661:16748" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508760052947" expanded="true" signature="18149:18189" ph="SELECT * FRO... counterparties" />
+            <marker date="1508760052947" expanded="false" signature="18641:18652" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18683:18689" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18723:18728" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18745:18751" ph=" }" />
+            <marker date="1508760052947" expanded="false" signature="18776:18787" ph=" { " />
+            <marker date="1508760052947" expanded="false" signature="18804:18810" ph=" }" />
           </folding>
         </state>
       </provider>

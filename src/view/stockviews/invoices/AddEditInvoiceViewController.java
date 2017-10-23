@@ -428,28 +428,31 @@ public class AddEditInvoiceViewController {
 		oldLine.setExtraPrice(extraPrice);
 
 		double newVendorSumm = count * vendorPrice;
-		newVendorSumm = (double)((int)(newVendorSumm * 100))/100;
+		newVendorSumm = Double.parseDouble(String.format( "%.2f", newVendorSumm ).replace(",","."));
 
 		double newLineVat = (vendorPrice * (vat + 100)/100 - vendorPrice) * count;
-		newLineVat = (double)((int)(newLineVat * 100))/100;
+		newLineVat = Double.parseDouble(String.format( "%.2f", newLineVat ).replace(",","."));
 
 		oldLine.setSummVat(newLineVat);
-		oldLine.setSummIncludeVat(newLineVat + newVendorSumm);
+		oldLine.setSummIncludeVat(Double.parseDouble(String.format( "%.2f", newLineVat + newVendorSumm ).replace(",",".")));
 
 		double newRetailPrice = vendorPrice * (vat + 100)/100 * (extraPrice + 100)/100;
-		newRetailPrice = (double)((int)(newRetailPrice * 100))/100;
+		newRetailPrice = Double.parseDouble(String.format( "%.2f", newRetailPrice ).replace(",","."));
 
 		oldLine.setRetailPrice(newRetailPrice);
 
 		// сумма поставщика
-		invoice.setSumm(invoice.getSumm() - (oldCount * oldVendorPrice) + (oldLine.getCount() * oldLine.getVendorPrice()));
+		invoice.setSumm(
+				Double.parseDouble(String.format( "%.2f",
+						invoice.getSumm() - (oldCount * oldVendorPrice) + (oldLine.getCount() * oldLine.getVendorPrice())).replace(",","."))
+				);
 
 		// количество
 		invoice.setCount(invoice.getCount() - oldCount + oldLine.getCount());
 
 		// сумма документа
 		double invoiceRetailPrice = invoice.getFullSumm() - (oldCount * oldRetailPrice) + (oldLine.getCount() * oldLine.getRetailPrice());
-		invoiceRetailPrice = (double)((int)(invoiceRetailPrice * 100))/100;
+		invoiceRetailPrice = Double.parseDouble(String.format( "%.2f", invoiceRetailPrice ).replace(",","."));
 		invoice.setFullSumm(invoiceRetailPrice);
 
 		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
