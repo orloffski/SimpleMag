@@ -113,6 +113,34 @@ public class AddEditInvoiceViewController {
 
 	@FXML
 	private void addLine(){
+
+	}
+
+	@FXML
+	private void deleteLine(){
+		int indexToDelete = invoiceLinesTable.getSelectionModel().getSelectedIndex();
+		InvoiceLine line = invoiceLinesTable.getSelectionModel().getSelectedItem();
+
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement("DELETE FROM invoices_lines WHERE id = ?");
+			statement.setInt(1, line.getId());
+			statement.executeUpdate();
+
+			InvoiceLineData.remove(indexToDelete);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		invoice.setCount(invoice.getCount() - line.getCount());
+		invoice.setSumm(invoice.getSumm() - line.getCount() * line.getVendorPrice());
+		invoice.setFullSumm(invoice.getFullSumm() - line.getCount() * line.getRetailPrice());
+
+		this.count.setText(String.valueOf(invoice.getCount()));
+		this.summ.setText(String.valueOf(invoice.getSumm()));
+		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - line.getSummVat()));
+		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat()));
+		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 	}
 	
 	@FXML
@@ -259,6 +287,8 @@ public class AddEditInvoiceViewController {
 		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
 		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
 		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
+
+		oldLine.setToUpdate(true);
 
 		invoiceLinesTable.refresh();
 	}

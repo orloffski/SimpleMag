@@ -22,6 +22,9 @@ public class InvoiceLine {
 	private final DoubleProperty summVat;
 	private final DoubleProperty summIncludeVat;
 
+	private boolean toDelete;
+	private boolean toUpdate;
+
 	public InvoiceLine() {
 		this(null, null, null, null, null, null, null, null, null, null, null, null);
 	}
@@ -40,6 +43,22 @@ public class InvoiceLine {
 		this.summVat = new SimpleDoubleProperty(summVat);
 		this.summIncludeVat = new SimpleDoubleProperty(summIncludeVat);
 	}
+
+    public boolean isToDelete() {
+        return toDelete;
+    }
+
+    public void setToDelete(boolean toDelete) {
+        this.toDelete = toDelete;
+    }
+
+    public boolean isToUpdate() {
+        return toUpdate;
+    }
+
+    public void setToUpdate(boolean toUpdate) {
+        this.toUpdate = toUpdate;
+    }
 
     public double getSummIncludeVat() {
         return summIncludeVat.get();
@@ -184,4 +203,6 @@ public class InvoiceLine {
     public DoubleProperty retailPriceProperty() {
         return retailPrice;
     }
+
+
 }

@@ -90,6 +90,14 @@
                         <Image url="@../../../../resources/images/add.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteLine" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../../resources/images/delete.png" />
+                     </image>
+                  </ImageView>
                </children>
                <GridPane.margin>
                   <Insets left="10.0" />

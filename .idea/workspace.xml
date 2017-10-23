@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceLine.java" afterPath="$PROJECT_DIR$/src/model/InvoiceLine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -28,49 +30,31 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="204" column="80" lean-forward="false" selection-start-line="204" selection-start-column="80" selection-end-line="204" selection-end-column="80" />
+            <state relative-caret-position="347">
+              <caret line="141" column="103" lean-forward="false" selection-start-line="141" selection-start-column="103" selection-end-line="141" selection-end-column="103" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11081#11082#0" expanded="true" />
-                <element signature="e#11127#11128#0" expanded="true" />
-                <element signature="e#11163#11164#0" expanded="true" />
-                <element signature="e#11189#11190#0" expanded="true" />
-                <element signature="e#11216#11217#0" expanded="true" />
-                <element signature="e#11248#11249#0" expanded="true" />
-                <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-                <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
+                <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
+                <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
+                <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
+                <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />
+                <marker date="1508721776966" expanded="true" signature="3904:3960" ph="UPDATE invoi... " />
+                <marker date="1508721776966" expanded="true" signature="10268:10355" ph="SELECT * FRO... invoices_lines" />
+                <marker date="1508721776966" expanded="true" signature="11756:11796" ph="SELECT * FRO... counterparties" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvoicesViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+      <file leaf-file-name="BarcodesViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="78" column="89" lean-forward="false" selection-start-line="78" selection-start-column="89" selection-end-line="78" selection-end-column="89" />
+            <state relative-caret-position="164">
+              <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="81" />
               <folding>
-                <marker date="1508719318469" expanded="true" signature="4000:4042" ph="SELECT * FRO... invoices_headers" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InvoiceLine.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="43" column="39" lean-forward="false" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-              <folding>
-                <element signature="e#1918#1919#0" expanded="true" />
-                <element signature="e#1972#1973#0" expanded="true" />
-                <element signature="e#2009#2010#0" expanded="true" />
-                <element signature="e#2069#2070#0" expanded="true" />
-                <element signature="e#2124#2125#0" expanded="true" />
-                <element signature="e#2158#2159#0" expanded="true" />
-                <element signature="e#2194#2195#0" expanded="true" />
+                <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
+                <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
+                <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
               </folding>
             </state>
           </provider>
@@ -121,10 +105,10 @@
         <option value="$PROJECT_DIR$/src/view/RootController.java" />
         <option value="$PROJECT_DIR$/src/view/StockController.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/items/ItemCardController.java" />
-        <option value="$PROJECT_DIR$/src/model/InvoiceLine.java" />
         <option value="$PROJECT_DIR$/src/utils/NumberUtils.java" />
         <option value="$PROJECT_DIR$/src/model/InvoiceHeader.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
+        <option value="$PROJECT_DIR$/src/model/InvoiceLine.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
       </list>
     </option>
@@ -175,18 +159,6 @@
               <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
               <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
@@ -368,12 +340,12 @@
       <updated>1508510690250</updated>
       <workItem from="1508510700985" duration="53000" />
       <workItem from="1508514779061" duration="2782000" />
-      <workItem from="1508662345941" duration="30676000" />
+      <workItem from="1508662345941" duration="31803000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33511000" />
+    <option name="totallyTimeSpent" value="34638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -425,15 +397,13 @@
           <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11081#11082#0" expanded="true" />
-            <element signature="e#11127#11128#0" expanded="true" />
-            <element signature="e#11163#11164#0" expanded="true" />
-            <element signature="e#11189#11190#0" expanded="true" />
-            <element signature="e#11216#11217#0" expanded="true" />
-            <element signature="e#11248#11249#0" expanded="true" />
-            <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-            <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
+            <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />
+            <marker date="1508721776966" expanded="true" signature="3904:3960" ph="UPDATE invoi... " />
+            <marker date="1508721776966" expanded="true" signature="10268:10355" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508721776966" expanded="true" signature="11756:11796" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>
@@ -476,65 +446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/AddEditMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Barcodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-          <folding>
-            <element signature="e#370#371#0" expanded="false" />
-            <element signature="e#399#400#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Counterparties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Items.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Prices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/StatusTypes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Units.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -753,26 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/InvoicesTypes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="50" column="4" lean-forward="true" selection-start-line="50" selection-start-column="4" selection-end-line="53" selection-end-column="5" />
-          <folding>
-            <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
-            <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
-            <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1807">
@@ -800,22 +691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="43" column="39" lean-forward="false" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-          <folding>
-            <element signature="e#1918#1919#0" expanded="true" />
-            <element signature="e#1972#1973#0" expanded="true" />
-            <element signature="e#2009#2010#0" expanded="true" />
-            <element signature="e#2069#2070#0" expanded="true" />
-            <element signature="e#2124#2125#0" expanded="true" />
-            <element signature="e#2158#2159#0" expanded="true" />
-            <element signature="e#2194#2195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/NumberUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -824,23 +699,6 @@
             <element signature="imports" expanded="true" />
             <marker date="1508718661878" expanded="true" signature="297:347" ph="SELECT * FRO... invoices_headers" />
             <marker date="1508718661878" expanded="true" signature="297:389" ph="SELECT * FRO... invoices_headers" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/InvoiceHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="57" column="5" lean-forward="false" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-          <folding>
-            <element signature="e#1859#1860#0" expanded="true" />
-            <element signature="e#1896#1897#0" expanded="true" />
-            <element signature="e#1944#1945#0" expanded="true" />
-            <element signature="e#1975#1976#0" expanded="true" />
-            <element signature="e#2023#2024#0" expanded="true" />
-            <element signature="e#2066#2067#0" expanded="true" />
-            <element signature="e#2101#2102#0" expanded="true" />
-            <element signature="e#2141#2142#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -855,21 +713,127 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/AddEditMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Barcodes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding>
+            <element signature="e#370#371#0" expanded="false" />
+            <element signature="e#399#400#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Counterparties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/InvoiceHeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="57" column="5" lean-forward="false" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
+          <folding>
+            <element signature="e#2101#2102#0" expanded="true" />
+            <element signature="e#2141#2142#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/InvoicesTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Items.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Prices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/StatusTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="10" lean-forward="false" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Units.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+          <folding>
+            <element signature="e#1955#1956#0" expanded="true" />
+            <element signature="e#2004#2005#0" expanded="true" />
+            <element signature="e#2044#2045#0" expanded="true" />
+            <element signature="e#2079#2080#0" expanded="true" />
+            <element signature="e#2110#2111#0" expanded="true" />
+            <element signature="e#2159#2160#0" expanded="true" />
+            <element signature="e#2199#2200#0" expanded="true" />
+            <element signature="e#2240#2241#0" expanded="true" />
+            <element signature="e#2283#2284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="81" />
+          <folding>
+            <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
+            <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
+            <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="204" column="80" lean-forward="false" selection-start-line="204" selection-start-column="80" selection-end-line="204" selection-end-column="80" />
+        <state relative-caret-position="347">
+          <caret line="141" column="103" lean-forward="false" selection-start-line="141" selection-start-column="103" selection-end-line="141" selection-end-column="103" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11081#11082#0" expanded="true" />
-            <element signature="e#11127#11128#0" expanded="true" />
-            <element signature="e#11163#11164#0" expanded="true" />
-            <element signature="e#11189#11190#0" expanded="true" />
-            <element signature="e#11216#11217#0" expanded="true" />
-            <element signature="e#11248#11249#0" expanded="true" />
-            <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-            <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
+            <element signature="method#setInvoice#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
+            <marker date="1508721776966" expanded="true" signature="2840:2879" ph="DELETE FROM " />
+            <marker date="1508721776966" expanded="true" signature="3904:3960" ph="UPDATE invoi... " />
+            <marker date="1508721776966" expanded="true" signature="10268:10355" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508721776966" expanded="true" signature="11756:11796" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>
