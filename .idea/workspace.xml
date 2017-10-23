@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceHeader.java" afterPath="$PROJECT_DIR$/src/model/InvoiceHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceLine.java" afterPath="$PROJECT_DIR$/src/model/InvoiceLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/NumberUtils.java" afterPath="$PROJECT_DIR$/src/utils/NumberUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,19 +28,19 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="286" column="59" lean-forward="false" selection-start-line="286" selection-start-column="59" selection-end-line="286" selection-end-column="59" />
+            <state relative-caret-position="742">
+              <caret line="204" column="80" lean-forward="false" selection-start-line="204" selection-start-column="80" selection-end-line="204" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9722#9723#0" expanded="true" />
-                <element signature="e#9768#9769#0" expanded="true" />
-                <element signature="e#9804#9805#0" expanded="true" />
-                <element signature="e#9830#9831#0" expanded="true" />
-                <element signature="e#9857#9858#0" expanded="true" />
-                <element signature="e#9889#9890#0" expanded="true" />
-                <marker date="1508719702568" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-                <marker date="1508719702568" expanded="true" signature="7741:7828" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508719702568" expanded="true" signature="9229:9269" ph="SELECT * FRO... counterparties" />
+                <element signature="e#11081#11082#0" expanded="true" />
+                <element signature="e#11127#11128#0" expanded="true" />
+                <element signature="e#11163#11164#0" expanded="true" />
+                <element signature="e#11189#11190#0" expanded="true" />
+                <element signature="e#11216#11217#0" expanded="true" />
+                <element signature="e#11248#11249#0" expanded="true" />
+                <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
+                <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
+                <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
               </folding>
             </state>
           </provider>
@@ -374,12 +368,12 @@
       <updated>1508510690250</updated>
       <workItem from="1508510700985" duration="53000" />
       <workItem from="1508514779061" duration="2782000" />
-      <workItem from="1508662345941" duration="29775000" />
+      <workItem from="1508662345941" duration="30676000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32610000" />
+    <option name="totallyTimeSpent" value="33511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -431,15 +425,15 @@
           <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9722#9723#0" expanded="true" />
-            <element signature="e#9768#9769#0" expanded="true" />
-            <element signature="e#9804#9805#0" expanded="true" />
-            <element signature="e#9830#9831#0" expanded="true" />
-            <element signature="e#9857#9858#0" expanded="true" />
-            <element signature="e#9889#9890#0" expanded="true" />
-            <marker date="1508719702568" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-            <marker date="1508719702568" expanded="true" signature="7741:7828" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508719702568" expanded="true" signature="9229:9269" ph="SELECT * FRO... counterparties" />
+            <element signature="e#11081#11082#0" expanded="true" />
+            <element signature="e#11127#11128#0" expanded="true" />
+            <element signature="e#11163#11164#0" expanded="true" />
+            <element signature="e#11189#11190#0" expanded="true" />
+            <element signature="e#11216#11217#0" expanded="true" />
+            <element signature="e#11248#11249#0" expanded="true" />
+            <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
+            <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>
@@ -863,19 +857,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="286" column="59" lean-forward="false" selection-start-line="286" selection-start-column="59" selection-end-line="286" selection-end-column="59" />
+        <state relative-caret-position="742">
+          <caret line="204" column="80" lean-forward="false" selection-start-line="204" selection-start-column="80" selection-end-line="204" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9722#9723#0" expanded="true" />
-            <element signature="e#9768#9769#0" expanded="true" />
-            <element signature="e#9804#9805#0" expanded="true" />
-            <element signature="e#9830#9831#0" expanded="true" />
-            <element signature="e#9857#9858#0" expanded="true" />
-            <element signature="e#9889#9890#0" expanded="true" />
-            <marker date="1508719702568" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
-            <marker date="1508719702568" expanded="true" signature="7741:7828" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508719702568" expanded="true" signature="9229:9269" ph="SELECT * FRO... counterparties" />
+            <element signature="e#11081#11082#0" expanded="true" />
+            <element signature="e#11127#11128#0" expanded="true" />
+            <element signature="e#11163#11164#0" expanded="true" />
+            <element signature="e#11189#11190#0" expanded="true" />
+            <element signature="e#11216#11217#0" expanded="true" />
+            <element signature="e#11248#11249#0" expanded="true" />
+            <marker date="1508720644493" expanded="true" signature="2766:2822" ph="UPDATE invoi... " />
+            <marker date="1508720644493" expanded="true" signature="9100:9187" ph="SELECT * FRO... invoices_lines" />
+            <marker date="1508720644493" expanded="true" signature="10588:10628" ph="SELECT * FRO... counterparties" />
           </folding>
         </state>
       </provider>

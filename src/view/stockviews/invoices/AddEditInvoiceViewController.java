@@ -168,19 +168,21 @@ public class AddEditInvoiceViewController {
 
 		itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty());
 		itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-		itemCount.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<InvoiceLine, Number>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<InvoiceLine, Number> t) {
-				updateInvoiceLine(t.getNewValue().intValue(),
-						invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
-						invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
-						invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
-						invoiceLinesTable.getSelectionModel().getSelectedItem());
-			}
-		});
+		itemCount.setOnEditCommit(t -> updateInvoiceLine(
+				t.getNewValue().intValue(),
+                invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+                invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+                invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+                invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
 		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty());
 		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		vendorPrice.setOnEditCommit(t -> updateInvoiceLine(
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
+				t.getNewValue().intValue(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
 		vendorSummVat.setCellValueFactory(cellData -> cellData.getValue().summVatProperty());
 
@@ -188,9 +190,21 @@ public class AddEditInvoiceViewController {
 
 		vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty());
 		vat.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		vat.setOnEditCommit(t -> updateInvoiceLine(
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+				t.getNewValue().intValue(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
 		extraPrice.setCellValueFactory(cellData -> cellData.getValue().extraPriceProperty());
 		extraPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		extraPrice.setOnEditCommit(t -> updateInvoiceLine(
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+				t.getNewValue().intValue(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
 		retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
 
@@ -226,16 +240,25 @@ public class AddEditInvoiceViewController {
 
 		oldLine.setSummVat(newLineVat);
 		oldLine.setSummIncludeVat(newLineVat + newVendorSumm);
-		oldLine.setRetailPrice(vendorPrice * (vat + 100)/100 * (extraPrice + 100)/100);
+
+		double newRetailPrice = vendorPrice * (vat + 100)/100 * (extraPrice + 100)/100;
+		newRetailPrice = (double)((int)(newRetailPrice * 100))/100;
+
+		oldLine.setRetailPrice(newRetailPrice);
 
 		// сумма поставщика
-		//double invoiceSumm = Double.parseDouble(this.summ.getText());
 		invoice.setSumm(invoice.getSumm() - (oldCount * oldVendorPrice) + (oldLine.getCount() * oldLine.getVendorPrice()));
+
+		// сумма документа
+		double invoiceRetailPrice = invoice.getFullSumm() - (oldCount * oldRetailPrice) + (oldLine.getCount() * oldLine.getRetailPrice());
+		invoiceRetailPrice = (double)((int)(invoiceRetailPrice * 100))/100;
+		invoice.setFullSumm(invoiceRetailPrice);
 
 		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
 		this.summ.setText(String.valueOf(invoice.getSumm()));
 		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()));
 		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()));
+		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 
 		invoiceLinesTable.refresh();
 	}
