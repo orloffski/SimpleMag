@@ -10,10 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.InvoiceLine;
+import javafx.scene.image.ImageView;
 import model.SalesHeader;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -43,6 +44,12 @@ public class SalesViewController {
     private TableColumn<SalesHeader, String> paymentType;
 
     @FXML
+    private ImageView add;
+
+    @FXML
+    private ImageView delete;
+
+    @FXML
     private void initialize() {
         loadConnection();
 
@@ -52,6 +59,33 @@ public class SalesViewController {
         paymentType.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
 
         loadSalesHeaders();
+    }
+
+    @FXML
+    private void delHeader(){
+        SalesHeader header = salesHeaderTable.getSelectionModel().getSelectedItem();
+        int indexToDelete = salesHeaderTable.getSelectionModel().getSelectedIndex();
+
+        try {
+            PreparedStatement statement = null;
+
+            statement = connection.prepareStatement("DELETE FROM sales_header WHERE id = ?");
+            statement.setInt(1, header.getId());
+            statement.executeUpdate();
+
+            statement = connection.prepareStatement("DELETE FROM sales_line WHERE sales_number = ?");
+            statement.setString(1, header.getSalesNumber());
+            statement.executeUpdate();
+
+            salesHeadersData.remove(indexToDelete);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void addHeader(){
+
     }
 
     private void loadConnection(){

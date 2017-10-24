@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/SalesHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/cashviews/sales/SalesView.fxml" afterPath="$PROJECT_DIR$/src/view/cashviews/sales/SalesView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java" afterPath="$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java" />
     </list>
@@ -31,26 +29,15 @@
       <file leaf-file-name="SalesViewController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="108" column="39" lean-forward="false" selection-start-line="108" selection-start-column="39" selection-end-line="108" selection-end-column="39" />
+            <state relative-caret-position="441">
+              <caret line="92" column="12" lean-forward="true" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3977#3978#0" expanded="true" />
-                <element signature="e#4009#4010#0" expanded="true" />
-                <marker date="1508887299298" expanded="true" signature="1999:2025" ph="SELECT * FRO... sales_header" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SalesHeader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/SalesHeader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
-              <folding>
-                <element signature="e#964#965#0" expanded="true" />
-                <element signature="e#995#996#0" expanded="true" />
+                <element signature="e#4947#4948#0" expanded="true" />
+                <element signature="e#4979#4980#0" expanded="true" />
+                <marker date="1508887951647" expanded="true" signature="2061:2098" ph="DELETE FROM " />
+                <marker date="1508887951647" expanded="true" signature="2244:2289" ph="DELETE FROM " />
+                <marker date="1508887951647" expanded="true" signature="2969:2995" ph="SELECT * FRO... sales_header" />
               </folding>
             </state>
           </provider>
@@ -59,8 +46,8 @@
       <file leaf-file-name="ItemsViewController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="167" column="18" lean-forward="false" selection-start-line="167" selection-start-column="18" selection-end-line="169" selection-end-column="17" />
+            <state relative-caret-position="262">
+              <caret line="114" column="12" lean-forward="false" selection-start-line="114" selection-start-column="12" selection-end-line="122" selection-end-column="13" />
               <folding>
                 <marker date="1508724490789" expanded="true" signature="2970:3000" ph="DELETE FROM " />
                 <marker date="1508724490789" expanded="true" signature="3513:3544" ph="SELECT * FRO... items" />
@@ -84,9 +71,9 @@
     <findStrings>
       <find>Sys</find>
       <find>documentSetA</find>
-      <find>DELETE</find>
       <find>UPDATE</find>
       <find>SELECT</find>
+      <find>DELETE</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -388,7 +375,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66344000" />
+    <option name="totallyTimeSpent" value="66894000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -925,17 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="167" column="18" lean-forward="false" selection-start-line="167" selection-start-column="18" selection-end-line="169" selection-end-column="17" />
-          <folding>
-            <marker date="1508724490789" expanded="true" signature="2970:3000" ph="DELETE FROM " />
-            <marker date="1508724490789" expanded="true" signature="3513:3544" ph="SELECT * FRO... items" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/SalesHeader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -947,15 +923,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="114" column="12" lean-forward="false" selection-start-line="114" selection-start-column="12" selection-end-line="122" selection-end-column="13" />
+          <folding>
+            <marker date="1508724490789" expanded="true" signature="2970:3000" ph="DELETE FROM " />
+            <marker date="1508724490789" expanded="true" signature="3513:3544" ph="SELECT * FRO... items" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="108" column="39" lean-forward="false" selection-start-line="108" selection-start-column="39" selection-end-line="108" selection-end-column="39" />
+        <state relative-caret-position="441">
+          <caret line="92" column="12" lean-forward="true" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3977#3978#0" expanded="true" />
-            <element signature="e#4009#4010#0" expanded="true" />
-            <marker date="1508887299298" expanded="true" signature="1999:2025" ph="SELECT * FRO... sales_header" />
+            <element signature="e#4947#4948#0" expanded="true" />
+            <element signature="e#4979#4980#0" expanded="true" />
+            <marker date="1508887951647" expanded="true" signature="2061:2098" ph="DELETE FROM " />
+            <marker date="1508887951647" expanded="true" signature="2244:2289" ph="DELETE FROM " />
+            <marker date="1508887951647" expanded="true" signature="2969:2995" ph="SELECT * FRO... sales_header" />
           </folding>
         </state>
       </provider>
