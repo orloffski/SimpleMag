@@ -26,7 +26,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddEditInvoiceViewController {
 
@@ -217,50 +218,76 @@ public class AddEditInvoiceViewController {
 		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat()));
 		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 	}
-	
+
 	@FXML
-	private void documentSetAction() {
-		documentSave.setDisable(true);
+	private void saveDocument(){
 		try{
 			if(this.invoice == null){
 				String SQL = "INSERT INTO invoices_headers SET "
 						+ "number = '" + number.getText() + "', "
 						+ "type = '" + type.getValue() + "', "
-						+ "counterparty = '" + counterparty.getValue() + "', "
-						+ "status = 'не проведен';";
+						+ "status = '" + status.getText() + "', "
+						+ "counterparty = '" + counterparty.getValue() + "';";
 
 				String SQL2 = "SELECT * FROM invoices_headers ORDER BY id DESC LIMIT 1";
-					connection.createStatement().executeUpdate(SQL);
-					status.setText("не проведен");
+				connection.createStatement().executeUpdate(SQL);
 
-					ResultSet rs = connection.createStatement().executeQuery(SQL2);
-					if (rs.next()) {
-						InvoiceHeader invoice = new InvoiceHeader(
-								rs.getInt("id"),
-								rs.getString("number"),
-								rs.getString("type"),
-								rs.getString("status"),
-								rs.getString("counterparty"),
-								rs.getInt("count"),
-								rs.getDouble("summ"),
-								rs.getInt("counterparty_id"),
-								rs.getString("lastcreated"),
-								rs.getInt("recipient_id"),
-								rs.getString("recipient_name"),
-								rs.getDouble("full_summ"));
+				ResultSet rs = connection.createStatement().executeQuery(SQL2);
+				if (rs.next()) {
+					InvoiceHeader invoice = new InvoiceHeader(
+							rs.getInt("id"),
+							rs.getString("number"),
+							rs.getString("type"),
+							rs.getString("status"),
+							rs.getString("counterparty"),
+							rs.getInt("count"),
+							rs.getDouble("summ"),
+							rs.getInt("counterparty_id"),
+							rs.getString("lastcreated"),
+							rs.getInt("recipient_id"),
+							rs.getString("recipient_name"),
+							rs.getDouble("full_summ"));
 
-						this.invoice = invoice;
-					}
-			}else {
+					this.invoice = invoice;
+				}
+			}else{
 				PreparedStatement statement =
-						connection.prepareStatement("UPDATE invoices_headers SET status = ?, counterparty = ? WHERE number = ?");
-				statement.setString(1, status.getText().toLowerCase().equals("не проведен") ? "проведен" : "не проведен");
-				statement.setString(2, counterparty.getValue());
-				statement.setString(3, invoice.getNumber());
+						connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ? WHERE number = ?");
+				statement.setString(1, number.getText());
+				statement.setString(2, type.getValue());
+				statement.setString(3, counterparty.getValue());
+				statement.setString(4, status.getText());
+				statement.setString(5, invoice.getNumber());
 				statement.executeUpdate();
-
-				status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
 			}
+
+			documentSave.setDisable(true);
+			documentSet.setDisable(false);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void documentSetAction() {
+		if(type.getValue().toLowerCase().equals("поступление"))
+			if(status.getText().toLowerCase().equals("проведен")){
+				setPrices(false, invoice.getNumber());
+			}else{
+				setPrices(true, invoice.getNumber());
+			}
+
+		try{
+			PreparedStatement statement =
+					connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ? WHERE number = ?");
+			statement.setString(1, number.getText());
+			statement.setString(2, type.getValue());
+			statement.setString(3, counterparty.getValue());
+			statement.setString(4, status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+			statement.setString(5, invoice.getNumber());
+			statement.executeUpdate();
+
+			status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
 
 			documentSet.setText(status.getText().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
 			this.invoice.setStatus(status.getText());
@@ -269,38 +296,57 @@ public class AddEditInvoiceViewController {
 	    }
 	}
 
-	private void addHeader(String number){
-		String SQL = "INSERT INTO invoices_headers SET "
-				+ "number = '" + number + "', "
-				+ "type = '" + type.getValue() + "', "
-				+ "counterparty = '" + counterparty.getValue() + "', "
-				+ "status = 'не проведен';";
+	private void setPrices(boolean set, String invoiceNum){
+		PreparedStatement statement = null;
 
-		String SQL2 = "SELECT * FROM invoices_headers ORDER BY id DESC LIMIT 1";
-		try {
-			connection.createStatement().executeUpdate(SQL);
-			status.setText("не проведен");
+		if(set) {
+			List<InvoiceLine> lines = new ArrayList<>();
 
-			ResultSet rs = connection.createStatement().executeQuery(SQL2);
-			if(rs.next()) {
-				InvoiceHeader invoice = new InvoiceHeader(
-						rs.getInt("id"),
-						rs.getString("number"),
-						rs.getString("type"),
-						rs.getString("status"),
-						rs.getString("counterparty"),
-						rs.getInt("count"),
-						rs.getDouble("summ"),
-						rs.getInt("counterparty_id"),
-						rs.getString("lastcreated"),
-						rs.getInt("recipient_id"),
-						rs.getString("recipient_name"),
-						rs.getDouble("full_summ"));
-
-				this.invoice = invoice;
+			try {
+				String SQL = "SELECT * FROM invoices_lines WHERE invoice_number = '" + invoiceNum + "' ORDER BY id";
+				ResultSet rs = connection.createStatement().executeQuery(SQL);
+				while (rs.next()) {
+					InvoiceLine line = new InvoiceLine(
+							rs.getInt("id"),
+							rs.getInt("line_number"),
+							rs.getString("invoice_number"),
+							rs.getInt("item_id"),
+							rs.getDouble("vendor_price"),
+							rs.getInt("vat"),
+							rs.getInt("extra_price"),
+							rs.getDouble("retail_price"),
+							rs.getString("item_name"),
+							rs.getInt("count"),
+							rs.getDouble("summ_vat"),
+							rs.getDouble("summ_incl_vat")
+					);
+					lines.add(line);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+			if (lines.size() > 0) {
+				for (InvoiceLine line : lines) {
+					String SQL = "INSERT INTO prices SET " +
+							"price = '" + line.getRetailPrice() + "', " +
+							"item_id = " + line.getItemId() + ", " +
+							"reason = '" + invoiceNum + "';";
+					try {
+						connection.createStatement().executeUpdate(SQL);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}else{
+			try {
+				statement = connection.prepareStatement("DELETE FROM prices WHERE reason = ?");
+				statement.setString(1, invoiceNum);
+				statement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -357,12 +403,18 @@ public class AddEditInvoiceViewController {
 
 			initDocumentForEdit();
 			
-			documentSet.setText(invoice.getStatus().equals("Проведен")?"Отмена проведения":"Проведение");
+			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
+
+			documentSave.setDisable(false);
+			documentSet.setDisable(false);
 		}else {
 			dialogStage.setTitle("Создание документа");
 			this.mode = AddEditMode.ADD;
 			loadCounterParties("");
 			loadInvoiceLines("0");
+
+			documentSave.setDisable(false);
+			documentSet.setDisable(true);
 		}
 	}
 
@@ -426,6 +478,12 @@ public class AddEditInvoiceViewController {
 	}
 
 	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine){
+		if(invoice.getStatus().toLowerCase().equals("проведен")){
+			viewErrorMessage();
+
+			return;
+		}
+
 		int oldCount = oldLine.getCount();
 		double oldVendorPrice = oldLine.getVendorPrice();
 		double oldVatSumm = oldLine.getSummVat();
@@ -504,8 +562,6 @@ public class AddEditInvoiceViewController {
 					+ "summ_incl_vat = " + line.getSummIncludeVat() + ", "
 					+ "retail_price = " + line.getRetailPrice() + " "
 					+ "WHERE id = " + line.getId() + ";";
-
-			System.out.println(SQL);
 
 			connection.createStatement().executeUpdate(SQL);
 		}catch (SQLException e){
