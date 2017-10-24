@@ -21,12 +21,14 @@ public class InvoiceHeader {
 	private final IntegerProperty recipientId;
 	private final StringProperty recipientName;
 	private final DoubleProperty fullSumm;
+    private final StringProperty ttnNo;
+    private final StringProperty ttnDate;
 
 	public InvoiceHeader() {
-		this(null, null, null, null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName, Double fullSumm) {
+	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNo, String ttnDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.number = new SimpleStringProperty(number);
 		this.type = new SimpleStringProperty(type);
@@ -39,7 +41,33 @@ public class InvoiceHeader {
 		this.recipientId = new SimpleIntegerProperty(recipientId);
 		this.recipientName = new SimpleStringProperty(recipientName);
         this.fullSumm = new SimpleDoubleProperty(fullSumm);
+        this.ttnNo = new SimpleStringProperty(ttnNo);
+        this.ttnDate = new SimpleStringProperty(ttnDate);
 	}
+
+    public String getTtnNo() {
+        return ttnNo.get();
+    }
+
+    public StringProperty ttnNoProperty() {
+        return ttnNo;
+    }
+
+    public void setTtnNo(String ttnNo) {
+        this.ttnNo.set(ttnNo);
+    }
+
+    public String getTtnDate() {
+        return ttnDate.get();
+    }
+
+    public StringProperty ttnDateProperty() {
+        return ttnDate;
+    }
+
+    public void setTtnDate(String ttnDate) {
+        this.ttnDate.set(ttnDate);
+    }
 
     public double getFullSumm() {
         return fullSumm.get();

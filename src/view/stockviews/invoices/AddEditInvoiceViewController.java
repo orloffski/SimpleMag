@@ -52,6 +52,12 @@ public class AddEditInvoiceViewController {
 	
 	@FXML
     private TextField createDate;
+
+	@FXML
+	private TextField ttnNo;
+
+	@FXML
+	private DatePicker ttnDate;
 	
 	@FXML
     private ComboBox<String> counterparty;
@@ -227,6 +233,8 @@ public class AddEditInvoiceViewController {
 						+ "number = '" + number.getText() + "', "
 						+ "type = '" + type.getValue() + "', "
 						+ "status = '" + status.getText() + "', "
+						+ "ttn_number = '" + ttnNo.getText() + "', "
+						+ "ttn_date = '" + ttnDate.getEditor().getText() + "', "
 						+ "counterparty = '" + counterparty.getValue() + "';";
 
 				String SQL2 = "SELECT * FROM invoices_headers ORDER BY id DESC LIMIT 1";
@@ -246,18 +254,22 @@ public class AddEditInvoiceViewController {
 							rs.getString("lastcreated"),
 							rs.getInt("recipient_id"),
 							rs.getString("recipient_name"),
-							rs.getDouble("full_summ"));
+							rs.getDouble("full_summ"),
+							rs.getString("ttn_number"),
+							rs.getString("ttn_date"));
 
 					this.invoice = invoice;
 				}
 			}else{
 				PreparedStatement statement =
-						connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ? WHERE number = ?");
+						connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ?, ttn_number = ?, ttn_date = ? WHERE number = ?");
 				statement.setString(1, number.getText());
 				statement.setString(2, type.getValue());
 				statement.setString(3, counterparty.getValue());
 				statement.setString(4, status.getText());
-				statement.setString(5, invoice.getNumber());
+				statement.setString(5, ttnNo.getText());
+				statement.setString(6, ttnDate.getEditor().getText());
+				statement.setString(7, invoice.getNumber());
 				statement.executeUpdate();
 			}
 
@@ -279,12 +291,14 @@ public class AddEditInvoiceViewController {
 
 		try{
 			PreparedStatement statement =
-					connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ? WHERE number = ?");
+					connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ?, ttn_number = ?, ttn_date = ? WHERE number = ?");
 			statement.setString(1, number.getText());
 			statement.setString(2, type.getValue());
 			statement.setString(3, counterparty.getValue());
 			statement.setString(4, status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
-			statement.setString(5, invoice.getNumber());
+			statement.setString(5, ttnNo.getText());
+			statement.setString(6, ttnDate.getEditor().getText());
+			statement.setString(7, invoice.getNumber());
 			statement.executeUpdate();
 
 			status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
@@ -404,6 +418,8 @@ public class AddEditInvoiceViewController {
 			initDocumentForEdit();
 			
 			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
+			ttnNo.setText(invoice.getTtnNo());
+			ttnDate.getEditor().setText(invoice.getTtnDate());
 
 			documentSave.setDisable(false);
 			documentSet.setDisable(false);

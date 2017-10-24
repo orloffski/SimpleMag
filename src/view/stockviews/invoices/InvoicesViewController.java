@@ -71,7 +71,7 @@ public class InvoicesViewController {
 
 	@FXML
 	private void initialize() {
-		numberColumn.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+		numberColumn.setCellValueFactory(cellData -> cellData.getValue().ttnNoProperty());
 		typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
 		statusColumn.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
 		lastcreatedColumn.setCellValueFactory(cellData -> cellData.getValue().lastcreatedProperty());
@@ -177,7 +177,9 @@ public class InvoicesViewController {
 	            		rs.getString("lastcreated"),
 	            		rs.getInt("recipient_id"),
 	            		rs.getString("recipient_name"),
-						rs.getDouble("full_summ"));
+						rs.getDouble("full_summ"),
+						rs.getString("ttn_number"),
+						rs.getString("ttn_date"));
 	            data.add(invoice);   	       
 	        }
 	        invoicesTable.setItems(data);
