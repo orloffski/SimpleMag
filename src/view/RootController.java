@@ -39,8 +39,17 @@ public class RootController {
 	
 	@FXML
 	private void openCashboxView(){
-		CashboxController controller = new CashboxController();
-		rootLayout.setCenter(controller.getRootNode());
+		AnchorPane paneView = null;
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/view/CashView.fxml"));
+		try {
+			paneView = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		CashViewController controller = loader.getController();
+		rootLayout.setCenter(paneView);
 	}
 	
 	@FXML

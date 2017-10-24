@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/view/CashView.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/view/CashViewController.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/view/CashboxController.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/view/CashboxView.fxml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/InvoiceHeader.java" afterPath="$PROJECT_DIR$/src/model/InvoiceHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ChartController.java" afterPath="$PROJECT_DIR$/src/view/ChartController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/FinanceController.java" afterPath="$PROJECT_DIR$/src/view/FinanceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/RootController.java" afterPath="$PROJECT_DIR$/src/view/RootController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,69 +32,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
+      <file leaf-file-name="StockController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/StockController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="418" column="12" lean-forward="true" selection-start-line="418" selection-start-column="12" selection-end-line="418" selection-end-column="12" />
+            <state relative-caret-position="663">
+              <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#initialize#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#addLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#saveDocument#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#documentSetAction#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#setPrices#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#updateInvoiceLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#setHeaderToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#setLineToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <marker date="1508882116400" expanded="true" signature="3025:3077" ph="SELECT * FRO... items" />
-                <marker date="1508882116400" expanded="true" signature="3470:3705" ph="INSERT INTO invoices_lines... " />
-                <marker date="1508882116400" expanded="true" signature="4335:4374" ph="DELETE FROM " />
-                <marker date="1508882116400" expanded="true" signature="5100:5297" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="6073:6420" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508882116400" expanded="true" signature="6073:6421" ph="INSERT INTO invoices_headers... " />
-                <marker date="1508882116400" expanded="true" signature="6444:6499" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508882116400" expanded="true" signature="7265:7390" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="8232:8357" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="9296:9380" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508882116400" expanded="true" signature="10080:10202" ph="INSERT INTO prices... " />
-                <marker date="1508882116400" expanded="true" signature="10080:10203" ph="INSERT INTO prices... " />
-                <marker date="1508882116400" expanded="true" signature="10080:10224" ph="INSERT INTO prices... " />
-                <marker date="1508882116400" expanded="true" signature="10080:10225" ph="INSERT INTO prices... " />
-                <marker date="1508882116400" expanded="true" signature="10080:10245" ph="INSERT INTO prices... " />
-                <marker date="1508882116400" expanded="true" signature="10455:10490" ph="DELETE FROM " />
-                <marker date="1508882116400" expanded="true" signature="18211:18399" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18770" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18794" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18824" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18845" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18872" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18898" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18932" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:18957" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="18606:19008" ph="UPDATE invoi... " />
-                <marker date="1508882116400" expanded="true" signature="19459:19546" ph="SELECT * FRO... invoices_lines" />
-                <marker date="1508882116400" expanded="true" signature="21051:21091" ph="SELECT * FRO... counterparties" />
+                <element signature="method#openInvoicesView#0;class#StockController#0" expanded="false" />
+                <element signature="method#openSettingsView#0;class#StockController#0" expanded="false" />
+                <element signature="e#2126#2127#0" expanded="true" />
+                <element signature="e#2177#2178#0" expanded="true" />
+                <element signature="e#2550#2551#0" expanded="true" />
+                <element signature="e#2582#2583#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InvoicesViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+      <file leaf-file-name="CashViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/CashViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="845">
-              <caret line="73" column="88" lean-forward="false" selection-start-line="73" selection-start-column="88" selection-end-line="73" selection-end-column="88" />
+            <state relative-caret-position="187">
+              <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               <folding>
-                <marker date="1508881952069" expanded="true" signature="3313:3354" ph="DELETE FROM " />
-                <marker date="1508881952069" expanded="true" signature="3468:3519" ph="DELETE FROM " />
-                <marker date="1508881952069" expanded="true" signature="4774:4816" ph="SELECT * FRO... invoices_headers" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/MainController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FinanceController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/FinanceController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChartController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/view/ChartController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RootController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/RootController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="43" column="61" lean-forward="false" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+              <folding>
+                <marker date="1508884210969" expanded="false" signature="1782:2298" ph="{...}" />
+                <marker date="1508884210969" expanded="false" signature="2345:2833" ph="{...}" />
+                <marker date="1508884210969" expanded="false" signature="2878:2883" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="2904:2907" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="2951:2956" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="2978:2981" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3024:3029" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3048:3051" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3093:3098" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3118:3121" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3166:3171" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3192:3195" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3239:3244" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3266:3269" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3312:3317" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3336:3339" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3381:3386" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3406:3409" ph=" }" />
+                <marker date="1508884210969" expanded="false" signature="3443:3454" ph=" { " />
+                <marker date="1508884210969" expanded="false" signature="3471:3477" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -141,9 +165,6 @@
         <option value="$PROJECT_DIR$/src/view/stockviews/settings/SettingsViewController.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/settings/UnitsDirectoryViewController.java" />
         <option value="$PROJECT_DIR$/src/view/CashboxController.java" />
-        <option value="$PROJECT_DIR$/src/view/ChartController.java" />
-        <option value="$PROJECT_DIR$/src/view/FinanceController.java" />
-        <option value="$PROJECT_DIR$/src/view/RootController.java" />
         <option value="$PROJECT_DIR$/src/view/StockController.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/items/ItemCardController.java" />
         <option value="$PROJECT_DIR$/src/utils/NumberUtils.java" />
@@ -155,6 +176,11 @@
         <option value="$PROJECT_DIR$/src/model/InvoiceHeader.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
         <option value="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
+        <option value="$PROJECT_DIR$/src/view/CashView.fxml" />
+        <option value="$PROJECT_DIR$/src/view/RootController.java" />
+        <option value="$PROJECT_DIR$/src/view/CashViewController.java" />
+        <option value="$PROJECT_DIR$/src/view/FinanceController.java" />
+        <option value="$PROJECT_DIR$/src/view/ChartController.java" />
       </list>
     </option>
   </component>
@@ -163,6 +189,12 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
@@ -211,29 +243,6 @@
               <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="stockviews" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="stockviews" type="462c0819:PsiDirectoryNode" />
-              <item name="invoices" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleMag" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="stockviews" type="462c0819:PsiDirectoryNode" />
-              <item name="items" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SimpleMag" type="b2602c69:ProjectViewProjectNode" />
@@ -392,7 +401,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62899000" />
+    <option name="totallyTimeSpent" value="63271000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -400,31 +409,53 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60855263" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.7072368" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25037822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60855263" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25037822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,79 +468,11 @@
     <breakpoint-manager />
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/model/InvoiceLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="41" column="5" lean-forward="false" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-          <folding>
-            <marker date="1508881952069" expanded="true" signature="3313:3354" ph="DELETE FROM " />
-            <marker date="1508881952069" expanded="true" signature="3468:3519" ph="DELETE FROM " />
-            <marker date="1508881952069" expanded="true" signature="4774:4816" ph="SELECT * FRO... invoices_headers" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5582">
-          <caret line="433" column="0" lean-forward="false" selection-start-line="433" selection-start-column="0" selection-end-line="433" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initialize#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#addLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#saveDocument#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#documentSetAction#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#setPrices#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#initDocumentForEdit#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#updateInvoiceLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#setHeaderToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#setLineToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#loadInvoiceLines#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#loadCounterParties#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <marker date="1508882116400" expanded="true" signature="3025:3077" ph="SELECT * FRO... items" />
-            <marker date="1508882116400" expanded="true" signature="3470:3705" ph="INSERT INTO invoices_lines... " />
-            <marker date="1508882116400" expanded="true" signature="4335:4374" ph="DELETE FROM " />
-            <marker date="1508882116400" expanded="true" signature="5100:5297" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="6073:6420" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508882116400" expanded="true" signature="6073:6421" ph="INSERT INTO invoices_headers... " />
-            <marker date="1508882116400" expanded="true" signature="6444:6499" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508882116400" expanded="true" signature="7265:7390" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="8232:8357" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="9296:9380" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508882116400" expanded="true" signature="10080:10202" ph="INSERT INTO prices... " />
-            <marker date="1508882116400" expanded="true" signature="10080:10203" ph="INSERT INTO prices... " />
-            <marker date="1508882116400" expanded="true" signature="10080:10224" ph="INSERT INTO prices... " />
-            <marker date="1508882116400" expanded="true" signature="10080:10225" ph="INSERT INTO prices... " />
-            <marker date="1508882116400" expanded="true" signature="10080:10245" ph="INSERT INTO prices... " />
-            <marker date="1508882116400" expanded="true" signature="10455:10490" ph="DELETE FROM " />
-            <marker date="1508882116400" expanded="true" signature="18211:18399" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18770" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18794" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18824" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18845" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18872" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18898" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18932" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:18957" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="18606:19008" ph="UPDATE invoi... " />
-            <marker date="1508882116400" expanded="true" signature="19459:19546" ph="SELECT * FRO... invoices_lines" />
-            <marker date="1508882116400" expanded="true" signature="21051:21091" ph="SELECT * FRO... counterparties" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1615">
@@ -585,7 +548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="38" lean-forward="true" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -607,7 +569,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="42" column="23" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -665,41 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2193">
           <caret line="150" column="4" lean-forward="false" selection-start-line="150" selection-start-column="4" selection-end-line="150" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/CashboxController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/ChartController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/FinanceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/RootController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -791,17 +717,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/CashboxView.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Barcodes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -823,7 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -893,7 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="41" column="5" lean-forward="false" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,29 +814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-131">
           <caret line="47" column="30" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
-          <folding>
-            <element signature="e#2126#2127#0" expanded="true" />
-            <element signature="e#2171#2172#0" expanded="true" />
-            <element signature="e#2199#2200#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#2278#2279#0" expanded="true" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2348#2349#0" expanded="true" />
-            <element signature="e#2395#2396#0" expanded="true" />
-            <element signature="e#2425#2426#0" expanded="true" />
-            <element signature="e#2471#2472#0" expanded="true" />
-            <element signature="e#2512#2513#0" expanded="true" />
-            <element signature="e#2789#2790#0" expanded="true" />
-            <element signature="e#2829#2830#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/StockController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,6 +878,125 @@
             <marker date="1508882116400" expanded="true" signature="19459:19546" ph="SELECT * FRO... invoices_lines" />
             <marker date="1508882116400" expanded="true" signature="21051:21091" ph="SELECT * FRO... counterparties" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/CashboxView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/StockView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/CashboxController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="31" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/CashView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/RootController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="43" column="61" lean-forward="false" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+          <folding>
+            <marker date="1508884210969" expanded="false" signature="1782:2298" ph="{...}" />
+            <marker date="1508884210969" expanded="false" signature="2345:2833" ph="{...}" />
+            <marker date="1508884210969" expanded="false" signature="2878:2883" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="2904:2907" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="2951:2956" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="2978:2981" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3024:3029" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3048:3051" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3093:3098" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3118:3121" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3166:3171" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3192:3195" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3239:3244" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3266:3269" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3312:3317" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3336:3339" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3381:3386" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3406:3409" ph=" }" />
+            <marker date="1508884210969" expanded="false" signature="3443:3454" ph=" { " />
+            <marker date="1508884210969" expanded="false" signature="3471:3477" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/StockController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding>
+            <element signature="method#openInvoicesView#0;class#StockController#0" expanded="false" />
+            <element signature="method#openSettingsView#0;class#StockController#0" expanded="false" />
+            <element signature="e#2126#2127#0" expanded="true" />
+            <element signature="e#2177#2178#0" expanded="true" />
+            <element signature="e#2550#2551#0" expanded="true" />
+            <element signature="e#2582#2583#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/CashViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/FinanceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/ChartController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="11" lean-forward="true" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

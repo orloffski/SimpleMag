@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class FinanceController {
 	
-	FinanceController() {
+	public FinanceController() {
 	}
 	
 	@FXML

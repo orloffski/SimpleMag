@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ChartController {
 
-	ChartController() {
+	public ChartController() {
 	}
 	
 	@FXML
