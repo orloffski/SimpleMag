@@ -62,4 +62,49 @@ public class NumberUtils {
 
         return newType;
     }
+
+    public static final String getNextCheckNumber(String newType){
+        String number = "";
+        int numberInt;
+        String SQL = "SELECT * FROM sales_header WHERE sales_number LIKE '" + newType + "%' ORDER BY id DESC LIMIT 1";
+
+        Connection connection = null;
+        try {
+            connection = new DBClass().getConnection();
+            ResultSet rs = connection.createStatement().executeQuery(SQL);
+
+            if(rs.next()){
+                number = rs.getString("sales_number");
+                number = number.substring(3, number.length());
+            }else{
+                number = "0";
+            }
+
+            numberInt = Integer.parseInt(number);
+            numberInt++;
+            number = String.format("%06d", numberInt);
+            number = newType + number;
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return number;
+    }
+
+    public static final String getCheckSuffix(String docType){
+        String newType = "";
+
+        switch (docType){
+            case "покупка":
+                newType = "SAL";
+                break;
+            case "возврат":
+                newType = "RET";
+                break;
+        }
+
+        return newType;
+    }
 }
