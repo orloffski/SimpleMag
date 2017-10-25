@@ -30,17 +30,13 @@
       <file leaf-file-name="AddEditInvoiceViewController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="120" column="12" lean-forward="true" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
+            <state relative-caret-position="206">
+              <caret line="203" column="98" lean-forward="false" selection-start-line="202" selection-start-column="28" selection-end-line="203" selection-end-column="98" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#addLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#saveDocument#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#documentSetAction#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#setPrices#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-                <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#updateInvoiceLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#setHeaderToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
                 <element signature="method#setLineToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
@@ -78,6 +74,66 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AddSaleViewController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="165" column="20" lean-forward="true" selection-start-line="165" selection-start-column="20" selection-end-line="165" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#initialize#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#addLine#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#loadLines#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#getNewItem#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#initTable#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#init#0;class#AddSaleViewController#0" expanded="false" />
+                <element signature="method#updateHeader#0;class#AddSaleViewController#0" expanded="false" />
+                <marker date="1508899437394" expanded="true" signature="2322:2341" ph="SELECT * FRO... items" />
+                <marker date="1508899437394" expanded="true" signature="2322:2369" ph="SELECT * FRO... items" />
+                <marker date="1508899437394" expanded="true" signature="2895:2939" ph="SELECT id, p... prices" />
+                <marker date="1508899437394" expanded="true" signature="2895:2985" ph="SELECT id, p... prices" />
+                <marker date="1508899437394" expanded="true" signature="3217:3500" ph="INSERT INTO sales_line... " />
+                <marker date="1508899437394" expanded="true" signature="3217:3501" ph="INSERT INTO sales_line... " />
+                <marker date="1508899437394" expanded="true" signature="3217:3511" ph="INSERT INTO sales_line... " />
+                <marker date="1508899437394" expanded="true" signature="3217:3624" ph="INSERT INTO sales_line... " />
+                <marker date="1508899437394" expanded="true" signature="4291:4326" ph="DELETE FROM " />
+                <marker date="1508899437394" expanded="true" signature="5172:5219" ph="DELETE FROM " />
+                <marker date="1508899437394" expanded="true" signature="5882:5927" ph="SELECT * FRO... sales_line" />
+                <marker date="1508899437394" expanded="true" signature="5882:5929" ph="SELECT * FRO... sales_line" />
+                <marker date="1508899437394" expanded="true" signature="5882:5945" ph="SELECT * FRO... sales_line" />
+                <marker date="1508899437394" expanded="true" signature="8591:8656" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="8591:8685" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="8591:8718" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="8591:8778" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="10152:10469" ph="INSERT INTO sales_line... " />
+                <marker date="1508899437394" expanded="true" signature="10152:10470" ph="INSERT INTO sales_header... " />
+                <marker date="1508899437394" expanded="true" signature="10556:10605" ph="SELECT * FRO... sales_header" />
+                <marker date="1508899437394" expanded="true" signature="10556:10607" ph="SELECT * FRO... sales_header" />
+                <marker date="1508899437394" expanded="true" signature="11283:11462" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="11283:11477" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="11283:11531" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="11283:11598" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="11283:11634" ph="UPDATE sales... " />
+                <marker date="1508899437394" expanded="true" signature="11283:11635" ph="UPDATE sales... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumberUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/NumberUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="113" column="22" lean-forward="false" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
+              <folding>
+                <marker date="1508898262974" expanded="true" signature="297:347" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508898262974" expanded="true" signature="297:389" ph="SELECT * FRO... invoices_headers" />
+                <marker date="1508898262974" expanded="true" signature="1828:1922" ph="SELECT * FRO... invoices_headers" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SalesViewController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -85,84 +141,9 @@
               <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5975#5976#0" expanded="true" />
-                <element signature="e#6007#6008#0" expanded="true" />
                 <marker date="1508889955847" expanded="true" signature="2276:2313" ph="DELETE FROM " />
                 <marker date="1508889955847" expanded="true" signature="2459:2504" ph="DELETE FROM " />
                 <marker date="1508889955847" expanded="true" signature="3997:4023" ph="SELECT * FRO... sales_header" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddSaleView.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleView.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="36" />
-              <folding>
-                <marker date="1508892530295" expanded="true" signature="2135:2431" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2451:5555" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2522:2626" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2544:2606" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2741:2953" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2774:2849" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="2871:2933" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3046:3150" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3068:3130" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3285:3497" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3307:3369" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3402:3477" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3580:3712" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3613:3688" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3820:3952" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="3853:3928" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4058:4162" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4080:4142" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4281:4385" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4303:4365" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4651:5534" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4677:5514" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4793:5079" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4828:4911" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="4940:5048" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5198:5487" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5227:5338" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5373:5456" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5595:6007" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5742:5994" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5762:5980" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5836:5959" ph="..." />
-                <marker date="1508892530295" expanded="true" signature="5865:5937" ph="..." />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddSaleViewController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="95" column="38" lean-forward="false" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NumberUtils.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/utils/NumberUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
-              <folding>
-                <marker date="1508892486186" expanded="true" signature="297:347" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508892486186" expanded="true" signature="297:389" ph="SELECT * FRO... invoices_headers" />
-                <marker date="1508892486186" expanded="true" signature="1828:1922" ph="SELECT * FRO... invoices_headers" />
               </folding>
             </state>
           </provider>
@@ -202,6 +183,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="BarcodesViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="447">
+              <caret line="133" column="8" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="28" />
+              <folding>
+                <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
+                <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
+                <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -220,6 +215,8 @@
       <find>UPDATE</find>
       <find>SELECT</find>
       <find>DELETE</find>
+      <find>ale</find>
+      <find>headerCreated</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -266,8 +263,8 @@
         <option value="$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java" />
         <option value="$PROJECT_DIR$/src/view/CashViewController.java" />
         <option value="$PROJECT_DIR$/src/model/SalesLine.java" />
-        <option value="$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java" />
         <option value="$PROJECT_DIR$/src/utils/NumberUtils.java" />
+        <option value="$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java" />
       </list>
     </option>
   </component>
@@ -535,7 +532,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71476000" />
+    <option name="totallyTimeSpent" value="78495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -547,10 +544,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48355263" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48355263" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48355263" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -883,35 +880,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1393">
-          <caret line="120" column="12" lean-forward="false" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="60" />
-          <folding>
-            <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
-            <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
-            <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="29" column="4" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="22" />
-          <folding>
-            <marker date="1508881952069" expanded="true" signature="3313:3354" ph="DELETE FROM " />
-            <marker date="1508881952069" expanded="true" signature="3468:3519" ph="DELETE FROM " />
-            <marker date="1508881952069" expanded="true" signature="4774:4816" ph="SELECT * FRO... invoices_headers" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1002,45 +975,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="39" />
+          <folding>
+            <marker date="1508724490789" expanded="true" signature="2970:3000" ph="DELETE FROM " />
+            <marker date="1508724490789" expanded="true" signature="3513:3544" ph="SELECT * FRO... items" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="74" column="8" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="87" />
+          <folding>
+            <marker date="1508881952069" expanded="true" signature="3313:3354" ph="DELETE FROM " />
+            <marker date="1508881952069" expanded="true" signature="3468:3519" ph="DELETE FROM " />
+            <marker date="1508881952069" expanded="true" signature="4774:4816" ph="SELECT * FRO... invoices_headers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleView.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
           <caret line="51" column="36" lean-forward="false" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="36" />
-          <folding>
-            <marker date="1508892530295" expanded="true" signature="2135:2431" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2451:5555" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2522:2626" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2544:2606" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2741:2953" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2774:2849" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="2871:2933" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3046:3150" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3068:3130" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3285:3497" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3307:3369" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3402:3477" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3580:3712" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3613:3688" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3820:3952" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="3853:3928" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4058:4162" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4080:4142" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4281:4385" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4303:4365" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4651:5534" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4677:5514" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4793:5079" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4828:4911" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="4940:5048" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5198:5487" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5227:5338" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5373:5456" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5595:6007" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5742:5994" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5762:5980" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5836:5959" ph="..." />
-            <marker date="1508892530295" expanded="true" signature="5865:5937" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -1066,45 +1028,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java">
+    <entry file="file://$PROJECT_DIR$/src/view/stockviews/items/BarcodesViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="33" column="4" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="39" />
+        <state relative-caret-position="447">
+          <caret line="133" column="8" lean-forward="true" selection-start-line="133" selection-start-column="8" selection-end-line="133" selection-end-column="28" />
           <folding>
-            <marker date="1508724490789" expanded="true" signature="2970:3000" ph="DELETE FROM " />
-            <marker date="1508724490789" expanded="true" signature="3513:3544" ph="SELECT * FRO... items" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5975#5976#0" expanded="true" />
-            <element signature="e#6007#6008#0" expanded="true" />
-            <marker date="1508889955847" expanded="true" signature="2276:2313" ph="DELETE FROM " />
-            <marker date="1508889955847" expanded="true" signature="2459:2504" ph="DELETE FROM " />
-            <marker date="1508889955847" expanded="true" signature="3997:4023" ph="SELECT * FRO... sales_header" />
+            <marker date="1508667046955" expanded="true" signature="1391:1452" ph="SELECT * FRO... barcodes" />
+            <marker date="1508667046955" expanded="true" signature="2508:2541" ph="DELETE FROM " />
+            <marker date="1508667046955" expanded="true" signature="3055:3185" ph="INSERT INTO barcodes... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="120" column="12" lean-forward="true" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
+        <state relative-caret-position="206">
+          <caret line="203" column="98" lean-forward="false" selection-start-line="202" selection-start-column="28" selection-end-line="203" selection-end-column="98" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#addLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#deleteLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#saveDocument#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#documentSetAction#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#setPrices#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#viewErrorMessage#0;class#AddEditInvoiceViewController#0" expanded="false" />
-            <element signature="method#getNewItemBarcode#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#updateInvoiceLine#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#setHeaderToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
             <element signature="method#setLineToDB#0;class#AddEditInvoiceViewController#0" expanded="false" />
@@ -1141,24 +1085,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java">
+    <entry file="file://$PROJECT_DIR$/src/utils/NumberUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="95" column="38" lean-forward="false" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+        <state relative-caret-position="441">
+          <caret line="113" column="22" lean-forward="false" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1508898262974" expanded="true" signature="297:347" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508898262974" expanded="true" signature="297:389" ph="SELECT * FRO... invoices_headers" />
+            <marker date="1508898262974" expanded="true" signature="1828:1922" ph="SELECT * FRO... invoices_headers" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/NumberUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
+        <state relative-caret-position="88">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
           <folding>
-            <marker date="1508892486186" expanded="true" signature="297:347" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508892486186" expanded="true" signature="297:389" ph="SELECT * FRO... invoices_headers" />
-            <marker date="1508892486186" expanded="true" signature="1828:1922" ph="SELECT * FRO... invoices_headers" />
+            <element signature="imports" expanded="true" />
+            <marker date="1508889955847" expanded="true" signature="2276:2313" ph="DELETE FROM " />
+            <marker date="1508889955847" expanded="true" signature="2459:2504" ph="DELETE FROM " />
+            <marker date="1508889955847" expanded="true" signature="3997:4023" ph="SELECT * FRO... sales_header" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="165" column="20" lean-forward="true" selection-start-line="165" selection-start-column="20" selection-end-line="165" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#addLine#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#loadLines#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#getNewItem#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#initTable#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#init#0;class#AddSaleViewController#0" expanded="false" />
+            <element signature="method#updateHeader#0;class#AddSaleViewController#0" expanded="false" />
+            <marker date="1508899437394" expanded="true" signature="2322:2341" ph="SELECT * FRO... items" />
+            <marker date="1508899437394" expanded="true" signature="2322:2369" ph="SELECT * FRO... items" />
+            <marker date="1508899437394" expanded="true" signature="2895:2939" ph="SELECT id, p... prices" />
+            <marker date="1508899437394" expanded="true" signature="2895:2985" ph="SELECT id, p... prices" />
+            <marker date="1508899437394" expanded="true" signature="3217:3500" ph="INSERT INTO sales_line... " />
+            <marker date="1508899437394" expanded="true" signature="3217:3501" ph="INSERT INTO sales_line... " />
+            <marker date="1508899437394" expanded="true" signature="3217:3511" ph="INSERT INTO sales_line... " />
+            <marker date="1508899437394" expanded="true" signature="3217:3624" ph="INSERT INTO sales_line... " />
+            <marker date="1508899437394" expanded="true" signature="4291:4326" ph="DELETE FROM " />
+            <marker date="1508899437394" expanded="true" signature="5172:5219" ph="DELETE FROM " />
+            <marker date="1508899437394" expanded="true" signature="5882:5927" ph="SELECT * FRO... sales_line" />
+            <marker date="1508899437394" expanded="true" signature="5882:5929" ph="SELECT * FRO... sales_line" />
+            <marker date="1508899437394" expanded="true" signature="5882:5945" ph="SELECT * FRO... sales_line" />
+            <marker date="1508899437394" expanded="true" signature="8591:8656" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="8591:8685" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="8591:8718" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="8591:8778" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="10152:10469" ph="INSERT INTO sales_line... " />
+            <marker date="1508899437394" expanded="true" signature="10152:10470" ph="INSERT INTO sales_header... " />
+            <marker date="1508899437394" expanded="true" signature="10556:10605" ph="SELECT * FRO... sales_header" />
+            <marker date="1508899437394" expanded="true" signature="10556:10607" ph="SELECT * FRO... sales_header" />
+            <marker date="1508899437394" expanded="true" signature="11283:11462" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="11283:11477" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="11283:11531" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="11283:11598" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="11283:11634" ph="UPDATE sales... " />
+            <marker date="1508899437394" expanded="true" signature="11283:11635" ph="UPDATE sales... " />
           </folding>
         </state>
       </provider>

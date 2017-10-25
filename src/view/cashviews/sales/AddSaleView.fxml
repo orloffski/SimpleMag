@@ -18,7 +18,7 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.cashviews.sales.AddSaleViewController">
    <center>
-      <TableView fx:id="salesLineTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="salesLineTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="itemName" prefWidth="75.0" text="товар" />
           <TableColumn fx:id="count" prefWidth="75.0" text="количество" />
@@ -93,7 +93,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Товары" GridPane.rowIndex="2" />
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ImageView fx:id="add" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="add" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#addLine" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -101,7 +101,7 @@
                         <Image url="@../../../../resources/images/add.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="delete" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="delete" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteLine" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../resources/images/delete.png" />
                      </image>
@@ -117,7 +117,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="close" mnemonicParsing="false" text="закрыть">
+            <Button fx:id="save" mnemonicParsing="false" onMouseClicked="#saveSale" text="сохранить">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="close" mnemonicParsing="false" onMouseClicked="#closeStage" text="закрыть">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

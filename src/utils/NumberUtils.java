@@ -107,4 +107,10 @@ public class NumberUtils {
 
         return newType;
     }
+
+    public static final Double round(Double forRound){
+        Double number = Double.parseDouble(String.format( "%.2f", forRound).replace(",","."));
+
+        return number;
+    }
 }
