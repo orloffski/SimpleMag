@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import view.cashviews.sales.SalesViewController;
-import view.stockviews.invoices.InvoicesViewController;
 
 import java.io.IOException;
 
@@ -21,7 +20,6 @@ public class CashViewController {
 
     @FXML
     private void initialize() {
-        openSalesView();
     }
 
     private void openSalesView(){
@@ -41,5 +39,6 @@ public class CashViewController {
 
     public void setMain(Main main) {
         this.main = main;
+        openSalesView();
     }
 }

@@ -7,12 +7,19 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.SalesHeader;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,8 +91,26 @@ public class SalesViewController {
     }
 
     @FXML
-    private void addHeader(){
+    private void addHeader() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/cashviews/sales/AddSaleView.fxml"));
+        try {
+            BorderPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.getIcons().add(new Image("file:resources/images/check.png"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(main.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
+            AddSaleViewController controller = loader.getController();
+            controller.setMain(main);
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadConnection(){
