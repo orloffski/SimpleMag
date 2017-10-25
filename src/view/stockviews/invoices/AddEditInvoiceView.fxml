@@ -82,7 +82,7 @@
                         <Image url="@../../../../resources/images/add.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteLine" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="deleteLine" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteLine" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

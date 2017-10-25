@@ -112,15 +112,21 @@ public class AddEditInvoiceViewController {
 
 	@FXML
 	private ImageView addLine;
+	
+	@FXML
+	private ImageView deleteLine;
 
 	@FXML
 	private void initialize() {
+		addLine.setImage(new Image("file:resources/images/add.png"));
+		deleteLine.setImage(new Image("file:resources/images/delete.png"));
+		
 		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			String newType = NumberUtils.getDocSuffix(newValue);
 			number.setText(NumberUtils.getNextDocNumber(newType));
 		}));
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
+		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
 	}
 
 	@FXML
@@ -220,7 +226,6 @@ public class AddEditInvoiceViewController {
 		this.summ.setText(String.valueOf(invoice.getSumm()));
 		this.summVat.setText(String.format( "%.2f",
 				Double.parseDouble(this.summVat.getText()) - line.getSummVat()).replace(",","."));
-//		this.summVat.setText(String.valueOf(Double.parseDouble(this.summVat.getText()) - line.getSummVat()));
 		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat()));
 		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
 	}
@@ -282,8 +287,8 @@ public class AddEditInvoiceViewController {
 	
 	@FXML
 	private void documentSetAction() {
-		if(type.getValue().toLowerCase().equals("поступление"))
-			if(status.getText().toLowerCase().equals("проведен")){
+		if(type.getValue().toLowerCase().equals("РїРѕСЃС‚СѓРїР»РµРЅРёРµ"))
+			if(status.getText().toLowerCase().equals("РїСЂРѕРІРµРґРµРЅ")){
 				setPrices(false, invoice.getNumber());
 			}else{
 				setPrices(true, invoice.getNumber());
@@ -303,7 +308,7 @@ public class AddEditInvoiceViewController {
 
 			status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
 
-			documentSet.setText(status.getText().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
+			documentSet.setText(status.getText().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
 			this.invoice.setStatus(status.getText());
 		}catch(Exception e){
 	          e.printStackTrace();           
@@ -366,8 +371,8 @@ public class AddEditInvoiceViewController {
 
 	private void viewErrorMessage(){
 		Alert alert = new Alert(Alert.AlertType.WARNING);
-		alert.setTitle("Ошибка изменения");
-		alert.setContentText("Для изменения документа отмените его проведение");
+		alert.setTitle("ошибка редактирования");
+		alert.setContentText("Ошибка редактирования документа, для редактирования отмените проведение");
 
 		alert.showAndWait();
 	}
@@ -378,7 +383,7 @@ public class AddEditInvoiceViewController {
 		try {
 			BorderPane page = loader.load();
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Выбор товара");
+			dialogStage.setTitle("Список товаров");
 			dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(main.getPrimaryStage());
@@ -412,19 +417,19 @@ public class AddEditInvoiceViewController {
 		type.setItems(InvoicesTypes.getTypes());
 		
 		if(this.invoice != null) {
-			dialogStage.setTitle("Изменение документа");
+			dialogStage.setTitle("редактирование документа");
 			this.mode = AddEditMode.EDIT;
 
 			initDocumentForEdit();
 			
-			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведен")?"Отмена проведения":"Проведение");
+			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
 			ttnNo.setText(invoice.getTtnNo());
 			ttnDate.getEditor().setText(invoice.getTtnDate());
 
 			documentSave.setDisable(false);
 			documentSet.setDisable(false);
 		}else {
-			dialogStage.setTitle("Создание документа");
+			dialogStage.setTitle("создание нового документа");
 			this.mode = AddEditMode.ADD;
 			loadCounterParties("");
 			loadInvoiceLines("0");
@@ -525,16 +530,13 @@ public class AddEditInvoiceViewController {
 
 		oldLine.setRetailPrice(newRetailPrice);
 
-		// сумма поставщика
 		invoice.setSumm(
 				Double.parseDouble(String.format( "%.2f",
 						invoice.getSumm() - (oldCount * oldVendorPrice) + (oldLine.getCount() * oldLine.getVendorPrice())).replace(",","."))
 				);
 
-		// количество
 		invoice.setCount(invoice.getCount() - oldCount + oldLine.getCount());
 
-		// сумма документа
 		double invoiceRetailPrice = invoice.getFullSumm() - (oldCount * oldRetailPrice) + (oldLine.getCount() * oldLine.getRetailPrice());
 		invoiceRetailPrice = Double.parseDouble(String.format( "%.2f", invoiceRetailPrice ).replace(",","."));
 		invoice.setFullSumm(invoiceRetailPrice);

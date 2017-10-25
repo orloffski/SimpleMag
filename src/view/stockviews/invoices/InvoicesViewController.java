@@ -71,6 +71,10 @@ public class InvoicesViewController {
 
 	@FXML
 	private void initialize() {
+		addBtn.setImage(new Image("file:resources/images/add.png"));
+		editBtn.setImage(new Image("file:resources/images/edit.png"));
+		deleteBtn.setImage(new Image("file:resources/images/delete.png"));
+		
 		numberColumn.setCellValueFactory(cellData -> cellData.getValue().ttnNoProperty());
 		typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
 		statusColumn.setCellValueFactory(cellData -> cellData.getValue().statusProperty());

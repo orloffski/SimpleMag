@@ -61,6 +61,10 @@ public class ItemsViewController {
 	
 	@FXML
 	private void initialize() {
+		add.setImage(new Image("file:resources/images/add.png"));
+		edit.setImage(new Image("file:resources/images/edit.png"));
+		delete.setImage(new Image("file:resources/images/delete.png"));
+		
 		vendorCodeColumn.setCellValueFactory(cellData -> cellData.getValue().vendorCodeProperty());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		vendorCountryColumn.setCellValueFactory(cellData -> cellData.getValue().vendorCountryProperty());

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: C:\ProgramData\Oracle\Java\javapath
+Main-Class: application.Main
+

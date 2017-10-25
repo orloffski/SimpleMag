@@ -6,6 +6,7 @@ import application.Main;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +36,10 @@ public class RootController {
 	
 	@FXML
 	private void initialize() {
+		cashbox.setImage(new Image("file:resources/images/cashbox.png"));
+		stock.setImage(new Image("file:resources/images/stock.png"));
+		finance.setImage(new Image("file:resources/images/finance.png"));
+		chart.setImage(new Image("file:resources/images/chart.png"));
 	}
 	
 	@FXML

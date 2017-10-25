@@ -61,6 +61,10 @@ public class SalesViewController {
 
     @FXML
     private void initialize() {
+    	add.setImage(new Image("file:resources/images/add.png"));
+    	delete.setImage(new Image("file:resources/images/delete.png"));
+    	refresh.setImage(new Image("file:resources/images/refresh.png"));
+    	
         loadConnection();
 
         salesNumber.setCellValueFactory(cellData -> cellData.getValue().salesNumberProperty());

@@ -81,6 +81,9 @@ public class AddSaleViewController {
 
     @FXML
     private void initialize() {
+    	add.setImage(new Image("file:resources/images/add.png"));
+    	delete.setImage(new Image("file:resources/images/delete.png"));
+    	
         initTable();
 
         try {
