@@ -57,6 +57,9 @@ public class SalesViewController {
     private ImageView delete;
 
     @FXML
+    private ImageView refresh;
+
+    @FXML
     private void initialize() {
         loadConnection();
 
@@ -65,6 +68,12 @@ public class SalesViewController {
         salesType.setCellValueFactory(cellData -> cellData.getValue().salesTypeProperty());
         paymentType.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
 
+        loadSalesHeaders();
+    }
+
+    @FXML
+    private void refreshTable(){
+        salesHeadersData.clear();
         loadSalesHeaders();
     }
 
