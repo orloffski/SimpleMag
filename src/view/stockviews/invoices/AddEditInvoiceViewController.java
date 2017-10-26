@@ -287,8 +287,8 @@ public class AddEditInvoiceViewController {
 	
 	@FXML
 	private void documentSetAction() {
-		if(type.getValue().toLowerCase().equals("РїРѕСЃС‚СѓРїР»РµРЅРёРµ"))
-			if(status.getText().toLowerCase().equals("РїСЂРѕРІРµРґРµРЅ")){
+		if(type.getValue().toLowerCase().equals("поступление"))
+			if(status.getText().toLowerCase().equals("проведен")){
 				setPrices(false, invoice.getNumber());
 			}else{
 				setPrices(true, invoice.getNumber());

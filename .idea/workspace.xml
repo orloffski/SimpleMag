@@ -6,20 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.fxbuild" afterPath="$PROJECT_DIR$/build.fxbuild" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/RootController.java" afterPath="$PROJECT_DIR$/src/view/RootController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/StockController.java" afterPath="$PROJECT_DIR$/src/view/StockController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java" afterPath="$PROJECT_DIR$/src/view/cashviews/sales/AddSaleViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java" afterPath="$PROJECT_DIR$/src/view/cashviews/sales/SalesViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/AddEditInvoiceViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/invoices/InvoicesViewController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java" afterPath="$PROJECT_DIR$/src/view/stockviews/items/ItemsViewController.java" />
-    </list>
+    <list default="true" id="69ed24da-712a-43b1-b6f7-00b7391cf18a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -272,7 +259,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -511,15 +498,15 @@
       <workItem from="1508662345941" duration="46875000" />
       <workItem from="1508862377755" duration="1026000" />
       <workItem from="1508875572188" duration="6351000" />
-      <workItem from="1508924727146" duration="1011000" />
+      <workItem from="1508924727146" duration="1184000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81248000" />
+    <option name="totallyTimeSpent" value="81421000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
