@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.items.ItemCardController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.items.ItemCardController">
    <children>
       <GridPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -40,7 +40,7 @@
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
         <buttons>
-          <Button mnemonicParsing="false" onMouseClicked="#handleOK" text="Сохранить" />
+          <Button fx:id="saveBtn" mnemonicParsing="false" onMouseClicked="#handleOK" text="Сохранить" />
             <Button mnemonicParsing="false" onMouseClicked="#handleCancel" text="Отмена" />
         </buttons>
       </ButtonBar>

@@ -357,6 +357,7 @@ public class AddSaleViewController {
                     + "WHERE id = " + header.getId() + ";";
 
             connection.createStatement().executeUpdate(SQL);
+            this.headerCreated = true;
         }catch (SQLException e){
             e.printStackTrace();
         }

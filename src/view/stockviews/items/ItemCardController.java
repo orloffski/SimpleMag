@@ -49,6 +49,9 @@ public class ItemCardController {
 	
 	@FXML
 	private Button barcodeBtn;
+	
+	@FXML
+	private Button saveBtn;
 
 	@FXML
 	private void initialize() {
@@ -117,6 +120,7 @@ public class ItemCardController {
 			
 			okClicked = true;
 			//dialogStage.close();
+			saveBtn.setDisable(true);
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
 	        alert.setTitle("Ошибка сохранения");
