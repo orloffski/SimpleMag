@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="entity.SalesLineEntity" table="sales_line" schema="minimag">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="salesNumber">
+            <column name="sales_number" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="itemId">
+            <column name="item_id" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="itemName">
+            <column name="item_name" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="count">
+            <column name="count" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="itemPrice">
+            <column name="item_price" sql-type="double" precision="-1" not-null="true"/>
+        </property>
+        <property name="fullLinePrice">
+            <column name="full_line_price" sql-type="double" precision="-1" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

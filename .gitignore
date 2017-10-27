@@ -6,3 +6,5 @@ bin/
 build.fxbuild
 .idea/workspace.xml___jb_tmp___
 build/
+.idea/
+src/hibernate.cfg.xml
