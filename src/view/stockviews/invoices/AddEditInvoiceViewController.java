@@ -124,6 +124,7 @@ public class AddEditInvoiceViewController {
 		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			String newType = NumberUtils.getDocSuffix(newValue);
 			number.setText(NumberUtils.getNextDocNumber(newType));
+			// update salesLines
 		}));
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
