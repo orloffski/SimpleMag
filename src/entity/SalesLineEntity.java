@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "sales_line", schema = "minimag", catalog = "")
+@Table(name = "sales_line", schema = "minimag")
 public class SalesLineEntity {
     private int id;
     private String salesNumber;
@@ -14,6 +14,7 @@ public class SalesLineEntity {
     private Double fullLinePrice;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

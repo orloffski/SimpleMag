@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "counterparties", schema = "minimag", catalog = "")
+@Table(name = "counterparties", schema = "minimag")
 public class CounterpartiesEntity {
     private int id;
     private String name;
@@ -11,6 +11,7 @@ public class CounterpartiesEntity {
     private String unn;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

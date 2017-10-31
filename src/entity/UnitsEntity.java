@@ -3,12 +3,13 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "units", schema = "minimag", catalog = "")
+@Table(name = "units", schema = "minimag")
 public class UnitsEntity {
     private int id;
     private String unit;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

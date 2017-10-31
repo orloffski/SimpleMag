@@ -19,6 +19,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        HibernateSession.initSession();
+
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("МиниМаг");
         

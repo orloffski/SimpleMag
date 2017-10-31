@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "invoices_lines", schema = "minimag", catalog = "")
+@Table(name = "invoices_lines", schema = "minimag")
 public class InvoicesLinesEntity {
     private int id;
     private Integer lineNumber;
@@ -19,6 +19,7 @@ public class InvoicesLinesEntity {
     private Double summInclVat;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

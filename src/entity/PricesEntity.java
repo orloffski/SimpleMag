@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "prices", schema = "minimag", catalog = "")
+@Table(name = "prices", schema = "minimag")
 public class PricesEntity {
     private int id;
     private String price;
@@ -12,6 +12,7 @@ public class PricesEntity {
     private String reason;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

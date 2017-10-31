@@ -2,10 +2,12 @@ package view.stockviews.settings;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import application.DBClass;
+import application.HibernateSession;
+import entity.UnitsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.AddEditMode;
 import model.Units;
+import org.hibernate.Session;
 
 public class UnitsDirectoryViewController {
 
@@ -30,6 +33,9 @@ public class UnitsDirectoryViewController {
 	private Connection connection;
 	private AddEditMode mode;
 	private Units unit;
+
+	private Session session;
+	private org.hibernate.Transaction tr;
 	
 	@FXML
 	private TableView<Units> unitsTable;
@@ -54,6 +60,8 @@ public class UnitsDirectoryViewController {
 
 	@FXML
 	private void initialize() {
+		getSessionData();
+
 		mode = AddEditMode.ADD;
 		
         unitColumn.setCellValueFactory(cellData -> cellData.getValue().unitProperty());
@@ -69,7 +77,7 @@ public class UnitsDirectoryViewController {
 
 		unitsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 	        if (newSelection != null) {
-	            unit = (Units) unitsTable.getSelectionModel().getSelectedItem();
+	            unit = unitsTable.getSelectionModel().getSelectedItem();
 	            mode = AddEditMode.EDIT;
 	            addEditUnit.setText(unit.getUnit());
 	            addEditBtn.setText("Изменить");
@@ -85,7 +93,7 @@ public class UnitsDirectoryViewController {
 	@FXML
     private void delete() {
 		int indexToDelete = unitsTable.getSelectionModel().getSelectedIndex();
-		Units unit = (Units) unitsTable.getSelectionModel().getSelectedItem();
+		Units unit = unitsTable.getSelectionModel().getSelectedItem();
 		
 		if(unit != null) {
 			try {
@@ -150,21 +158,18 @@ public class UnitsDirectoryViewController {
 	
 	private void buildData(){
 		data = FXCollections.observableArrayList();
-	    try{      
-	        String SQL = "SELECT * FROM units ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	            Units unit = new Units(rs.getInt("id"), 
-	            		rs.getString("unit"));
-	            data.add(unit);   	       
-	        }
-	        unitsTable.setItems(data);
-	        
-	        addFilter();
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+
+		List<UnitsEntity> unitsList = session.createQuery("FROM UnitsEntity").list();
+
+		for (UnitsEntity unitItem : unitsList) {
+			Units unit = new Units(unitItem.getId(),
+	            		unitItem.getUnit());
+			data.add(unit);
+		}
+
+		unitsTable.setItems(data);
+
+		addFilter();
 	}
 	
 	private void addFilter() {
@@ -193,4 +198,9 @@ public class UnitsDirectoryViewController {
 	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;      
     }
+
+    private void getSessionData(){
+		session = HibernateSession.getSession();
+		tr = HibernateSession.getTr();
+	}
 }

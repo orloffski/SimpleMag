@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "invoices_headers", schema = "minimag", catalog = "")
+@Table(name = "invoices_headers", schema = "minimag")
 public class InvoicesHeadersEntity {
     private int id;
     private String number;
@@ -22,6 +22,7 @@ public class InvoicesHeadersEntity {
     private String ttnDate;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
