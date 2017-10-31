@@ -21,7 +21,7 @@ public class CounterpartiesEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, length = 150)
     public String getName() {
         return name;
     }
@@ -31,7 +31,7 @@ public class CounterpartiesEntity {
     }
 
     @Basic
-    @Column(name = "adress", nullable = true, length = 150)
+    @Column(name = "adress", nullable = true, length = 250)
     public String getAdress() {
         return adress;
     }
