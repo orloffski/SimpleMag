@@ -10,26 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.AddEditMode;
 import model.Counterparties;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import utils.HibernateUtil;
 import utils.MessagesUtils;
+import view.AbstractController;
 
 import java.util.List;
 
-public class CounterpartiesDirectoryViewController {
-	
-	private Stage dialogStage;
+public class CounterpartiesDirectoryViewController extends AbstractController{
+
 	private AddEditMode mode;
 	private ObservableList<Counterparties> data;
 	private Counterparties counterparty;
-
-	private Session session;
-	private SessionFactory sessFact;
-	private org.hibernate.Transaction tr;
 	
 	@FXML
     private TextField filter;
@@ -187,15 +179,7 @@ public class CounterpartiesDirectoryViewController {
         counterpartiesTable.setItems(sortedData);
 	}
 
-	void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;      
-    }
-
-	private void getSessionData(){
-		sessFact = HibernateUtil.getSessionFactory();
-	}
-
-	private void clearForm(){
+	protected void clearForm(){
 		addEditBtn.setText("Добавить");
 
 		nameTextField.setText("");

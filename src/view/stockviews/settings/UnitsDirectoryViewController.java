@@ -6,29 +6,22 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import model.AddEditMode;
 import model.Units;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import utils.HibernateUtil;
 import utils.MessagesUtils;
+import view.AbstractController;
 
 import java.util.List;
 
-public class UnitsDirectoryViewController {
+public class UnitsDirectoryViewController extends AbstractController{
 
-	private Stage dialogStage;
-	
 	private ObservableList<Units> data;
 	private AddEditMode mode;
 	private Units unit;
-
-	private Session session;
-	private SessionFactory sessFact;
-	private org.hibernate.Transaction tr;
 	
 	@FXML
 	private TableView<Units> unitsTable;
@@ -165,16 +158,8 @@ public class UnitsDirectoryViewController {
         sortedData.comparatorProperty().bind(unitsTable.comparatorProperty());
         unitsTable.setItems(sortedData);
 	}
-	
-	void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;      
-    }
 
-    private void getSessionData(){
-		sessFact = HibernateUtil.getSessionFactory();
-	}
-
-	private void clearForm(){
+	protected void clearForm(){
 		addEditBtn.setText("Добавить");
 		addEditUnit.setText("");
 	}
