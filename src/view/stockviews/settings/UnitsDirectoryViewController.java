@@ -14,6 +14,7 @@ import model.Units;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
+import utils.MessagesUtils;
 
 import java.util.List;
 
@@ -80,15 +81,10 @@ public class UnitsDirectoryViewController {
 		Units unit = unitsTable.getSelectionModel().getSelectedItem();
 		mode = AddEditMode.DELETE;
 		
-		if(unit != null) {
+		if(unit != null)
 			addEditDelete();
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Ошибка удаления");
-	        alert.setContentText("Для удаления выберите элемент из списка");
-
-	        alert.showAndWait();
-		}
+		else
+			MessagesUtils.showAlert("Ошибка удаления", "Для удаления выберите элемент из списка");
 		
 		mode = AddEditMode.ADD;
         addEditBtn.setText("Добавить");
@@ -99,6 +95,10 @@ public class UnitsDirectoryViewController {
 	
 	@FXML
 	private void addEditDelete() {
+		if(addEditUnit.getText().toString().length() == 0){
+			MessagesUtils.showAlert("Ошибка", "Нельзя сохранять пустые элементы");
+			return;
+		}
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
