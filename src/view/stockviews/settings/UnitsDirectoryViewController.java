@@ -22,7 +22,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.AddEditMode;
 import model.Units;
+import org.hibernate.Cache;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
 
 public class UnitsDirectoryViewController {
 
@@ -35,6 +38,7 @@ public class UnitsDirectoryViewController {
 	private Units unit;
 
 	private Session session;
+	private SessionFactory sessFact;
 	private org.hibernate.Transaction tr;
 	
 	@FXML
@@ -121,32 +125,20 @@ public class UnitsDirectoryViewController {
     }
 	
 	@FXML
-	private void addEdit() {		
+	private void addEdit() {
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
 		if(mode.equals(AddEditMode.ADD)) {
-			try {
-				connection = new DBClass().getConnection();
-				String SQL = "INSERT INTO units SET unit = '" 
-						+ addEditUnit.getText().toString() + "';";
-				connection.createStatement().executeUpdate(SQL);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			UnitsEntity units = new UnitsEntity(0, addEditUnit.getText().toString());
+			session.save(units);
 		}else if(mode.equals(AddEditMode.EDIT)){
-			try {
-				connection = new DBClass().getConnection();
-				String SQL = "UPDATE units SET unit = '" 
-						+ addEditUnit.getText().toString() + "'"
-						+ "WHERE id = "
-						+ unit.getId() + ";";
-				connection.createStatement().executeUpdate(SQL);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			UnitsEntity units = new UnitsEntity(unit.getId(), addEditUnit.getText().toString());
+			session.update(units);
 		}
+
+		tr.commit();
+		session.close();
 		
 		mode = AddEditMode.ADD;
         addEditBtn.setText("Добавить");
@@ -159,13 +151,19 @@ public class UnitsDirectoryViewController {
 	private void buildData(){
 		data = FXCollections.observableArrayList();
 
-		List<UnitsEntity> unitsList = session.createQuery("FROM UnitsEntity").list();
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<UnitsEntity> unitsList = session.createCriteria(UnitsEntity.class).list();
 
 		for (UnitsEntity unitItem : unitsList) {
 			Units unit = new Units(unitItem.getId(),
 	            		unitItem.getUnit());
 			data.add(unit);
 		}
+
+		tr.commit();
+		session.close();
 
 		unitsTable.setItems(data);
 
@@ -200,7 +198,6 @@ public class UnitsDirectoryViewController {
     }
 
     private void getSessionData(){
-		session = HibernateSession.getSession();
-		tr = HibernateSession.getTr();
+		sessFact = HibernateUtil.getSessionFactory();
 	}
 }

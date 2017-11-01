@@ -2,11 +2,20 @@ package entity;
 
 import javax.persistence.*;
 
+@Cacheable(false)
 @Entity
 @Table(name = "units", schema = "minimag")
 public class UnitsEntity {
     private int id;
     private String unit;
+
+    public UnitsEntity() {
+    }
+
+    public UnitsEntity(int id, String unit) {
+        this.id = id;
+        this.unit = unit;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
