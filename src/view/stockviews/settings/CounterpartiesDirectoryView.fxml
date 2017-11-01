@@ -78,7 +78,7 @@
             </GridPane>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEdit" text="Добавить">
+                  <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEditDelete" text="Добавить">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>

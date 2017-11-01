@@ -10,6 +10,16 @@ public class CounterpartiesEntity {
     private String adress;
     private String unn;
 
+    public CounterpartiesEntity() {
+    }
+
+    public CounterpartiesEntity(int id, String name, String adress, String unn) {
+        this.id = id;
+        this.name = name;
+        this.adress = adress;
+        this.unn = unn;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

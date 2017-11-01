@@ -1,34 +1,35 @@
 package view.stockviews.settings;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import application.DBClass;
+import entity.CounterpartiesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.AddEditMode;
 import model.Counterparties;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
+import utils.MessagesUtils;
+
+import java.util.List;
 
 public class CounterpartiesDirectoryViewController {
 	
 	private Stage dialogStage;
 	private AddEditMode mode;
 	private ObservableList<Counterparties> data;
-	private DBClass dbClass;
-	private Connection connection;
 	private Counterparties counterparty;
+
+	private Session session;
+	private SessionFactory sessFact;
+	private org.hibernate.Transaction tr;
 	
 	@FXML
     private TextField filter;
@@ -65,24 +66,19 @@ public class CounterpartiesDirectoryViewController {
 	
 	@FXML
 	private void initialize() {
+		getSessionData();
+
 		mode = AddEditMode.ADD;
 		
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		unnColumn.setCellValueFactory(cellData -> cellData.getValue().unnProperty());
 		adressColumn.setCellValueFactory(cellData -> cellData.getValue().adressProperty());
-		
-		dbClass = new DBClass();
-	    try{
-	    	connection = dbClass.getConnection();
-	        buildData();	        	    
-	    }
-	    catch(ClassNotFoundException | SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		buildData();
 
 		counterpartiesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 	        if (newSelection != null) {
-	        	counterparty = (Counterparties) counterpartiesTable.getSelectionModel().getSelectedItem();
+	        	counterparty = counterpartiesTable.getSelectionModel().getSelectedItem();
 	            mode = AddEditMode.EDIT;
 	            nameTextField.setText(counterparty.getName());
 	            unnTextField.setText(counterparty.getUnn());
@@ -99,97 +95,85 @@ public class CounterpartiesDirectoryViewController {
 	
 	@FXML
     private void delete() {
-		int indexToDelete = counterpartiesTable.getSelectionModel().getSelectedIndex();
-		Counterparties counterparty = (Counterparties) counterpartiesTable.getSelectionModel().getSelectedItem();
+		counterparty = counterpartiesTable.getSelectionModel().getSelectedItem();
+		mode = AddEditMode.DELETE;
 		
-		if(counterparty != null) {
-			try {
-		    	PreparedStatement statement = connection.prepareStatement("DELETE FROM counterparties WHERE id = ?");
-				statement.setInt(1, counterparty.getId());
-				statement.executeUpdate();
-				
-				data.remove(indexToDelete);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Ошибка удаления");
-	        alert.setContentText("Для удаления контрагента выберите его из списка");
+		if(counterparty != null)
+			addEditDelete();
+		else
+			MessagesUtils.showAlert("Ошибка удаления", "Для удаления выберите элемент из списка");
 
-	        alert.showAndWait();
-		}
-		
-        addEditBtn.setText("Добавить");
+		mode = AddEditMode.ADD;
+
 		data.clear();
 		buildData();
+		clearForm();
     }
 	
 	@FXML
-	private void addEdit() {		
-		if(mode.equals(AddEditMode.ADD)) {
-			try {
-				connection = new DBClass().getConnection();
-				String SQL = "INSERT INTO counterparties SET name = '" 
-						+ nameTextField.getText().toString() + "', "
-						+ "unn = '"
-						+ unnTextField.getText().toString() + "', "
-						+ "adress = '"
-						+ adressTextField.getText().toString() + "';";
-				connection.createStatement().executeUpdate(SQL);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else if(mode.equals(AddEditMode.EDIT)){
-			try {
-				connection = new DBClass().getConnection();
-				String SQL = "UPDATE counterparties SET name = '" 
-						+ nameTextField.getText().toString() + "', "
-						+ "unn = '"
-						+ unnTextField.getText().toString() + "', "
-						+ "adress = '"
-						+ adressTextField.getText().toString() + "' "
-						+ "WHERE id = "
-						+ counterparty.getId() + ";";
-				connection.createStatement().executeUpdate(SQL);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	private void addEditDelete() {
+		if(nameTextField.getText().toString().length() == 0 ||
+				unnTextField.getText().toString().length() == 0 ||
+				adressTextField.getText().toString().length() == 0){
+			MessagesUtils.showAlert("Ошибка", "Нельзя сохранять пустые элементы");
+			return;
 		}
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		if(mode.equals(AddEditMode.ADD)) {
+			CounterpartiesEntity counterpartyItem = new CounterpartiesEntity(0,
+					nameTextField.getText().toString(),
+					adressTextField.getText().toString(),
+					unnTextField.getText().toString());
+			session.save(counterpartyItem);
+		}else if(mode.equals(AddEditMode.EDIT)){
+			CounterpartiesEntity counterpartyItem = new CounterpartiesEntity(counterparty.getId(),
+					nameTextField.getText().toString(),
+					adressTextField.getText().toString(),
+					unnTextField.getText().toString());
+			session.update(counterpartyItem);
+		}else if(mode.equals(AddEditMode.DELETE)){
+			session.delete(
+					new CounterpartiesEntity(counterparty.getId(),
+							counterparty.getName(),
+							counterparty.getAdress(),
+							counterparty.getUnn()));
+		}
+
+		tr.commit();
+		session.close();
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("Добавить");
 		
 		data.clear();
 		buildData();
-		nameTextField.setText("");
-		unnTextField.setText("");
-		adressTextField.setText("");
+		clearForm();
 	}
 	
 	private void buildData(){
 		data = FXCollections.observableArrayList();
-	    try{      
-	        String SQL = "SELECT * FROM counterparties ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	        	Counterparties counterparties = new Counterparties(rs.getInt("id"), 
-	            		rs.getString("name"),
-	            		rs.getString("adress"),
-	            		rs.getString("unn"));
-	            data.add(counterparties);   	       
-	        }
-	        counterpartiesTable.setItems(data);
-	        
-	        addFilter();
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<CounterpartiesEntity> counterpartiesList = session.createCriteria(CounterpartiesEntity.class).list();
+
+		for (CounterpartiesEntity counterpartyItem : counterpartiesList) {
+			Counterparties counterparty = new Counterparties(counterpartyItem.getId(),
+					counterpartyItem.getName(),
+					counterpartyItem.getAdress(),
+					counterpartyItem.getUnn());
+			data.add(counterparty);
+		}
+
+		tr.commit();
+		session.close();
+
+		counterpartiesTable.setItems(data);
+
+		addFilter();
 	}
 	
 	private void addFilter() {
@@ -218,4 +202,16 @@ public class CounterpartiesDirectoryViewController {
 	void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;      
     }
+
+	private void getSessionData(){
+		sessFact = HibernateUtil.getSessionFactory();
+	}
+
+	private void clearForm(){
+		addEditBtn.setText("Добавить");
+
+		nameTextField.setText("");
+		unnTextField.setText("");
+		adressTextField.setText("");
+	}
 }
