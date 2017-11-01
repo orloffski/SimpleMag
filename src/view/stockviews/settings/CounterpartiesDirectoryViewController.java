@@ -123,23 +123,11 @@ public class CounterpartiesDirectoryViewController {
 		tr = session.beginTransaction();
 
 		if(mode.equals(AddEditMode.ADD)) {
-			CounterpartiesEntity counterpartyItem = new CounterpartiesEntity(0,
-					nameTextField.getText().toString(),
-					adressTextField.getText().toString(),
-					unnTextField.getText().toString());
-			session.save(counterpartyItem);
+			session.save(createCounterpartiesEntity(0));
 		}else if(mode.equals(AddEditMode.EDIT)){
-			CounterpartiesEntity counterpartyItem = new CounterpartiesEntity(counterparty.getId(),
-					nameTextField.getText().toString(),
-					adressTextField.getText().toString(),
-					unnTextField.getText().toString());
-			session.update(counterpartyItem);
+			session.update(createCounterpartiesEntity(counterparty.getId()));
 		}else if(mode.equals(AddEditMode.DELETE)){
-			session.delete(
-					new CounterpartiesEntity(counterparty.getId(),
-							counterparty.getName(),
-							counterparty.getAdress(),
-							counterparty.getUnn()));
+			session.delete(createCounterpartiesEntity(counterparty.getId()));
 		}
 
 		tr.commit();
@@ -213,5 +201,12 @@ public class CounterpartiesDirectoryViewController {
 		nameTextField.setText("");
 		unnTextField.setText("");
 		adressTextField.setText("");
+	}
+
+	private CounterpartiesEntity createCounterpartiesEntity(int id){
+		return new CounterpartiesEntity(id,
+				nameTextField.getText().toString(),
+				adressTextField.getText().toString(),
+				unnTextField.getText().toString());
 	}
 }

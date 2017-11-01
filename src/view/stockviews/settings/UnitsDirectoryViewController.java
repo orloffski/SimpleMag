@@ -104,13 +104,11 @@ public class UnitsDirectoryViewController {
 		tr = session.beginTransaction();
 
 		if(mode.equals(AddEditMode.ADD)) {
-			UnitsEntity units = new UnitsEntity(0, addEditUnit.getText().toString());
-			session.save(units);
+			session.save(createUnitsEntity(0));
 		}else if(mode.equals(AddEditMode.EDIT)){
-			UnitsEntity units = new UnitsEntity(unit.getId(), addEditUnit.getText().toString());
-			session.update(units);
+			session.update(createUnitsEntity(unit.getId()));
 		}else if(mode.equals(AddEditMode.DELETE)){
-			session.delete(new UnitsEntity(unit.getId(), unit.getUnit()));
+			session.delete(createUnitsEntity(unit.getId()));
 		}
 
 		tr.commit();
@@ -179,5 +177,9 @@ public class UnitsDirectoryViewController {
 	private void clearForm(){
 		addEditBtn.setText("Добавить");
 		addEditUnit.setText("");
+	}
+
+	private UnitsEntity createUnitsEntity(int id){
+		return new UnitsEntity(id, addEditUnit.getText().toString());
 	}
 }
