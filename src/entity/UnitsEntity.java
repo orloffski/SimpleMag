@@ -2,7 +2,6 @@ package entity;
 
 import javax.persistence.*;
 
-@Cacheable(false)
 @Entity
 @Table(name = "units", schema = "minimag")
 public class UnitsEntity {

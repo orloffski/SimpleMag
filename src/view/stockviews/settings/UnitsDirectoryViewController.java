@@ -87,10 +87,10 @@ public class UnitsDirectoryViewController {
 			MessagesUtils.showAlert("Ошибка удаления", "Для удаления выберите элемент из списка");
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("Добавить");
+
 		data.clear();
 		buildData();
-		addEditUnit.setText("");
+		clearForm();
     }
 	
 	@FXML
@@ -99,6 +99,7 @@ public class UnitsDirectoryViewController {
 			MessagesUtils.showAlert("Ошибка", "Нельзя сохранять пустые элементы");
 			return;
 		}
+
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
@@ -116,11 +117,10 @@ public class UnitsDirectoryViewController {
 		session.close();
 		
 		mode = AddEditMode.ADD;
-        addEditBtn.setText("Добавить");
 		
 		data.clear();
 		buildData();
-		addEditUnit.setText("");
+		clearForm();
 	}
 	
 	private void buildData(){
@@ -174,5 +174,10 @@ public class UnitsDirectoryViewController {
 
     private void getSessionData(){
 		sessFact = HibernateUtil.getSessionFactory();
+	}
+
+	private void clearForm(){
+		addEditBtn.setText("Добавить");
+		addEditUnit.setText("");
 	}
 }
