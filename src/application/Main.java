@@ -30,7 +30,13 @@ public class Main extends Application {
 
         showMainView();
     }
-    
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        HibernateSession.closeSession();
+    }
+
     private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
