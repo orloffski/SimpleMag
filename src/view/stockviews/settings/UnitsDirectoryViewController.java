@@ -1,39 +1,27 @@
 package view.stockviews.settings;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
-import application.DBClass;
-import application.HibernateSession;
 import entity.UnitsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.AddEditMode;
 import model.Units;
-import org.hibernate.Cache;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
+
+import java.util.List;
 
 public class UnitsDirectoryViewController {
 
 	private Stage dialogStage;
 	
 	private ObservableList<Units> data;
-	private DBClass dbClass;
-	private Connection connection;
 	private AddEditMode mode;
 	private Units unit;
 
@@ -69,15 +57,8 @@ public class UnitsDirectoryViewController {
 		mode = AddEditMode.ADD;
 		
         unitColumn.setCellValueFactory(cellData -> cellData.getValue().unitProperty());
-        
-		dbClass = new DBClass();
-	    try{
-	    	connection = dbClass.getConnection();
-	        buildData();	        	    
-	    }
-	    catch(ClassNotFoundException | SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		buildData();
 
 		unitsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 	        if (newSelection != null) {
@@ -96,19 +77,11 @@ public class UnitsDirectoryViewController {
 	
 	@FXML
     private void delete() {
-		int indexToDelete = unitsTable.getSelectionModel().getSelectedIndex();
 		Units unit = unitsTable.getSelectionModel().getSelectedItem();
+		mode = AddEditMode.DELETE;
 		
 		if(unit != null) {
-			try {
-		    	PreparedStatement statement = connection.prepareStatement("DELETE FROM units WHERE id = ?");
-				statement.setInt(1, unit.getId());
-				statement.executeUpdate();
-				
-				data.remove(indexToDelete);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			addEditDelete();
 		}else {
 			Alert alert = new Alert(AlertType.WARNING);
 	        alert.setTitle("Ошибка удаления");
@@ -125,7 +98,7 @@ public class UnitsDirectoryViewController {
     }
 	
 	@FXML
-	private void addEdit() {
+	private void addEditDelete() {
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
@@ -135,6 +108,8 @@ public class UnitsDirectoryViewController {
 		}else if(mode.equals(AddEditMode.EDIT)){
 			UnitsEntity units = new UnitsEntity(unit.getId(), addEditUnit.getText().toString());
 			session.update(units);
+		}else if(mode.equals(AddEditMode.DELETE)){
+			session.delete(new UnitsEntity(unit.getId(), unit.getUnit()));
 		}
 
 		tr.commit();

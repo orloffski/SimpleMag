@@ -43,7 +43,7 @@
       <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="addEditUnit" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-            <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEdit" text="добавить">
+            <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEditDelete" text="добавить">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
