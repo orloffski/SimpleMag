@@ -1,25 +1,24 @@
 package view.stockviews.items;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import application.DBClass;
+import entity.PricesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.Items;
 import model.Prices;
+import org.hibernate.query.Query;
+import view.AbstractController;
 
-public class PricesViewController {
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+public class PricesViewController extends AbstractController{
 	
 	private ObservableList<Prices> data;
-	private Connection connection;
-	private Stage dialogStage;
 	private static int itemId;
 	
 	@FXML
@@ -39,39 +38,28 @@ public class PricesViewController {
 
 	@FXML
 	private void initialize() {
+		getSessionData();
 	}
 	
 	public void buildData(int id){
 		data = FXCollections.observableArrayList();
-		
-		try{
-	    	connection = new DBClass().getConnection();
-	    	String SQL = "SELECT * " + 
-	    			"FROM prices " + 
-	    			"WHERE item_id = '" + id + "' " +
-	    			"ORDER BY lastcreated " + 
-	    			"DESC " + 
-	    			"LIMIT 1;";
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	            Prices price = new Prices(rs.getInt("id"), 
-	            		rs.getString("price"),
-	            		rs.getInt("item_id"));
-	            data.add(price);   
-	            System.out.println(data.size());
-	        }
-	    }
-	    catch(ClassNotFoundException ce){
-	    	ce.printStackTrace();
-	    }
-	    catch(SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("FROM PricesEntity WHERE itemId =:id ORDER BY lastcreated DESC");
+		query.setParameter("id", id);
+		query.setMaxResults(1);
+
+		List<PricesEntity> pricesList = query.list();
+
+		data.add(new Prices(pricesList.get(0).getId(),
+				pricesList.get(0).getPrice(),
+				pricesList.get(0).getItemId()));
+
+		tr.commit();
+		session.close();
 	}
-	
-	void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
 	
 	void setItem(Items item) {
 		itemLabel.setText(item.getVendorCode().toString() + " " + item.getName().toString());
@@ -88,22 +76,26 @@ public class PricesViewController {
 	
 	@FXML
 	private void addNewPrice() {
-		try {
-			connection = new DBClass().getConnection();
-			String SQL = "INSERT INTO prices SET price = '" 
-					+ priceChangeField.getText().toString() + "', "
-					+ "reason = 'manual', "
-					+ "item_id = '"
-					+ itemId + "';";
-			connection.createStatement().executeUpdate(SQL);
-			data.clear();
-			buildData(itemId);
-			priceLabel.setText(data.isEmpty() ? "0" : data.get(0).getPrice());
-			priceChangeField.setText("");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		session.save(new PricesEntity(0,
+				priceChangeField.getText().toString(),
+				itemId,
+				new Timestamp(new Date().getTime()),
+				"manual"));
+
+		tr.commit();
+		session.close();
+
+		data.clear();
+		buildData(itemId);
+		clearForm();
+	}
+
+	@Override
+	protected void clearForm() {
+		priceLabel.setText(data.isEmpty() ? "0" : data.get(0).getPrice());
+		priceChangeField.setText("");
 	}
 }
