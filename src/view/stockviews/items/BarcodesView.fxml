@@ -37,7 +37,7 @@
                   <Insets left="25.0" top="10.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="addBtn" mnemonicParsing="false" onMouseClicked="#addBarcode" text="Добавить">
+            <Button fx:id="addBtn" mnemonicParsing="false" onMouseClicked="#addDeleteBarcode" text="Добавить">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>

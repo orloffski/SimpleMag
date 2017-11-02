@@ -1,31 +1,26 @@
 package view.stockviews.items;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import application.DBClass;
+import entity.BarcodesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.AddEditMode;
 import model.Barcodes;
 import model.Items;
+import org.hibernate.query.Query;
+import utils.MessagesUtils;
+import view.AbstractController;
 
-public class BarcodesViewController {
+import java.util.List;
+
+public class BarcodesViewController extends AbstractController{
 	
 	private ObservableList<Barcodes> data;
-	private Connection connection;
-	private Stage dialogStage;
 	private static int itemId;
+	private AddEditMode mode;
+	private int barcodeId;
 	
 	@FXML
 	private Label itemLabel;
@@ -50,30 +45,35 @@ public class BarcodesViewController {
 
 	@FXML
 	private void initialize() {
+		getSessionData();
+
+		mode = AddEditMode.ADD;
+
 		barcodesColumn.setCellValueFactory(cellData -> cellData.getValue().barcodeProperty());
 	}
 	
 	public void buildData(int id){
 		data = FXCollections.observableArrayList();
-		
-		try{
-	    	connection = new DBClass().getConnection();
-	    	String SQL = "SELECT * FROM barcodes WHERE item_id = " + id + " ORDER BY id";
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	            Barcodes barcode = new Barcodes(rs.getInt("id"), 
-	            		rs.getString("barcode"),
-	            		rs.getInt("item_id"));
-	            data.add(barcode);   	       
-	        }
-	        barcodesTable.setItems(data);
-	    }
-	    catch(ClassNotFoundException ce){
-	    	ce.printStackTrace();
-	    }
-	    catch(SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("FROM BarcodesEntity WHERE itemId =:id");
+		query.setParameter("id", id);
+
+		List<BarcodesEntity> barcodesList = query.list();
+
+		for (BarcodesEntity barcodeItem : barcodesList) {
+			Barcodes barcodes = new Barcodes(barcodeItem.getId(),
+					barcodeItem.getBarcode(),
+					barcodeItem.getItemId());
+			data.add(barcodes);
+		}
+
+		tr.commit();
+		session.close();
+
+		barcodesTable.setItems(data);
 	}
 	
 	public void setItem(Items item) {
@@ -88,49 +88,51 @@ public class BarcodesViewController {
 	
 	@FXML
 	private void deleteBarcode() {
-		int indexToDelete = barcodesTable.getSelectionModel().getSelectedIndex();
 		Barcodes barcode = barcodesTable.getSelectionModel().getSelectedItem();
-		
-		if(barcode != null) {
-			try {
-		    	PreparedStatement statement = connection.prepareStatement("DELETE FROM barcodes WHERE id = ?");
-				statement.setInt(1, barcode.getId());
-				statement.executeUpdate();
-				
-				data.remove(indexToDelete);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Не выбран штрихкод для удаления");
-	        alert.setContentText("Для удаления выберите штрихкод из списка");
 
-	        alert.showAndWait();
-		}
+		if(barcode != null) {
+			barcodeId = barcode.getId();
+			mode = AddEditMode.DELETE;
+			addDeleteBarcode();
+		}else
+			MessagesUtils.showAlert("Не выбран штрихкод для удаления", "Для удаления выберите штрихкод из списка");
 	}
 	
 	@FXML
-	private void addBarcode() {
-		try {
-			connection = new DBClass().getConnection();
-			String SQL = "INSERT INTO barcodes SET barcode = '" 
-					+ barcodeAddField.getText().toString() + "', "
-					+ "item_id = '"
-					+ itemId + "';";
-			connection.createStatement().executeUpdate(SQL);
-			data.clear();
-			buildData(itemId);
-			barcodeAddField.setText("");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	private void addDeleteBarcode() {
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		if(mode.equals(AddEditMode.ADD)) {
+			if (barcodeAddField.getText().toString().length() != 0) {
+				session.save(createBarcodesEntity(0));
+				barcodeAddField.setText("");
+			} else
+				MessagesUtils.showAlert("Ошибка создания штрихкода", "Нельзя добавлять пустой штрихкод");
+		}else if(mode.equals(AddEditMode.DELETE)){
+			session.delete(createBarcodesEntity(barcodeId));
 		}
+
+		tr.commit();
+		session.close();
+
+		mode = AddEditMode.ADD;
+
+		data.clear();
+		buildData(itemId);
 	}
 	
 	@FXML
 	private void close() {
 		dialogStage.close();
+	}
+
+	@Override
+	protected void clearForm() {
+
+	}
+
+	private BarcodesEntity createBarcodesEntity(int id){
+		return new BarcodesEntity(id, barcodeAddField.getText().toString(), itemId);
 	}
 }
