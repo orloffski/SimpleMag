@@ -11,6 +11,9 @@
         <property name="price">
             <column name="price" sql-type="varchar(45)" length="45"/>
         </property>
+        <property name="itemId">
+            <column name="item_id" sql-type="int(11)"/>
+        </property>
         <property name="lastcreated">
             <column name="lastcreated" sql-type="timestamp"/>
         </property>

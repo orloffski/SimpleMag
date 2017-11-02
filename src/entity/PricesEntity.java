@@ -8,8 +8,20 @@ import java.sql.Timestamp;
 public class PricesEntity {
     private int id;
     private String price;
+    private int itemId;
     private Timestamp lastcreated;
     private String reason;
+
+    public PricesEntity() {
+    }
+
+    public PricesEntity(int id, String price, int itemId, Timestamp lastcreated, String reason) {
+        this.id = id;
+        this.price = price;
+        this.itemId = itemId;
+        this.lastcreated = lastcreated;
+        this.reason = reason;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +42,16 @@ public class PricesEntity {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Basic
+    @Column(name = "item_id", nullable = false)
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     @Basic
@@ -60,6 +82,7 @@ public class PricesEntity {
         PricesEntity that = (PricesEntity) o;
 
         if (id != that.id) return false;
+        if (itemId != that.itemId) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
         if (lastcreated != null ? !lastcreated.equals(that.lastcreated) : that.lastcreated != null) return false;
         if (reason != null ? !reason.equals(that.reason) : that.reason != null) return false;
@@ -71,6 +94,7 @@ public class PricesEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + itemId;
         result = 31 * result + (lastcreated != null ? lastcreated.hashCode() : 0);
         result = 31 * result + (reason != null ? reason.hashCode() : 0);
         return result;

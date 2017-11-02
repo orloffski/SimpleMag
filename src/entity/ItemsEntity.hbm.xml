@@ -20,5 +20,8 @@
         <property name="vendorCountry">
             <column name="vendor_country" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
+        <property name="unitId">
+            <column name="unit_id" sql-type="int(11)"/>
+        </property>
     </class>
 </hibernate-mapping>

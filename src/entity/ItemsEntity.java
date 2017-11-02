@@ -2,15 +2,29 @@ package entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
-@Table(name = "items", schema = "minimag")
+@Table(name = "items", schema = "minimag", catalog = "")
 public class ItemsEntity {
     private int id;
     private String vendorCode;
     private String name;
     private Timestamp createupdate;
     private String vendorCountry;
+    private int unitId;
+
+    public ItemsEntity() {
+    }
+
+    public ItemsEntity(int id, String vendorCode, String name, Timestamp createupdate, String vendorCountry, int unitId) {
+        this.id = id;
+        this.vendorCode = vendorCode;
+        this.name = name;
+        this.createupdate = createupdate;
+        this.vendorCountry = vendorCountry;
+        this.unitId = unitId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +77,16 @@ public class ItemsEntity {
         this.vendorCountry = vendorCountry;
     }
 
+    @Basic
+    @Column(name = "unit_id", nullable = false)
+    public int getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(int unitId) {
+        this.unitId = unitId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +100,7 @@ public class ItemsEntity {
         if (createupdate != null ? !createupdate.equals(that.createupdate) : that.createupdate != null) return false;
         if (vendorCountry != null ? !vendorCountry.equals(that.vendorCountry) : that.vendorCountry != null)
             return false;
+        if (unitId != that.unitId) return false;
 
         return true;
     }
@@ -87,6 +112,7 @@ public class ItemsEntity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (createupdate != null ? createupdate.hashCode() : 0);
         result = 31 * result + (vendorCountry != null ? vendorCountry.hashCode() : 0);
+        result = 31 * result + unitId;
         return result;
     }
 }

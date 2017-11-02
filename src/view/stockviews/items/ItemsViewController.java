@@ -1,13 +1,11 @@
 package view.stockviews.items;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 
-import application.DBClass;
 import application.Main;
+import entity.ItemsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,8 +13,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,14 +22,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Items;
+import utils.MessagesUtils;
+import view.AbstractController;
 
-public class ItemsViewController {
+public class ItemsViewController extends AbstractController {
 	
 	private Main main;
 	
 	private ObservableList<Items> data;
-	private DBClass dbClass;
-	private Connection connection;
+
+	private Items item;
 	
 	@FXML
 	private TableView<Items> itemsTable;
@@ -61,6 +59,8 @@ public class ItemsViewController {
 	
 	@FXML
 	private void initialize() {
+		getSessionData();
+
 		add.setImage(new Image("file:resources/images/add.png"));
 		edit.setImage(new Image("file:resources/images/edit.png"));
 		delete.setImage(new Image("file:resources/images/delete.png"));
@@ -68,20 +68,13 @@ public class ItemsViewController {
 		vendorCodeColumn.setCellValueFactory(cellData -> cellData.getValue().vendorCodeProperty());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		vendorCountryColumn.setCellValueFactory(cellData -> cellData.getValue().vendorCountryProperty());
-		
-		dbClass = new DBClass();
-	    try{
-	    	connection = dbClass.getConnection();
-	        buildData();	        	    
-	    }
-	    catch(ClassNotFoundException | SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		buildData();
 	}
 	
 	@FXML
 	private void addItem() {
-		Items item = new Items(0, null, null, null, 0);
+		item = new Items(0, null, null, null, 0);
 		
 		boolean okClicked = openAddEditItemDialog(item);
 		if(okClicked) {
@@ -92,7 +85,7 @@ public class ItemsViewController {
 	
 	@FXML
 	private void editItem() {
-		Items item = itemsTable.getSelectionModel().getSelectedItem();
+		item = itemsTable.getSelectionModel().getSelectedItem();
 		
 		if(item != null) {
 			boolean okClicked = openAddEditItemDialog(item);
@@ -100,60 +93,60 @@ public class ItemsViewController {
 				data.clear();
 				buildData();
 			}
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Ошибка редактирования");
-	        alert.setContentText("Для редактирования карточки товара выберите товар из списка");
-
-	        alert.showAndWait();
-		}
+		}else
+			MessagesUtils.showAlert("Ошибка редактирования", "Для редактирования карточки товара выберите товар из списка");
 		
 	}
 	
 	@FXML
-	private void deleteItem() {	
-		int indexToDelete = itemsTable.getSelectionModel().getSelectedIndex();
-		Items itemToDelete = itemsTable.getSelectionModel().getSelectedItem();
+	private void deleteItem() {
+		item = itemsTable.getSelectionModel().getSelectedItem();
 		
-		if(itemToDelete != null) {		
-		    try {
-		    	PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
-				statement.setInt(1, itemToDelete.getId());
-				statement.executeUpdate();
-				
-				data.remove(indexToDelete);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Ошибка удаления");
-	        alert.setContentText("Для удаления выберите карточку товара из списка");
+		if(item != null) {
+			session = sessFact.openSession();
+			tr = session.beginTransaction();
 
-	        alert.showAndWait();
-		}
+			session.delete(
+					new ItemsEntity(item.getId(),
+							"",
+							"",
+							new Timestamp(0),
+							"",
+							0));
+
+			tr.commit();
+			session.close();
+
+			data.clear();
+			buildData();
+		}else
+			MessagesUtils.showAlert("Ошибка удаления", "Для удаления выберите карточку товара из списка");
 	}
 	
 	public void buildData(){
 		data = FXCollections.observableArrayList();
-	    try{      
-	        String SQL = "SELECT * FROM items ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	            Items item = new Items(rs.getInt("id"), 
-	            		rs.getString("vendor_code"), 
-	            		rs.getString("name"),
-	            		rs.getString("vendor_country"),
-	            		rs.getInt("unit_id"));
-	            data.add(item);   	       
-	        }
-	        itemsTable.setItems(data);
-	        
-	        addFilter();
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<ItemsEntity> itemsList = session.createQuery("FROM ItemsEntity").list();
+
+		for(ItemsEntity itemsItem : itemsList){
+			Items item = new Items(itemsItem.getId(),
+					itemsItem.getVendorCode(),
+					itemsItem.getName(),
+					itemsItem.getVendorCountry(),
+					itemsItem.getUnitId());
+
+			data.add(item);
+		}
+
+		tr.commit();
+		session.close();
+
+		itemsTable.setItems(data);
+
+		addFilter();
 	}
 	
 	public void addFilter() {
@@ -211,4 +204,9 @@ public class ItemsViewController {
 	public void setMain(Main main) {
         this.main = main;
     }
+
+	@Override
+	protected void clearForm() {
+
+	}
 }

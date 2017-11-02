@@ -7,6 +7,16 @@ import javax.persistence.*;
 public class BarcodesEntity {
     private int id;
     private String barcode;
+    private int itemId;
+
+    public BarcodesEntity() {
+    }
+
+    public BarcodesEntity(int id, String barcode, int itemId) {
+        this.id = id;
+        this.barcode = barcode;
+        this.itemId = itemId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +39,16 @@ public class BarcodesEntity {
         this.barcode = barcode;
     }
 
+    @Basic
+    @Column(name = "item_id", nullable = false)
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,6 +57,7 @@ public class BarcodesEntity {
         BarcodesEntity that = (BarcodesEntity) o;
 
         if (id != that.id) return false;
+        if (itemId != that.itemId) return false;
         if (barcode != null ? !barcode.equals(that.barcode) : that.barcode != null) return false;
 
         return true;
@@ -46,6 +67,7 @@ public class BarcodesEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (barcode != null ? barcode.hashCode() : 0);
+        result = 31 * result + itemId;
         return result;
     }
 }

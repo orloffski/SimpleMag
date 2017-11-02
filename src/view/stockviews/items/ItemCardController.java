@@ -23,8 +23,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Items;
 import model.Units;
+import view.AbstractController;
 
-public class ItemCardController {
+public class ItemCardController extends AbstractController{
 	
 	private Main main;
 	
@@ -152,11 +153,7 @@ public class ItemCardController {
 	boolean isOkClicked() {
         return okClicked;
     }
-	
-	void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-	
+
 	void setItem(Items item) {
 		this.item = item;
 		
@@ -229,4 +226,9 @@ public class ItemCardController {
 	public void setMain(Main main) {
         this.main = main;
     }
+
+	@Override
+	protected void clearForm() {
+
+	}
 }
