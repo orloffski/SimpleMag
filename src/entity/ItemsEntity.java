@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
-@Table(name = "items", schema = "minimag", catalog = "")
+@Table(name = "items", schema = "minimag")
 public class ItemsEntity {
     private int id;
     private String vendorCode;

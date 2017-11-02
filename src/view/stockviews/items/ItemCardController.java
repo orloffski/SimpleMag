@@ -1,20 +1,19 @@
 package view.stockviews.items;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
-import application.DBClass;
 import application.Main;
+import entity.ItemsEntity;
+import entity.UnitsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
@@ -22,19 +21,18 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Items;
-import model.Units;
+import utils.MessagesUtils;
 import view.AbstractController;
 
 public class ItemCardController extends AbstractController{
 	
 	private Main main;
-	
-	private Connection connection;
+
 	private Items item;
-	private Stage dialogStage;
 	private boolean okClicked = false;
 	private boolean newItem = true;
-	private ObservableList<String> units;
+	private ObservableList<String> unitsData;
+	private int unitId = -1;
 	
 	@FXML
 	private ComboBox<String> unitComboBox;
@@ -56,12 +54,9 @@ public class ItemCardController extends AbstractController{
 
 	@FXML
 	private void initialize() {
-		try {
-			connection = new DBClass().getConnection();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		init();
+		getSessionData();
+
+		initComboBox();
 	}
 	
 	@FXML
@@ -72,82 +67,44 @@ public class ItemCardController extends AbstractController{
 	@FXML
     private void handleOK() {
 		if(checkItem()) {
-			String SQL = "";
-			try {				
-				connection = new DBClass().getConnection();
-				if(newItem) {
-					SQL = "INSERT INTO items "
-							+ "SET vendor_code = '"
-							+ vendorCode.getText().toString() + "', "
-							+ "name = '" 
-							+ name.getText().toString() + "', "
-							+ "vendor_country = '"
-							+ vendorCountry.getText().toString() + "', "
-							+ "unit_id = "
-							+ "(SELECT id FROM units WHERE unit = '" + unitComboBox.getValue()
-							+ "');";
+			session = sessFact.openSession();
+			tr = session.beginTransaction();
 
-					int inserted = connection.createStatement().executeUpdate(SQL);
+			if(newItem) {
+				session.save(createItemsEntity(0));
+				saveBtn.setDisable(true);
+			}else
+				session.update(createItemsEntity(this.item.getId()));
 
-					if(inserted == 1){
-						SQL = "SELECT * FROM items ORDER BY id DESC LIMIT 1";
-						ResultSet rs = connection.createStatement().executeQuery(SQL);
-
-						if(rs.next()) {
-							this.item = new Items(rs.getInt("id"),
-									rs.getString("vendor_code"),
-									rs.getString("name"),
-									rs.getString("vendor_country"),
-									rs.getInt("unit_id"));
-						}
-					}
-				}else {
-					SQL = "UPDATE items "
-							+ "SET vendor_code = '" + vendorCode.getText().toString() + "', "
-							+ "name = '" + name.getText().toString() + "', "
-							+ "vendor_country = '"
-							+ (vendorCountry.getText() != null ? vendorCountry.getText().toString() : "") + "', "
-							+ "unit_id = " + "(SELECT id FROM units WHERE unit = '" + unitComboBox.getValue() + "') "
-							+ "WHERE id = " + this.item.getId() + ";";
-
-					connection.createStatement().executeUpdate(SQL);
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				System.out.println(SQL);
-				e.printStackTrace();
-			}			
+			tr.commit();
+			session.close();
 			
 			okClicked = true;
-			//dialogStage.close();
-			saveBtn.setDisable(true);
-		}else {
-			Alert alert = new Alert(AlertType.WARNING);
-	        alert.setTitle("Ошибка сохранения");
-	        alert.setContentText("Для сохранения карточки товара заполните все поля");
-
-	        alert.showAndWait();
-		}
+		}else
+			MessagesUtils.showAlert("Ошибка сохранения", "Для сохранения карточки товара заполните все поля");
     }
 	
-	private void init() {
-		units = FXCollections.observableArrayList();
-		
-		try{      
-	        String SQL = "SELECT * FROM units";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	            Units unit = new Units(rs.getInt("id"), 
-	            		rs.getString("unit"));
-	            //unitsData.add(unit);
-	            units.add(unit.getUnit());
-	        }
-	    }catch(Exception e){
-	          e.printStackTrace();           
-	    }
-		
-		unitComboBox.setItems(units);
+	private void initComboBox() {
+		unitsData = FXCollections.observableArrayList();
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<UnitsEntity> itemsList = session.createQuery("FROM UnitsEntity").list();
+
+		for(UnitsEntity unitsItem : itemsList)
+			unitsData.add(unitsItem.getUnit());
+
+		tr.commit();
+		session.close();
+
+		unitComboBox.setItems(unitsData);
+
+		unitComboBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+			for(UnitsEntity unitsItem : itemsList)
+				if(unitsItem.getUnit().equals(newValue))
+					unitId = unitsItem.getId();
+		}));
 	}
 	
 	boolean isOkClicked() {
@@ -164,14 +121,17 @@ public class ItemCardController extends AbstractController{
 			vendorCode.setText(item.getVendorCode());
 			name.setText(item.getName());
 			vendorCountry.setText(item.getVendorCountry());
-			unitComboBox.setValue(units.get(item.getUnitId() - 1));
+			unitComboBox.setValue(unitsData.get(item.getUnitId() - 1));
 		}else{
 			dialogStage.setTitle("Создание карточки товара");
 		}
 	}
 	
 	private boolean checkItem() {
-		return vendorCode.getText().length() != 0 && name.getText().length() != 0;
+		return vendorCode.getText().length() != 0 &&
+				name.getText().length() != 0 &&
+				vendorCountry.getText().length() != 0 &&
+				unitId != -1;
 
 	}
 	
@@ -227,8 +187,20 @@ public class ItemCardController extends AbstractController{
         this.main = main;
     }
 
+	private ItemsEntity createItemsEntity(int id){
+		return new ItemsEntity(id,
+				vendorCode.getText().toString(),
+				name.getText().toString(),
+				new Timestamp(new Date().getTime()),
+				vendorCountry.getText().toString(),
+				unitId);
+	}
+
 	@Override
 	protected void clearForm() {
-
+		vendorCode.setText("");
+		name.setText("");
+		vendorCountry.setText("");
+		unitComboBox.getSelectionModel().select(0);
 	}
 }
