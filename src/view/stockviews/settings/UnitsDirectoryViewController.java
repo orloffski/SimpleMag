@@ -120,7 +120,7 @@ public class UnitsDirectoryViewController extends AbstractController{
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
-		List<UnitsEntity> unitsList = session.createCriteria(UnitsEntity.class).list();
+		List<UnitsEntity> unitsList = session.createQuery("FROM UnitsEntity").list();
 
 		for (UnitsEntity unitItem : unitsList) {
 			Units unit = new Units(unitItem.getId(),

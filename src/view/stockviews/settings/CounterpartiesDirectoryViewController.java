@@ -138,7 +138,7 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
-		List<CounterpartiesEntity> counterpartiesList = session.createCriteria(CounterpartiesEntity.class).list();
+		List<CounterpartiesEntity> counterpartiesList = session.createQuery("FROM CounterpartiesEntity").list();
 
 		for (CounterpartiesEntity counterpartyItem : counterpartiesList) {
 			Counterparties counterparty = new Counterparties(counterpartyItem.getId(),
