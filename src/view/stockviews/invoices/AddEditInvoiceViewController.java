@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
+import utils.MessagesUtils;
 import utils.NumberUtils;
 import view.stockviews.BarcodeItemsViewController;
 
@@ -133,7 +134,8 @@ public class AddEditInvoiceViewController {
 	@FXML
 	private void addLine(){
 		if(invoice.getStatus().toLowerCase().equals("проведен")){
-			viewErrorMessage();
+			MessagesUtils.showAlert("Ошибка редактирования",
+					"Ошибка редактирования документа, для редактирования отмените проведение");
 
 			return;
 		}
@@ -184,7 +186,8 @@ public class AddEditInvoiceViewController {
 	@FXML
 	private void deleteLine(){
 		if(invoice.getStatus().toLowerCase().equals("проведен")){
-			viewErrorMessage();
+			MessagesUtils.showAlert("Ошибка редактирования",
+					"Ошибка редактирования документа, для редактирования отмените проведение");
 
 			return;
 		}
@@ -370,14 +373,6 @@ public class AddEditInvoiceViewController {
 		}
 	}
 
-	private void viewErrorMessage(){
-		Alert alert = new Alert(Alert.AlertType.WARNING);
-		alert.setTitle("ошибка редактирования");
-		alert.setContentText("Ошибка редактирования документа, для редактирования отмените проведение");
-
-		alert.showAndWait();
-	}
-
 	private int getNewItemBarcode(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
@@ -501,7 +496,8 @@ public class AddEditInvoiceViewController {
 
 	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine){
 		if(invoice.getStatus().toLowerCase().equals("проведен")){
-			viewErrorMessage();
+			MessagesUtils.showAlert("Ошибка редактирования",
+					"Ошибка редактирования документа, для редактирования отмените проведение");
 
 			return;
 		}
