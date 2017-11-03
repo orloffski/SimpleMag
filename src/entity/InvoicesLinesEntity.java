@@ -18,6 +18,24 @@ public class InvoicesLinesEntity {
     private Double summVat;
     private Double summInclVat;
 
+    public InvoicesLinesEntity() {
+    }
+
+    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Byte vat, Byte extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summInclVat) {
+        this.id = id;
+        this.lineNumber = lineNumber;
+        this.invoiceNumber = invoiceNumber;
+        this.itemId = itemId;
+        this.vendorPrice = vendorPrice;
+        this.vat = vat;
+        this.extraPrice = extraPrice;
+        this.retailPrice = retailPrice;
+        this.itemName = itemName;
+        this.count = count;
+        this.summVat = summVat;
+        this.summInclVat = summInclVat;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

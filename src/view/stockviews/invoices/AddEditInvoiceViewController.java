@@ -572,21 +572,25 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private void setLineToDB(InvoiceLine line){
-		try{
-			String SQL = "UPDATE invoices_lines "
-					+ "SET count = " + line.getCount() + ", "
-					+ "vendor_price = " + line.getVendorPrice() + ", "
-					+ "vat = " + line.getVat() + ", "
-					+ "extra_price = " + line.getExtraPrice() + ", "
-					+ "summ_vat = " + line.getSummVat() + ", "
-					+ "summ_incl_vat = " + line.getSummIncludeVat() + ", "
-					+ "retail_price = " + line.getRetailPrice() + " "
-					+ "WHERE id = " + line.getId() + ";";
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
 
-			connection.createStatement().executeUpdate(SQL);
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
+		session.update(new InvoicesLinesEntity(
+				line.getId(),
+				line.getLineNumber(),
+				line.getInvoiceNumber(),
+				line.getItemId(),
+				line.getVendorPrice(),
+				(byte)line.getVat(),
+				(byte)line.getExtraPrice(),
+				line.getRetailPrice(),
+				line.getItemName(),
+				line.getCount(),
+				line.getSummVat(),
+				line.getSummIncludeVat()));
+
+		tr.commit();
+		session.close();
 	}
 	
 	private void loadInvoiceLines(String invoiceNumber) {
