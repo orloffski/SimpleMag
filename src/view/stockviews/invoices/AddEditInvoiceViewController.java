@@ -20,6 +20,7 @@ import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import utils.MessagesUtils;
 import utils.NumberUtils;
+import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
@@ -30,14 +31,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEditInvoiceViewController {
+public class AddEditInvoiceViewController extends AbstractController{
 
 	private Main main;
 	private ObservableList<String> counterpartiesData;
 	private ObservableList<InvoiceLine> InvoiceLineData;
 	private DBClass dbClass;
 	private Connection connection;
-	private Stage dialogStage;
 	private InvoiceHeader invoice;
 	private AddEditMode mode;
 	private boolean okClicked = false;
@@ -648,10 +648,11 @@ public class AddEditInvoiceViewController {
 	          e.printStackTrace();           
 	    }
 	}
-	
-	void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
+
+	@Override
+	protected void clearForm() {
+
+	}
 	
 	public void setMain(Main main) {
 		this.main = main;
