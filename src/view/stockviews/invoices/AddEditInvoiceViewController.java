@@ -3,6 +3,7 @@ package view.stockviews.invoices;
 import application.DBClass;
 import application.Main;
 import entity.CounterpartiesEntity;
+import entity.InvoicesLinesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
+import org.hibernate.query.Query;
 import utils.MessagesUtils;
 import utils.NumberUtils;
 import view.AbstractController;
@@ -587,7 +589,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 		}
 	}
 	
-	private void loadInvoiceLines(String invoiceNimber) {
+	private void loadInvoiceLines(String invoiceNumber) {
 		InvoiceLineData = FXCollections.observableArrayList();
 		int itemsCount = 0;
 		double itemsSumm = 0;
@@ -595,43 +597,44 @@ public class AddEditInvoiceViewController extends AbstractController{
 		double summIncludeVat = 0;
 		double fullDocSumm = invoice != null ? invoice.getFullSumm() : 0;
 
-		try{      
-	        String SQL = "SELECT * FROM invoices_lines WHERE invoice_number = '" + invoiceNimber + "' ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	        	InvoiceLine line = new InvoiceLine(
-	        			rs.getInt("id"),
-	        			rs.getInt("line_number"),
-	        			rs.getString("invoice_number"),
-	        			rs.getInt("item_id"),
-	        			rs.getDouble("vendor_price"),
-	        			rs.getInt("vat"),
-	        			rs.getInt("extra_price"),
-	        			rs.getDouble("retail_price"),
-	        			rs.getString("item_name"),
-	        			rs.getInt("count"),
-						rs.getDouble("summ_vat"),
-						rs.getDouble("summ_incl_vat")
-	        			);
-	        	InvoiceLineData.add(line);
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
 
-	        	itemsCount += line.getCount();
-				itemsSumm += line.getCount() * line.getVendorPrice();
-				summVat += line.getSummVat();
-				summIncludeVat += line.getSummIncludeVat();
-	        }
+		Query query = session.createQuery("FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber ORDER BY id");
+		query.setParameter("invoiceNumber", invoiceNumber);
 
-	        invoiceLinesTable.setItems(InvoiceLineData);
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+		List<InvoicesLinesEntity> invoiceLinesList = query.list();
 
-		this.summIncludeVat.setText(String.format( "%.2f", summIncludeVat ).replace(",","."));
-		this.summVat.setText(String.format( "%.2f", summVat ).replace(",","."));
-		this.count.setText(String.valueOf(itemsCount));
-		this.summ.setText(String.format( "%.2f", itemsSumm ).replace(",","."));
-		this.fullDocSumm.setText(String.format( "%.2f", fullDocSumm ).replace(",","."));
+		for(InvoicesLinesEntity invoicesLinesItem : invoiceLinesList){
+			InvoiceLine line = new InvoiceLine(
+					invoicesLinesItem.getId(),
+					invoicesLinesItem.getLineNumber(),
+					invoicesLinesItem.getInvoiceNumber(),
+					invoicesLinesItem.getItemId(),
+					invoicesLinesItem.getVendorPrice(),
+					invoicesLinesItem.getVat().intValue(),
+					invoicesLinesItem.getExtraPrice().intValue(),
+					invoicesLinesItem.getRetailPrice(),
+					invoicesLinesItem.getItemName(),
+					invoicesLinesItem.getCount(),
+					invoicesLinesItem.getSummVat(),
+					invoicesLinesItem.getSummInclVat()
+			);
+
+			InvoiceLineData.add(line);
+
+			itemsCount += line.getCount();
+			itemsSumm += line.getCount() * line.getVendorPrice();
+			summVat += line.getSummVat();
+			summIncludeVat += line.getSummIncludeVat();
+		}
+
+		invoiceLinesTable.setItems(InvoiceLineData);
+
+		tr.commit();
+		session.close();
+
+		updateForm(summIncludeVat, summVat, itemsCount, itemsSumm, fullDocSumm);
 	}
 	
 	private void loadCounterParties(String value) {
@@ -666,4 +669,12 @@ public class AddEditInvoiceViewController extends AbstractController{
 	boolean isOkClicked() {
         return okClicked;
     }
+
+    private void updateForm(double summIncludeVat, double summVat, int itemsCount, double itemsSumm, double fullDocSumm){
+		this.summIncludeVat.setText(String.format( "%.2f", summIncludeVat ).replace(",","."));
+		this.summVat.setText(String.format( "%.2f", summVat ).replace(",","."));
+		this.count.setText(String.valueOf(itemsCount));
+		this.summ.setText(String.format( "%.2f", itemsSumm ).replace(",","."));
+		this.fullDocSumm.setText(String.format( "%.2f", fullDocSumm ).replace(",","."));
+	}
 }
