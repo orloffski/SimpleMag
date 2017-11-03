@@ -21,6 +21,26 @@ public class InvoicesHeadersEntity {
     private String ttnNumber;
     private String ttnDate;
 
+    public InvoicesHeadersEntity() {
+    }
+
+    public InvoicesHeadersEntity(int id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, Timestamp lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNumber, String ttnDate) {
+        this.id = id;
+        this.number = number;
+        this.type = type;
+        this.status = status;
+        this.counterparty = counterparty;
+        this.count = count;
+        this.summ = summ;
+        this.counterpartyId = counterpartyId;
+        this.lastcreated = lastcreated;
+        this.recipientId = recipientId;
+        this.recipientName = recipientName;
+        this.fullSumm = fullSumm;
+        this.ttnNumber = ttnNumber;
+        this.ttnDate = ttnDate;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

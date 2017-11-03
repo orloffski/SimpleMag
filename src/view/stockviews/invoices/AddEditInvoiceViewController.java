@@ -3,6 +3,7 @@ package view.stockviews.invoices;
 import application.DBClass;
 import application.Main;
 import entity.CounterpartiesEntity;
+import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,10 +28,7 @@ import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -558,17 +556,28 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private void setHeaderToDB(InvoiceHeader header){
-		try{
-			String SQL = "UPDATE invoices_headers "
-					+ "SET summ = " + header.getSumm() + ", "
-					+ "count = " + header.getCount() + ", "
-					+ "full_summ = " + header.getFullSumm() + " "
-					+ "WHERE id = " + header.getId() + ";";
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
 
-			connection.createStatement().executeUpdate(SQL);
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
+		session.update(new InvoicesHeadersEntity(
+				header.getId(),
+				header.getNumber(),
+				header.getType(),
+				header.getStatus(),
+				header.getCounterparty(),
+				header.getCount(),
+				header.getSumm(),
+				header.getCounterpartyId(),
+				new Timestamp(Long.parseLong(header.getLastcreated())),
+				header.getRecipientId(),
+				header.getRecipientName(),
+				header.getFullSumm(),
+				header.getTtnNo(),
+				header.getTtnDate()
+		));
+
+		tr.commit();
+		session.close();
 	}
 
 	private void setLineToDB(InvoiceLine line){
