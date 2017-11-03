@@ -2,6 +2,7 @@ package view.stockviews.invoices;
 
 import application.DBClass;
 import application.Main;
+import entity.CounterpartiesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -119,6 +120,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 	@FXML
 	private void initialize() {
+		getSessionData();
+
 		addLine.setImage(new Image("file:resources/images/add.png"));
 		deleteLine.setImage(new Image("file:resources/images/delete.png"));
 		
@@ -633,20 +636,22 @@ public class AddEditInvoiceViewController extends AbstractController{
 	
 	private void loadCounterParties(String value) {
 		counterpartiesData = FXCollections.observableArrayList();
-	    try{      
-	        String SQL = "SELECT * FROM counterparties ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	        	counterpartiesData.add(rs.getString("name"));   	       
-	        }
-	        
-	        counterparty.setItems(counterpartiesData);
-	        if(!value.isEmpty())
-	        	counterparty.setValue(value);
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<CounterpartiesEntity> counterpartiesList = session.createQuery("FROM CounterpartiesEntity ").list();
+
+		for(CounterpartiesEntity counterpartiesItem : counterpartiesList){
+			counterpartiesData.add(counterpartiesItem.getName());
+		}
+
+		counterparty.setItems(counterpartiesData);
+		if(!value.isEmpty())
+			counterparty.setValue(value);
+
+		tr.commit();
+		session.close();
 	}
 
 	@Override
