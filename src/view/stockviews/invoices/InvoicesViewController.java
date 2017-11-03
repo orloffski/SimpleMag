@@ -1,13 +1,7 @@
 package view.stockviews.invoices;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import application.DBClass;
 import application.Main;
+import entity.InvoicesHeadersEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,14 +18,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.InvoiceHeader;
+import org.hibernate.query.Query;
+import utils.MessagesUtils;
+import view.AbstractController;
 
-public class InvoicesViewController {
+import java.io.IOException;
+import java.util.List;
+
+public class InvoicesViewController extends AbstractController{
 	
 	private Main main;
 	
 	private ObservableList<InvoiceHeader> data;
-	private DBClass dbClass;
-	private Connection connection;
 	
 	@FXML
 	private TableView<InvoiceHeader> invoicesTable;
@@ -71,6 +69,8 @@ public class InvoicesViewController {
 
 	@FXML
 	private void initialize() {
+		getSessionData();
+
 		addBtn.setImage(new Image("file:resources/images/add.png"));
 		editBtn.setImage(new Image("file:resources/images/edit.png"));
 		deleteBtn.setImage(new Image("file:resources/images/delete.png"));
@@ -82,15 +82,8 @@ public class InvoicesViewController {
 		counterpartyColumn.setCellValueFactory(cellData -> cellData.getValue().counterpartyProperty());
 		countColumn.setCellValueFactory(cellData -> cellData.getValue().countProperty());
 		summColumn.setCellValueFactory(cellData -> cellData.getValue().fullSummProperty());
-		
-		dbClass = new DBClass();
-	    try{
-	    	connection = dbClass.getConnection();
-	        buildData();	        	    
-	    }
-	    catch(ClassNotFoundException | SQLException ce){
-	    	ce.printStackTrace();
-	    }
+
+		buildData();
 	}
 	
 	@FXML
@@ -115,24 +108,19 @@ public class InvoicesViewController {
 
 	@FXML
 	private void deleteInvoice(){
-		int indexToDelete = invoicesTable.getSelectionModel().getSelectedIndex();
 		InvoiceHeader invoice = invoicesTable.getSelectionModel().getSelectedItem();
-		String invoiceNumber = invoice.getNumber();
-		int invoiceId = invoice.getId();
 
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement("DELETE FROM invoices_headers WHERE id = ?");
-			statement.setInt(1, invoiceId);
-			statement.executeUpdate();
+		if(invoice != null){
+			String invoiceNumber = invoice.getNumber();
+			int invoiceId = invoice.getId();
 
-			statement = connection.prepareStatement("DELETE FROM invoices_lines WHERE invoice_number = ?");
-			statement.setString(1, invoiceNumber);
-			statement.executeUpdate();
+			deleteLines(invoiceNumber);
+			deleteHeader(invoiceId);
 
-			data.remove(indexToDelete);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			data.clear();
+			buildData();
+		}else{
+			MessagesUtils.showAlert("Ошибка удаления накладной","Выберите накладную для удаления.");
 		}
 	}
 	
@@ -165,34 +153,37 @@ public class InvoicesViewController {
 	
 	private void buildData(){
 		data = FXCollections.observableArrayList();
-	    try{      
-	        String SQL = "SELECT * FROM invoices_headers ORDER BY id";            
-	        ResultSet rs = connection.createStatement().executeQuery(SQL);  
-	        while(rs.next()){
-	        	InvoiceHeader invoice = new InvoiceHeader(
-	        			rs.getInt("id"), 
-	            		rs.getString("number"), 
-	            		rs.getString("type"),
-	            		rs.getString("status"),
-	            		rs.getString("counterparty"),
-	            		rs.getInt("count"),
-	            		rs.getDouble("summ"),
-	            		rs.getInt("counterparty_id"),
-	            		rs.getString("lastcreated"),
-	            		rs.getInt("recipient_id"),
-	            		rs.getString("recipient_name"),
-						rs.getDouble("full_summ"),
-						rs.getString("ttn_number"),
-						rs.getString("ttn_date"));
-	            data.add(invoice);   	       
-	        }
-	        invoicesTable.setItems(data);
-	        
-	        addFilter();
-	    }
-	    catch(Exception e){
-	          e.printStackTrace();           
-	    }
+
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		List<InvoicesHeadersEntity> invoicesList = session.createQuery("FROM InvoicesHeadersEntity").list();
+
+		for (InvoicesHeadersEntity invHeader : invoicesList) {
+			InvoiceHeader headerItem = new InvoiceHeader(
+					invHeader.getId(),
+					invHeader.getNumber(),
+					invHeader.getType(),
+					invHeader.getStatus(),
+					invHeader.getCounterparty(),
+					invHeader.getCount(),
+					invHeader.getSumm(),
+					invHeader.getCounterpartyId(),
+					invHeader.getLastcreated().toString(),
+					invHeader.getRecipientId(),
+					invHeader.getRecipientName(),
+					invHeader.getFullSumm(),
+					invHeader.getTtnNumber(),
+					invHeader.getTtnDate());
+			data.add(headerItem);
+		}
+
+		invoicesTable.setItems(data);
+
+		addFilter();
+
+		tr.commit();
+		session.close();
 	}
 	
 	private void addFilter() {
@@ -221,4 +212,33 @@ public class InvoicesViewController {
 	public void setMain(Main main) {
         this.main = main;
     }
+
+	@Override
+	protected void clearForm() {
+
+	}
+
+	private void deleteLines(String invoiceNumber){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("DELETE FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber");
+		query.setParameter("invoiceNumber", invoiceNumber);
+		query.executeUpdate();
+
+		tr.commit();
+		session.close();
+	}
+
+	private void deleteHeader(int id){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("DELETE FROM InvoicesHeadersEntity WHERE id =:id");
+		query.setParameter("id", id);
+		query.executeUpdate();
+
+		tr.commit();
+		session.close();
+	}
 }
