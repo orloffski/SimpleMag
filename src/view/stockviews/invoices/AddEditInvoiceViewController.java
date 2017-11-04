@@ -296,32 +296,26 @@ public class AddEditInvoiceViewController extends AbstractController{
 	
 	@FXML
 	private void documentSetAction() {
-		if(type.getValue().toLowerCase().equals("поступление"))
+		if(type.getValue().toLowerCase().equals("поступление") || type.getValue().toLowerCase().equals("ввод начальных остатков"))
 			if(status.getText().toLowerCase().equals("проведен")){
 				setPrices(false, invoice.getNumber());
 			}else{
 				setPrices(true, invoice.getNumber());
 			}
 
-		try{
-			PreparedStatement statement =
-					connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ?, ttn_number = ?, ttn_date = ? WHERE number = ?");
-			statement.setString(1, number.getText());
-			statement.setString(2, type.getValue());
-			statement.setString(3, counterparty.getValue());
-			statement.setString(4, status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
-			statement.setString(5, ttnNo.getText());
-			statement.setString(6, ttnDate.getEditor().getText());
-			statement.setString(7, invoice.getNumber());
-			statement.executeUpdate();
+		this.invoice.setNumber(number.getText());
+		this.invoice.setType(type.getValue());
+		this.invoice.setCounterparty(counterparty.getValue());
+		this.invoice.setStatus(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+		this.invoice.setTtnNo(ttnNo.getText());
+		this.invoice.setTtnDate(ttnDate.getEditor().getText());
 
-			status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+		setHeaderToDB(this.invoice);
 
-			documentSet.setText(status.getText().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
-			this.invoice.setStatus(status.getText());
-		}catch(Exception e){
-	          e.printStackTrace();           
-	    }
+		status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+
+		documentSet.setText(status.getText().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
+		this.invoice.setStatus(status.getText());
 	}
 
 	private void setPrices(boolean set, String invoiceNum){
