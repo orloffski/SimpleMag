@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.List;
+
 public class Counterparties {
 
 	private final IntegerProperty id;
@@ -69,5 +71,13 @@ public class Counterparties {
 
     public StringProperty unnProperty() {
         return unn;
+    }
+
+    public static int getCounterpartyIdByName(List<Counterparties> list, String name){
+	    for(Counterparties item : list)
+	        if(item.getName().equals(name))
+	            return item.getId();
+
+	    return -1;
     }
 }

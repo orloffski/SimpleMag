@@ -39,6 +39,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 	private Main main;
 	private ObservableList<String> counterpartiesData;
 	private ObservableList<InvoiceLine> InvoiceLineData;
+	private List<Counterparties> counterparties;
 	private DBClass dbClass;
 	private Connection connection;
 	private InvoiceHeader invoice;
@@ -241,57 +242,31 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 	@FXML
 	private void saveDocument(){
-		try{
-			if(this.invoice == null){
-				String SQL = "INSERT INTO invoices_headers SET "
-						+ "number = '" + number.getText() + "', "
-						+ "type = '" + type.getValue() + "', "
-						+ "status = '" + status.getText() + "', "
-						+ "ttn_number = '" + ttnNo.getText() + "', "
-						+ "ttn_date = '" + ttnDate.getEditor().getText() + "', "
-						+ "counterparty = '" + counterparty.getValue() + "';";
+		if(this.invoice == null){
+			this.invoice = createHeader();
 
-				String SQL2 = "SELECT * FROM invoices_headers ORDER BY id DESC LIMIT 1";
-				connection.createStatement().executeUpdate(SQL);
+			session = sessFact.openSession();
+			tr = session.beginTransaction();
 
-				ResultSet rs = connection.createStatement().executeQuery(SQL2);
-				if (rs.next()) {
-					InvoiceHeader invoice = new InvoiceHeader(
-							rs.getInt("id"),
-							rs.getString("number"),
-							rs.getString("type"),
-							rs.getString("status"),
-							rs.getString("counterparty"),
-							rs.getInt("count"),
-							rs.getDouble("summ"),
-							rs.getInt("counterparty_id"),
-							rs.getString("lastcreated"),
-							rs.getInt("recipient_id"),
-							rs.getString("recipient_name"),
-							rs.getDouble("full_summ"),
-							rs.getString("ttn_number"),
-							rs.getString("ttn_date"));
+			session.save(createHeaderEntityFromHeader(this.invoice));
 
-					this.invoice = invoice;
-				}
-			}else{
-				PreparedStatement statement =
-						connection.prepareStatement("UPDATE invoices_headers SET number = ?, type = ?, counterparty = ?, status = ?, ttn_number = ?, ttn_date = ? WHERE number = ?");
-				statement.setString(1, number.getText());
-				statement.setString(2, type.getValue());
-				statement.setString(3, counterparty.getValue());
-				statement.setString(4, status.getText());
-				statement.setString(5, ttnNo.getText());
-				statement.setString(6, ttnDate.getEditor().getText());
-				statement.setString(7, invoice.getNumber());
-				statement.executeUpdate();
-			}
+			tr.commit();
+			session.close();
+		}else{
+			this.invoice = updateHeader(
+				this.invoice,
+				number.getText(),
+				type.getValue(),
+				counterparty.getValue(),
+				status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен",
+				ttnNo.getText(),
+				ttnDate.getEditor().getText());
 
-			documentSave.setDisable(true);
-			documentSet.setDisable(false);
-		}catch(Exception e){
-			e.printStackTrace();
+			setHeaderToDB(this.invoice);
 		}
+
+		documentSave.setDisable(true);
+		documentSet.setDisable(false);
 	}
 	
 	@FXML
@@ -303,12 +278,14 @@ public class AddEditInvoiceViewController extends AbstractController{
 				setPrices(true, invoice.getNumber());
 			}
 
-		this.invoice.setNumber(number.getText());
-		this.invoice.setType(type.getValue());
-		this.invoice.setCounterparty(counterparty.getValue());
-		this.invoice.setStatus(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
-		this.invoice.setTtnNo(ttnNo.getText());
-		this.invoice.setTtnDate(ttnDate.getEditor().getText());
+		this.invoice = updateHeader(
+				this.invoice,
+				number.getText(),
+				type.getValue(),
+				counterparty.getValue(),
+				status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен",
+				ttnNo.getText(),
+				ttnDate.getEditor().getText());
 
 		setHeaderToDB(this.invoice);
 
@@ -586,9 +563,17 @@ public class AddEditInvoiceViewController extends AbstractController{
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
+		this.counterparties = new ArrayList<>();
 		List<CounterpartiesEntity> counterpartiesList = session.createQuery("FROM CounterpartiesEntity ").list();
 
 		for(CounterpartiesEntity counterpartiesItem : counterpartiesList){
+			this.counterparties.add(new Counterparties(
+					counterpartiesItem.getId(),
+					counterpartiesItem.getName(),
+					counterpartiesItem.getAdress(),
+					counterpartiesItem.getUnn()
+			));
+
 			counterpartiesData.add(counterpartiesItem.getName());
 		}
 
@@ -676,5 +661,53 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 		tr.commit();
 		session.close();
+	}
+
+	private InvoiceHeader updateHeader(InvoiceHeader headerToUpdate, String docNumber, String docType, String counterpartyName, String status, String ttnNo, String ttnDate){
+		headerToUpdate.setNumber(docNumber);
+		headerToUpdate.setType(docType);
+		headerToUpdate.setCounterparty(counterpartyName);
+		headerToUpdate.setStatus(status);
+		headerToUpdate.setTtnNo(ttnNo);
+		headerToUpdate.setTtnDate(ttnDate);
+
+		return headerToUpdate;
+	}
+
+	private InvoiceHeader createHeader(){
+		return new InvoiceHeader(
+				0, number.getText(),
+				type.getValue(),
+				status.getText(),
+				counterparty.getValue(),
+				count.getText().equals("") ? 0 : Integer.parseInt(count.getText()),
+				summ.getText().equals("") ? 0 : Double.parseDouble(summ.getText()),
+				Counterparties.getCounterpartyIdByName(counterparties, counterparty.getValue()),
+				String.valueOf(new Timestamp(new Date().getTime())),
+				1,
+				"1",
+				fullDocSumm.getText().equals("") ? 0 : Double.parseDouble(fullDocSumm.getText()),
+				ttnNo.getText(),
+				ttnDate.getEditor().getText()
+		);
+	}
+
+	private InvoicesHeadersEntity createHeaderEntityFromHeader(InvoiceHeader header){
+		return new InvoicesHeadersEntity(
+			header.getId(),
+			header.getNumber(),
+			header.getType(),
+			header.getStatus(),
+				header.getCounterparty(),
+				header.getCount(),
+				header.getSumm(),
+				header.getCounterpartyId(),
+				new Timestamp(new Date().getTime()),
+				header.getRecipientId(),
+				header.getRecipientName(),
+				header.getFullSumm(),
+				header.getTtnNo(),
+				header.getTtnDate()
+		);
 	}
 }
