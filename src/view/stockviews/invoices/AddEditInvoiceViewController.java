@@ -5,6 +5,7 @@ import application.Main;
 import entity.CounterpartiesEntity;
 import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
+import entity.PricesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ import view.stockviews.BarcodeItemsViewController;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddEditInvoiceViewController extends AbstractController{
@@ -323,56 +325,16 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private void setPrices(boolean set, String invoiceNum){
-		PreparedStatement statement = null;
-
 		if(set) {
-			List<InvoiceLine> lines = new ArrayList<>();
-
-			try {
-				String SQL = "SELECT * FROM invoices_lines WHERE invoice_number = '" + invoiceNum + "' ORDER BY id";
-				ResultSet rs = connection.createStatement().executeQuery(SQL);
-				while (rs.next()) {
-					InvoiceLine line = new InvoiceLine(
-							rs.getInt("id"),
-							rs.getInt("line_number"),
-							rs.getString("invoice_number"),
-							rs.getInt("item_id"),
-							rs.getDouble("vendor_price"),
-							rs.getInt("vat"),
-							rs.getInt("extra_price"),
-							rs.getDouble("retail_price"),
-							rs.getString("item_name"),
-							rs.getInt("count"),
-							rs.getDouble("summ_vat"),
-							rs.getDouble("summ_incl_vat")
-					);
-					lines.add(line);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			List<InvoiceLine> lines = getInvoiceLines(invoiceNum);
 
 			if (lines.size() > 0) {
 				for (InvoiceLine line : lines) {
-					String SQL = "INSERT INTO prices SET " +
-							"price = '" + line.getRetailPrice() + "', " +
-							"item_id = " + line.getItemId() + ", " +
-							"reason = '" + invoiceNum + "';";
-					try {
-						connection.createStatement().executeUpdate(SQL);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					setNewPrice(line.getRetailPrice(), line.getItemId(), line.getInvoiceNumber());
 				}
 			}
 		}else{
-			try {
-				statement = connection.prepareStatement("DELETE FROM prices WHERE reason = ?");
-				statement.setString(1, invoiceNum);
-				statement.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			deletePrices(invoiceNum);
 		}
 	}
 
@@ -404,10 +366,10 @@ public class AddEditInvoiceViewController extends AbstractController{
 	
 	void setInvoice(InvoiceHeader invoice) {
 		this.invoice = invoice;
-		
+
 		dbClass = new DBClass();
 	    try{
-	    	connection = dbClass.getConnection();	        	    
+	    	connection = dbClass.getConnection();
 	    }
 	    catch(ClassNotFoundException | SQLException ce){
 	    	ce.printStackTrace();
@@ -541,13 +503,13 @@ public class AddEditInvoiceViewController extends AbstractController{
 		invoiceRetailPrice = Double.parseDouble(String.format( "%.2f", invoiceRetailPrice ).replace(",","."));
 		invoice.setFullSumm(invoiceRetailPrice);
 
-		this.count.setText(String.valueOf(Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount()));
-		this.summ.setText(String.format( "%.2f", invoice.getSumm() ).replace(",","."));
-		this.summVat.setText(String.format( "%.2f",
-				Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat()).replace(",","."));
-		this.summIncludeVat.setText(String.format( "%.2f",
-				Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat()).replace(",","."));
-		this.fullDocSumm.setText(String.format( "%.2f", invoice.getFullSumm() ).replace(",","."));
+		updateForm(
+				Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat(),
+				Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat(),
+				Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount(),
+				invoice.getSumm(),
+				invoice.getFullSumm()
+		);
 
 		setLineToDB(oldLine);
 		setHeaderToDB(invoice);
@@ -610,42 +572,16 @@ public class AddEditInvoiceViewController extends AbstractController{
 		double summIncludeVat = 0;
 		double fullDocSumm = invoice != null ? invoice.getFullSumm() : 0;
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
+		List<InvoiceLine> lines = getInvoiceLines(invoiceNumber);
 
-		Query query = session.createQuery("FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber ORDER BY id");
-		query.setParameter("invoiceNumber", invoiceNumber);
+		for(InvoiceLine lineItem : lines){
+			InvoiceLineData.add(lineItem);
 
-		List<InvoicesLinesEntity> invoiceLinesList = query.list();
-
-		for(InvoicesLinesEntity invoicesLinesItem : invoiceLinesList){
-			InvoiceLine line = new InvoiceLine(
-					invoicesLinesItem.getId(),
-					invoicesLinesItem.getLineNumber(),
-					invoicesLinesItem.getInvoiceNumber(),
-					invoicesLinesItem.getItemId(),
-					invoicesLinesItem.getVendorPrice(),
-					invoicesLinesItem.getVat().intValue(),
-					invoicesLinesItem.getExtraPrice().intValue(),
-					invoicesLinesItem.getRetailPrice(),
-					invoicesLinesItem.getItemName(),
-					invoicesLinesItem.getCount(),
-					invoicesLinesItem.getSummVat(),
-					invoicesLinesItem.getSummInclVat()
-			);
-
-			InvoiceLineData.add(line);
-
-			itemsCount += line.getCount();
-			itemsSumm += line.getCount() * line.getVendorPrice();
-			summVat += line.getSummVat();
-			summIncludeVat += line.getSummIncludeVat();
+			itemsCount += lineItem.getCount();
+			itemsSumm += lineItem.getCount() * lineItem.getVendorPrice();
+			summVat += lineItem.getSummVat();
+			summIncludeVat += lineItem.getSummIncludeVat();
 		}
-
-		invoiceLinesTable.setItems(InvoiceLineData);
-
-		tr.commit();
-		session.close();
 
 		updateForm(summIncludeVat, summVat, itemsCount, itemsSumm, fullDocSumm);
 	}
@@ -689,5 +625,62 @@ public class AddEditInvoiceViewController extends AbstractController{
 		this.count.setText(String.valueOf(itemsCount));
 		this.summ.setText(String.format( "%.2f", itemsSumm ).replace(",","."));
 		this.fullDocSumm.setText(String.format( "%.2f", fullDocSumm ).replace(",","."));
+	}
+
+	private List<InvoiceLine> getInvoiceLines(String invoiceNumber){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber ORDER BY id");
+		query.setParameter("invoiceNumber", invoiceNumber);
+
+		List<InvoicesLinesEntity> invoiceLinesList = query.list();
+		List<InvoiceLine> lines = new ArrayList<>();
+
+		for(InvoicesLinesEntity invoicesLinesItem : invoiceLinesList){
+			InvoiceLine line = new InvoiceLine(
+					invoicesLinesItem.getId(),
+					invoicesLinesItem.getLineNumber(),
+					invoicesLinesItem.getInvoiceNumber(),
+					invoicesLinesItem.getItemId(),
+					invoicesLinesItem.getVendorPrice(),
+					invoicesLinesItem.getVat().intValue(),
+					invoicesLinesItem.getExtraPrice().intValue(),
+					invoicesLinesItem.getRetailPrice(),
+					invoicesLinesItem.getItemName(),
+					invoicesLinesItem.getCount(),
+					invoicesLinesItem.getSummVat(),
+					invoicesLinesItem.getSummInclVat()
+			);
+
+			lines.add(line);
+		}
+
+		tr.commit();
+		session.close();
+
+		return lines;
+	}
+
+	private void setNewPrice(double retailPrice, int itemId, String reason){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		session.save(new PricesEntity(0, String.valueOf(retailPrice), itemId, new Timestamp(new Date().getTime()),reason));
+
+		tr.commit();
+		session.close();
+	}
+
+	private void deletePrices(String invoiceNumber){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("DELETE FROM PricesEntity WHERE reason =:invoiceNumber");
+		query.setParameter("invoiceNumber", invoiceNumber);
+		query.executeUpdate();
+
+		tr.commit();
+		session.close();
 	}
 }
