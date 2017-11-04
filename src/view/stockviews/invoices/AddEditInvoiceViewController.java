@@ -201,43 +201,24 @@ public class AddEditInvoiceViewController extends AbstractController{
 		int indexToDelete = invoiceLinesTable.getSelectionModel().getSelectedIndex();
 		InvoiceLine line = invoiceLinesTable.getSelectionModel().getSelectedItem();
 
-		PreparedStatement statement = null;
-		try {
-			statement = connection.prepareStatement("DELETE FROM invoices_lines WHERE id = ?");
-			statement.setInt(1, line.getId());
-			statement.executeUpdate();
-
-			InvoiceLineData.remove(indexToDelete);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		deleteInvoiceLine(line.getId());
+		InvoiceLineData.remove(indexToDelete);
 
 		invoice.setCount(invoice.getCount() - line.getCount());
 		invoice.setSumm(Double.parseDouble(String.format( "%.2f",
 				invoice.getSumm() - line.getCount() * line.getVendorPrice()).replace(",",".")));
-//		invoice.setSumm(invoice.getSumm() - line.getCount() * line.getVendorPrice());
 		invoice.setFullSumm(Double.parseDouble(String.format( "%.2f",
 				invoice.getFullSumm() - line.getCount() * line.getRetailPrice()).replace(",",".")));
-//		invoice.setFullSumm(invoice.getFullSumm() - line.getCount() * line.getRetailPrice());
 
-		try{
-			String SQL = "UPDATE invoices_headers "
-					+ "SET count = '" + invoice.getCount() + "', "
-					+ "summ = '" + invoice.getSumm() + "', "
-					+ "full_summ = '" + invoice.getFullSumm() + "' "
-					+ "WHERE id = " + invoice.getId() + ";";
+		setHeaderToDB(this.invoice);
 
-			connection.createStatement().executeUpdate(SQL);
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
-
-		this.count.setText(String.valueOf(invoice.getCount()));
-		this.summ.setText(String.valueOf(invoice.getSumm()));
-		this.summVat.setText(String.format( "%.2f",
-				Double.parseDouble(this.summVat.getText()) - line.getSummVat()).replace(",","."));
-		this.summIncludeVat.setText(String.valueOf(Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat()));
-		this.fullDocSumm.setText(String.valueOf(invoice.getFullSumm()));
+		updateForm(
+				Double.parseDouble(this.summIncludeVat.getText()) - line.getSummIncludeVat(),
+				Double.parseDouble(this.summVat.getText()) - line.getSummVat(),
+				invoice.getCount(),
+				invoice.getSumm(),
+				invoice.getFullSumm()
+		);
 	}
 
 	@FXML
@@ -709,5 +690,17 @@ public class AddEditInvoiceViewController extends AbstractController{
 				header.getTtnNo(),
 				header.getTtnDate()
 		);
+	}
+
+	private void deleteInvoiceLine(int id){
+		session = sessFact.openSession();
+		tr = session.beginTransaction();
+
+		Query query = session.createQuery("DELETE FROM InvoicesLinesEntity WHERE id =:id");
+		query.setParameter("id", id);
+		query.executeUpdate();
+
+		tr.commit();
+		session.close();
 	}
 }
