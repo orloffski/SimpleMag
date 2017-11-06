@@ -48,6 +48,11 @@ public class NodeGeneratorUtils {
                 loader.setLocation(Main.class.getResource("/view/SettingsView.fxml"));
                 paneView = loader.load();
                 break;
+            case UNITS_LIST:
+                tabTitle = "Список единиц измерения";
+                loader.setLocation(Main.class.getResource("/view/settings/UnitsDirectoryView.fxml"));
+                paneView = loader.load();
+                break;
         }
 
         AbstractRootController controller = loader.getController();

@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.settings.UnitsDirectoryViewController;
 
 public class SettingsViewController {
 
@@ -29,7 +30,7 @@ public class SettingsViewController {
 	@FXML
 	private void openUnits() {
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/settings/UnitsDirectoryView.fxml"));
+        loader.setLocation(Main.class.getResource("/view/settings/UnitsDirectoryView.fxml"));
         try {
         	BorderPane page = loader.load();
 			Stage dialogStage = new Stage();

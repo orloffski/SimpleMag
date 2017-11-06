@@ -9,8 +9,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modes.TabMode;
+import utils.NodeGeneratorUtils;
 import view.stockviews.settings.CounterpartiesDirectoryViewController;
-import view.stockviews.settings.UnitsDirectoryViewController;
+import view.settings.UnitsDirectoryViewController;
 
 import java.io.IOException;
 
@@ -31,22 +33,8 @@ public class SettingsViewController extends AbstractRootController{
 
     @FXML
     private void openUnitsSettings(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/settings/UnitsDirectoryView.fxml"));
         try {
-            BorderPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Единицы измерения");
-            dialogStage.getIcons().add(new Image("file:resources/images/goods.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(main.getPrimaryStage());
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            UnitsDirectoryViewController unitController = loader.getController();
-            unitController.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
+            NodeGeneratorUtils.openNewTab(rootTab, TabMode.UNITS_LIST, main);
         } catch (IOException e) {
             e.printStackTrace();
         }

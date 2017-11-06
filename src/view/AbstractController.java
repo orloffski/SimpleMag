@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 
-public abstract class AbstractController {
+public abstract class AbstractController extends AbstractRootController{
     protected Stage dialogStage;
 
     protected Session session;

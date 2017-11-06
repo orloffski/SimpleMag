@@ -1,4 +1,4 @@
-package view.stockviews.settings;
+package view.settings;
 
 import entity.UnitsEntity;
 import javafx.collections.FXCollections;
@@ -40,9 +40,6 @@ public class UnitsDirectoryViewController extends AbstractController{
 	
 	@FXML
 	private Button deleteBtn;
-	
-	@FXML
-	private Button closeBtn;
 
 	@FXML
 	private void initialize() {
@@ -51,6 +48,7 @@ public class UnitsDirectoryViewController extends AbstractController{
 		mode = AddEditMode.ADD;
 		
         unitColumn.setCellValueFactory(cellData -> cellData.getValue().unitProperty());
+        unitColumn.setStyle("-fx-padding: 0 0 0 10;");
 
 		buildData();
 
@@ -63,11 +61,6 @@ public class UnitsDirectoryViewController extends AbstractController{
 	        }
 	    });
 	}
-	
-	@FXML
-    private void close() {
-        dialogStage.close();
-    }
 	
 	@FXML
     private void delete() {
