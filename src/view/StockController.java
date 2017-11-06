@@ -13,7 +13,7 @@ import view.stockviews.invoices.InvoicesViewController;
 import view.stockviews.items.ItemsViewController;
 import view.stockviews.settings.SettingsViewController;
 
-public class StockController {
+public class StockController{
 	
 	private Main main;
 	

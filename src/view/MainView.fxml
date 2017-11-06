@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
@@ -11,36 +12,48 @@
    <center>
       <TabPane fx:id="rootTab" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab closable="false" text="Главная">
+          <Tab fx:id="mainTab" closable="false" text="Главная">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <left>
                         <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" BorderPane.alignment="CENTER">
                            <children>
-                              <ImageView fx:id="cashbox" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="cashbox" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openCashBox" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/cashbox.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="stock" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="stock" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openStock" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/stock.png" />
                                  </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </ImageView>
-                              <ImageView fx:id="finance" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="finance" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openFinance" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/finance.png" />
                                  </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </ImageView>
-                              <ImageView fx:id="chart" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="chart" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openCharts" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/chart.png" />
                                  </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </ImageView>
-                              <ImageView fx:id="settings" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="settings" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openSettings" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/settings.png" />
                                  </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </ImageView>
                            </children>
                         </VBox>
