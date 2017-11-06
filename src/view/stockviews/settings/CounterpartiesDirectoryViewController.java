@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.AddEditMode;
+import modes.AddEditMode;
 import model.Counterparties;
 import utils.MessagesUtils;
 import view.AbstractController;

@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.AddEditMode;
+import modes.AddEditMode;
 import model.Barcodes;
 import model.Items;
 import org.hibernate.query.Query;

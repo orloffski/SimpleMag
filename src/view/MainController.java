@@ -10,7 +10,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import model.TabMode;
+import modes.TabMode;
 
 import java.io.IOException;
 
@@ -137,6 +137,9 @@ public class MainController {
 				break;
 		}
 
+		AbstractRootController controller = loader.getController();
+		controller.setMain(this.main);
+
 		Tab tab = new Tab(tabTitle);
 		rootTab.getTabs().add(tab);
 
@@ -148,9 +151,6 @@ public class MainController {
 
 	private boolean checkIssetTab(TabMode mode){
 		ObservableList<Tab> tabs = rootTab.getTabs();
-
-		if(tabs.size() <= 1)
-			return false;
 
 		for(Tab tab : tabs){
 			if(tab.getId().equals(mode.toString())) {

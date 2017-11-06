@@ -8,7 +8,7 @@ import view.cashviews.sales.SalesViewController;
 
 import java.io.IOException;
 
-public class CashViewController{
+public class CashViewController extends AbstractRootController{
 
     private Main main;
 

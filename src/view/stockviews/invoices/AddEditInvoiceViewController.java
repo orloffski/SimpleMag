@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
+import modes.AddEditMode;
 import org.hibernate.query.Query;
 import utils.MessagesUtils;
 import utils.NumberUtils;

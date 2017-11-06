@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-public class ChartController{
+public class ChartController extends AbstractRootController{
 
 	public ChartController() {
 	}

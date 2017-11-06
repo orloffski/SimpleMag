@@ -1,4 +1,4 @@
-package model;
+package modes;
 
 public enum AddEditMode {
 	ADD,
