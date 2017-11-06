@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.stockviews.settings.CounterpartiesDirectoryViewController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.CounterpartiesDirectoryViewController">
    <center>
       <TableView fx:id="counterpartiesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>
@@ -86,11 +86,6 @@
                   <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#delete" text="Удалить">
                      <HBox.margin>
                         <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="closeBtn" mnemonicParsing="false" onMouseClicked="#close" text="Закрыть">
-                     <HBox.margin>
-                        <Insets left="570.0" />
                      </HBox.margin>
                   </Button>
                </children>

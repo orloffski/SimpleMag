@@ -6,5 +6,6 @@ public enum TabMode {
     STOCK,
     FINANCE,
     SETTINGS,
-    UNITS_LIST
+    UNITS_LIST,
+    COUNTERPARTIES_LIST
 }

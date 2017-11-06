@@ -53,6 +53,11 @@ public class NodeGeneratorUtils {
                 loader.setLocation(Main.class.getResource("/view/settings/UnitsDirectoryView.fxml"));
                 paneView = loader.load();
                 break;
+            case COUNTERPARTIES_LIST:
+                tabTitle = "Список контрагентов";
+                loader.setLocation(Main.class.getResource("/view/settings/CounterpartiesDirectoryView.fxml"));
+                paneView = loader.load();
+                break;
         }
 
         AbstractRootController controller = loader.getController();

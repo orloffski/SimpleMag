@@ -1,4 +1,4 @@
-package view.stockviews.settings;
+package view.settings;
 
 import entity.CounterpartiesEntity;
 import javafx.collections.FXCollections;
@@ -49,12 +49,9 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 	
 	@FXML
 	private Button addEditBtn;
-	
+
 	@FXML
 	private Button deleteBtn;
-	
-	@FXML
-	private Button closeBtn;
 	
 	@FXML
 	private void initialize() {
@@ -65,6 +62,10 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		unnColumn.setCellValueFactory(cellData -> cellData.getValue().unnProperty());
 		adressColumn.setCellValueFactory(cellData -> cellData.getValue().adressProperty());
+
+		nameColumn.setStyle("-fx-padding: 0 0 0 10;");
+		unnColumn.setStyle("-fx-padding: 0 0 0 10;");
+		adressColumn.setStyle("-fx-padding: 0 0 0 10;");
 
 		buildData();
 
@@ -79,11 +80,6 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 	        }
 	    });
 	}
-	
-	@FXML
-    private void close() {
-        dialogStage.close();
-    }
 	
 	@FXML
     private void delete() {

@@ -11,8 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modes.TabMode;
 import utils.NodeGeneratorUtils;
-import view.stockviews.settings.CounterpartiesDirectoryViewController;
-import view.settings.UnitsDirectoryViewController;
+import view.settings.CounterpartiesDirectoryViewController;
 
 import java.io.IOException;
 
@@ -42,22 +41,8 @@ public class SettingsViewController extends AbstractRootController{
 
     @FXML
     private void openCounterpartiesSettings(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/settings/CounterpartiesDirectoryView.fxml"));
         try {
-            BorderPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Контрагенты");
-            dialogStage.getIcons().add(new Image("file:resources/images/counterparties.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(main.getPrimaryStage());
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            CounterpartiesDirectoryViewController counterpartiesController = loader.getController();
-            counterpartiesController.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
+            NodeGeneratorUtils.openNewTab(rootTab, TabMode.COUNTERPARTIES_LIST, main);
         } catch (IOException e) {
             e.printStackTrace();
         }
