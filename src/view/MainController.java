@@ -1,16 +1,14 @@
 package view;
 
 import application.Main;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import modes.TabMode;
+import utils.NodeGeneratorUtils;
 
 import java.io.IOException;
 
@@ -58,7 +56,7 @@ public class MainController {
 	@FXML
 	private void openCashBox(){
 		try {
-			openNewTab(TabMode.CASHBOX);
+			NodeGeneratorUtils.openNewTab(rootTab, TabMode.CASHBOX, main);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,7 +65,7 @@ public class MainController {
 	@FXML
 	private void openStock(){
 		try {
-			openNewTab(TabMode.STOCK);
+			NodeGeneratorUtils.openNewTab(rootTab, TabMode.STOCK, main);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -76,7 +74,7 @@ public class MainController {
 	@FXML
 	private void openFinance(){
 		try {
-			openNewTab(TabMode.FINANCE);
+			NodeGeneratorUtils.openNewTab(rootTab, TabMode.FINANCE, main);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,7 +83,7 @@ public class MainController {
 	@FXML
 	private void openCharts(){
 		try {
-			openNewTab(TabMode.CHARTS);
+			NodeGeneratorUtils.openNewTab(rootTab, TabMode.CHARTS, main);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,72 +92,10 @@ public class MainController {
 	@FXML
 	private void openSettings(){
 		try {
-			openNewTab(TabMode.SETTINGS);
+			NodeGeneratorUtils.openNewTab(rootTab, TabMode.SETTINGS, main);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void openNewTab(TabMode mode) throws IOException {
-		BorderPane paneView = null;
-		FXMLLoader loader = new FXMLLoader();
-		String tabTitle = "";
-		String tabId = mode.toString();
-
-		if(checkIssetTab(mode))
-			return;
-
-		switch (mode){
-			case CASHBOX:
-				tabTitle = "Продажи";
-				loader.setLocation(Main.class.getResource("/view/CashView.fxml"));
-				paneView = loader.load();
-				break;
-			case STOCK:
-				tabTitle = "Склад";
-				loader.setLocation(Main.class.getResource("/view/StockView.fxml"));
-				paneView = loader.load();
-				break;
-			case FINANCE:
-				tabTitle = "Финансы";
-				loader.setLocation(Main.class.getResource("/view/FinanceView.fxml"));
-				paneView = loader.load();
-				break;
-			case CHARTS:
-				tabTitle = "Статистика";
-				loader.setLocation(Main.class.getResource("/view/ChartView.fxml"));
-				paneView = loader.load();
-				break;
-			case SETTINGS:
-				tabTitle = "Настройки";
-				loader.setLocation(Main.class.getResource("/view/SettingsView.fxml"));
-				paneView = loader.load();
-				break;
-		}
-
-		AbstractRootController controller = loader.getController();
-		controller.setMain(this.main);
-
-		Tab tab = new Tab(tabTitle);
-		rootTab.getTabs().add(tab);
-
-		tab.setId(tabId);
-		tab.setContent(paneView);
-
-		selectionModel.select(tab);
-	}
-
-	private boolean checkIssetTab(TabMode mode){
-		ObservableList<Tab> tabs = rootTab.getTabs();
-
-		for(Tab tab : tabs){
-			if(tab.getId().equals(mode.toString())) {
-				selectionModel.select(tab);
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public void setMain(Main main) {
