@@ -6,12 +6,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.UnitsDirectoryViewController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.UnitsDirectoryViewController">
    <center>
-      <TableView fx:id="unitsTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="780.0" styleClass="table-column" stylesheets="@../../../resources/stylesheets/main.css" BorderPane.alignment="CENTER">
+      <TableView fx:id="unitsTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="unitColumn" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="800.0" text="Единицы измерения" />
         </columns>
@@ -24,7 +25,7 @@
       </TableView>
    </center>
    <top>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" BorderPane.alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <Label contentDisplay="CENTER" text="Фильтр">
                <HBox.margin>
@@ -43,23 +44,27 @@
       </HBox>
    </top>
    <bottom>
-      <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="addEditUnit" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-            <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEditDelete" text="добавить">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#delete" text="удалить">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="10.0" />
          </BorderPane.margin>
-      </HBox>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0">
+               <children>
+                  <TextField fx:id="addEditUnit" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                  <Button fx:id="addEditBtn" mnemonicParsing="false" onMouseClicked="#addEditDelete" text="добавить">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#delete" text="удалить">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
    </bottom>
 </BorderPane>

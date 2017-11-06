@@ -15,7 +15,7 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.CounterpartiesDirectoryViewController">
    <center>
-      <TableView fx:id="counterpartiesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="counterpartiesTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Название" />
           <TableColumn fx:id="unnColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="УНН" />
@@ -24,10 +24,13 @@
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
       </TableView>
    </center>
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <Label contentDisplay="CENTER" prefHeight="40.0" text="Фильтр">
                <HBox.margin>
@@ -40,6 +43,9 @@
                </HBox.margin>
             </TextField>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </HBox>
    </top>
    <bottom>
