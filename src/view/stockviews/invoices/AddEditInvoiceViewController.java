@@ -30,6 +30,8 @@ import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,7 +148,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 			return;
 		}
 
-		int itemId = getNewItemBarcode();
+		int itemId = getNewItemFromBarcode();
 		Items item = null;
 
 		if(itemId != -1){
@@ -186,7 +188,6 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 			invoiceLinesTable.refresh();
 		}
-
 	}
 
 	@FXML
@@ -290,7 +291,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 		}
 	}
 
-	private int getNewItemBarcode(){
+	private int getNewItemFromBarcode(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
 		try {
@@ -470,6 +471,14 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private void setHeaderToDB(InvoiceHeader header){
+		Date parsedDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		try {
+			parsedDate = dateFormat.parse(header.getLastcreated());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		session = sessFact.openSession();
 		tr = session.beginTransaction();
 
@@ -482,7 +491,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 				header.getCount(),
 				header.getSumm(),
 				header.getCounterpartyId(),
-				new Timestamp(Long.parseLong(header.getLastcreated())),
+				new Timestamp(parsedDate.getTime()),
 				header.getRecipientId(),
 				header.getRecipientName(),
 				header.getFullSumm(),
@@ -525,6 +534,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 		double fullDocSumm = invoice != null ? invoice.getFullSumm() : 0;
 
 		List<InvoiceLine> lines = getInvoiceLines(invoiceNumber);
+		System.out.println(lines.size());
 
 		for(InvoiceLine lineItem : lines){
 			InvoiceLineData.add(lineItem);
@@ -534,6 +544,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 			summVat += lineItem.getSummVat();
 			summIncludeVat += lineItem.getSummIncludeVat();
 		}
+
+		invoiceLinesTable.setItems(InvoiceLineData);
 
 		updateForm(summIncludeVat, summVat, itemsCount, itemsSumm, fullDocSumm);
 	}
