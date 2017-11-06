@@ -1,21 +1,19 @@
 package application;
 	
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import view.RootController;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import view.MainController;
+
+import java.io.IOException;
 
 
 public class Main extends Application {
 
 	private Stage primaryStage;
-    private BorderPane rootLayout;
 
     @Override
     public void start(Stage primaryStage) {
@@ -26,8 +24,6 @@ public class Main extends Application {
         
         this.primaryStage.getIcons().add(new Image("file:resources/images/shop.png"));
 
-        initRootLayout();
-
         showMainView();
     }
 
@@ -36,31 +32,19 @@ public class Main extends Application {
         super.stop();
         HibernateSession.closeSession();
     }
-
-    private void initRootLayout() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/view/RootLayout.fxml"));
-            rootLayout = loader.load();
-
-            Scene scene = new Scene(rootLayout);
-            
-            primaryStage.setScene(scene);
-            RootController controller = loader.getController();
-            controller.setMain(this);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
     private void showMainView() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/view/MainView.fxml"));
-            AnchorPane mainView = loader.load();
+            BorderPane mainView = loader.load();
 
-            rootLayout.setCenter(mainView);
+            Scene scene = new Scene(mainView);
+
+            primaryStage.setScene(scene);
+            MainController controller = loader.getController();
+            controller.setMain(this);
+            primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
