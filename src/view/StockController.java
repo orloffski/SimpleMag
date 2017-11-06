@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import view.stockviews.invoices.InvoicesViewController;
 import view.stockviews.items.ItemsViewController;
-import view.stockviews.settings.SettingsViewController;
 
 public class StockController extends AbstractRootController{
 	
@@ -26,9 +25,6 @@ public class StockController extends AbstractRootController{
 	@FXML
 	private ImageView invoices;
 	
-	@FXML
-	private ImageView settings;
-	
 	public StockController() {
 	}
 	
@@ -36,7 +32,6 @@ public class StockController extends AbstractRootController{
 	private void initialize() {
 		items.setImage(new Image("file:resources/images/goods.png"));
 		invoices.setImage(new Image("file:resources/images/invoices.png"));
-		settings.setImage(new Image("file:resources/images/settings.png"));
 	}
 	
 	@FXML
@@ -67,22 +62,6 @@ public class StockController extends AbstractRootController{
 		}
         
         InvoicesViewController controller = loader.getController();
-		controller.setMain(main);
-        stockRootLayout.setCenter(paneView);
-	}
-	
-	@FXML
-	private void openSettingsView(){
-		BorderPane paneView = null;
-		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/settings/SettingsView.fxml"));
-        try {
-        	paneView = loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        SettingsViewController controller = loader.getController();
 		controller.setMain(main);
         stockRootLayout.setCenter(paneView);
 	}

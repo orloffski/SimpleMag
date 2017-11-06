@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.StockController">
    <center>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
@@ -35,15 +34,6 @@
                            </image>
                         </ImageView>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="накладные" />
-                        <ImageView fx:id="settings" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openSettingsView" pickOnBounds="true" preserveRatio="true">
-                           <VBox.margin>
-                              <Insets top="15.0" />
-                           </VBox.margin>
-                           <image>
-                              <Image url="@../../resources/images/settings.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="настройки" />
                      </children>
                   </VBox>
                </left>
