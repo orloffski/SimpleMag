@@ -7,5 +7,7 @@ public enum TabMode {
     FINANCE,
     SETTINGS,
     UNITS_LIST,
-    COUNTERPARTIES_LIST
+    COUNTERPARTIES_LIST,
+    ITEMS_LIST,
+    INVOICES_LIST
 }
