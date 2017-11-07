@@ -70,4 +70,8 @@ public class BarcodesEntity {
         result = 31 * result + itemId;
         return result;
     }
+
+    public static BarcodesEntity createBarcodesEntity(int id, String barcode, int itemId){
+        return new BarcodesEntity(id, barcode, itemId);
+    }
 }

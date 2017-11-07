@@ -94,12 +94,14 @@ public class BarcodesViewController extends AbstractController{
 	private void addDeleteBarcode() {
 		if(mode.equals(AddEditMode.ADD)) {
 			if (barcodeAddField.getText().toString().length() != 0) {
-				BarcodesDBHelper.saveEntity(sessFact, createBarcodesEntity(0));
+				BarcodesDBHelper.saveEntity(sessFact,
+						BarcodesEntity.createBarcodesEntity(0, barcodeAddField.getText(), itemId));
 				barcodeAddField.setText("");
 			} else
 				MessagesUtils.showAlert("Ошибка создания штрихкода", "Нельзя добавлять пустой штрихкод");
 		}else if(mode.equals(AddEditMode.DELETE)){
-			BarcodesDBHelper.deleteEntity(sessFact, createBarcodesEntity(barcodeId));
+			BarcodesDBHelper.deleteEntity(sessFact,
+					BarcodesEntity.createBarcodesEntity(barcodeId, barcodeAddField.getText(), itemId));
 		}
 
 		mode = AddEditMode.ADD;
@@ -116,9 +118,5 @@ public class BarcodesViewController extends AbstractController{
 	@Override
 	protected void clearForm() {
 
-	}
-
-	private BarcodesEntity createBarcodesEntity(int id){
-		return new BarcodesEntity(id, barcodeAddField.getText().toString(), itemId);
 	}
 }
