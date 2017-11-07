@@ -159,21 +159,7 @@ public class InvoicesViewController extends AbstractController{
 		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact);
 
 		for (InvoicesHeadersEntity invHeader : invoicesList) {
-			InvoiceHeader headerItem = new InvoiceHeader(
-					invHeader.getId(),
-					invHeader.getNumber(),
-					invHeader.getType(),
-					invHeader.getStatus(),
-					invHeader.getCounterparty(),
-					invHeader.getCount(),
-					invHeader.getSumm(),
-					invHeader.getCounterpartyId(),
-					invHeader.getLastcreated().toString(),
-					invHeader.getRecipientId(),
-					invHeader.getRecipientName(),
-					invHeader.getFullSumm(),
-					invHeader.getTtnNumber(),
-					invHeader.getTtnDate());
+			InvoiceHeader headerItem = InvoiceHeader.createHeaderFromEntity(invHeader);
 			data.add(headerItem);
 		}
 

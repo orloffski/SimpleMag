@@ -1,5 +1,6 @@
 package model;
 
+import entity.InvoicesHeadersEntity;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -215,5 +216,23 @@ public class InvoiceHeader {
 
     public StringProperty recipientNameProperty() {
         return recipientName;
+    }
+
+    public static InvoiceHeader createHeaderFromEntity(InvoicesHeadersEntity invHeader){
+        return new InvoiceHeader(
+                invHeader.getId(),
+                invHeader.getNumber(),
+                invHeader.getType(),
+                invHeader.getStatus(),
+                invHeader.getCounterparty(),
+                invHeader.getCount(),
+                invHeader.getSumm(),
+                invHeader.getCounterpartyId(),
+                invHeader.getLastcreated().toString(),
+                invHeader.getRecipientId(),
+                invHeader.getRecipientName(),
+                invHeader.getFullSumm(),
+                invHeader.getTtnNumber(),
+                invHeader.getTtnDate());
     }
 }
