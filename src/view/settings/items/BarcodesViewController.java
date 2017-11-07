@@ -1,5 +1,6 @@
 package view.settings.items;
 
+import dbhelpers.BarcodesDBHelper;
 import entity.BarcodesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,13 +56,7 @@ public class BarcodesViewController extends AbstractController{
 	public void buildData(int id){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		Query query = session.createQuery("FROM BarcodesEntity WHERE itemId =:id");
-		query.setParameter("id", id);
-
-		List<BarcodesEntity> barcodesList = query.list();
+		List<BarcodesEntity> barcodesList = BarcodesDBHelper.getBarcodesByItemId(sessFact, id);
 
 		for (BarcodesEntity barcodeItem : barcodesList) {
 			Barcodes barcodes = new Barcodes(barcodeItem.getId(),
@@ -69,9 +64,6 @@ public class BarcodesViewController extends AbstractController{
 					barcodeItem.getItemId());
 			data.add(barcodes);
 		}
-
-		tr.commit();
-		session.close();
 
 		barcodesTable.setItems(data);
 	}
@@ -100,21 +92,15 @@ public class BarcodesViewController extends AbstractController{
 	
 	@FXML
 	private void addDeleteBarcode() {
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
 		if(mode.equals(AddEditMode.ADD)) {
 			if (barcodeAddField.getText().toString().length() != 0) {
-				session.save(createBarcodesEntity(0));
+				BarcodesDBHelper.saveEntity(sessFact, createBarcodesEntity(0));
 				barcodeAddField.setText("");
 			} else
 				MessagesUtils.showAlert("Ошибка создания штрихкода", "Нельзя добавлять пустой штрихкод");
 		}else if(mode.equals(AddEditMode.DELETE)){
-			session.delete(createBarcodesEntity(barcodeId));
+			BarcodesDBHelper.deleteEntity(sessFact, createBarcodesEntity(barcodeId));
 		}
-
-		tr.commit();
-		session.close();
 
 		mode = AddEditMode.ADD;
 
