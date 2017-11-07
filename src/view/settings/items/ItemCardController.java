@@ -72,11 +72,21 @@ public class ItemCardController extends AbstractController{
 			ItemsEntity item;
 
 			if(newItem) {
-				item = createItemsEntity(0);
+				item = ItemsEntity.createItemsEntity(0,
+						vendorCode.getText().toString(),
+						name.getText().toString(),
+						new Timestamp(new Date().getTime()),
+						vendorCountry.getText().toString(),
+						unitId);
 				ItemsDBHelper.saveEntity(sessFact, item);
 				saveBtn.setDisable(true);
 			}else{
-				item = createItemsEntity(this.item.getId());
+				item = ItemsEntity.createItemsEntity(this.item.getId(),
+						vendorCode.getText().toString(),
+						name.getText().toString(),
+						new Timestamp(new Date().getTime()),
+						vendorCountry.getText().toString(),
+						unitId);
 				ItemsDBHelper.updateEntity(sessFact, item);
 			}
 
@@ -183,15 +193,6 @@ public class ItemCardController extends AbstractController{
 	public void setMain(Main main) {
         this.main = main;
     }
-
-	private ItemsEntity createItemsEntity(int id){
-		return new ItemsEntity(id,
-				vendorCode.getText().toString(),
-				name.getText().toString(),
-				new Timestamp(new Date().getTime()),
-				vendorCountry.getText().toString(),
-				unitId);
-	}
 
 	@Override
 	protected void clearForm() {
