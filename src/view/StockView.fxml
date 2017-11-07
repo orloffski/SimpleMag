@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.StockController">
    <center>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
-            <BorderPane fx:id="stockRootLayout" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-               <left>
-                  <VBox fx:id="rootLayout" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="250.0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" top="15.0" />
+                     </HBox.margin>
                      <children>
-                        <ImageView fx:id="items" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openItemsView" pickOnBounds="true" preserveRatio="true">
+                        <Label text="Сладские операции">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="invoicesList" onMouseClicked="#openInvoicesView" onMouseEntered="#setInvoicesTextUnderline" onMouseExited="#removeInvoicesTextUnderline" strokeType="OUTSIDE" strokeWidth="0.0" text="Накладные">
                            <VBox.margin>
-                              <Insets top="15.0" />
+                              <Insets left="25.0" />
                            </VBox.margin>
-                           <image>
-                              <Image url="@../../resources/images/goods.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="товары" />
-                        <ImageView fx:id="invoices" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#openInvoicesView" pickOnBounds="true" preserveRatio="true">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                           <image>
-                              <Image url="@../../resources/images/invoices.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="накладные" />
+                        </Text>
                      </children>
                   </VBox>
-               </left>
-            </BorderPane>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </center>
