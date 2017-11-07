@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class AbstractDBHelper {
+public abstract class AbstractDBHelper {
 
     public static void saveEntity(SessionFactory sessFact, Object item){
         Session session = sessFact.openSession();

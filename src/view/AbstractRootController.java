@@ -3,7 +3,7 @@ package view;
 import application.Main;
 import javafx.scene.control.TabPane;
 
-public class AbstractRootController {
+public abstract class AbstractRootController {
     protected Main main;
     protected TabPane rootTab;
 
