@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import application.Main;
+import dbhelpers.ItemsDBHelper;
+import dbhelpers.UnitsDBHelper;
 import entity.ItemsEntity;
 import entity.UnitsEntity;
 import javafx.collections.FXCollections;
@@ -67,18 +69,18 @@ public class ItemCardController extends AbstractController{
 	@FXML
     private void handleOK() {
 		if(checkItem()) {
-			session = sessFact.openSession();
-			tr = session.beginTransaction();
+			ItemsEntity item;
 
 			if(newItem) {
-				session.save(createItemsEntity(0));
+				item = createItemsEntity(0);
+				ItemsDBHelper.saveEntity(sessFact, item);
 				saveBtn.setDisable(true);
-			}else
-				session.update(createItemsEntity(this.item.getId()));
+			}else{
+				item = createItemsEntity(this.item.getId());
+				ItemsDBHelper.updateEntity(sessFact, item);
+			}
 
-			tr.commit();
-			session.close();
-			
+			this.item = new Items(item.getId(), item.getVendorCode(), item.getName(), item.getVendorCountry(), item.getUnitId());
 			okClicked = true;
 		}else
 			MessagesUtils.showAlert("Ошибка сохранения", "Для сохранения карточки товара заполните все поля");
@@ -87,21 +89,16 @@ public class ItemCardController extends AbstractController{
 	private void initComboBox() {
 		unitsData = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
+		List<UnitsEntity> unitsList = UnitsDBHelper.getUnitsEntitiesList(sessFact);
 
-		List<UnitsEntity> itemsList = session.createQuery("FROM UnitsEntity").list();
-
-		for(UnitsEntity unitsItem : itemsList)
-			unitsData.add(unitsItem.getUnit());
-
-		tr.commit();
-		session.close();
+		for(UnitsEntity unitsItem : unitsList){
+			unitsData.addAll(unitsItem.getUnit());
+		}
 
 		unitComboBox.setItems(unitsData);
 
 		unitComboBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-			for(UnitsEntity unitsItem : itemsList)
+			for(UnitsEntity unitsItem : unitsList)
 				if(unitsItem.getUnit().equals(newValue))
 					unitId = unitsItem.getId();
 		}));
