@@ -1,5 +1,6 @@
 package view.settings;
 
+import dbhelpers.UnitsDBHelper;
 import entity.UnitsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,19 +87,13 @@ public class UnitsDirectoryViewController extends AbstractController{
 			return;
 		}
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
 		if(mode.equals(AddEditMode.ADD)) {
-			session.save(createUnitsEntity(0));
+			UnitsDBHelper.saveUnit(sessFact, createUnitsEntity(0));
 		}else if(mode.equals(AddEditMode.EDIT)){
-			session.update(createUnitsEntity(unit.getId()));
+			UnitsDBHelper.updateUnit(sessFact, createUnitsEntity(unit.getId()));
 		}else if(mode.equals(AddEditMode.DELETE)){
-			session.delete(createUnitsEntity(unit.getId()));
+			UnitsDBHelper.deleteUnit(sessFact, createUnitsEntity(unit.getId()));
 		}
-
-		tr.commit();
-		session.close();
 		
 		mode = AddEditMode.ADD;
 		
@@ -110,19 +105,13 @@ public class UnitsDirectoryViewController extends AbstractController{
 	private void buildData(){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		List<UnitsEntity> unitsList = session.createQuery("FROM UnitsEntity").list();
+		List<UnitsEntity> unitsList = UnitsDBHelper.getUnitsEntitiesList(sessFact);
 
 		for (UnitsEntity unitItem : unitsList) {
 			Units unit = new Units(unitItem.getId(),
 	            		unitItem.getUnit());
 			data.add(unit);
 		}
-
-		tr.commit();
-		session.close();
 
 		unitsTable.setItems(data);
 
