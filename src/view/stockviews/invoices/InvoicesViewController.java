@@ -1,6 +1,8 @@
 package view.stockviews.invoices;
 
 import application.Main;
+import dbhelpers.InvoicesHeaderDBHelper;
+import dbhelpers.InvoicesLineDBHelper;
 import entity.InvoicesHeadersEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -154,10 +156,7 @@ public class InvoicesViewController extends AbstractController{
 	private void buildData(){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		List<InvoicesHeadersEntity> invoicesList = session.createQuery("FROM InvoicesHeadersEntity").list();
+		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact);
 
 		for (InvoicesHeadersEntity invHeader : invoicesList) {
 			InvoiceHeader headerItem = new InvoiceHeader(
@@ -181,9 +180,6 @@ public class InvoicesViewController extends AbstractController{
 		invoicesTable.setItems(data);
 
 		addFilter();
-
-		tr.commit();
-		session.close();
 	}
 	
 	private void addFilter() {
@@ -219,26 +215,10 @@ public class InvoicesViewController extends AbstractController{
 	}
 
 	private void deleteLines(String invoiceNumber){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		Query query = session.createQuery("DELETE FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber");
-		query.setParameter("invoiceNumber", invoiceNumber);
-		query.executeUpdate();
-
-		tr.commit();
-		session.close();
+		InvoicesLineDBHelper.deleteLinesByInvoiceNumber(sessFact, invoiceNumber);
 	}
 
 	private void deleteHeader(int id){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		Query query = session.createQuery("DELETE FROM InvoicesHeadersEntity WHERE id =:id");
-		query.setParameter("id", id);
-		query.executeUpdate();
-
-		tr.commit();
-		session.close();
+		InvoicesHeaderDBHelper.deleteHeaderById(sessFact, id);
 	}
 }
