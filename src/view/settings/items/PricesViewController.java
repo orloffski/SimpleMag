@@ -1,5 +1,6 @@
 package view.settings.items;
 
+import dbhelpers.PricesDBHelper;
 import entity.PricesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,26 +45,17 @@ public class PricesViewController extends AbstractController{
 	public void buildData(int id){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
+		PricesEntity pricesEntity = PricesDBHelper.getLastPriceByItemId(sessFact, id);
 
-		Query query = session.createQuery("FROM PricesEntity WHERE itemId =:id ORDER BY lastcreated DESC");
-		query.setParameter("id", id);
-		query.setMaxResults(1);
+		if(pricesEntity != null)
+			data.add(new Prices(pricesEntity.getId(),
+					pricesEntity.getPrice(),
+					pricesEntity.getItemId()));
 
-		List<PricesEntity> pricesList = query.list();
-
-		if(pricesList.size() > 0)
-			data.add(new Prices(pricesList.get(0).getId(),
-					pricesList.get(0).getPrice(),
-					pricesList.get(0).getItemId()));
-
-		tr.commit();
-		session.close();
 	}
 	
 	void setItem(Items item) {
-		itemLabel.setText(item.getVendorCode().toString() + " " + item.getName().toString());
+		itemLabel.setText(item.getVendorCode() + " " + item.getName());
 		itemId = item.getId();
 		buildData(itemId);
 		
@@ -77,17 +69,12 @@ public class PricesViewController extends AbstractController{
 	
 	@FXML
 	private void addNewPrice() {
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		session.save(new PricesEntity(0,
-				priceChangeField.getText().toString(),
+		PricesDBHelper.saveEntity(sessFact,
+				new PricesEntity(0,
+				priceChangeField.getText(),
 				itemId,
 				new Timestamp(new Date().getTime()),
 				"manual"));
-
-		tr.commit();
-		session.close();
 
 		data.clear();
 		buildData(itemId);
