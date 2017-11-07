@@ -88,15 +88,15 @@ public class UnitsDirectoryViewController extends AbstractController{
 		}
 
 		if(mode.equals(AddEditMode.ADD)) {
-			UnitsDBHelper.saveUnit(sessFact,
+			UnitsDBHelper.saveEntity(sessFact,
 					UnitsEntity.createUnitsEntity(0, addEditUnit.getText())
 			);
 		}else if(mode.equals(AddEditMode.EDIT)){
-			UnitsDBHelper.updateUnit(sessFact,
+			UnitsDBHelper.updateEntity(sessFact,
 					UnitsEntity.createUnitsEntity(unit.getId(), addEditUnit.getText())
 			);
 		}else if(mode.equals(AddEditMode.DELETE)){
-			UnitsDBHelper.deleteUnit(sessFact,
+			UnitsDBHelper.deleteEntity(sessFact,
 					UnitsEntity.createUnitsEntity(unit.getId(), addEditUnit.getText())
 			);
 		}

@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class UnitsDBHelper {
+public class UnitsDBHelper extends AbstractDBHelper{
 
     public static List<UnitsEntity> getUnitsEntitiesList(SessionFactory sessFact){
         Session session = sessFact.openSession();
@@ -19,35 +19,5 @@ public class UnitsDBHelper {
         session.close();
 
         return unitsList;
-    }
-
-    public static void saveUnit(SessionFactory sessFact, UnitsEntity item){
-        Session session = sessFact.openSession();
-        Transaction tr = session.beginTransaction();
-
-        session.save(item);
-
-        tr.commit();
-        session.close();
-    }
-
-    public static void updateUnit(SessionFactory sessFact, UnitsEntity item){
-        Session session = sessFact.openSession();
-        Transaction tr = session.beginTransaction();
-
-        session.update(item);
-
-        tr.commit();
-        session.close();
-    }
-
-    public static void deleteUnit(SessionFactory sessFact, UnitsEntity item){
-        Session session = sessFact.openSession();
-        Transaction tr = session.beginTransaction();
-
-        session.delete(item);
-
-        tr.commit();
-        session.close();
     }
 }
