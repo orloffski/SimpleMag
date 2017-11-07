@@ -53,9 +53,10 @@ public class PricesViewController extends AbstractController{
 
 		List<PricesEntity> pricesList = query.list();
 
-		data.add(new Prices(pricesList.get(0).getId(),
-				pricesList.get(0).getPrice(),
-				pricesList.get(0).getItemId()));
+		if(pricesList.size() > 0)
+			data.add(new Prices(pricesList.get(0).getId(),
+					pricesList.get(0).getPrice(),
+					pricesList.get(0).getItemId()));
 
 		tr.commit();
 		session.close();
