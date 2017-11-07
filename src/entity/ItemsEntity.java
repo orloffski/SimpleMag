@@ -115,4 +115,8 @@ public class ItemsEntity {
         result = 31 * result + unitId;
         return result;
     }
+
+    public static ItemsEntity createItemsEntity(int id, String vendorCode, String name, Timestamp createupdate, String vendorCountry, int unitId){
+        return new ItemsEntity(id, vendorCode, name, createupdate, vendorCountry, unitId);
+    }
 }

@@ -104,12 +104,13 @@ public class ItemsViewController extends AbstractController {
 		item = itemsTable.getSelectionModel().getSelectedItem();
 		
 		if(item != null) {
-			ItemsDBHelper.deleteEntity(sessFact, new ItemsEntity(item.getId(),
-					"",
-					"",
-					new Timestamp(0),
-					"",
-					0));
+			ItemsDBHelper.deleteEntity(sessFact,
+					ItemsEntity.createItemsEntity(item.getId(),
+							"",
+							"",
+							new Timestamp(0),
+							"",
+							0));
 			data.clear();
 			buildData();
 		}else
