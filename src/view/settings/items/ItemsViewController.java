@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import application.Main;
+import dbhelpers.ItemsDBHelper;
 import entity.ItemsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,20 +104,12 @@ public class ItemsViewController extends AbstractController {
 		item = itemsTable.getSelectionModel().getSelectedItem();
 		
 		if(item != null) {
-			session = sessFact.openSession();
-			tr = session.beginTransaction();
-
-			session.delete(
-					new ItemsEntity(item.getId(),
-							"",
-							"",
-							new Timestamp(0),
-							"",
-							0));
-
-			tr.commit();
-			session.close();
-
+			ItemsDBHelper.deleteEntity(sessFact, new ItemsEntity(item.getId(),
+					"",
+					"",
+					new Timestamp(0),
+					"",
+					0));
 			data.clear();
 			buildData();
 		}else
@@ -126,10 +119,7 @@ public class ItemsViewController extends AbstractController {
 	public void buildData(){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		List<ItemsEntity> itemsList = session.createQuery("FROM ItemsEntity").list();
+		List<ItemsEntity> itemsList = ItemsDBHelper.getUnitsEntitiesList(sessFact);
 
 		for(ItemsEntity itemsItem : itemsList){
 			Items item = new Items(itemsItem.getId(),
@@ -140,9 +130,6 @@ public class ItemsViewController extends AbstractController {
 
 			data.add(item);
 		}
-
-		tr.commit();
-		session.close();
 
 		itemsTable.setItems(data);
 
