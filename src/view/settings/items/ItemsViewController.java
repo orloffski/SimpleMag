@@ -1,4 +1,4 @@
-package view.stockviews.items;
+package view.settings.items;
 
 import java.sql.*;
 import java.io.IOException;
@@ -176,7 +176,7 @@ public class ItemsViewController extends AbstractController {
 	
 	private boolean openAddEditItemDialog(Items item) {
 		FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemCard.fxml"));
+        loader.setLocation(Main.class.getResource("/view/settings/items/ItemCard.fxml"));
         try {
 			AnchorPane page = loader.load();
 			Stage dialogStage = new Stage();

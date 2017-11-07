@@ -1,4 +1,4 @@
-package view.stockviews.items;
+package view.settings.items;
 
 import entity.BarcodesEntity;
 import javafx.collections.FXCollections;

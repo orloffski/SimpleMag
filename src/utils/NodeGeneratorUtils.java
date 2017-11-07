@@ -60,7 +60,7 @@ public class NodeGeneratorUtils {
                 break;
             case ITEMS_LIST:
                 tabTitle = "Список товаров";
-                loader.setLocation(Main.class.getResource("/view/stockviews/items/ItemsView.fxml"));
+                loader.setLocation(Main.class.getResource("/view/settings/items/ItemsView.fxml"));
                 paneView = loader.load();
                 break;
             case INVOICES_LIST:

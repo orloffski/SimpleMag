@@ -15,6 +15,9 @@ public class SettingsViewController extends AbstractRootController{
     @FXML
     private Text counterpartiesSettings;
 
+    @FXML
+    private Text itemsList;
+
     public SettingsViewController() {
     }
 
@@ -41,6 +44,15 @@ public class SettingsViewController extends AbstractRootController{
     }
 
     @FXML
+    private void openItemsView(){
+        try {
+            NodeGeneratorUtils.openNewTab(rootTab, TabMode.ITEMS_LIST, main);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void setUnitsTextUnderline(){
         unitsSettings.setUnderline(true);
     }
@@ -58,5 +70,15 @@ public class SettingsViewController extends AbstractRootController{
     @FXML
     private void removeCounterpartiesTextUnderline(){
         counterpartiesSettings.setUnderline(false);
+    }
+
+    @FXML
+    private void setItemsTextUnderline(){
+        itemsList.setUnderline(true);
+    }
+
+    @FXML
+    private void removeItemsTextUnderline(){
+        itemsList.setUnderline(false);
     }
 }
