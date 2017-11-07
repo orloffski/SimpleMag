@@ -10,12 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Items;
 import model.Prices;
-import org.hibernate.query.Query;
 import view.AbstractController;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 public class PricesViewController extends AbstractController{
 	
