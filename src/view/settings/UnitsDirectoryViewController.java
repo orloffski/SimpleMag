@@ -88,11 +88,17 @@ public class UnitsDirectoryViewController extends AbstractController{
 		}
 
 		if(mode.equals(AddEditMode.ADD)) {
-			UnitsDBHelper.saveUnit(sessFact, createUnitsEntity(0));
+			UnitsDBHelper.saveUnit(sessFact,
+					UnitsEntity.createUnitsEntity(0, addEditUnit.getText())
+			);
 		}else if(mode.equals(AddEditMode.EDIT)){
-			UnitsDBHelper.updateUnit(sessFact, createUnitsEntity(unit.getId()));
+			UnitsDBHelper.updateUnit(sessFact,
+					UnitsEntity.createUnitsEntity(unit.getId(), addEditUnit.getText())
+			);
 		}else if(mode.equals(AddEditMode.DELETE)){
-			UnitsDBHelper.deleteUnit(sessFact, createUnitsEntity(unit.getId()));
+			UnitsDBHelper.deleteUnit(sessFact,
+					UnitsEntity.createUnitsEntity(unit.getId(), addEditUnit.getText())
+			);
 		}
 		
 		mode = AddEditMode.ADD;
@@ -144,9 +150,5 @@ public class UnitsDirectoryViewController extends AbstractController{
 	protected void clearForm(){
 		addEditBtn.setText("Добавить");
 		addEditUnit.setText("");
-	}
-
-	private UnitsEntity createUnitsEntity(int id){
-		return new UnitsEntity(id, addEditUnit.getText().toString());
 	}
 }

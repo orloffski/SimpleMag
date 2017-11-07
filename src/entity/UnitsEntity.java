@@ -1,7 +1,6 @@
 package entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name = "units", schema = "minimag")
@@ -56,5 +55,9 @@ public class UnitsEntity {
         int result = id;
         result = 31 * result + (unit != null ? unit.hashCode() : 0);
         return result;
+    }
+
+    public static UnitsEntity createUnitsEntity(int id, String unit){
+        return new UnitsEntity(id, unit);
     }
 }
