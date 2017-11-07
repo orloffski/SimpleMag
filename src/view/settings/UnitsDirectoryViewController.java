@@ -82,7 +82,7 @@ public class UnitsDirectoryViewController extends AbstractController{
 	
 	@FXML
 	private void addEditDelete() {
-		if(addEditUnit.getText().toString().length() == 0){
+		if(addEditUnit.getText().length() == 0){
 			MessagesUtils.showAlert("Ошибка", "Нельзя сохранять пустые элементы");
 			return;
 		}
