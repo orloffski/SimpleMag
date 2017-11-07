@@ -1,5 +1,6 @@
 package view.settings;
 
+import dbhelpers.CounterpartiesDBHelper;
 import entity.CounterpartiesEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,19 +108,13 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 			return;
 		}
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
 		if(mode.equals(AddEditMode.ADD)) {
-			session.save(createCounterpartiesEntity(0));
+			CounterpartiesDBHelper.saveEntity(sessFact, createCounterpartiesEntity(0));
 		}else if(mode.equals(AddEditMode.EDIT)){
-			session.update(createCounterpartiesEntity(counterparty.getId()));
+			CounterpartiesDBHelper.updateEntity(sessFact, createCounterpartiesEntity(counterparty.getId()));
 		}else if(mode.equals(AddEditMode.DELETE)){
-			session.delete(createCounterpartiesEntity(counterparty.getId()));
+			CounterpartiesDBHelper.deleteEntity(sessFact, createCounterpartiesEntity(counterparty.getId()));
 		}
-
-		tr.commit();
-		session.close();
 		
 		mode = AddEditMode.ADD;
 		
@@ -131,10 +126,7 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 	private void buildData(){
 		data = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		List<CounterpartiesEntity> counterpartiesList = session.createQuery("FROM CounterpartiesEntity").list();
+		List<CounterpartiesEntity> counterpartiesList = CounterpartiesDBHelper.getCounterpartiesEntitiesList(sessFact);
 
 		for (CounterpartiesEntity counterpartyItem : counterpartiesList) {
 			Counterparties counterparty = new Counterparties(counterpartyItem.getId(),
@@ -143,9 +135,6 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 					counterpartyItem.getUnn());
 			data.add(counterparty);
 		}
-
-		tr.commit();
-		session.close();
 
 		counterpartiesTable.setItems(data);
 
