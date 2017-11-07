@@ -84,4 +84,8 @@ public class CounterpartiesEntity {
         result = 31 * result + (unn != null ? unn.hashCode() : 0);
         return result;
     }
+
+    public static CounterpartiesEntity createCounterpartiesEntity(int id, String name, String adress, String unn){
+        return new CounterpartiesEntity(id, name, adress, unn);
+    }
 }

@@ -101,19 +101,31 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 	
 	@FXML
 	private void addEditDelete() {
-		if(nameTextField.getText().toString().length() == 0 ||
-				unnTextField.getText().toString().length() == 0 ||
-				adressTextField.getText().toString().length() == 0){
+		if(nameTextField.getText().length() == 0 ||
+				unnTextField.getText().length() == 0 ||
+				adressTextField.getText().length() == 0){
 			MessagesUtils.showAlert("Ошибка", "Нельзя сохранять пустые элементы");
 			return;
 		}
 
 		if(mode.equals(AddEditMode.ADD)) {
-			CounterpartiesDBHelper.saveEntity(sessFact, createCounterpartiesEntity(0));
+			CounterpartiesDBHelper.saveEntity(sessFact,
+					CounterpartiesEntity.createCounterpartiesEntity(0,
+							nameTextField.getText(),
+							adressTextField.getText(),
+							unnTextField.getText()));
 		}else if(mode.equals(AddEditMode.EDIT)){
-			CounterpartiesDBHelper.updateEntity(sessFact, createCounterpartiesEntity(counterparty.getId()));
+			CounterpartiesDBHelper.updateEntity(sessFact,
+					CounterpartiesEntity.createCounterpartiesEntity(counterparty.getId(),
+							nameTextField.getText(),
+							adressTextField.getText(),
+							unnTextField.getText()));
 		}else if(mode.equals(AddEditMode.DELETE)){
-			CounterpartiesDBHelper.deleteEntity(sessFact, createCounterpartiesEntity(counterparty.getId()));
+			CounterpartiesDBHelper.deleteEntity(sessFact,
+					CounterpartiesEntity.createCounterpartiesEntity(counterparty.getId(),
+							nameTextField.getText(),
+							adressTextField.getText(),
+							unnTextField.getText()));
 		}
 		
 		mode = AddEditMode.ADD;
@@ -170,12 +182,5 @@ public class CounterpartiesDirectoryViewController extends AbstractController{
 		nameTextField.setText("");
 		unnTextField.setText("");
 		adressTextField.setText("");
-	}
-
-	private CounterpartiesEntity createCounterpartiesEntity(int id){
-		return new CounterpartiesEntity(id,
-				nameTextField.getText().toString(),
-				adressTextField.getText().toString(),
-				unnTextField.getText().toString());
 	}
 }
