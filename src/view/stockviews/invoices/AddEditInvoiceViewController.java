@@ -132,8 +132,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 			// update salesLines invoice number
 			ObservableList<InvoiceLine> lines = invoiceLinesTable.getItems();
 			for(InvoiceLine line : lines) {
-				line.setInvoiceNumber(newValue);
-				InvoicesLineDBHelper.saveEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
+				line.setInvoiceNumber(number.getText());
+				InvoicesLineDBHelper.updateEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
 			}
 		}));
 
