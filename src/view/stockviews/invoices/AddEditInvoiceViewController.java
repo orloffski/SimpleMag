@@ -3,6 +3,8 @@ package view.stockviews.invoices;
 import application.Main;
 import dbhelpers.*;
 import entity.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddEditInvoiceViewController extends AbstractController{
+public class AddEditInvoiceViewController extends AbstractController implements ChangeListener{
 
 	private Main main;
 	private ObservableList<String> counterpartiesData;
@@ -125,17 +127,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 		addLine.setImage(new Image("file:resources/images/add.png"));
 		deleteLine.setImage(new Image("file:resources/images/delete.png"));
 		
-		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-			String newType = NumberUtils.getDocSuffix(newValue);
-			number.setText(NumberUtils.getNextDocNumber(newType));
-
-			// update salesLines invoice number
-			ObservableList<InvoiceLine> lines = invoiceLinesTable.getItems();
-			for(InvoiceLine line : lines) {
-				line.setInvoiceNumber(number.getText());
-				InvoicesLineDBHelper.updateEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
-			}
-		}));
+		type.getSelectionModel().selectedItemProperty().addListener(this);
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен");
 	}
@@ -162,26 +154,27 @@ public class AddEditInvoiceViewController extends AbstractController{
 					itemsEntity.getUnitId());
 
 
-			if(item != null) InvoicesLineDBHelper.saveEntity(
-					sessFact,
-					new InvoicesLinesEntity(
-							0,
-							1,
-							invoice.getNumber(),
-							item.getId(),
-							0d,
-							(byte) 20,
-							(byte) 40,
-							0d,
-							item.getName(),
-							0,
-							0d,
-							0d
-					)
-			);
+			if(item != null) {
+				InvoicesLinesEntity lineEntity = new InvoicesLinesEntity(
+						0,
+						1,
+						invoice.getNumber(),
+						item.getId(),
+						0d,
+						(byte) 20,
+						(byte) 40,
+						0d,
+						item.getName(),
+						0,
+						0d,
+						0d
+				);
+				InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
+//				InvoiceLineData.add(InvoiceLine.createInvoiceLineFromInvoiceLineEntity(lineEntity));
+			}
 
 			InvoiceLineData.clear();
-			loadInvoiceLines(invoice.getNumber());
+			loadInvoiceLines(this.invoice.getNumber());
 		}
 	}
 
@@ -384,7 +377,10 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 		loadCounterParties(invoice.getCounterparty());
 
+		type.getSelectionModel().selectedItemProperty().removeListener(this);
 		type.setValue(invoice.getType());
+		type.getSelectionModel().selectedItemProperty().addListener(this);
+
 		type.setEditable(false);
 		status.setText(invoice.getStatus());
 
@@ -649,5 +645,17 @@ public class AddEditInvoiceViewController extends AbstractController{
 
 	private void deleteInvoiceLine(int id){
 		InvoicesLineDBHelper.deleteLinesById(sessFact, id);
+	}
+
+	@Override
+	public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+		String newType = NumberUtils.getDocSuffix(String.valueOf(newValue));
+		number.setText(NumberUtils.getNextDocNumber(newType));
+		
+		ObservableList<InvoiceLine> lines = invoiceLinesTable.getItems();
+		for(InvoiceLine line : lines) {
+			line.setInvoiceNumber(number.getText());
+			InvoicesLineDBHelper.updateEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
+		}
 	}
 }

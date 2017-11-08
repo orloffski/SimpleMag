@@ -1,5 +1,6 @@
 package model;
 
+import entity.InvoicesLinesEntity;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -185,5 +186,21 @@ public class InvoiceLine {
         return retailPrice;
     }
 
+    public static InvoiceLine createInvoiceLineFromInvoiceLineEntity(InvoicesLinesEntity line){
+	    return new InvoiceLine(
+	            line.getId(),
+                line.getLineNumber(),
+                line.getInvoiceNumber(),
+                line.getItemId(),
+                line.getVendorPrice(),
+                line.getVat().intValue(),
+                line.getExtraPrice().intValue(),
+                line.getRetailPrice(),
+                line.getItemName(),
+                line.getCount(),
+                line.getSummVat(),
+                line.getSummInclVat()
+        );
+    }
 
 }
