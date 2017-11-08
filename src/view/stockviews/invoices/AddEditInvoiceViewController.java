@@ -132,7 +132,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 			// update salesLines invoice number
 		}));
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен");
 	}
 
 	@FXML
@@ -222,7 +222,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 				number.getText(),
 				type.getValue(),
 				counterparty.getValue(),
-				status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен",
+				status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен",
 				ttnNo.getText(),
 				ttnDate.getEditor().getText());
 
