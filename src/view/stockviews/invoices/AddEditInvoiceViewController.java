@@ -1,11 +1,8 @@
 package view.stockviews.invoices;
 
-import application.DBClass;
 import application.Main;
-import entity.CounterpartiesEntity;
-import entity.InvoicesHeadersEntity;
-import entity.InvoicesLinesEntity;
-import entity.PricesEntity;
+import dbhelpers.*;
+import entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +20,6 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import modes.AddEditMode;
-import org.hibernate.query.Query;
 import utils.MessagesUtils;
 import utils.NumberUtils;
 import view.AbstractController;
@@ -43,8 +39,6 @@ public class AddEditInvoiceViewController extends AbstractController{
 	private ObservableList<String> counterpartiesData;
 	private ObservableList<InvoiceLine> InvoiceLineData;
 	private List<Counterparties> counterparties;
-	private DBClass dbClass;
-	private Connection connection;
 	private InvoiceHeader invoice;
 	private AddEditMode mode;
 	private boolean okClicked = false;
@@ -134,7 +128,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 		type.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
 			String newType = NumberUtils.getDocSuffix(newValue);
 			number.setText(NumberUtils.getNextDocNumber(newType));
-			// update salesLines
+
+			// update salesLines invoice number
 		}));
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
@@ -153,39 +148,32 @@ public class AddEditInvoiceViewController extends AbstractController{
 		Items item = null;
 
 		if(itemId != -1){
-			String SQL = "SELECT * FROM items " + "WHERE id = '" + itemId + "';";
-			ResultSet rs = null;
-			try {
-				rs = connection.createStatement().executeQuery(SQL);
-				if(rs.next()){
-					item = new Items(
-							rs.getInt("id"),
-							rs.getString("vendor_code"),
-							rs.getString("name"),
-							rs.getString("vendor_country"),
-							rs.getInt("unit_id"));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
 
-			if(item != null){
-				SQL = "INSERT INTO invoices_lines SET " +
-						"invoice_number = '" + invoice.getNumber() + "', " +
-						"item_id = " + item.getId() + ", " +
-						"item_name = '" + item.getName() + "'," +
-						"vat = " + 20 + ", " +
-						"extra_price = " + 40 + ";";
-				try {
-					connection.createStatement().executeUpdate(SQL);
+			item = new Items(itemsEntity.getId(),
+					itemsEntity.getVendorCode(),
+					itemsEntity.getName(),
+					itemsEntity.getVendorCountry(),
+					itemsEntity.getUnitId());
 
-					InvoiceLineData.clear();
 
-					setInvoice(invoice);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			if(item != null) InvoicesLineDBHelper.saveEntity(
+					sessFact,
+					new InvoicesLinesEntity(
+							0,
+							1,
+							invoice.getNumber(),
+							item.getId(),
+							0d,
+							(byte) 20,
+							(byte) 40,
+							0d,
+							item.getName(),
+							0,
+							0d,
+							0d
+					)
+			);
 
 			invoiceLinesTable.refresh();
 		}
@@ -227,14 +215,7 @@ public class AddEditInvoiceViewController extends AbstractController{
 	private void saveDocument(){
 		if(this.invoice == null){
 			this.invoice = createHeader();
-
-			session = sessFact.openSession();
-			tr = session.beginTransaction();
-
-			session.save(createHeaderEntityFromHeader(this.invoice));
-
-			tr.commit();
-			session.close();
+			InvoicesHeaderDBHelper.saveEntity(sessFact, createHeaderEntityFromHeader(this.invoice));
 		}else{
 			this.invoice = updateHeader(
 				this.invoice,
@@ -320,14 +301,6 @@ public class AddEditInvoiceViewController extends AbstractController{
 	
 	void setInvoice(InvoiceHeader invoice) {
 		this.invoice = invoice;
-
-		dbClass = new DBClass();
-	    try{
-	    	connection = dbClass.getConnection();
-	    }
-	    catch(ClassNotFoundException | SQLException ce){
-	    	ce.printStackTrace();
-	    }
 
 		type.setItems(InvoicesTypes.getTypes());
 		
@@ -480,50 +453,40 @@ public class AddEditInvoiceViewController extends AbstractController{
 			e.printStackTrace();
 		}
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		session.update(new InvoicesHeadersEntity(
-				header.getId(),
-				header.getNumber(),
-				header.getType(),
-				header.getStatus(),
-				header.getCounterparty(),
-				header.getCount(),
-				header.getSumm(),
-				header.getCounterpartyId(),
-				new Timestamp(parsedDate.getTime()),
-				header.getRecipientId(),
-				header.getRecipientName(),
-				header.getFullSumm(),
-				header.getTtnNo(),
-				header.getTtnDate()
-		));
-
-		tr.commit();
-		session.close();
+		InvoicesHeaderDBHelper.updateEntity(sessFact,
+				new InvoicesHeadersEntity(
+						header.getId(),
+						header.getNumber(),
+						header.getType(),
+						header.getStatus(),
+						header.getCounterparty(),
+						header.getCount(),
+						header.getSumm(),
+						header.getCounterpartyId(),
+						new Timestamp(parsedDate.getTime()),
+						header.getRecipientId(),
+						header.getRecipientName(),
+						header.getFullSumm(),
+						header.getTtnNo(),
+						header.getTtnDate()
+				));
 	}
 
 	private void setLineToDB(InvoiceLine line){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		session.update(new InvoicesLinesEntity(
-				line.getId(),
-				line.getLineNumber(),
-				line.getInvoiceNumber(),
-				line.getItemId(),
-				line.getVendorPrice(),
-				(byte)line.getVat(),
-				(byte)line.getExtraPrice(),
-				line.getRetailPrice(),
-				line.getItemName(),
-				line.getCount(),
-				line.getSummVat(),
-				line.getSummIncludeVat()));
-
-		tr.commit();
-		session.close();
+		InvoicesLineDBHelper.updateEntity(sessFact,
+				new InvoicesLinesEntity(
+						line.getId(),
+						line.getLineNumber(),
+						line.getInvoiceNumber(),
+						line.getItemId(),
+						line.getVendorPrice(),
+						(byte)line.getVat(),
+						(byte)line.getExtraPrice(),
+						line.getRetailPrice(),
+						line.getItemName(),
+						line.getCount(),
+						line.getSummVat(),
+						line.getSummIncludeVat()));
 	}
 	
 	private void loadInvoiceLines(String invoiceNumber) {
@@ -554,11 +517,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 	private void loadCounterParties(String value) {
 		counterpartiesData = FXCollections.observableArrayList();
 
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
 		this.counterparties = new ArrayList<>();
-		List<CounterpartiesEntity> counterpartiesList = session.createQuery("FROM CounterpartiesEntity ").list();
+		List<CounterpartiesEntity> counterpartiesList = CounterpartiesDBHelper.getCounterpartiesEntitiesList(sessFact);
 
 		for(CounterpartiesEntity counterpartiesItem : counterpartiesList){
 			this.counterparties.add(new Counterparties(
@@ -574,9 +534,6 @@ public class AddEditInvoiceViewController extends AbstractController{
 		counterparty.setItems(counterpartiesData);
 		if(!value.isEmpty())
 			counterparty.setValue(value);
-
-		tr.commit();
-		session.close();
 	}
 
 	@Override
@@ -601,13 +558,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private List<InvoiceLine> getInvoiceLines(String invoiceNumber){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
 
-		Query query = session.createQuery("FROM InvoicesLinesEntity WHERE invoiceNumber =:invoiceNumber ORDER BY id");
-		query.setParameter("invoiceNumber", invoiceNumber);
-
-		List<InvoicesLinesEntity> invoiceLinesList = query.list();
+		List<InvoicesLinesEntity> invoiceLinesList = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNumber);
 		List<InvoiceLine> lines = new ArrayList<>();
 
 		for(InvoicesLinesEntity invoicesLinesItem : invoiceLinesList){
@@ -629,32 +581,16 @@ public class AddEditInvoiceViewController extends AbstractController{
 			lines.add(line);
 		}
 
-		tr.commit();
-		session.close();
-
 		return lines;
 	}
 
 	private void setNewPrice(double retailPrice, int itemId, String reason){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		session.save(new PricesEntity(0, String.valueOf(retailPrice), itemId, new Timestamp(new Date().getTime()),reason));
-
-		tr.commit();
-		session.close();
+		PricesDBHelper.saveEntity(sessFact,
+				new PricesEntity(0, String.valueOf(retailPrice), itemId, new Timestamp(new Date().getTime()),reason));
 	}
 
 	private void deletePrices(String invoiceNumber){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		Query query = session.createQuery("DELETE FROM PricesEntity WHERE reason =:invoiceNumber");
-		query.setParameter("invoiceNumber", invoiceNumber);
-		query.executeUpdate();
-
-		tr.commit();
-		session.close();
+		PricesDBHelper.deletePricesByInvoiceNumber(sessFact, invoiceNumber);
 	}
 
 	private InvoiceHeader updateHeader(InvoiceHeader headerToUpdate, String docNumber, String docType, String counterpartyName, String status, String ttnNo, String ttnDate){
@@ -706,14 +642,6 @@ public class AddEditInvoiceViewController extends AbstractController{
 	}
 
 	private void deleteInvoiceLine(int id){
-		session = sessFact.openSession();
-		tr = session.beginTransaction();
-
-		Query query = session.createQuery("DELETE FROM InvoicesLinesEntity WHERE id =:id");
-		query.setParameter("id", id);
-		query.executeUpdate();
-
-		tr.commit();
-		session.close();
+		InvoicesLineDBHelper.deleteLinesById(sessFact, id);
 	}
 }

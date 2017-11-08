@@ -28,4 +28,16 @@ public class PricesDBHelper extends AbstractDBHelper{
 
         return null;
     }
+
+    public static void deletePricesByInvoiceNumber(SessionFactory sessFact, String invoiceNumber){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery("DELETE FROM PricesEntity WHERE reason =:invoiceNumber");
+        query.setParameter("invoiceNumber", invoiceNumber);
+        query.executeUpdate();
+
+        tr.commit();
+        session.close();
+    }
 }

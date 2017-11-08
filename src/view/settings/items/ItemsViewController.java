@@ -120,7 +120,7 @@ public class ItemsViewController extends AbstractController {
 	public void buildData(){
 		data = FXCollections.observableArrayList();
 
-		List<ItemsEntity> itemsList = ItemsDBHelper.getUnitsEntitiesList(sessFact);
+		List<ItemsEntity> itemsList = ItemsDBHelper.getItemsEntitiesList(sessFact);
 
 		for(ItemsEntity itemsItem : itemsList){
 			Items item = new Items(itemsItem.getId(),
