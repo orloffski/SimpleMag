@@ -130,6 +130,11 @@ public class AddEditInvoiceViewController extends AbstractController{
 			number.setText(NumberUtils.getNextDocNumber(newType));
 
 			// update salesLines invoice number
+			ObservableList<InvoiceLine> lines = invoiceLinesTable.getItems();
+			for(InvoiceLine line : lines) {
+				line.setInvoiceNumber(newValue);
+				InvoicesLineDBHelper.saveEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
+			}
 		}));
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен");
@@ -175,7 +180,8 @@ public class AddEditInvoiceViewController extends AbstractController{
 					)
 			);
 
-			invoiceLinesTable.refresh();
+			InvoiceLineData.clear();
+			loadInvoiceLines(invoice.getNumber());
 		}
 	}
 

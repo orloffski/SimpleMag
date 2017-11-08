@@ -1,5 +1,7 @@
 package entity;
 
+import model.InvoiceLine;
+
 import javax.persistence.*;
 
 @Entity
@@ -196,5 +198,22 @@ public class InvoicesLinesEntity {
         result = 31 * result + (summVat != null ? summVat.hashCode() : 0);
         result = 31 * result + (summInclVat != null ? summInclVat.hashCode() : 0);
         return result;
+    }
+
+    public static InvoicesLinesEntity createInvoiceLineEntityFromInvoiceLine(InvoiceLine line){
+        return new InvoicesLinesEntity(
+                line.getId(),
+                line.getLineNumber(),
+                line.getInvoiceNumber(),
+                line.getItemId(),
+                line.getVendorPrice(),
+                (byte)line.getVat(),
+                (byte)line.getExtraPrice(),
+                line.getRetailPrice(),
+                line.getItemName(),
+                line.getCount(),
+                line.getSummVat(),
+                line.getSummIncludeVat()
+        );
     }
 }

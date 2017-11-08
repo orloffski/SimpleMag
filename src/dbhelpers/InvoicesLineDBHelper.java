@@ -1,7 +1,6 @@
 package dbhelpers;
 
 import entity.InvoicesLinesEntity;
-import entity.PricesEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
