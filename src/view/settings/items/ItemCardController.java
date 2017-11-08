@@ -73,19 +73,19 @@ public class ItemCardController extends AbstractController{
 
 			if(newItem) {
 				item = ItemsEntity.createItemsEntity(0,
-						vendorCode.getText().toString(),
-						name.getText().toString(),
+						vendorCode.getText(),
+						name.getText(),
 						new Timestamp(new Date().getTime()),
-						vendorCountry.getText().toString(),
+						vendorCountry.getText(),
 						unitId);
 				ItemsDBHelper.saveEntity(sessFact, item);
 				saveBtn.setDisable(true);
 			}else{
 				item = ItemsEntity.createItemsEntity(this.item.getId(),
-						vendorCode.getText().toString(),
-						name.getText().toString(),
+						vendorCode.getText(),
+						name.getText(),
 						new Timestamp(new Date().getTime()),
-						vendorCountry.getText().toString(),
+						vendorCountry.getText(),
 						unitId);
 				ItemsDBHelper.updateEntity(sessFact, item);
 			}
