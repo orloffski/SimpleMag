@@ -182,8 +182,8 @@ public class InvoicesViewController extends AbstractController{
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (invoice.getNumber().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches name.
+                if (invoice.getTtnNo().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ttnNo.
                 }
                 return false; // Does not match.
             });
