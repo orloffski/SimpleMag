@@ -144,6 +144,9 @@ public class InvoicesViewController extends AbstractController{
 	        controller.setInvoice(invoice);
 	        
 	        dialogStage.showAndWait();
+
+	        data.clear();
+	        buildData();
 	        
 	        return controller.isOkClicked();
 		} catch (IOException e) {
