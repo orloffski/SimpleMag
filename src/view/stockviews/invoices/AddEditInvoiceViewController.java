@@ -170,11 +170,10 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 						0d
 				);
 				InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
-//				InvoiceLineData.add(InvoiceLine.createInvoiceLineFromInvoiceLineEntity(lineEntity));
+				InvoiceLineData.add(InvoiceLine.createInvoiceLineFromInvoiceLineEntity(lineEntity));
 			}
 
-			InvoiceLineData.clear();
-			loadInvoiceLines(this.invoice.getNumber());
+			invoiceLinesTable.refresh();
 		}
 	}
 
@@ -321,6 +320,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			loadCounterParties("");
 			loadInvoiceLines("0");
 
+			initDocumentForEdit();
+
 			documentSave.setDisable(false);
 			documentSet.setDisable(true);
 		}
@@ -373,19 +374,21 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
 
-		loadInvoiceLines(invoice.getNumber());
+		if(invoice != null) {
+			loadInvoiceLines(invoice.getNumber());
 
-		loadCounterParties(invoice.getCounterparty());
+			loadCounterParties(invoice.getCounterparty());
 
-		type.getSelectionModel().selectedItemProperty().removeListener(this);
-		type.setValue(invoice.getType());
-		type.getSelectionModel().selectedItemProperty().addListener(this);
+			type.getSelectionModel().selectedItemProperty().removeListener(this);
+			type.setValue(invoice.getType());
+			type.getSelectionModel().selectedItemProperty().addListener(this);
 
-		type.setEditable(false);
-		status.setText(invoice.getStatus());
+			type.setEditable(false);
+			status.setText(invoice.getStatus());
 
-		number.setText(invoice.getNumber());
-		createDate.setText(invoice.getLastcreated().split(" ")[0]);
+			number.setText(invoice.getNumber());
+			createDate.setText(invoice.getLastcreated().split(" ")[0]);
+		}
 	}
 
 	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine){
@@ -500,7 +503,6 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		double fullDocSumm = invoice != null ? invoice.getFullSumm() : 0;
 
 		List<InvoiceLine> lines = getInvoiceLines(invoiceNumber);
-		System.out.println(lines.size());
 
 		for(InvoiceLine lineItem : lines){
 			InvoiceLineData.add(lineItem);
@@ -651,7 +653,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	public void changed(ObservableValue observable, Object oldValue, Object newValue) {
 		String newType = NumberUtils.getDocSuffix(String.valueOf(newValue));
 		number.setText(NumberUtils.getNextDocNumber(newType));
-		
+
 		ObservableList<InvoiceLine> lines = invoiceLinesTable.getItems();
 		for(InvoiceLine line : lines) {
 			line.setInvoiceNumber(number.getText());
