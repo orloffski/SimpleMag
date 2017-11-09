@@ -263,7 +263,11 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			if (lines.size() > 0) {
 				for (InvoiceLine line : lines) {
-					setNewPrice(line.getRetailPrice(), line.getItemId(), line.getInvoiceNumber());
+					try {
+						setNewPrice(line.getRetailPrice(), line.getItemId(), line.getInvoiceNumber(), invoice.getTtnDate());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}else{
@@ -588,9 +592,12 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		return lines;
 	}
 
-	private void setNewPrice(double retailPrice, int itemId, String reason){
+	private void setNewPrice(double retailPrice, int itemId, String reason, String ttnDate) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		Date parsedDate = dateFormat.parse(ttnDate);
 		PricesDBHelper.saveEntity(sessFact,
-				new PricesEntity(0, String.valueOf(retailPrice), itemId, new Timestamp(new Date().getTime()),reason));
+				new PricesEntity(0, String.valueOf(retailPrice), itemId,
+						new java.sql.Timestamp(parsedDate.getTime()),reason));
 	}
 
 	private void deletePrices(String invoiceNumber){
