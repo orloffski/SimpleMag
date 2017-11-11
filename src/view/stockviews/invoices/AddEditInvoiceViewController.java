@@ -170,10 +170,11 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 						0d
 				);
 				InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
-				InvoiceLineData.add(InvoiceLine.createInvoiceLineFromInvoiceLineEntity(lineEntity));
+				InvoiceLineData.clear();
 			}
 
-			invoiceLinesTable.refresh();
+			loadInvoiceLines(invoice.getNumber());
+
 		}
 	}
 
@@ -213,7 +214,9 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	private void saveDocument(){
 		if(this.invoice == null){
 			this.invoice = createHeader();
-			InvoicesHeaderDBHelper.saveEntity(sessFact, createHeaderEntityFromHeader(this.invoice));
+			InvoicesHeadersEntity headersEntity = createHeaderEntityFromHeader(this.invoice);
+			InvoicesHeaderDBHelper.saveEntity(sessFact, headersEntity);
+			this.invoice.setId(headersEntity.getId());
 		}else{
 			this.invoice = updateHeader(
 				this.invoice,
@@ -310,7 +313,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			dialogStage.setTitle("редактирование документа");
 			this.mode = AddEditMode.EDIT;
 
-			initDocumentForEdit();
+			initInvoiceLineTable();
 			
 			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
 			ttnNo.setText(invoice.getTtnNo());
@@ -324,14 +327,14 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			loadCounterParties("");
 			loadInvoiceLines("0");
 
-			initDocumentForEdit();
+			initInvoiceLineTable();
 
 			documentSave.setDisable(false);
 			documentSet.setDisable(true);
 		}
 	}
 
-	private void initDocumentForEdit(){
+	private void initInvoiceLineTable(){
 		invoiceLinesTable.setEditable(true);
 
 		itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
@@ -340,10 +343,10 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
 		itemCount.setOnEditCommit(t -> updateInvoiceLine(
 				t.getNewValue().intValue(),
-                invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
-                invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
-                invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
-                invoiceLinesTable.getSelectionModel().getSelectedItem()));
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem()));
 
 		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty().asObject());
 		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -448,7 +451,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		);
 
 		setLineToDB(oldLine);
-		setHeaderToDB(invoice);
+		setHeaderToDB(this.invoice);
 
 		invoiceLinesTable.refresh();
 	}
