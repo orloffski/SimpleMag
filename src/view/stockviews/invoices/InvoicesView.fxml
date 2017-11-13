@@ -48,7 +48,7 @@
                   <Image url="@../../../../resources/images/add.png" />
                </image>
                <HBox.margin>
-                  <Insets left="25.0" />
+                  <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
             <ImageView fx:id="editBtn" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#editInvoice" pickOnBounds="true" preserveRatio="true">
