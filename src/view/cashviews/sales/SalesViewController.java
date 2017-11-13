@@ -1,6 +1,5 @@
 package view.cashviews.sales;
 
-import application.DBClass;
 import application.Main;
 import dbhelpers.SalesHeaderDBHelper;
 import dbhelpers.SalesLinesDBHelper;
@@ -25,17 +24,11 @@ import utils.MessagesUtils;
 import view.AbstractController;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class SalesViewController extends AbstractController{
 
     private Main main;
-    private DBClass dbClass;
-    private Connection connection;
     private ObservableList<SalesHeader> data;
 
     @FXML
@@ -68,8 +61,6 @@ public class SalesViewController extends AbstractController{
 
     	add.setImage(new Image("file:resources/images/add.png"));
     	delete.setImage(new Image("file:resources/images/delete.png"));
-    	
-        loadConnection();
 
         salesNumber.setCellValueFactory(cellData -> cellData.getValue().salesNumberProperty());
         salesSumm.setCellValueFactory(cellData -> cellData.getValue().salesSummProperty().asObject());
@@ -120,16 +111,6 @@ public class SalesViewController extends AbstractController{
             loadSalesHeaders();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void loadConnection(){
-        dbClass = new DBClass();
-        try{
-            connection = dbClass.getConnection();
-        }
-        catch(ClassNotFoundException | SQLException ce){
-            ce.printStackTrace();
         }
     }
 
