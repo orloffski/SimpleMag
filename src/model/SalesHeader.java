@@ -1,5 +1,6 @@
 package model;
 
+import entity.SalesHeaderEntity;
 import javafx.beans.property.*;
 
 public class SalesHeader {
@@ -94,5 +95,16 @@ public class SalesHeader {
 
     public void setCreateUpdate(String createUpdate) {
         this.createUpdate.set(createUpdate);
+    }
+
+    public static SalesHeader createHeaderFromEntity(SalesHeaderEntity saleHeader){
+        return new SalesHeader(
+                saleHeader.getId(),
+                saleHeader.getSalesNumber(),
+                saleHeader.getSumm(),
+                saleHeader.getSalesType(),
+                saleHeader.getPayment(),
+                saleHeader.getLastcreateupdate().toString()
+        );
     }
 }

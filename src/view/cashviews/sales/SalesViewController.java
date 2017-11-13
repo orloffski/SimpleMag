@@ -2,6 +2,8 @@ package view.cashviews.sales;
 
 import application.DBClass;
 import application.Main;
+import dbhelpers.SalesHeaderDBHelper;
+import entity.SalesHeaderEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,19 +20,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.SalesHeader;
+import view.AbstractController;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class SalesViewController {
+public class SalesViewController extends AbstractController{
 
     private Main main;
     private DBClass dbClass;
     private Connection connection;
-    private ObservableList<SalesHeader> salesHeadersData;
+    private ObservableList<SalesHeader> data;
 
     @FXML
     private TextField filter;
@@ -57,13 +61,11 @@ public class SalesViewController {
     private ImageView delete;
 
     @FXML
-    private ImageView refresh;
-
-    @FXML
     private void initialize() {
+        getSessionData();
+
     	add.setImage(new Image("file:resources/images/add.png"));
     	delete.setImage(new Image("file:resources/images/delete.png"));
-    	refresh.setImage(new Image("file:resources/images/refresh.png"));
     	
         loadConnection();
 
@@ -91,7 +93,7 @@ public class SalesViewController {
             statement.setString(1, header.getSalesNumber());
             statement.executeUpdate();
 
-            salesHeadersData.remove(indexToDelete);
+            data.remove(indexToDelete);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -116,7 +118,7 @@ public class SalesViewController {
 
             dialogStage.showAndWait();
 
-            salesHeadersData.clear();
+            data.clear();
             loadSalesHeaders();
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,34 +136,22 @@ public class SalesViewController {
     }
 
     private void loadSalesHeaders(){
-        salesHeadersData = FXCollections.observableArrayList();
+        data = FXCollections.observableArrayList();
 
-        try{
-            String SQL = "SELECT * FROM sales_header";
-            ResultSet rs = connection.createStatement().executeQuery(SQL);
-            while(rs.next()){
-                SalesHeader header = new SalesHeader(
-                        rs.getInt("id"),
-                        rs.getString("sales_number"),
-                        rs.getDouble("summ"),
-                        rs.getString("sales_type"),
-                        rs.getString("payment"),
-                        rs.getString("lastcreateupdate")
-                );
-                salesHeadersData.add(header);
-            }
+        List<SalesHeaderEntity> salesList = SalesHeaderDBHelper.getSalesHeadersEntitiesList(sessFact);
 
-            salesHeaderTable.setItems(salesHeadersData);
-
-            addFilter();
+        for (SalesHeaderEntity saleHeader : salesList) {
+            SalesHeader headerItem = SalesHeader.createHeaderFromEntity(saleHeader);
+            data.add(headerItem);
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+
+        salesHeaderTable.setItems(data);
+
+        addFilter();
     }
 
     private void addFilter() {
-        FilteredList<SalesHeader> filteredData = new FilteredList<>(salesHeadersData, p -> true);
+        FilteredList<SalesHeader> filteredData = new FilteredList<>(data, p -> true);
 
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(header -> {
@@ -189,5 +179,10 @@ public class SalesViewController {
 
     public void setMain(Main main) {
         this.main = main;
+    }
+
+    @Override
+    protected void clearForm() {
+
     }
 }
