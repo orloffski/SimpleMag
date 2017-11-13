@@ -3,6 +3,7 @@ package view.cashviews.sales;
 import application.DBClass;
 import application.Main;
 import dbhelpers.SalesHeaderDBHelper;
+import dbhelpers.SalesLinesDBHelper;
 import entity.SalesHeaderEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.SalesHeader;
+import utils.MessagesUtils;
 import view.AbstractController;
 
 import java.io.IOException;
@@ -80,22 +82,18 @@ public class SalesViewController extends AbstractController{
     @FXML
     private void delHeader(){
         SalesHeader header = salesHeaderTable.getSelectionModel().getSelectedItem();
-        int indexToDelete = salesHeaderTable.getSelectionModel().getSelectedIndex();
 
-        try {
-            PreparedStatement statement = null;
+        if(header != null){
+            String saleNumber = header.getSalesNumber();
+            int id = header.getId();
 
-            statement = connection.prepareStatement("DELETE FROM sales_header WHERE id = ?");
-            statement.setInt(1, header.getId());
-            statement.executeUpdate();
+            deleteLines(saleNumber);
+            deleteHeader(id);
 
-            statement = connection.prepareStatement("DELETE FROM sales_line WHERE sales_number = ?");
-            statement.setString(1, header.getSalesNumber());
-            statement.executeUpdate();
-
-            data.remove(indexToDelete);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            data.clear();
+            loadSalesHeaders();
+        }else{
+            MessagesUtils.showAlert("Ошибка удаления продажи","Выберите чек продажи для удаления.");
         }
     }
 
@@ -179,6 +177,14 @@ public class SalesViewController extends AbstractController{
 
     public void setMain(Main main) {
         this.main = main;
+    }
+
+    private void deleteLines(String saleNumber){
+        SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, saleNumber);
+    }
+
+    private void deleteHeader(int id){
+        SalesHeaderDBHelper.deleteHeaderById(sessFact, id);
     }
 
     @Override
