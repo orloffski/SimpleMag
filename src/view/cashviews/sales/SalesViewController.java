@@ -76,12 +76,6 @@ public class SalesViewController {
     }
 
     @FXML
-    private void refreshTable(){
-        salesHeadersData.clear();
-        loadSalesHeaders();
-    }
-
-    @FXML
     private void delHeader(){
         SalesHeader header = salesHeaderTable.getSelectionModel().getSelectedItem();
         int indexToDelete = salesHeaderTable.getSelectionModel().getSelectedIndex();
@@ -121,6 +115,9 @@ public class SalesViewController {
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();
+
+            salesHeadersData.clear();
+            loadSalesHeaders();
         } catch (IOException e) {
             e.printStackTrace();
         }

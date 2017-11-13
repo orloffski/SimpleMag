@@ -59,14 +59,6 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="refresh" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#refreshTable" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../../../../resources/images/refresh.png" />
-               </image>
-            </ImageView>
          </children>
          <BorderPane.margin>
             <Insets top="10.0" />
