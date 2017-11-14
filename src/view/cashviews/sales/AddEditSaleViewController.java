@@ -72,7 +72,6 @@ public class AddEditSaleViewController extends AbstractController{
 
 
     private Main main;
-    private Stage dialogStage;
     private Connection connection;
     private ObservableList<String> salesTypes;
     private ObservableList<String> paymentTypes;
