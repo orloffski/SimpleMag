@@ -20,6 +20,7 @@ import model.Items;
 import model.SalesHeader;
 import model.SalesLine;
 import utils.NumberUtils;
+import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddEditSaleViewController {
+public class AddEditSaleViewController extends AbstractController{
 
     @FXML
     private Text checkNumber;
@@ -365,8 +366,9 @@ public class AddEditSaleViewController {
         }
     }
 
-    void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
+    @Override
+    protected void clearForm() {
+
     }
 
     void setHeader(SalesHeader header){
