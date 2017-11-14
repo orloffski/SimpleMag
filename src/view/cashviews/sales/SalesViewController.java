@@ -100,6 +100,15 @@ public class SalesViewController extends AbstractController{
             return;
         }
 
+        openHeader(header);
+    }
+
+    @FXML
+    private void addHeader() {
+        openHeader(null);
+    }
+
+    private void openHeader(SalesHeader header){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/cashviews/sales/AddEditSaleView.fxml"));
         try {
@@ -115,33 +124,6 @@ public class SalesViewController extends AbstractController{
             controller.setMain(main);
             controller.setDialogStage(dialogStage);
             controller.setHeader(header);
-
-            dialogStage.showAndWait();
-
-            data.clear();
-            loadSalesHeaders();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void addHeader() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/cashviews/sales/AddEditSaleView.fxml"));
-        try {
-            BorderPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.getIcons().add(new Image("file:resources/images/check.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(main.getPrimaryStage());
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            AddEditSaleViewController controller = loader.getController();
-            controller.setMain(main);
-            controller.setDialogStage(dialogStage);
-            controller.setHeader(null);
 
             dialogStage.showAndWait();
 
