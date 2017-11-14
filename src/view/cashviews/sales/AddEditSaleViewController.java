@@ -2,6 +2,8 @@ package view.cashviews.sales;
 
 import application.DBClass;
 import application.Main;
+import dbhelpers.SalesLinesDBHelper;
+import entity.SalesLineEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AddEditSaleViewController extends AbstractController{
 
@@ -83,16 +86,12 @@ public class AddEditSaleViewController extends AbstractController{
     private void initialize() {
     	add.setImage(new Image("file:resources/images/add.png"));
     	delete.setImage(new Image("file:resources/images/delete.png"));
-    	
-        initTable();
 
         try {
             connection = new DBClass().getConnection();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
-        init();
     }
 
     @FXML
@@ -253,6 +252,8 @@ public class AddEditSaleViewController extends AbstractController{
     }
 
     private void initTable(){
+        getSessionData();
+
         salesLineTable.setItems(salesLinedata);
 
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
@@ -264,6 +265,15 @@ public class AddEditSaleViewController extends AbstractController{
 
         itemPrice.setCellValueFactory(cellData -> cellData.getValue().itemPriceProperty().asObject());
         linePrice.setCellValueFactory(cellData -> cellData.getValue().linePriceProperty().asObject());
+
+        if(this.header != null){
+            List<SalesLineEntity> linesList = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, this.header.getSalesNumber());
+
+            for(SalesLineEntity entity : linesList)
+                salesLinedata.add(SalesLine.createSalesLineFromSalesLineEntity(entity));
+
+            salesLineTable.setItems(salesLinedata);
+        }
     }
 
     private void updateLine(int newCount){
@@ -312,8 +322,6 @@ public class AddEditSaleViewController extends AbstractController{
             checkNumber.setText(NumberUtils.getNextCheckNumber(newType));
         }));
         saleType.setValue(salesTypes.get(0));
-
-        System.out.println(header == null ? "null" : header.getSalesNumber());
     }
 
     public void setMain(Main main) {
@@ -372,5 +380,8 @@ public class AddEditSaleViewController extends AbstractController{
 
     void setHeader(SalesHeader header){
         this.header = header;
+
+        init();
+        initTable();
     }
 }

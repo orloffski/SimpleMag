@@ -1,5 +1,6 @@
 package model;
 
+import entity.SalesLineEntity;
 import javafx.beans.property.*;
 
 public class SalesLine {
@@ -108,5 +109,17 @@ public class SalesLine {
 
     public void setLinePrice(double linePrice) {
         this.linePrice.set(linePrice);
+    }
+
+    public static SalesLine createSalesLineFromSalesLineEntity(SalesLineEntity entity){
+        return new SalesLine(
+                entity.getId(),
+                entity.getSalesNumber(),
+                entity.getItemId(),
+                entity.getItemName(),
+                entity.getCount(),
+                entity.getItemPrice(),
+                entity.getFullLinePrice()
+        );
     }
 }
