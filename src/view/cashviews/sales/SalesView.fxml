@@ -51,6 +51,14 @@
                   <Image url="@../../../../resources/images/add.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="edit" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#editHeader" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../../../resources/images/edit.png" />
+               </image>
+            </ImageView>
             <ImageView fx:id="delete" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#delHeader" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../resources/images/delete.png" />

@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.cashviews.sales.AddSaleViewController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.cashviews.sales.AddEditSaleViewController">
    <center>
       <TableView fx:id="salesLineTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <columns>

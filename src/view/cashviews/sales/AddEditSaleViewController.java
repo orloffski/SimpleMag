@@ -28,7 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddSaleViewController {
+public class AddEditSaleViewController {
 
     @FXML
     private Text checkNumber;
@@ -312,6 +312,8 @@ public class AddSaleViewController {
             checkNumber.setText(NumberUtils.getNextCheckNumber(newType));
         }));
         saleType.setValue(salesTypes.get(0));
+
+        System.out.println(header == null ? "null" : header.getSalesNumber());
     }
 
     public void setMain(Main main) {
@@ -365,5 +367,9 @@ public class AddSaleViewController {
 
     void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    void setHeader(SalesHeader header){
+        this.header = header;
     }
 }
