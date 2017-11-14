@@ -129,7 +129,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		
 		type.getSelectionModel().selectedItemProperty().addListener(this);
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен");
+		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
 	}
 
 	@FXML
@@ -256,7 +256,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
+		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
 		this.invoice.setStatus(status.getText());
 	}
 
@@ -315,7 +315,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			initInvoiceLineTable();
 			
-			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведение")?"отмена проведения":"проведение");
+			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
 			ttnNo.setText(invoice.getTtnNo());
 			ttnDate.getEditor().setText(invoice.getTtnDate());
 
