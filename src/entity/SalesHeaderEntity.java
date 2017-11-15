@@ -14,6 +14,7 @@ public class SalesHeaderEntity {
     private Double cash;
     private Double nonCash;
     private Double fullSumm;
+    private String setHeader;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,6 +97,16 @@ public class SalesHeaderEntity {
         this.lastcreateupdate = lastcreateupdate;
     }
 
+    @Basic
+    @Column(name = "set_header", nullable = true, length = 45)
+    public String getSetHeader() {
+        return setHeader;
+    }
+
+    public void setSetHeader(String setHeader) {
+        this.setHeader = setHeader;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +121,7 @@ public class SalesHeaderEntity {
         if (fullSumm != null ? !fullSumm.equals(that.fullSumm) : that.fullSumm != null) return false;
         if (salesType != null ? !salesType.equals(that.salesType) : that.salesType != null) return false;
         if (payment != null ? !payment.equals(that.payment) : that.payment != null) return false;
+        if (setHeader != null ? !setHeader.equals(that.setHeader) : that.setHeader != null) return false;
         if (lastcreateupdate != null ? !lastcreateupdate.equals(that.lastcreateupdate) : that.lastcreateupdate != null)
             return false;
 
@@ -125,6 +137,7 @@ public class SalesHeaderEntity {
         result = 31 * result + (fullSumm != null ? fullSumm.hashCode() : 0);
         result = 31 * result + (salesType != null ? salesType.hashCode() : 0);
         result = 31 * result + (payment != null ? payment.hashCode() : 0);
+        result = 31 * result + (setHeader != null ? setHeader.hashCode() : 0);
         result = 31 * result + (lastcreateupdate != null ? lastcreateupdate.hashCode() : 0);
         return result;
     }
