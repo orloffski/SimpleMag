@@ -4,8 +4,6 @@ import application.DBClass;
 import application.Main;
 import dbhelpers.SalesLinesDBHelper;
 import entity.SalesLineEntity;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,6 +39,9 @@ public class AddEditSaleViewController extends AbstractController {
     private Text checkSumm;
 
     @FXML
+    private Text setDocText;
+
+    @FXML
     private TextField cash;
 
     @FXML
@@ -74,7 +75,7 @@ public class AddEditSaleViewController extends AbstractController {
     private TableColumn<SalesLine, Double> linePrice;
 
     @FXML
-    private Button close;
+    private Button setDoc;
 
     @FXML
     private Button save;
@@ -83,7 +84,6 @@ public class AddEditSaleViewController extends AbstractController {
     private Main main;
     private Connection connection;
     private ObservableList<SalesLine> salesLinedata;
-    private boolean headerCreated = false;
     private SalesHeader header;
 
     @FXML
@@ -169,13 +169,18 @@ public class AddEditSaleViewController extends AbstractController {
     @FXML
     private void saveSale(){
         if(header == null){
-            this.headerCreated = true;
             insertHeader();
         }else{
             updateHeader();
         }
     }
 
+    @FXML
+    private void setDoc(){
+
+    }
+
+    /*
     @FXML
     private void closeStage(){
 
@@ -203,6 +208,7 @@ public class AddEditSaleViewController extends AbstractController {
         }
         dialogStage.close();
     }
+    */
 
     private void loadLines(String saleNum){
         SalesLine line = null;
@@ -281,7 +287,6 @@ public class AddEditSaleViewController extends AbstractController {
     }
 
     private void updateLine(int newCount){
-        this.headerCreated = false;
 
         SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
         Double oldLinePrice = line.getLinePrice();
@@ -352,7 +357,6 @@ public class AddEditSaleViewController extends AbstractController {
 
                 );
             }
-            this.headerCreated = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -368,7 +372,6 @@ public class AddEditSaleViewController extends AbstractController {
                     + "WHERE id = " + header.getId() + ";";
 
             connection.createStatement().executeUpdate(SQL);
-            this.headerCreated = true;
         }catch (SQLException e){
             e.printStackTrace();
         }
