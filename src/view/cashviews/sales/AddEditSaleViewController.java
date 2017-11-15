@@ -353,7 +353,8 @@ public class AddEditSaleViewController extends AbstractController {
                         rs.getDouble("non_cash"),
                         rs.getString("sales_type"),
                         rs.getString("payment"),
-                        rs.getString("lastcreateupdate")
+                        rs.getString("lastcreateupdate"),
+                        rs.getString("set_header")
 
                 );
             }
