@@ -8,10 +8,12 @@ import java.sql.Timestamp;
 public class SalesHeaderEntity {
     private int id;
     private String salesNumber;
-    private Double summ;
     private String salesType;
     private String payment;
     private Timestamp lastcreateupdate;
+    private Double cash;
+    private Double nonCash;
+    private Double fullSumm;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +37,33 @@ public class SalesHeaderEntity {
     }
 
     @Basic
-    @Column(name = "summ", nullable = true, precision = 0)
-    public Double getSumm() {
-        return summ;
+    @Column(name = "non_cash", nullable = true, precision = 0)
+    public Double getNonCash() {
+        return nonCash;
     }
 
-    public void setSumm(Double summ) {
-        this.summ = summ;
+    public void setNonCash(Double nonCash) {
+        this.nonCash = nonCash;
+    }
+
+    @Basic
+    @Column(name = "full_summ", nullable = true, precision = 0)
+    public Double getFullSumm() {
+        return fullSumm;
+    }
+
+    public void setFullSumm(Double fullSumm) {
+        this.fullSumm = fullSumm;
+    }
+
+    @Basic
+    @Column(name = "cash", nullable = true, precision = 0)
+    public Double getCash() {
+        return cash;
+    }
+
+    public void setCash(Double cash) {
+        this.cash = cash;
     }
 
     @Basic
@@ -83,7 +105,9 @@ public class SalesHeaderEntity {
 
         if (id != that.id) return false;
         if (salesNumber != null ? !salesNumber.equals(that.salesNumber) : that.salesNumber != null) return false;
-        if (summ != null ? !summ.equals(that.summ) : that.summ != null) return false;
+        if (cash != null ? !cash.equals(that.cash) : that.cash != null) return false;
+        if (nonCash != null ? !nonCash.equals(that.nonCash) : that.nonCash != null) return false;
+        if (fullSumm != null ? !fullSumm.equals(that.fullSumm) : that.fullSumm != null) return false;
         if (salesType != null ? !salesType.equals(that.salesType) : that.salesType != null) return false;
         if (payment != null ? !payment.equals(that.payment) : that.payment != null) return false;
         if (lastcreateupdate != null ? !lastcreateupdate.equals(that.lastcreateupdate) : that.lastcreateupdate != null)
@@ -96,7 +120,9 @@ public class SalesHeaderEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (salesNumber != null ? salesNumber.hashCode() : 0);
-        result = 31 * result + (summ != null ? summ.hashCode() : 0);
+        result = 31 * result + (cash != null ? cash.hashCode() : 0);
+        result = 31 * result + (nonCash != null ? nonCash.hashCode() : 0);
+        result = 31 * result + (fullSumm != null ? fullSumm.hashCode() : 0);
         result = 31 * result + (salesType != null ? salesType.hashCode() : 0);
         result = 31 * result + (payment != null ? payment.hashCode() : 0);
         result = 31 * result + (lastcreateupdate != null ? lastcreateupdate.hashCode() : 0);

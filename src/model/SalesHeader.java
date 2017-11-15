@@ -7,22 +7,28 @@ public class SalesHeader {
 
     private final IntegerProperty id;
     private final StringProperty salesNumber;
-    private final DoubleProperty salesSumm;
+    private final DoubleProperty cash;
+    private final DoubleProperty nonCash;
     private final StringProperty salesType;
     private final StringProperty paymentType;
     private final StringProperty createUpdate;
+    private final DoubleProperty fullSumm;
 
     public SalesHeader() {
-        this(null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
-    public SalesHeader(Integer id, String salesNumber, Double salesSumm, String salesType, String paymentType, String createUpdate) {
+    public SalesHeader(Integer id, String salesNumber, Double cash, Double nonCash, String salesType, String paymentType, String createUpdate) {
         this.id = new SimpleIntegerProperty(id);
         this.salesNumber = new SimpleStringProperty(salesNumber);
-        this.salesSumm = new SimpleDoubleProperty(salesSumm);
+        this.cash = new SimpleDoubleProperty(cash);
+        this.nonCash = new SimpleDoubleProperty(nonCash);
         this.salesType = new SimpleStringProperty(salesType);
         this.paymentType = new SimpleStringProperty(paymentType);
         this.createUpdate = new SimpleStringProperty(createUpdate);
+
+        this.fullSumm = null;
+        this.setFullSumm(this.cash.asObject().get() + this.nonCash.get());
     }
 
     public int getId() {
@@ -32,7 +38,7 @@ public class SalesHeader {
     public IntegerProperty idProperty() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id.set(id);
     }
@@ -49,16 +55,28 @@ public class SalesHeader {
         this.salesNumber.set(salesNumber);
     }
 
-    public double getSalesSumm() {
-        return salesSumm.get();
+    public double getCash() {
+        return cash.get();
     }
 
-    public DoubleProperty salesSummProperty() {
-        return salesSumm;
+    public DoubleProperty cashProperty() {
+        return cash;
     }
 
-    public void setSalesSumm(double salesSumm) {
-        this.salesSumm.set(salesSumm);
+    public void setCash(double cash) {
+        this.cash.set(cash);
+    }
+
+    public double getNonCash() {
+        return nonCash.get();
+    }
+
+    public DoubleProperty nonCashProperty() {
+        return nonCash;
+    }
+
+    public void setNonCash(double nonCash) {
+        this.nonCash.set(nonCash);
     }
 
     public String getSalesType() {
@@ -97,11 +115,24 @@ public class SalesHeader {
         this.createUpdate.set(createUpdate);
     }
 
+    public double getFullSumm() {
+        return fullSumm.get();
+    }
+
+    public DoubleProperty fullSummProperty() {
+        return fullSumm;
+    }
+
+    public void setFullSumm(double fullSumm) {
+        this.fullSumm.set(fullSumm);
+    }
+
     public static SalesHeader createHeaderFromEntity(SalesHeaderEntity saleHeader){
         return new SalesHeader(
                 saleHeader.getId(),
                 saleHeader.getSalesNumber(),
-                saleHeader.getSumm(),
+                saleHeader.getCash(),
+                saleHeader.getNonCash(),
                 saleHeader.getSalesType(),
                 saleHeader.getPayment(),
                 saleHeader.getLastcreateupdate().toString()

@@ -67,7 +67,7 @@ public class SalesViewController extends AbstractController{
     	edit.setImage(new Image("file:resources/images/edit.png"));
 
         salesNumber.setCellValueFactory(cellData -> cellData.getValue().salesNumberProperty());
-        salesSumm.setCellValueFactory(cellData -> cellData.getValue().salesSummProperty().asObject());
+        salesSumm.setCellValueFactory(cellData -> cellData.getValue().fullSummProperty().asObject());
         salesType.setCellValueFactory(cellData -> cellData.getValue().salesTypeProperty());
         paymentType.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
 

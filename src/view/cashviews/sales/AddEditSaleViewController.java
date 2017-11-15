@@ -345,10 +345,12 @@ public class AddEditSaleViewController extends AbstractController{
                 header = new SalesHeader(
                         rs.getInt("id"),
                         rs.getString("sales_number"),
-                        rs.getDouble("summ"),
+                        rs.getDouble("cash"),
+                        rs.getDouble("non_cash"),
                         rs.getString("sales_type"),
                         rs.getString("payment"),
                         rs.getString("lastcreateupdate")
+
                 );
             }
             this.headerCreated = true;
