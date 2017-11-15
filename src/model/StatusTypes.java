@@ -8,7 +8,7 @@ public enum StatusTypes {
 	ENTERED("Проведен"),
 	NOENTERED("Не проведен");
 	
-private final String type;
+	private final String type;
 	
 	StatusTypes(final String type) {
         this.type = type;

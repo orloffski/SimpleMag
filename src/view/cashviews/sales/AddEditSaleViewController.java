@@ -4,6 +4,8 @@ import application.DBClass;
 import application.Main;
 import dbhelpers.SalesLinesDBHelper;
 import entity.SalesLineEntity;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,9 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-import model.Items;
-import model.SalesHeader;
-import model.SalesLine;
+import model.*;
 import utils.NumberUtils;
 import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
@@ -32,7 +32,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AddEditSaleViewController extends AbstractController{
+public class AddEditSaleViewController extends AbstractController {
 
     @FXML
     private Text checkNumber;
@@ -82,8 +82,6 @@ public class AddEditSaleViewController extends AbstractController{
 
     private Main main;
     private Connection connection;
-    private ObservableList<String> salesTypes;
-    private ObservableList<String> paymentTypes;
     private ObservableList<SalesLine> salesLinedata;
     private boolean headerCreated = false;
     private SalesHeader header;
@@ -306,48 +304,23 @@ public class AddEditSaleViewController extends AbstractController{
     }
 
     private void init() {
-        salesTypes = FXCollections.observableArrayList();
-        salesTypes.add("покупка");
-        salesTypes.add("возврат");
-
-        paymentTypes = FXCollections.observableArrayList();
-        paymentTypes.add("наличный");
-        paymentTypes.add("безналичный");
-        paymentTypes.add("сложная оплата");
-
         salesLinedata = FXCollections.observableArrayList();
 
-        paymentType.setItems(paymentTypes);
-        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            switch (newValue){
-                case "наличный":
-                    clearForm();
-                    cash.setEditable(true);
-                    nonCash.setEditable(false);
-                    break;
-                case "безналичный":
-                    clearForm();
-                    cash.setEditable(false);
-                    nonCash.setEditable(true);
-                    break;
-                case "сложная оплата":
-                    clearForm();
-                    cash.setEditable(true);
-                    nonCash.setEditable(true);
-                    break;
-            }
-        }));
-        paymentType.setValue(paymentTypes.get(0));
+        paymentType.setItems(PaymentTypes.getTypes());
+        saleType.setItems(SaleTypes.getTypes());
 
-        checkNumber.setText("0");
-        checkSumm.setText("0");
+        if(this.header != null){
+            checkNumber.setText(this.header.getSalesNumber());
+            checkSumm.setText(String.valueOf(this.header.getFullSumm()));
 
-        saleType.setItems(salesTypes);
-        saleType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            String newType = NumberUtils.getCheckSuffix(newValue);
-            checkNumber.setText(NumberUtils.getNextCheckNumber(newType));
-        }));
-        saleType.setValue(salesTypes.get(0));
+            paymentType.setValue(this.header.getPaymentType());
+            saleType.setValue(this.header.getSalesType());
+
+            setListeners();
+        }else{
+            setListeners();
+            clearForm();
+        }
     }
 
     public void setMain(Main main) {
@@ -403,8 +376,37 @@ public class AddEditSaleViewController extends AbstractController{
 
     @Override
     protected void clearForm() {
-        cash.setText("");
-        nonCash.setText("");
+        checkNumber.setText("0");
+        checkSumm.setText("0");
+
+        paymentType.setValue(PaymentTypes.getTypes().get(0));
+        saleType.setValue(SaleTypes.getTypes().get(0));
+    }
+
+    private void setListeners(){
+        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            cash.setText("");
+            nonCash.setText("");
+
+            switch (String.valueOf(newValue)){
+                case "наличный":
+                    cash.setEditable(true);
+                    nonCash.setEditable(false);
+                    break;
+                case "безналичный":
+                    cash.setEditable(false);
+                    nonCash.setEditable(true);
+                    break;
+                case "сложная оплата":
+                    cash.setEditable(true);
+                    nonCash.setEditable(true);
+                    break;
+            }
+        }));
+        saleType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            String newType = NumberUtils.getCheckSuffix(String.valueOf(newValue));
+            checkNumber.setText(NumberUtils.getNextCheckNumber(newType));
+        }));
     }
 
     void setHeader(SalesHeader header){
