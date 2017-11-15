@@ -12,13 +12,14 @@ public class SalesHeader {
     private final StringProperty salesType;
     private final StringProperty paymentType;
     private final StringProperty createUpdate;
+    private final StringProperty setHeader;
     private final DoubleProperty fullSumm;
 
     public SalesHeader() {
-        this(null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
 
-    public SalesHeader(Integer id, String salesNumber, Double cash, Double nonCash, String salesType, String paymentType, String createUpdate) {
+    public SalesHeader(Integer id, String salesNumber, Double cash, Double nonCash, String salesType, String paymentType, String createUpdate, String setHeader) {
         this.id = new SimpleIntegerProperty(id);
         this.salesNumber = new SimpleStringProperty(salesNumber);
         this.cash = new SimpleDoubleProperty(cash);
@@ -26,6 +27,7 @@ public class SalesHeader {
         this.salesType = new SimpleStringProperty(salesType);
         this.paymentType = new SimpleStringProperty(paymentType);
         this.createUpdate = new SimpleStringProperty(createUpdate);
+        this.setHeader = new SimpleStringProperty(setHeader);
 
         this.fullSumm = null;
         this.setFullSumm(this.cash.asObject().get() + this.nonCash.get());
@@ -127,6 +129,18 @@ public class SalesHeader {
         this.fullSumm.set(fullSumm);
     }
 
+    public String getSetHeader() {
+        return setHeader.get();
+    }
+
+    public StringProperty setHeaderProperty() {
+        return setHeader;
+    }
+
+    public void setSetHeader(String setHeader) {
+        this.setHeader.set(setHeader);
+    }
+
     public static SalesHeader createHeaderFromEntity(SalesHeaderEntity saleHeader){
         return new SalesHeader(
                 saleHeader.getId(),
@@ -135,7 +149,8 @@ public class SalesHeader {
                 saleHeader.getNonCash(),
                 saleHeader.getSalesType(),
                 saleHeader.getPayment(),
-                saleHeader.getLastcreateupdate().toString()
+                saleHeader.getLastcreateupdate().toString(),
+                saleHeader.getSetHeader()
         );
     }
 }
