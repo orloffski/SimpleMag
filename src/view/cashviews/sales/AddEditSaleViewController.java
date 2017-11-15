@@ -168,11 +168,6 @@ public class AddEditSaleViewController extends AbstractController {
 
     @FXML
     private void saveSale(){
-        if(header == null){
-            insertHeader();
-        }else{
-            updateHeader();
-        }
     }
 
     @FXML
@@ -318,11 +313,17 @@ public class AddEditSaleViewController extends AbstractController {
             checkNumber.setText(this.header.getSalesNumber());
             checkSumm.setText(String.valueOf(this.header.getFullSumm()));
 
+            setDocText.setText(this.header.getSetHeader());
+            setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+
             paymentType.setValue(this.header.getPaymentType());
             saleType.setValue(this.header.getSalesType());
 
             setListeners();
         }else{
+            setDocText.setText("не проведен");
+            setDoc.setText("проведение");
+
             setListeners();
             clearForm();
         }
