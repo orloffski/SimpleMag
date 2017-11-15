@@ -41,6 +41,12 @@ public class AddEditSaleViewController extends AbstractController{
     private Text checkSumm;
 
     @FXML
+    private TextField cash;
+
+    @FXML
+    private TextField nonCash;
+
+    @FXML
     private ComboBox<String> saleType;
 
     @FXML
@@ -312,6 +318,25 @@ public class AddEditSaleViewController extends AbstractController{
         salesLinedata = FXCollections.observableArrayList();
 
         paymentType.setItems(paymentTypes);
+        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            switch (newValue){
+                case "наличный":
+                    clearForm();
+                    cash.setEditable(true);
+                    nonCash.setEditable(false);
+                    break;
+                case "безналичный":
+                    clearForm();
+                    cash.setEditable(false);
+                    nonCash.setEditable(true);
+                    break;
+                case "сложная оплата":
+                    clearForm();
+                    cash.setEditable(true);
+                    nonCash.setEditable(true);
+                    break;
+            }
+        }));
         paymentType.setValue(paymentTypes.get(0));
 
         checkNumber.setText("0");
@@ -378,7 +403,8 @@ public class AddEditSaleViewController extends AbstractController{
 
     @Override
     protected void clearForm() {
-
+        cash.setText("");
+        nonCash.setText("");
     }
 
     void setHeader(SalesHeader header){
