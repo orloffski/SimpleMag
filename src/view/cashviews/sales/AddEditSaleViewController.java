@@ -307,6 +307,7 @@ public class AddEditSaleViewController extends AbstractController{
         paymentTypes = FXCollections.observableArrayList();
         paymentTypes.add("наличный");
         paymentTypes.add("безналичный");
+        paymentTypes.add("сложная оплата");
 
         salesLinedata = FXCollections.observableArrayList();
 
