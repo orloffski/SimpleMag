@@ -64,9 +64,11 @@ public class NumberUtils {
     }
 
     public static final String getNextCheckNumber(String newType){
+        String type = getCheckSuffix(newType);
+
         String number = "";
         int numberInt;
-        String SQL = "SELECT * FROM sales_header WHERE sales_number LIKE '" + newType + "%' ORDER BY id DESC LIMIT 1";
+        String SQL = "SELECT * FROM sales_header WHERE sales_number LIKE '" + type + "%' ORDER BY id DESC LIMIT 1";
 
         Connection connection = null;
         try {
@@ -83,7 +85,7 @@ public class NumberUtils {
             numberInt = Integer.parseInt(number);
             numberInt++;
             number = String.format("%06d", numberInt);
-            number = newType + number;
+            number = type + number;
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

@@ -1,8 +1,9 @@
 package view.cashviews.sales;
 
-import application.DBClass;
 import application.Main;
+import dbhelpers.SalesHeaderDBHelper;
 import dbhelpers.SalesLinesDBHelper;
+import entity.SalesHeaderEntity;
 import entity.SalesLineEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,15 +20,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import model.*;
+import utils.MessagesUtils;
 import utils.NumberUtils;
 import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class AddEditSaleViewController extends AbstractController {
@@ -82,18 +82,291 @@ public class AddEditSaleViewController extends AbstractController {
 
 
     private Main main;
-    private Connection connection;
     private ObservableList<SalesLine> salesLinedata;
     private SalesHeader header;
 
     @FXML
     private void initialize() {
+        getSessionData();
+
     	add.setImage(new Image("file:resources/images/add.png"));
     	delete.setImage(new Image("file:resources/images/delete.png"));
+    }
 
+    @FXML
+    private void saveSale(){
+        if(this.header == null){
+            this.header = new SalesHeader(
+                    0,
+                    NumberUtils.getNextCheckNumber(saleType.getValue()),
+                    cash.getText().equals("") ? 0d : Double.parseDouble(cash.getText()),
+                    nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText()),
+                    saleType.getValue(),
+                    paymentType.getValue(),
+                    String.valueOf(new Timestamp(new Date().getTime())),
+                    setDocText.getText()
+            );
+
+            SalesHeaderDBHelper.saveEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+        }else{
+            if(this.header.getSetHeader().equals("проведен")){
+                MessagesUtils.showAlert("Ошибка изменения чека",
+                        "Для изменения чека отмените проведение.");
+                return;
+            }
+
+            this.header.setSalesNumber(checkNumber.getText());
+            this.header.setSalesType(saleType.getValue());
+            this.header.setPaymentType(paymentType.getValue());
+            this.header.setCash(cash.getText().equals("") ? 0d : Double.parseDouble(cash.getText()));
+            this.header.setNonCash(nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText()));
+
+            System.out.println(this.header.getId());
+            SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+        }
+
+        save.setDisable(true);
+        setDoc.setDisable(false);
+    }
+
+    @FXML
+    private void setDoc(){
+        if(this.header == null){
+            MessagesUtils.showAlert("Ошибка проведения чека",
+                    "Для проведения чека сохраните его.");
+            return;
+        }
+
+        this.header.setSetHeader(this.header.getSetHeader().toLowerCase().equals("проведен") ? "не проведен" : "проведен");
+        setDocText.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "проведен" : "не проведен");
+        setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "отмена проведения" : "проведение");
+
+        SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+    }
+
+    @FXML
+    private void addLine(){
+
+    }
+
+    @FXML
+    private void deleteLine(){
+
+    }
+
+    private int getNewItem(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
         try {
-            connection = new DBClass().getConnection();
-        } catch (ClassNotFoundException | SQLException e) {
+            BorderPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Выбор товара");
+            dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(main.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            BarcodeItemsViewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+            return controller.getItemId();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    private void initTable(){
+        getSessionData();
+
+        salesLineTable.setItems(salesLinedata);
+
+        itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+
+        count.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+        count.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        count.setOnEditCommit(t -> updateLine(
+                t.getNewValue().intValue()));
+
+        itemPrice.setCellValueFactory(cellData -> cellData.getValue().itemPriceProperty().asObject());
+        linePrice.setCellValueFactory(cellData -> cellData.getValue().linePriceProperty().asObject());
+
+        if(this.header != null){
+            List<SalesLineEntity> linesList = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, this.header.getSalesNumber());
+
+            for(SalesLineEntity entity : linesList)
+                salesLinedata.add(SalesLine.createSalesLineFromSalesLineEntity(entity));
+
+            salesLineTable.setItems(salesLinedata);
+        }
+    }
+
+    private void init() {
+        salesLinedata = FXCollections.observableArrayList();
+
+        paymentType.setItems(PaymentTypes.getTypes());
+        saleType.setItems(SaleTypes.getTypes());
+
+        if(this.header != null){
+            checkNumber.setText(this.header.getSalesNumber());
+            checkSumm.setText(String.valueOf(this.header.getFullSumm()));
+
+            setDocText.setText(this.header.getSetHeader());
+            setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+
+            paymentType.setValue(this.header.getPaymentType());
+            saleType.setValue(this.header.getSalesType());
+
+            save.setDisable(true);
+
+            setListeners();
+        }else{
+            setDocText.setText("не проведен");
+
+            setDoc.setDisable(true);
+            setDoc.setText("проведение");
+
+            setListeners();
+            clearForm();
+        }
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+    @Override
+    protected void clearForm() {
+        checkNumber.setText("0");
+        checkSumm.setText("0");
+
+        paymentType.setValue(PaymentTypes.getTypes().get(0));
+        saleType.setValue(SaleTypes.getTypes().get(0));
+    }
+
+    private boolean checkHeader(SalesHeader header){
+        if(header.getSetHeader().equals("проведен")){
+            MessagesUtils.showAlert("Ошибка изменения чека",
+                    "Для изменения чека отмените проведение.");
+            return true;
+        }
+
+        return false;
+    }
+
+    private void setListeners(){
+        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            if(checkHeader(this.header))
+                return;
+
+            cash.setText("");
+            nonCash.setText("");
+
+            switch (String.valueOf(newValue)){
+                case "наличный":
+                    cash.setEditable(true);
+                    nonCash.setEditable(false);
+                    break;
+                case "безналичный":
+                    cash.setEditable(false);
+                    nonCash.setEditable(true);
+                    break;
+                case "сложная оплата":
+                    cash.setEditable(true);
+                    nonCash.setEditable(true);
+                    break;
+            }
+
+            save.setDisable(false);
+            setDoc.setDisable(true);
+        }));
+        saleType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            if(checkHeader(this.header))
+                return;
+
+            checkNumber.setText(NumberUtils.getNextCheckNumber(String.valueOf(newValue)));
+
+            save.setDisable(false);
+            setDoc.setDisable(true);
+        }));
+    }
+
+    void setHeader(SalesHeader header){
+        this.header = header;
+
+        init();
+        initTable();
+    }
+
+    private void updateLine(int newCount){
+
+        SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
+        Double oldLinePrice = line.getLinePrice();
+        line.setLinePrice(NumberUtils.round(newCount * line.getItemPrice()));
+        line.setCount(newCount);
+
+//        try{
+//            String SQL = "UPDATE sales_line "
+//                    + "SET full_line_price = " + line.getLinePrice() + ", "
+//                    + "count = " + line.getCount() + " "
+//                    + "WHERE id = " + line.getId() + ";";
+//
+//            connection.createStatement().executeUpdate(SQL);
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+
+        Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + line.getLinePrice() - oldLinePrice);
+        checkSumm.setText(String.valueOf(newCheckSumm));
+    }
+
+    /*
+    private void insertHeader(){
+        try {
+            String SQL = "INSERT INTO sales_header SET " +
+                    "sales_number = '" + checkNumber.getText() + "', " +
+                    "summ = " + Double.parseDouble(checkSumm.getText()) + ", " +
+                    "sales_type = '" + saleType.getValue() + "'," +
+                    "payment = '" + paymentType.getValue() + "';";
+
+            connection.createStatement().executeUpdate(SQL);
+
+            SQL = "SELECT * FROM sales_header ORDER BY id DESC LIMIT 1";
+            ResultSet rs = connection.createStatement().executeQuery(SQL);
+
+            if(rs.next()){
+                header = new SalesHeader(
+                        rs.getInt("id"),
+                        rs.getString("sales_number"),
+                        rs.getDouble("cash"),
+                        rs.getDouble("non_cash"),
+                        rs.getString("sales_type"),
+                        rs.getString("payment"),
+                        rs.getString("lastcreateupdate"),
+                        rs.getString("set_header")
+
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateHeader(){
+        try{
+            String SQL = "UPDATE sales_header "
+                    + "SET sales_number = '" + checkNumber.getText() + "', "
+                    + "summ = '" + Double.parseDouble(checkSumm.getText()) + "', "
+                    + "sales_type = '" + saleType.getValue() + "',"
+                    + "payment = '" + paymentType.getValue() + "' "
+                    + "WHERE id = " + header.getId() + ";";
+
+            connection.createStatement().executeUpdate(SQL);
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
@@ -166,44 +439,7 @@ public class AddEditSaleViewController extends AbstractController {
         checkSumm.setText(String.valueOf(newCheckSumm));
     }
 
-    @FXML
-    private void saveSale(){
-    }
 
-    @FXML
-    private void setDoc(){
-
-    }
-
-    /*
-    @FXML
-    private void closeStage(){
-
-        if(salesLinedata.size() == 0){
-            String saleNum = checkNumber.getText();
-
-            PreparedStatement statement = null;
-            try {
-                statement = connection.prepareStatement("DELETE FROM sales_header WHERE sales_number = ?");
-                statement.setString(1, saleNum);
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else{
-            if(!this.headerCreated){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Ошибка сохранения");
-                alert.setContentText("Вы не сохранили документ, сохраните документ");
-
-                alert.showAndWait();
-
-                return;
-            }
-        }
-        dialogStage.close();
-    }
-    */
 
     private void loadLines(String saleNum){
         SalesLine line = null;
@@ -229,195 +465,5 @@ public class AddEditSaleViewController extends AbstractController {
             e.printStackTrace();
         }
     }
-
-    private int getNewItem(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
-        try {
-            BorderPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Выбор товара");
-            dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(main.getPrimaryStage());
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            BarcodeItemsViewController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-
-            dialogStage.showAndWait();
-
-            return controller.getItemId();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
-    }
-
-    private void initTable(){
-        getSessionData();
-
-        salesLineTable.setItems(salesLinedata);
-
-        itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
-
-        count.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
-        count.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        count.setOnEditCommit(t -> updateLine(
-                t.getNewValue().intValue()));
-
-        itemPrice.setCellValueFactory(cellData -> cellData.getValue().itemPriceProperty().asObject());
-        linePrice.setCellValueFactory(cellData -> cellData.getValue().linePriceProperty().asObject());
-
-        if(this.header != null){
-            List<SalesLineEntity> linesList = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, this.header.getSalesNumber());
-
-            for(SalesLineEntity entity : linesList)
-                salesLinedata.add(SalesLine.createSalesLineFromSalesLineEntity(entity));
-
-            salesLineTable.setItems(salesLinedata);
-        }
-    }
-
-    private void updateLine(int newCount){
-
-        SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
-        Double oldLinePrice = line.getLinePrice();
-        line.setLinePrice(NumberUtils.round(newCount * line.getItemPrice()));
-        line.setCount(newCount);
-
-        try{
-            String SQL = "UPDATE sales_line "
-                    + "SET full_line_price = " + line.getLinePrice() + ", "
-                    + "count = " + line.getCount() + " "
-                    + "WHERE id = " + line.getId() + ";";
-
-            connection.createStatement().executeUpdate(SQL);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + line.getLinePrice() - oldLinePrice);
-        checkSumm.setText(String.valueOf(newCheckSumm));
-    }
-
-    private void init() {
-        salesLinedata = FXCollections.observableArrayList();
-
-        paymentType.setItems(PaymentTypes.getTypes());
-        saleType.setItems(SaleTypes.getTypes());
-
-        if(this.header != null){
-            checkNumber.setText(this.header.getSalesNumber());
-            checkSumm.setText(String.valueOf(this.header.getFullSumm()));
-
-            setDocText.setText(this.header.getSetHeader());
-            setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
-
-            paymentType.setValue(this.header.getPaymentType());
-            saleType.setValue(this.header.getSalesType());
-
-            setListeners();
-        }else{
-            setDocText.setText("не проведен");
-            setDoc.setText("проведение");
-
-            setListeners();
-            clearForm();
-        }
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
-
-    private void insertHeader(){
-        try {
-            String SQL = "INSERT INTO sales_header SET " +
-                    "sales_number = '" + checkNumber.getText() + "', " +
-                    "summ = " + Double.parseDouble(checkSumm.getText()) + ", " +
-                    "sales_type = '" + saleType.getValue() + "'," +
-                    "payment = '" + paymentType.getValue() + "';";
-
-            connection.createStatement().executeUpdate(SQL);
-
-            SQL = "SELECT * FROM sales_header ORDER BY id DESC LIMIT 1";
-            ResultSet rs = connection.createStatement().executeQuery(SQL);
-
-            if(rs.next()){
-                header = new SalesHeader(
-                        rs.getInt("id"),
-                        rs.getString("sales_number"),
-                        rs.getDouble("cash"),
-                        rs.getDouble("non_cash"),
-                        rs.getString("sales_type"),
-                        rs.getString("payment"),
-                        rs.getString("lastcreateupdate"),
-                        rs.getString("set_header")
-
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateHeader(){
-        try{
-            String SQL = "UPDATE sales_header "
-                    + "SET sales_number = '" + checkNumber.getText() + "', "
-                    + "summ = '" + Double.parseDouble(checkSumm.getText()) + "', "
-                    + "sales_type = '" + saleType.getValue() + "',"
-                    + "payment = '" + paymentType.getValue() + "' "
-                    + "WHERE id = " + header.getId() + ";";
-
-            connection.createStatement().executeUpdate(SQL);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void clearForm() {
-        checkNumber.setText("0");
-        checkSumm.setText("0");
-
-        paymentType.setValue(PaymentTypes.getTypes().get(0));
-        saleType.setValue(SaleTypes.getTypes().get(0));
-    }
-
-    private void setListeners(){
-        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            cash.setText("");
-            nonCash.setText("");
-
-            switch (String.valueOf(newValue)){
-                case "наличный":
-                    cash.setEditable(true);
-                    nonCash.setEditable(false);
-                    break;
-                case "безналичный":
-                    cash.setEditable(false);
-                    nonCash.setEditable(true);
-                    break;
-                case "сложная оплата":
-                    cash.setEditable(true);
-                    nonCash.setEditable(true);
-                    break;
-            }
-        }));
-        saleType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            String newType = NumberUtils.getCheckSuffix(String.valueOf(newValue));
-            checkNumber.setText(NumberUtils.getNextCheckNumber(newType));
-        }));
-    }
-
-    void setHeader(SalesHeader header){
-        this.header = header;
-
-        init();
-        initTable();
-    }
+    */
 }

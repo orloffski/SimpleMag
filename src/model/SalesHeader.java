@@ -29,8 +29,8 @@ public class SalesHeader {
         this.createUpdate = new SimpleStringProperty(createUpdate);
         this.setHeader = new SimpleStringProperty(setHeader);
 
-        this.fullSumm = null;
-        this.setFullSumm(this.cash.asObject().get() + this.nonCash.get());
+        this.fullSumm = new SimpleDoubleProperty(cash + nonCash);
+        this.setFullSumm(cash + nonCash);
     }
 
     public int getId() {

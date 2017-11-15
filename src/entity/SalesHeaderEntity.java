@@ -1,7 +1,12 @@
 package entity;
 
+import model.SalesHeader;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "sales_header", schema = "minimag")
@@ -15,6 +20,21 @@ public class SalesHeaderEntity {
     private Double nonCash;
     private Double fullSumm;
     private String setHeader;
+
+    public SalesHeaderEntity() {
+    }
+
+    public SalesHeaderEntity(int id, String salesNumber, String salesType, String payment, Timestamp lastcreateupdate, Double cash, Double nonCash, Double fullSumm, String setHeader) {
+        this.id = id;
+        this.salesNumber = salesNumber;
+        this.salesType = salesType;
+        this.payment = payment;
+        this.lastcreateupdate = lastcreateupdate;
+        this.cash = cash;
+        this.nonCash = nonCash;
+        this.fullSumm = fullSumm;
+        this.setHeader = setHeader;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -140,5 +160,27 @@ public class SalesHeaderEntity {
         result = 31 * result + (setHeader != null ? setHeader.hashCode() : 0);
         result = 31 * result + (lastcreateupdate != null ? lastcreateupdate.hashCode() : 0);
         return result;
+    }
+
+    public static SalesHeaderEntity createSalesHeaderEntityFromSalesHeader(SalesHeader header){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDate = new Date();
+        try {
+            parsedDate = dateFormat.parse(header.getCreateUpdate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new SalesHeaderEntity(
+                header.getId(),
+                header.getSalesNumber(),
+                header.getSalesType(),
+                header.getPaymentType(),
+                new Timestamp(parsedDate.getTime()),
+                header.getCash(),
+                header.getNonCash(),
+                header.getFullSumm(),
+                header.getSetHeader()
+        );
     }
 }
