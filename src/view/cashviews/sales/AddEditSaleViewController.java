@@ -95,34 +95,25 @@ public class AddEditSaleViewController extends AbstractController {
 
     @FXML
     private void saveSale(){
+        double cashMoney = cash.getText().equals("") ? 0d : Double.parseDouble(cash.getText());
+        double noncashMoney = nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText());
+        double fullMoney = checkSumm.getText().equals("") ? 0d : Double.parseDouble(checkSumm.getText());
+
+        if(fullMoney != cashMoney + noncashMoney)
+            MessagesUtils.showAlert("Несовпадение сумм чука",
+                    "Полная сумма чека не равна сумме наличных и безналичных средств.");
+
         if(this.header == null){
-            this.header = new SalesHeader(
-                    0,
-                    NumberUtils.getNextCheckNumber(saleType.getValue()),
-                    cash.getText().equals("") ? 0d : Double.parseDouble(cash.getText()),
-                    nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText()),
-                    saleType.getValue(),
-                    paymentType.getValue(),
-                    String.valueOf(new Timestamp(new Date().getTime())),
-                    setDocText.getText()
-            );
+            saveHeader(cashMoney, noncashMoney);
 
-            SalesHeaderDBHelper.saveEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+            // save lines
         }else{
-            if(this.header.getSetHeader().equals("проведен")){
-                MessagesUtils.showAlert("Ошибка изменения чека",
-                        "Для изменения чека отмените проведение.");
+            if(checkHeader(this.header))
                 return;
-            }
 
-            this.header.setSalesNumber(checkNumber.getText());
-            this.header.setSalesType(saleType.getValue());
-            this.header.setPaymentType(paymentType.getValue());
-            this.header.setCash(cash.getText().equals("") ? 0d : Double.parseDouble(cash.getText()));
-            this.header.setNonCash(nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText()));
+            updateHeader(cashMoney, noncashMoney);
 
-            System.out.println(this.header.getId());
-            SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+            // update lines
         }
 
         save.setDisable(true);
@@ -131,7 +122,7 @@ public class AddEditSaleViewController extends AbstractController {
 
     @FXML
     private void setDoc(){
-        if(this.header == null){
+        if (this.header == null) {
             MessagesUtils.showAlert("Ошибка проведения чека",
                     "Для проведения чека сохраните его.");
             return;
@@ -142,19 +133,53 @@ public class AddEditSaleViewController extends AbstractController {
         setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "отмена проведения" : "проведение");
 
         SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+
+        if(this.header.getSetHeader().toLowerCase().equals("не проведен")){
+            // need update form elements
+            saleType.setValue(this.header.getSalesType());
+            paymentType.setValue(this.header.getPaymentType());
+            checkNumber.setText(this.header.getSalesNumber());
+        }
     }
 
     @FXML
     private void addLine(){
-
+        int itemId = getNewItem();
     }
 
     @FXML
     private void deleteLine(){
 
     }
+    private void saveHeader(Double cashMoney, Double noncashMoney){
+        this.header = new SalesHeader(
+                0,
+                NumberUtils.getNextCheckNumber(saleType.getValue()),
+                cashMoney,
+                noncashMoney,
+                saleType.getValue(),
+                paymentType.getValue(),
+                String.valueOf(new Timestamp(new Date().getTime())),
+                setDocText.getText()
+        );
 
-    private int getNewItem(){
+        SalesHeaderDBHelper.saveEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+    }
+
+    private void updateHeader(Double cashMoney, Double noncashMoney){
+        this.header.setSalesNumber(checkNumber.getText());
+        this.header.setSalesType(saleType.getValue());
+        this.header.setPaymentType(paymentType.getValue());
+        this.header.setCash(cashMoney);
+        this.header.setNonCash(noncashMoney);
+
+        SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+    }
+
+    private int getNewItem() {
+        if(checkHeader(this.header))
+            return -1;
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
         try {
@@ -249,7 +274,7 @@ public class AddEditSaleViewController extends AbstractController {
     }
 
     private boolean checkHeader(SalesHeader header){
-        if(header.getSetHeader().equals("проведен")){
+        if(header != null && header.getSetHeader().equals("проведен")){
             MessagesUtils.showAlert("Ошибка изменения чека",
                     "Для изменения чека отмените проведение.");
             return true;
@@ -259,7 +284,7 @@ public class AddEditSaleViewController extends AbstractController {
     }
 
     private void setListeners(){
-        paymentType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+        paymentType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(checkHeader(this.header))
                 return;
 
@@ -283,8 +308,8 @@ public class AddEditSaleViewController extends AbstractController {
 
             save.setDisable(false);
             setDoc.setDisable(true);
-        }));
-        saleType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+        });
+        saleType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(checkHeader(this.header))
                 return;
 
@@ -292,7 +317,7 @@ public class AddEditSaleViewController extends AbstractController {
 
             save.setDisable(false);
             setDoc.setDisable(true);
-        }));
+        });
     }
 
     void setHeader(SalesHeader header){
@@ -323,147 +348,4 @@ public class AddEditSaleViewController extends AbstractController {
         Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + line.getLinePrice() - oldLinePrice);
         checkSumm.setText(String.valueOf(newCheckSumm));
     }
-
-    /*
-    private void insertHeader(){
-        try {
-            String SQL = "INSERT INTO sales_header SET " +
-                    "sales_number = '" + checkNumber.getText() + "', " +
-                    "summ = " + Double.parseDouble(checkSumm.getText()) + ", " +
-                    "sales_type = '" + saleType.getValue() + "'," +
-                    "payment = '" + paymentType.getValue() + "';";
-
-            connection.createStatement().executeUpdate(SQL);
-
-            SQL = "SELECT * FROM sales_header ORDER BY id DESC LIMIT 1";
-            ResultSet rs = connection.createStatement().executeQuery(SQL);
-
-            if(rs.next()){
-                header = new SalesHeader(
-                        rs.getInt("id"),
-                        rs.getString("sales_number"),
-                        rs.getDouble("cash"),
-                        rs.getDouble("non_cash"),
-                        rs.getString("sales_type"),
-                        rs.getString("payment"),
-                        rs.getString("lastcreateupdate"),
-                        rs.getString("set_header")
-
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateHeader(){
-        try{
-            String SQL = "UPDATE sales_header "
-                    + "SET sales_number = '" + checkNumber.getText() + "', "
-                    + "summ = '" + Double.parseDouble(checkSumm.getText()) + "', "
-                    + "sales_type = '" + saleType.getValue() + "',"
-                    + "payment = '" + paymentType.getValue() + "' "
-                    + "WHERE id = " + header.getId() + ";";
-
-            connection.createStatement().executeUpdate(SQL);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void addLine(){
-        int itemId = getNewItem();
-        Items item = null;
-
-        try {
-            if(itemId != -1) {
-                String SQL = "SELECT * FROM items WHERE id = '" + itemId + "';";
-                ResultSet rs = null;
-                rs = connection.createStatement().executeQuery(SQL);
-                if (rs.next()) {
-                    item = new Items(
-                            rs.getInt("id"),
-                            rs.getString("vendor_code"),
-                            rs.getString("name"),
-                            rs.getString("vendor_country"),
-                            rs.getInt("unit_id"));
-                }
-
-                if (item != null) {
-                    SQL = "SELECT id, price FROM prices WHERE item_id = " + item.getId() + " ORDER BY id DESC LIMIT 1;";
-                    rs = connection.createStatement().executeQuery(SQL);
-                    double price = 0;
-                    if(rs.next())
-                        price = rs.getDouble("price");
-
-                    SQL = "INSERT INTO sales_line SET " +
-                            "sales_number = '" + checkNumber.getText() + "', " +
-                            "item_id = " + item.getId() + ", " +
-                            "item_name = '" + item.getName() + "'," +
-                            "count = " + 0 + ", " +
-                            "item_price = " + price + ", " +
-                            "full_line_price = " + 0 + ";";
-
-                    connection.createStatement().executeUpdate(SQL);
-
-                    salesLinedata.clear();
-                    loadLines(checkNumber.getText());
-
-                }
-            }
-
-            salesLineTable.setItems(salesLinedata);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void deleteLine(){
-        int indexToDelete = salesLineTable.getSelectionModel().getSelectedIndex();
-        SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
-
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement("DELETE FROM sales_line WHERE id = ?");
-            statement.setInt(1, line.getId());
-            statement.executeUpdate();
-
-            salesLinedata.remove(indexToDelete);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) - line.getLinePrice());
-        checkSumm.setText(String.valueOf(newCheckSumm));
-    }
-
-
-
-    private void loadLines(String saleNum){
-        SalesLine line = null;
-        String SQL = "SELECT * FROM sales_line WHERE sales_number = '" + saleNum + "';";
-        ResultSet rs = null;
-        try {
-            rs = connection.createStatement().executeQuery(SQL);
-
-            while(rs.next()){
-                line = new SalesLine(
-                        rs.getInt("id"),
-                        rs.getString("sales_number"),
-                        rs.getInt("item_id"),
-                        rs.getString("item_name"),
-                        rs.getInt("count"),
-                        rs.getDouble("item_price"),
-                        rs.getDouble("full_line_price")
-                );
-
-                salesLinedata.add(line);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }
