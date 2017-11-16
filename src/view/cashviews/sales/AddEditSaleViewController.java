@@ -122,7 +122,7 @@ public class AddEditSaleViewController extends AbstractController {
             updateHeader(cashMoney, noncashMoney);
 
             // delete all old lines
-            SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, this.header.getSalesNumber());
+            deleteOldLines(this.header.getSalesNumber());
 
             // update lines
             for(SalesLine salesLine : salesLinedata){
@@ -178,7 +178,7 @@ public class AddEditSaleViewController extends AbstractController {
                 // add salesLine
                 salesLine = new SalesLine(
                         0,
-                        this.header.getSalesNumber(),
+                        checkNumber.getText(),
                         item.getId(),
                         item.getName(),
                         1,
@@ -214,7 +214,9 @@ public class AddEditSaleViewController extends AbstractController {
                 setDocText.getText()
         );
 
-        SalesHeaderDBHelper.saveEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+        SalesHeaderEntity salesHeaderEntity = SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header);
+        SalesHeaderDBHelper.saveEntity(sessFact, salesHeaderEntity);
+        this.header = SalesHeader.createHeaderFromEntity(salesHeaderEntity);
     }
 
     private void updateHeader(Double cashMoney, Double noncashMoney){
@@ -225,6 +227,10 @@ public class AddEditSaleViewController extends AbstractController {
         this.header.setNonCash(noncashMoney);
 
         SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+    }
+
+    private void deleteOldLines(String saleNumber){
+        SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, saleNumber);
     }
 
     private int getNewItem() {
@@ -364,7 +370,14 @@ public class AddEditSaleViewController extends AbstractController {
             if(checkHeader(this.header))
                 return;
 
-            checkNumber.setText(NumberUtils.getNextCheckNumber(String.valueOf(newValue)));
+            String oldNumber = checkNumber.getText();
+            String newNumber = NumberUtils.getNextCheckNumber(String.valueOf(newValue));
+
+            checkNumber.setText(newNumber);
+            for(SalesLine salesLine : salesLinedata){
+                salesLine.setSalesNumber(newNumber);
+            }
+            deleteOldLines(oldNumber);
 
             save.setDisable(false);
             setDoc.setDisable(true);
