@@ -24,7 +24,7 @@ public class SalesHeaderEntity {
     public SalesHeaderEntity() {
     }
 
-    public SalesHeaderEntity(int id, String salesNumber, String salesType, String payment, Timestamp lastcreateupdate, Double cash, Double nonCash, Double fullSumm, String setHeader) {
+    public SalesHeaderEntity(int id, String salesNumber, String salesType, String payment, Timestamp lastcreateupdate, Double cash, Double nonCash, String setHeader) {
         this.id = id;
         this.salesNumber = salesNumber;
         this.salesType = salesType;
@@ -32,7 +32,7 @@ public class SalesHeaderEntity {
         this.lastcreateupdate = lastcreateupdate;
         this.cash = cash;
         this.nonCash = nonCash;
-        this.fullSumm = fullSumm;
+        this.fullSumm = cash + nonCash;
         this.setHeader = setHeader;
     }
 
@@ -179,7 +179,6 @@ public class SalesHeaderEntity {
                 new Timestamp(parsedDate.getTime()),
                 header.getCash(),
                 header.getNonCash(),
-                header.getFullSumm(),
                 header.getSetHeader()
         );
     }

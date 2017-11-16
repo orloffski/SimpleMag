@@ -30,7 +30,6 @@ public class SalesHeader {
         this.setHeader = new SimpleStringProperty(setHeader);
 
         this.fullSumm = new SimpleDoubleProperty(cash + nonCash);
-        this.setFullSumm(cash + nonCash);
     }
 
     public int getId() {

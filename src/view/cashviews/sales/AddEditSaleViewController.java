@@ -111,13 +111,24 @@ public class AddEditSaleViewController extends AbstractController {
             saveHeader(cashMoney, noncashMoney);
 
             // save lines
+            for(SalesLine salesLine : salesLinedata){
+                SalesLineEntity salesLineEntity = SalesLineEntity.createSalesLineEntityFromSalesLine(salesLine);
+                SalesLinesDBHelper.saveEntity(sessFact, salesLineEntity);
+            }
         }else{
             if(checkHeader(this.header))
                 return;
 
             updateHeader(cashMoney, noncashMoney);
 
+            // delete all old lines
+            SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, this.header.getSalesNumber());
+
             // update lines
+            for(SalesLine salesLine : salesLinedata){
+                SalesLineEntity salesLineEntity = SalesLineEntity.createSalesLineEntityFromSalesLine(salesLine);
+                SalesLinesDBHelper.saveEntity(sessFact, salesLineEntity);
+            }
         }
 
         save.setDisable(true);
@@ -387,5 +398,8 @@ public class AddEditSaleViewController extends AbstractController {
 
         Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + line.getLinePrice() - oldLinePrice);
         checkSumm.setText(String.valueOf(newCheckSumm));
+
+        save.setDisable(false);
+        setDoc.setDisable(true);
     }
 }

@@ -1,5 +1,7 @@
 package entity;
 
+import model.SalesLine;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,19 @@ public class SalesLineEntity {
     private Integer count;
     private Double itemPrice;
     private Double fullLinePrice;
+
+    public SalesLineEntity() {
+    }
+
+    public SalesLineEntity(int id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double fullLinePrice) {
+        this.id = id;
+        this.salesNumber = salesNumber;
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.count = count;
+        this.itemPrice = itemPrice;
+        this.fullLinePrice = fullLinePrice;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,5 +128,17 @@ public class SalesLineEntity {
         result = 31 * result + (itemPrice != null ? itemPrice.hashCode() : 0);
         result = 31 * result + (fullLinePrice != null ? fullLinePrice.hashCode() : 0);
         return result;
+    }
+
+    public static SalesLineEntity createSalesLineEntityFromSalesLine(SalesLine line){
+        return new SalesLineEntity(
+                line.getId(),
+                line.getSalesNumber(),
+                line.getItemId(),
+                line.getItemName(),
+                line.getCount(),
+                line.getItemPrice(),
+                line.getLinePrice()
+        );
     }
 }
