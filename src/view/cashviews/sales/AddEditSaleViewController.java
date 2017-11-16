@@ -200,7 +200,17 @@ public class AddEditSaleViewController extends AbstractController {
 
     @FXML
     private void deleteLine(){
+        int index = salesLineTable.getSelectionModel().getSelectedIndex();
+        SalesLine salesLine = salesLineTable.getSelectionModel().getSelectedItem();
 
+        Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) - salesLine.getLinePrice());
+        checkSumm.setText(String.valueOf(newCheckSumm));
+
+        salesLinedata.remove(index);
+        salesLineTable.refresh();
+
+        save.setDisable(false);
+        setDoc.setDisable(true);
     }
     private void saveHeader(Double cashMoney, Double noncashMoney){
         this.header = new SalesHeader(
