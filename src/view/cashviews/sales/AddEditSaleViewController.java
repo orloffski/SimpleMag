@@ -1,8 +1,12 @@
 package view.cashviews.sales;
 
 import application.Main;
+import dbhelpers.ItemsDBHelper;
+import dbhelpers.PricesDBHelper;
 import dbhelpers.SalesHeaderDBHelper;
 import dbhelpers.SalesLinesDBHelper;
+import entity.ItemsEntity;
+import entity.PricesEntity;
 import entity.SalesHeaderEntity;
 import entity.SalesLineEntity;
 import javafx.collections.FXCollections;
@@ -145,6 +149,42 @@ public class AddEditSaleViewController extends AbstractController {
     @FXML
     private void addLine(){
         int itemId = getNewItem();
+        Items item = null;
+
+        if(itemId != -1){
+            ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
+
+            SalesLine salesLine = null;
+
+            if(itemsEntity != null) {
+                item = Items.createItemsFromItemsEntity(itemsEntity);
+
+                //get last item price
+                PricesEntity pricesEntity = PricesDBHelper.getLastPriceByItemId(sessFact, item.getId());
+
+                Double itemPrice = Double.parseDouble(pricesEntity.getPrice().replace(",", "."));
+
+                // add salesLine
+                salesLine = new SalesLine(
+                        0,
+                        this.header.getSalesNumber(),
+                        item.getId(),
+                        item.getName(),
+                        1,
+                        itemPrice,
+                        1 * itemPrice
+                );
+                salesLinedata.add(salesLine);
+            }
+
+            salesLineTable.refresh();
+
+            save.setDisable(false);
+            setDoc.setDisable(true);
+
+            Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + salesLine.getLinePrice());
+            checkSumm.setText(String.valueOf(newCheckSumm));
+        }
     }
 
     @FXML

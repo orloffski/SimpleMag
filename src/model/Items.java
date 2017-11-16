@@ -1,5 +1,6 @@
 package model;
 
+import entity.ItemsEntity;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -83,6 +84,16 @@ public class Items {
 
     public StringProperty nameProperty() {
         return name;
+    }
+
+    public static Items createItemsFromItemsEntity(ItemsEntity itemsEntity){
+	    return new Items(
+	            itemsEntity.getId(),
+                itemsEntity.getVendorCode(),
+                itemsEntity.getName(),
+                itemsEntity.getVendorCountry(),
+                itemsEntity.getUnitId()
+        );
     }
 
 }
