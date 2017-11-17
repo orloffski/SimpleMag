@@ -169,6 +169,7 @@
             <TableColumn fx:id="retailPrice" prefWidth="75.0" text="Розничная цена" />
             <TableColumn fx:id="vat" prefWidth="75.0" text="НДС" />
             <TableColumn fx:id="extraPrice" prefWidth="75.0" text="Наценка" />
+            <TableColumn fx:id="expireDate" prefWidth="75.0" text="Годен до" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

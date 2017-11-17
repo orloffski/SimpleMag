@@ -19,11 +19,12 @@ public class InvoicesLinesEntity {
     private Integer count;
     private Double summVat;
     private Double summInclVat;
+    private String expireDate;
 
     public InvoicesLinesEntity() {
     }
 
-    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Byte vat, Byte extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summInclVat) {
+    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Byte vat, Byte extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summInclVat, String expireDate) {
         this.id = id;
         this.lineNumber = lineNumber;
         this.invoiceNumber = invoiceNumber;
@@ -36,6 +37,7 @@ public class InvoicesLinesEntity {
         this.count = count;
         this.summVat = summVat;
         this.summInclVat = summInclVat;
+        this.expireDate = expireDate;
     }
 
     @Id
@@ -159,6 +161,16 @@ public class InvoicesLinesEntity {
         this.summInclVat = summInclVat;
     }
 
+    @Basic
+    @Column(name = "expire_date", nullable = true, length = 45)
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,6 +191,7 @@ public class InvoicesLinesEntity {
         if (count != null ? !count.equals(that.count) : that.count != null) return false;
         if (summVat != null ? !summVat.equals(that.summVat) : that.summVat != null) return false;
         if (summInclVat != null ? !summInclVat.equals(that.summInclVat) : that.summInclVat != null) return false;
+        if (expireDate != null ? !expireDate.equals(that.expireDate) : that.expireDate != null) return false;
 
         return true;
     }
@@ -197,10 +210,16 @@ public class InvoicesLinesEntity {
         result = 31 * result + (count != null ? count.hashCode() : 0);
         result = 31 * result + (summVat != null ? summVat.hashCode() : 0);
         result = 31 * result + (summInclVat != null ? summInclVat.hashCode() : 0);
+        result = 31 * result + (expireDate != null ? expireDate.hashCode() : 0);
         return result;
     }
 
     public static InvoicesLinesEntity createInvoiceLineEntityFromInvoiceLine(InvoiceLine line){
+        String defaultExpireDate = "9999-99-99";
+
+        if(!line.getExpireDate().equals(""))
+            defaultExpireDate = line.getExpireDate();
+
         return new InvoicesLinesEntity(
                 line.getId(),
                 line.getLineNumber(),
@@ -213,7 +232,8 @@ public class InvoicesLinesEntity {
                 line.getItemName(),
                 line.getCount(),
                 line.getSummVat(),
-                line.getSummIncludeVat()
+                line.getSummIncludeVat(),
+                defaultExpireDate
         );
     }
 }

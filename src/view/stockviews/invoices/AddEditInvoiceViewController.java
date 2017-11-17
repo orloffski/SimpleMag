@@ -107,6 +107,9 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	
 	@FXML
     private TableColumn<InvoiceLine, Number> retailPrice;
+
+	@FXML
+	private TableColumn<InvoiceLine, String> expireDate;
 	
 	@FXML
 	private Button documentSet;
@@ -167,7 +170,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 						item.getName(),
 						0,
 						0d,
-						0d
+						0d,
+						""
 				);
 				InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
 				InvoiceLineData.clear();
@@ -381,6 +385,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
 
+		expireDate.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
+
 		if(invoice != null) {
 			loadInvoiceLines(invoice.getNumber());
 
@@ -498,7 +504,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 						line.getItemName(),
 						line.getCount(),
 						line.getSummVat(),
-						line.getSummIncludeVat()));
+						line.getSummIncludeVat(),
+						line.getExpireDate()));
 	}
 	
 	private void loadInvoiceLines(String invoiceNumber) {
@@ -586,7 +593,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 					invoicesLinesItem.getItemName(),
 					invoicesLinesItem.getCount(),
 					invoicesLinesItem.getSummVat(),
-					invoicesLinesItem.getSummInclVat()
+					invoicesLinesItem.getSummInclVat(),
+					invoicesLinesItem.getExpireDate()
 			);
 
 			lines.add(line);

@@ -22,12 +22,13 @@ public class InvoiceLine {
 	private final IntegerProperty count;
 	private final DoubleProperty summVat;
 	private final DoubleProperty summIncludeVat;
+    private final StringProperty expireDate;
 
 	public InvoiceLine() {
-		this(null, null, null, null, null, null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summIncludeVat) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summIncludeVat, String expareDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
@@ -40,6 +41,7 @@ public class InvoiceLine {
 		this.count = new SimpleIntegerProperty(count);
 		this.summVat = new SimpleDoubleProperty(summVat);
 		this.summIncludeVat = new SimpleDoubleProperty(summIncludeVat);
+		this.expireDate = new SimpleStringProperty(expareDate);
 	}
 
     public double getSummIncludeVat() {
@@ -186,6 +188,18 @@ public class InvoiceLine {
         return retailPrice;
     }
 
+    public String getExpireDate() {
+        return expireDate.get();
+    }
+
+    public StringProperty expireDateProperty() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate.set(expireDate);
+    }
+
     public static InvoiceLine createInvoiceLineFromInvoiceLineEntity(InvoicesLinesEntity line){
 	    return new InvoiceLine(
 	            line.getId(),
@@ -199,7 +213,8 @@ public class InvoiceLine {
                 line.getItemName(),
                 line.getCount(),
                 line.getSummVat(),
-                line.getSummInclVat()
+                line.getSummInclVat(),
+                line.getExpireDate()
         );
     }
 
