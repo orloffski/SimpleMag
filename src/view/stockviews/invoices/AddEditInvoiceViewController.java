@@ -3,6 +3,7 @@ package view.stockviews.invoices;
 import application.Main;
 import dbhelpers.*;
 import entity.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -31,6 +35,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -350,7 +356,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
-				invoiceLinesTable.getSelectionModel().getSelectedItem()));
+				invoiceLinesTable.getSelectionModel().getSelectedItem(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExpireDate()));
 
 		vendorPrice.setCellValueFactory(cellData -> cellData.getValue().vendorPriceProperty().asObject());
 		vendorPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -359,7 +366,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				t.getNewValue().doubleValue(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
-				invoiceLinesTable.getSelectionModel().getSelectedItem()));
+				invoiceLinesTable.getSelectionModel().getSelectedItem(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExpireDate()));
 
 		vendorSummVat.setCellValueFactory(cellData -> cellData.getValue().summVatProperty());
 
@@ -372,7 +380,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
 				t.getNewValue().intValue(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
-				invoiceLinesTable.getSelectionModel().getSelectedItem()));
+				invoiceLinesTable.getSelectionModel().getSelectedItem(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExpireDate()));
 
 		extraPrice.setCellValueFactory(cellData -> cellData.getValue().extraPriceProperty());
 		extraPrice.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
@@ -381,11 +390,20 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
 				t.getNewValue().intValue(),
-				invoiceLinesTable.getSelectionModel().getSelectedItem()));
+				invoiceLinesTable.getSelectionModel().getSelectedItem(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExpireDate()));
 
 		retailPrice.setCellValueFactory(cellData -> cellData.getValue().retailPriceProperty());
 
 		expireDate.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
+		expireDate.setCellFactory(col -> new DatePickerCell());
+		expireDate.setOnEditCommit(t -> updateInvoiceLine(
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
+				invoiceLinesTable.getSelectionModel().getSelectedItem(),
+				t.getNewValue()));
 
 		if(invoice != null) {
 			loadInvoiceLines(invoice.getNumber());
@@ -404,7 +422,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		}
 	}
 
-	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine){
+	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine, String expireDate){
 		if(invoice.getStatus().toLowerCase().equals("проведен")){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
@@ -422,6 +440,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		oldLine.setVendorPrice(vendorPrice);
 		oldLine.setVat(vat);
 		oldLine.setExtraPrice(extraPrice);
+		oldLine.setExpireDate(expireDate);
 
 		double newVendorSumm = count * vendorPrice;
 		newVendorSumm = Double.parseDouble(String.format( "%.2f", newVendorSumm ).replace(",","."));
@@ -676,6 +695,70 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		for(InvoiceLine line : lines) {
 			line.setInvoiceNumber(number.getText());
 			InvoicesLineDBHelper.updateEntity(sessFact, InvoicesLinesEntity.createInvoiceLineEntityFromInvoiceLine(line));
+		}
+	}
+
+	public static class DatePickerCell extends TableCell<InvoiceLine, String> {
+
+		private final DateTimeFormatter formatter ;
+		private final DatePicker datePicker ;
+
+		public DatePickerCell() {
+
+			formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") ;
+			datePicker = new DatePicker() ;
+
+			datePicker.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+				if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+					datePicker.setValue(datePicker.getConverter().fromString(datePicker.getEditor().getText()));
+					commitEdit(LocalDate.from(datePicker.getValue()).toString());
+				}
+				if (event.getCode() == KeyCode.ESCAPE) {
+					cancelEdit();
+				}
+			});
+
+			datePicker.setDayCellFactory(picker -> {
+				DateCell cell = new DateCell();
+				cell.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+					datePicker.setValue(cell.getItem());
+					if (event.getClickCount() == 2) {
+						datePicker.hide();
+						commitEdit(LocalDate.from(cell.getItem()).toString());
+					}
+					event.consume();
+				});
+				cell.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+					if (event.getCode() == KeyCode.ENTER) {
+						commitEdit(LocalDate.from(datePicker.getValue()).toString());
+					}
+				});
+				return cell ;
+			});
+
+			contentDisplayProperty().bind(Bindings.when(editingProperty())
+					.then(ContentDisplay.GRAPHIC_ONLY)
+					.otherwise(ContentDisplay.TEXT_ONLY));
+		}
+
+		@Override
+		protected void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+			if (empty) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				setText(item);
+				setGraphic(datePicker);
+			}
+		}
+
+		@Override
+		public void startEdit() {
+			super.startEdit();
+			if (!isEmpty()) {
+				datePicker.setValue(LocalDate.parse(getItem(), formatter));
+			}
 		}
 	}
 }
