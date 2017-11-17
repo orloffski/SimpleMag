@@ -320,7 +320,8 @@ public class AddEditSaleViewController extends AbstractController {
             cash.setText(String.valueOf(this.header.getCash()));
             nonCash.setText(String.valueOf(this.header.getNonCash()));
 
-            save.setDisable(true);
+            save.setDisable(false);
+            setDoc.setDisable(true);
 
             setListeners();
         }else{
