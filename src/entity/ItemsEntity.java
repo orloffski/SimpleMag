@@ -2,7 +2,6 @@ package entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 @Entity
 @Table(name = "items", schema = "minimag")

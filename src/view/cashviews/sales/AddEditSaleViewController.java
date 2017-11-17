@@ -212,6 +212,7 @@ public class AddEditSaleViewController extends AbstractController {
         save.setDisable(false);
         setDoc.setDisable(true);
     }
+
     private void saveHeader(Double cashMoney, Double noncashMoney){
         this.header = new SalesHeader(
                 0,
@@ -313,6 +314,9 @@ public class AddEditSaleViewController extends AbstractController {
             paymentType.setValue(this.header.getPaymentType());
             saleType.setValue(this.header.getSalesType());
 
+            cash.setText(String.valueOf(this.header.getCash()));
+            nonCash.setText(String.valueOf(this.header.getNonCash()));
+
             save.setDisable(true);
 
             setListeners();
@@ -402,22 +406,10 @@ public class AddEditSaleViewController extends AbstractController {
     }
 
     private void updateLine(int newCount){
-
         SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
         Double oldLinePrice = line.getLinePrice();
         line.setLinePrice(NumberUtils.round(newCount * line.getItemPrice()));
         line.setCount(newCount);
-
-//        try{
-//            String SQL = "UPDATE sales_line "
-//                    + "SET full_line_price = " + line.getLinePrice() + ", "
-//                    + "count = " + line.getCount() + " "
-//                    + "WHERE id = " + line.getId() + ";";
-//
-//            connection.createStatement().executeUpdate(SQL);
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
 
         Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + line.getLinePrice() - oldLinePrice);
         checkSumm.setText(String.valueOf(newCheckSumm));
