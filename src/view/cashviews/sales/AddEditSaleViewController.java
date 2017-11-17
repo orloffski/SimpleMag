@@ -103,9 +103,12 @@ public class AddEditSaleViewController extends AbstractController {
         double noncashMoney = nonCash.getText().equals("") ? 0d : Double.parseDouble(nonCash.getText());
         double fullMoney = checkSumm.getText().equals("") ? 0d : Double.parseDouble(checkSumm.getText());
 
-        if(fullMoney != cashMoney + noncashMoney)
-            MessagesUtils.showAlert("Несовпадение сумм чука",
+        if(fullMoney != cashMoney + noncashMoney) {
+            MessagesUtils.showAlert("Несовпадение сумм чека",
                     "Полная сумма чека не равна сумме наличных и безналичных средств.");
+
+            return;
+        }
 
         if(this.header == null){
             saveHeader(cashMoney, noncashMoney);
