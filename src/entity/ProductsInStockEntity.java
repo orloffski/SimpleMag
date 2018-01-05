@@ -127,4 +127,16 @@ public class ProductsInStockEntity {
         result = 31 * result + (invoiceDate != null ? invoiceDate.hashCode() : 0);
         return result;
     }
+
+    public static ProductsInStockEntity createProductsInStockEntityFromInvoiceLineEntity(InvoicesLinesEntity line, String invoiceDate, int counterpartyId){
+        return new ProductsInStockEntity(
+                0,
+                line.getItemId(),
+                line.getItemName(),
+                Double.valueOf(line.getCount()),
+                line.getInvoiceNumber(),
+                invoiceDate,
+                counterpartyId
+        );
+    }
 }

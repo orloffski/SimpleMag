@@ -268,15 +268,44 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
 		this.invoice.setStatus(status.getText());
+
+		updateItemsInStock(this.invoice.getStatus(), this.invoice.getNumber(), this.invoice.getTtnDate(), this.invoice.getCounterpartyId(), this.invoice.getType());
 	}
 
-	private void updateItemsInStock(String status){
-		if(status.equals("проведен")){
-			// insert in stock
-		}else if(status.equals("не проведен")){
-			// delete from stock
-		}
+	private void updateItemsInStock(String status, String invoiceNum, String invoiceDate, int counterpartyId, String invoiceType){
+        // при поступлении, вводе начальных остатков - добавлять в остатки
+        // при перемещении, возврате - удалять из остатков
+        boolean add = false;
+
+        if(invoiceType.equalsIgnoreCase("поступление") || invoiceType.equalsIgnoreCase("ввод начальных остатков"))
+            add = true;
+        else if(invoiceType.equalsIgnoreCase("возврат") || invoiceType.equalsIgnoreCase("перемещение"))
+            add = false;
+
+        if(status.equals("проведен")){
+            if(add)
+                addToStock(invoiceNum, invoiceDate, counterpartyId);
+            else
+                deleteFromStock(invoiceNum);
+        }else if(status.equals("не проведен")){
+            if(add)
+                deleteFromStock(invoiceNum);
+            else
+                addToStock(invoiceNum, invoiceDate, counterpartyId);
+        }
 	}
+
+	private void addToStock(String invoiceNum, String invoiceDate, int counterpartyId){
+        List<InvoicesLinesEntity> linesEntities = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNum);
+        for(InvoicesLinesEntity line : linesEntities){
+            ProductsInStockEntity productsInStockEntity = ProductsInStockEntity.createProductsInStockEntityFromInvoiceLineEntity(line, invoiceDate, counterpartyId);
+            ProductsInStockDBHelper.saveEntity(sessFact, productsInStockEntity);
+        }
+    }
+
+    private void deleteFromStock(String invoiceNum){
+	    ProductsInStockDBHelper.deleteByInvoiceNumber(sessFact, invoiceNum);
+    }
 
 	private void setPrices(boolean set, String invoiceNum){
 		if(set) {
