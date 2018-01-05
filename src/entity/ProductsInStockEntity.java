@@ -12,11 +12,12 @@ public class ProductsInStockEntity {
     private String invoiceNumber;
     private String invoiceDate;
     private int counterpartyId;
+    private String expireDate;
 
     public ProductsInStockEntity() {
     }
 
-    public ProductsInStockEntity(int id, int item_id, String itemName, Double itemsCount, String invoiceNumber, String invoiceDate, int counterpartyId) {
+    public ProductsInStockEntity(int id, int item_id, String itemName, Double itemsCount, String invoiceNumber, String invoiceDate, int counterpartyId, String expireDate) {
         this.id = id;
         this.itemId = item_id;
         this.itemName = itemName;
@@ -24,6 +25,7 @@ public class ProductsInStockEntity {
         this.invoiceNumber = invoiceNumber;
         this.invoiceDate = invoiceDate;
         this.counterpartyId = counterpartyId;
+        this.expireDate = expireDate;
     }
 
     @Id
@@ -96,6 +98,16 @@ public class ProductsInStockEntity {
         this.counterpartyId = counterpartyId;
     }
 
+    @Basic
+    @Column(name = "expire_date", nullable = true, length = 45)
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.invoiceDate = expireDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,7 +148,8 @@ public class ProductsInStockEntity {
                 Double.valueOf(line.getCount()),
                 line.getInvoiceNumber(),
                 invoiceDate,
-                counterpartyId
+                counterpartyId,
+                line.getExpireDate()
         );
     }
 }

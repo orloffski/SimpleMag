@@ -13,13 +13,14 @@ public class ProductsInStock {
     private final StringProperty invoiceNumber;
     private final StringProperty invoiceDate;
     private final IntegerProperty counterpartyId;
+    private final StringProperty expireDate;
 
 
     public ProductsInStock() {
-        this(null,null,null,null,null,null,null);
+        this(null,null,null,null,null,null,null, null);
     }
 
-    public ProductsInStock(IntegerProperty id, IntegerProperty itemId, StringProperty itemName, DoubleProperty itemsCount, StringProperty invoiceNumber, StringProperty invoiceDate, IntegerProperty counterpartyId) {
+    public ProductsInStock(IntegerProperty id, IntegerProperty itemId, StringProperty itemName, DoubleProperty itemsCount, StringProperty invoiceNumber, StringProperty invoiceDate, IntegerProperty counterpartyId, StringProperty expireDate) {
         this.id = id;
         this.itemId = itemId;
         this.itemName = itemName;
@@ -27,6 +28,7 @@ public class ProductsInStock {
         this.invoiceNumber = invoiceNumber;
         this.invoiceDate = invoiceDate;
         this.counterpartyId = counterpartyId;
+        this.expireDate = expireDate;
     }
 
     public int getId() {
@@ -111,5 +113,17 @@ public class ProductsInStock {
 
     public void setCounterpartyId(int counterpartyId) {
         this.counterpartyId.set(counterpartyId);
+    }
+
+    public String getExpireDate() {
+        return expireDate.get();
+    }
+
+    public StringProperty expireDateProperty() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate.set(expireDate);
     }
 }
