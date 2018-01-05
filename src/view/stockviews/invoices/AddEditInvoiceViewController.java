@@ -270,6 +270,14 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		this.invoice.setStatus(status.getText());
 	}
 
+	private void updateItemsInStock(String status){
+		if(status.equals("проведен")){
+			// insert in stock
+		}else if(status.equals("не проведен")){
+			// delete from stock
+		}
+	}
+
 	private void setPrices(boolean set, String invoiceNum){
 		if(set) {
 			List<InvoiceLine> lines = getInvoiceLines(invoiceNum);
