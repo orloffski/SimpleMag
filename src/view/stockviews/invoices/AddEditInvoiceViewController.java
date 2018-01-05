@@ -30,6 +30,7 @@ import utils.MessagesUtils;
 import utils.NumberUtils;
 import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
+import view.stockviews.ProductsInStockController;
 
 import java.io.IOException;
 import java.sql.*;
@@ -272,40 +273,29 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		updateItemsInStock(this.invoice.getStatus(), this.invoice.getNumber(), this.invoice.getTtnDate(), this.invoice.getCounterpartyId(), this.invoice.getType());
 	}
 
-	private void updateItemsInStock(String status, String invoiceNum, String invoiceDate, int counterpartyId, String invoiceType){
+	private void updateItemsInStock(String status, String invoiceNum, String invoiceDate, int counterpartyId, String invoiceType) {
         // при поступлении, вводе начальных остатков - добавлять в остатки
         // при перемещении, возврате - удалять из остатков
         boolean add = false;
 
-        if(invoiceType.equalsIgnoreCase("поступление") || invoiceType.equalsIgnoreCase("ввод начальных остатков"))
-            add = true;
-        else if(invoiceType.equalsIgnoreCase("возврат") || invoiceType.equalsIgnoreCase("перемещение"))
-            add = false;
+        if (invoiceType.equalsIgnoreCase("поступление") || invoiceType.equalsIgnoreCase("ввод начальных остатков")){
+            if (status.equals("проведен")) {
+                add = true;
+            } else if (status.equals("не проведен")) {
+                add = false;
+            }
 
-        if(status.equals("проведен")){
-            if(add)
-                addToStock(invoiceNum, invoiceDate, counterpartyId);
-            else
-                deleteFromStock(invoiceNum);
-        }else if(status.equals("не проведен")){
-            if(add)
-                deleteFromStock(invoiceNum);
-            else
-                addToStock(invoiceNum, invoiceDate, counterpartyId);
+            ProductsInStockController.receiveAndInitialInStock(sessFact, invoiceNum, invoiceDate, counterpartyId, add);
+        }else if(invoiceType.equalsIgnoreCase("возврат") || invoiceType.equalsIgnoreCase("перемещение")){
+            if (status.equals("проведен")) {
+                add = false;
+            } else if (status.equals("не проведен")) {
+                add = true;
+            }
+
+            ProductsInStockController.returnAndDeliveryInStock(sessFact, invoiceNum, invoiceDate, counterpartyId, add);
         }
 	}
-
-	private void addToStock(String invoiceNum, String invoiceDate, int counterpartyId){
-        List<InvoicesLinesEntity> linesEntities = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNum);
-        for(InvoicesLinesEntity line : linesEntities){
-            ProductsInStockEntity productsInStockEntity = ProductsInStockEntity.createProductsInStockEntityFromInvoiceLineEntity(line, invoiceDate, counterpartyId);
-            ProductsInStockDBHelper.saveEntity(sessFact, productsInStockEntity);
-        }
-    }
-
-    private void deleteFromStock(String invoiceNum){
-	    ProductsInStockDBHelper.deleteByInvoiceNumber(sessFact, invoiceNum);
-    }
 
 	private void setPrices(boolean set, String invoiceNum){
 		if(set) {
