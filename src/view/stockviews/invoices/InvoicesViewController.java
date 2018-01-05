@@ -3,6 +3,7 @@ package view.stockviews.invoices;
 import application.Main;
 import dbhelpers.InvoicesHeaderDBHelper;
 import dbhelpers.InvoicesLineDBHelper;
+import dbhelpers.ProductsInStockDBHelper;
 import entity.InvoicesHeadersEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -208,6 +209,9 @@ public class InvoicesViewController extends AbstractController{
 	}
 
 	private void deleteHeader(int id){
+	    String invoiceNum = InvoicesHeaderDBHelper.getInvoiceHeaderEntityById(sessFact, id).getNumber();
+
 		InvoicesHeaderDBHelper.deleteHeaderById(sessFact, id);
+        ProductsInStockDBHelper.deleteByInvoiceNumber(sessFact, invoiceNum);
 	}
 }
