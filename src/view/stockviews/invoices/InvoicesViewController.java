@@ -160,7 +160,7 @@ public class InvoicesViewController extends AbstractController{
 	private void buildData(){
 		data = FXCollections.observableArrayList();
 
-		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact);
+		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact, true);
 
 		for (InvoicesHeadersEntity invHeader : invoicesList) {
 			InvoiceHeader headerItem = InvoiceHeader.createHeaderFromEntity(invHeader);
