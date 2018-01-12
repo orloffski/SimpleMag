@@ -22,6 +22,31 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
         session.close();
     }
 
+    public static List<ProductsInStockEntity> findItemCountFromCounterparty(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query;
+
+        if(!expireDate.equalsIgnoreCase("")) {
+            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId AND expireDate =:expireDate");
+            query.setParameter("itemId", itemId);
+            query.setParameter("counerpartyId", counerpartyId);
+            query.setParameter("expireDate", expireDate);
+        }else{
+            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId");
+            query.setParameter("itemId", itemId);
+            query.setParameter("counerpartyId", counerpartyId);
+        }
+
+        List<ProductsInStockEntity> list = query.list();
+
+        tr.commit();
+        session.close();
+
+        return list;
+    }
+
     public static ProductsInStockEntity fullFindLines(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
@@ -34,7 +59,7 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
             query.setParameter("counerpartyId", counerpartyId);
             query.setParameter("expireDate", expireDate);
         }else{
-            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId");
+            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId ORDER BY id DESC");
             query.setParameter("itemId", itemId);
             query.setParameter("counerpartyId", counerpartyId);
         }

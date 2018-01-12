@@ -57,4 +57,23 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
         tr.commit();
         session.close();
     }
+
+    public static  InvoicesHeadersEntity getInvoiceHeaderEntityByNum(SessionFactory sessFact, String invoiceNum){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery("FROM InvoicesHeadersEntity WHERE number =:invoiceNum");
+        query.setParameter("invoiceNum", invoiceNum);
+        query.setMaxResults(1);
+
+        List<InvoicesHeadersEntity> invoicesList = query.list();
+
+        tr.commit();
+        session.close();
+
+        if(invoicesList.size() > 0)
+            return invoicesList.get(0);
+
+        return null;
+    }
 }
