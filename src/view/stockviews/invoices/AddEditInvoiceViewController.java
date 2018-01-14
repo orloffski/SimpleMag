@@ -28,6 +28,7 @@ import model.*;
 import modes.AddEditMode;
 import utils.MessagesUtils;
 import utils.NumberUtils;
+import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
 import view.stockviews.BarcodeItemsViewController;
 import view.stockviews.ProductsInStockController;
@@ -247,19 +248,22 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	
 	@FXML
 	private void documentSetAction() {
-	    // проверка документа на возможность проведения/отмены проведения
-        if(!ProductsInStockController.checkItemsInStock(type.getValue(),
-                status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен",
-                sessFact,
-                number.getText()))
-            return;
+		// проверка настройки контроля остатков на складе
+		if(SettingsEngine.getInstance().getSettings().productsInStockEnabled) {
+			// проверка документа на возможность проведения/отмены проведения
+			if (!ProductsInStockController.checkItemsInStock(type.getValue(),
+					status.getText().toLowerCase().equals("проведен") ? "не проведен" : "проведен",
+					sessFact,
+					number.getText()))
+				return;
 
-		if(type.getValue().toLowerCase().equals("поступление") || type.getValue().toLowerCase().equals("ввод начальных остатков"))
-			if(status.getText().toLowerCase().equals("проведен")){
-				setPrices(false, invoice.getNumber());
-			}else{
-				setPrices(true, invoice.getNumber());
-			}
+			if (type.getValue().toLowerCase().equals("поступление") || type.getValue().toLowerCase().equals("ввод начальных остатков"))
+				if (status.getText().toLowerCase().equals("проведен")) {
+					setPrices(false, invoice.getNumber());
+				} else {
+					setPrices(true, invoice.getNumber());
+				}
+		}
 
 		this.invoice = updateHeader(
 				this.invoice,
