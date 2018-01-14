@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<main_app_settings>
+    <products_in_stock>
+        <productsInStockEnabled>true</productsInStockEnabled>
+    </products_in_stock>
+</main_app_settings>

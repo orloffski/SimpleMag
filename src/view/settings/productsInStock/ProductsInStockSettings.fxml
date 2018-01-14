@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.productsInStock.ProductsInStockSettingsController">
    <center>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
@@ -19,7 +18,7 @@
                         <Insets bottom="15.0" left="15.0" top="15.0" />
                      </HBox.margin>
                      <children>
-                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" text="Включить контроль остатков на складе &#10;(необходим для работы подсистемы &#10;&quot;Переучет&quot;)&#10;" wrapText="true">
+                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" onAction="#setProductsInStock" text="Включить контроль остатков на складе &#10;(необходим для работы подсистемы &#10;&quot;Переучет&quot;)&#10;" wrapText="true">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
