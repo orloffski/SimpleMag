@@ -68,6 +68,11 @@ public class NodeGeneratorUtils {
                 loader.setLocation(Main.class.getResource("/view/stockviews/invoices/InvoicesView.fxml"));
                 paneView = loader.load();
                 break;
+            case PRODUCTS_IN_STOCK_SETTINGS:
+                tabTitle = "Настройка контроля остатков на складе";
+                loader.setLocation(Main.class.getResource("/view/stockviews/invoices/InvoicesView.fxml"));
+                paneView = loader.load();
+                break;
         }
 
         AbstractRootController controller = loader.getController();

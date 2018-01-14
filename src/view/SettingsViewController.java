@@ -18,6 +18,9 @@ public class SettingsViewController extends AbstractRootController{
     @FXML
     private Text itemsList;
 
+    @FXML
+    private Text productsInStock;
+
     public SettingsViewController() {
     }
 
@@ -50,6 +53,25 @@ public class SettingsViewController extends AbstractRootController{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void openProductsInStockSettings(){
+        try {
+            NodeGeneratorUtils.openNewTab(rootTab, TabMode.PRODUCTS_IN_STOCK_SETTINGS, main);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void setProductsInStockUnderline(){
+        productsInStock.setUnderline(true);
+    }
+
+    @FXML
+    private void removeProductsInStockUnderline(){
+        productsInStock.setUnderline(false);
     }
 
     @FXML
