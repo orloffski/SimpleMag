@@ -70,7 +70,7 @@ public class NodeGeneratorUtils {
                 break;
             case PRODUCTS_IN_STOCK_SETTINGS:
                 tabTitle = "Настройка контроля остатков на складе";
-                loader.setLocation(Main.class.getResource("/view/stockviews/invoices/InvoicesView.fxml"));
+                loader.setLocation(Main.class.getResource("/view/settings/productsInStock/ProductsInStockSettings.fxml"));
                 paneView = loader.load();
                 break;
         }
