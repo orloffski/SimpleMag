@@ -248,12 +248,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			setHeaderToDB(this.invoice);
 		}
 
-		documentSave.setDisable(true);
 		documentSet.setDisable(false);
-
-		type.setDisable(true);
-		counterparty.setDisable(true);
-		ttnDate.setDisable(true);
+		updateElements("проведен");
 	}
 	
 	@FXML
@@ -290,6 +286,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
 		this.invoice.setStatus(status.getText());
+
+		updateElements(this.invoice.getStatus());
 	}
 
 	private void setPrices(boolean set, String invoiceNum){
@@ -351,8 +349,8 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			ttnNo.setText(invoice.getTtnNo());
 			ttnDate.getEditor().setText(invoice.getTtnDate());
 
-			documentSave.setDisable(false);
 			documentSet.setDisable(false);
+			updateElements(invoice.getStatus());
 		}else {
 			dialogStage.setTitle("создание нового документа");
 			this.mode = AddEditMode.ADD;
@@ -363,6 +361,20 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			documentSave.setDisable(false);
 			documentSet.setDisable(true);
+		}
+	}
+
+	private void updateElements(String status){
+		if(status.toLowerCase().equals("проведен")){
+			documentSave.setDisable(true);
+			type.setDisable(true);
+			counterparty.setDisable(true);
+			ttnDate.setDisable(true);
+		}else{
+			documentSave.setDisable(false);
+			type.setDisable(false);
+			counterparty.setDisable(false);
+			ttnDate.setDisable(false);
 		}
 	}
 
