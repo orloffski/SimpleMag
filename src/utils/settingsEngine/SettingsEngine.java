@@ -6,7 +6,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 public class SettingsEngine {
-    private final static String SETTINGS_FILE = "src/application/settings.xml";
+    private final static String SETTINGS_FILE = "./resources/settings.xml";
 
     private static volatile SettingsEngine instance;
     private SettingsModel settings;

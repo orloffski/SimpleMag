@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utils.settingsEngine.SettingsEngine;
 import utils.settingsEngine.SettingsModel;
-import utils.settingsEngine.SettingsWrapper;
 import view.MainController;
 
 import java.io.IOException;
