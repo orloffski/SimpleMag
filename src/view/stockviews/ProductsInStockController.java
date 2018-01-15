@@ -141,7 +141,8 @@ public class ProductsInStockController {
             ProductsInStockEntity lineInStock = ProductsInStockDBHelper.fullFindLines(sessFact, itemId, invoice.getCounterpartyId(), expireDate);
 
             // проверка наличия строки накладной и количества товара по строке в остатках
-            if(lineInStock == null || lineInStock.getItemsCount() != Double.valueOf(count)) {
+            if(lineInStock == null ||
+                    lineInStock.getItemsCount() - Double.valueOf(count) != 0) {
                 isChecked = false;
                 break;
             }
