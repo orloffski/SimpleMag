@@ -23,7 +23,9 @@ import javafx.stage.Stage;
 import model.InvoiceHeader;
 import org.hibernate.query.Query;
 import utils.MessagesUtils;
+import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
+import view.stockviews.ProductsInStockController;
 
 import java.io.IOException;
 import java.util.List;
@@ -116,6 +118,15 @@ public class InvoicesViewController extends AbstractController{
 		if(invoice != null){
 			String invoiceNumber = invoice.getNumber();
 			int invoiceId = invoice.getId();
+
+			// проверка включена ли настройка контроля остатков на складе при удалении проведенной накладной
+			if(invoice.getStatus().toLowerCase().equals("проведен") && SettingsEngine.getInstance().getSettings().productsInStockEnabled) {
+				// контроль остатков на складе
+				if (!ProductsInStockController.checkItemsInStock(invoice.getType(),
+						invoice.getStatus().toLowerCase().equals("проведен") ? "не проведен" : "проведен",
+						sessFact, invoiceNumber))
+					return;
+			}
 
 			deleteLines(invoiceNumber);
 			deleteHeader(invoiceId);
