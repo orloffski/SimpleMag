@@ -224,6 +224,12 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	@FXML
 	private void saveDocument(){
+		if(ttnDate.getEditor().getText().equals("") || type.getValue() == null || counterparty.getValue() == null){
+			MessagesUtils.showAlert("Ошибка сохранения накладной",
+					"Укажите тип документа, контрагента и дату для сохранения.");
+			return;
+		}
+
 		if(this.invoice == null){
 			this.invoice = createHeader();
 			InvoicesHeadersEntity headersEntity = createHeaderEntityFromHeader(this.invoice);
