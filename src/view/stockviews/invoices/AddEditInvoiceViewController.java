@@ -250,6 +250,10 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		documentSave.setDisable(true);
 		documentSet.setDisable(false);
+
+		type.setDisable(true);
+		counterparty.setDisable(true);
+		ttnDate.setDisable(true);
 	}
 	
 	@FXML
