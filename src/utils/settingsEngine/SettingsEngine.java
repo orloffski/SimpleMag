@@ -28,10 +28,6 @@ public class SettingsEngine {
         loadSettingsDataFromFile();
     }
 
-    public void unlockInstance(){
-        instance = null;
-    }
-
     public SettingsModel getSettings() {
         return settings;
     }

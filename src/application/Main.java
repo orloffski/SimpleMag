@@ -38,7 +38,6 @@ public class Main extends Application {
         super.stop();
         HibernateSession.closeSession();
         SettingsEngine.getInstance().saveSettingsDataToFile(settings);
-        SettingsEngine.getInstance().unlockInstance();
     }
     
     private void showMainView() {
