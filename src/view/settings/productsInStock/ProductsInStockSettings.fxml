@@ -13,12 +13,12 @@
          <children>
             <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="250.0">
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="385.0">
                      <HBox.margin>
                         <Insets bottom="15.0" left="15.0" top="15.0" />
                      </HBox.margin>
                      <children>
-                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" onAction="#setProductsInStock" text="Включить контроль остатков на складе &#10;(необходим для работы подсистемы &#10;&quot;Переучет&quot;)&#10;" wrapText="true">
+                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" onAction="#setProductsInStock" text="Включить контроль остатков на складе (необходим для работы подсистемы &quot;Переучет&quot;)&#10;" wrapText="true">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
