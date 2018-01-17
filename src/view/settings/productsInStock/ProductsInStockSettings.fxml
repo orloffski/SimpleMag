@@ -18,11 +18,13 @@
                         <Insets bottom="15.0" left="15.0" top="15.0" />
                      </HBox.margin>
                      <children>
-                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" onAction="#setProductsInStock" text="Включить контроль остатков на складе (необходим для работы подсистемы &quot;Переучет&quot;)&#10;" wrapText="true">
+                        <CheckBox fx:id="productsInStock" mnemonicParsing="false" onAction="#setProductsInStock" text="Включить контроль остатков на складе&#10;" wrapText="true">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </CheckBox>
+                        <CheckBox fx:id="invoiceFromStock" mnemonicParsing="false" onAction="#setInvoicesFromStock" text="Включить выбор товаров в накладные из остатков склада" />
+                        <CheckBox fx:id="sellsFromStock" mnemonicParsing="false" onAction="#setSellsFromStock" text="Включить выбор товара при продажах из остатков склада" />
                      </children>
                   </VBox>
                </children>
