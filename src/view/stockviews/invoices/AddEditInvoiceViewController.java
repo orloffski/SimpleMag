@@ -30,6 +30,7 @@ import utils.MessagesUtils;
 import utils.NumberUtils;
 import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
+import view.stockviews.BarcodeItemsFromStockViewController;
 import view.stockviews.BarcodeItemsViewController;
 import view.stockviews.ProductsInStockController;
 
@@ -152,42 +153,55 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			return;
 		}
 
-		int itemId = getNewItemFromBarcode();
-		Items item = null;
 
-		if(itemId != -1){
-			ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
-
-			item = new Items(itemsEntity.getId(),
-					itemsEntity.getVendorCode(),
-					itemsEntity.getName(),
-					itemsEntity.getVendorCountry(),
-					itemsEntity.getUnitId());
+		int itemId;
+		Items item;
+		InvoicesLinesEntity lineEntity = null;
+		if(SettingsEngine.getInstance().getSettings().invoicesFromStock){
+			// добавляем товар из остатков склада
+			ProductsInStockEntity product = getItemFromStock();
 
 
-			if(item != null) {
-				InvoicesLinesEntity lineEntity = new InvoicesLinesEntity(
-						0,
-						1,
-						invoice.getNumber(),
-						item.getId(),
-						0d,
-						(byte) 20,
-						(byte) 40,
-						0d,
-						item.getName(),
-						0,
-						0d,
-						0d,
-						""
-				);
-				InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
-				InvoiceLineData.clear();
+		}else{
+			// выбираем любой товар из системы
+			itemId = getNewItemFromBarcode();
+
+			if(itemId != -1){
+				ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
+
+				item = new Items(itemsEntity.getId(),
+						itemsEntity.getVendorCode(),
+						itemsEntity.getName(),
+						itemsEntity.getVendorCountry(),
+						itemsEntity.getUnitId());
+
+
+				if(item != null) {
+					lineEntity = new InvoicesLinesEntity(
+							0,
+							1,
+							invoice.getNumber(),
+							item.getId(),
+							0d,
+							(byte) 20,
+							(byte) 40,
+							0d,
+							item.getName(),
+							0,
+							0d,
+							0d,
+							""
+					);
+				}
 			}
-
-			loadInvoiceLines(invoice.getNumber());
-
 		}
+
+		if(lineEntity != null){
+			InvoicesLineDBHelper.saveEntity(sessFact, lineEntity);
+			InvoiceLineData.clear();
+		}
+
+		loadInvoiceLines(invoice.getNumber());
 	}
 
 	@FXML
@@ -332,6 +346,32 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		}
 
 		return -1;
+	}
+
+	private ProductsInStockEntity getItemFromStock(){
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsFromStockView.fxml"));
+		try {
+			BorderPane page = loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Список товаров на складе");
+			dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(main.getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			BarcodeItemsFromStockViewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+
+			dialogStage.showAndWait();
+
+			return controller.getStockLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 	
 	void setInvoice(InvoiceHeader invoice) {
