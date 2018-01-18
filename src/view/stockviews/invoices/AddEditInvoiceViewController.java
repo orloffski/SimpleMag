@@ -158,9 +158,10 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		Items item;
 		InvoicesLinesEntity lineEntity = null;
 		if((type.getValue().toLowerCase().equals("перемещение") || type.getValue().toLowerCase().equals("возврат"))
+				&& SettingsEngine.getInstance().getSettings().productsInStockEnabled
 				&& SettingsEngine.getInstance().getSettings().invoicesFromStock){
 			// добавляем товар из остатков склада
-			ProductsInStockEntity product = getItemFromStock();
+			BarcodeItemsFromStock product = getItemFromStock();
 
 
 		}else{
@@ -349,7 +350,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		return -1;
 	}
 
-	private ProductsInStockEntity getItemFromStock(){
+	private BarcodeItemsFromStock getItemFromStock(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsFromStockView.fxml"));
 		try {
