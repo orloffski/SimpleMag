@@ -99,20 +99,18 @@ public class BarcodeItemsFromStockViewController {
         FilteredList<BarcodeItemsFromStock> filteredData = new FilteredList<>(data, p -> true);
 
         filter.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(barcodeItem -> {
+            filteredData.setPredicate(barcodeItemsFromStock -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (barcodeItem.getBarcode().toLowerCase().contains(lowerCaseFilter)) {
+                if (barcodeItemsFromStock.getBarcode().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches barcode.
-                } else if (barcodeItem.getItemName().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (barcodeItemsFromStock.getItemName().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches name.
-                } else if (barcodeItem.getExpireDate().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches expire date.
-                } else if (barcodeItem.getInvoiceNum().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (barcodeItemsFromStock.getInvoiceNum().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches invoice number.
                 }
                 return false; // Does not match.
