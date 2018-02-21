@@ -84,6 +84,9 @@ public class AddEditSaleViewController extends AbstractController {
     @FXML
     private Button save;
 
+    @FXML
+    private Text cashType;
+
 
     private Main main;
     private ObservableList<SalesLine> salesLinedata;
@@ -387,6 +390,12 @@ public class AddEditSaleViewController extends AbstractController {
         saleType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(checkHeader(this.header))
                 return;
+
+            if(newValue.equalsIgnoreCase("покупка")){
+                cashType.setText("Оплата");
+            }else if(newValue.equalsIgnoreCase("возврат")){
+                cashType.setText("Возврат средств");
+            }
 
             String oldNumber = checkNumber.getText();
             String newNumber = NumberUtils.getNextCheckNumber(String.valueOf(newValue));

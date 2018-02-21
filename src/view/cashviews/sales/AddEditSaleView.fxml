@@ -86,7 +86,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Оплата" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Text fx:id="cashType" strokeType="OUTSIDE" strokeWidth="0.0" text="Оплата" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
