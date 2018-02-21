@@ -8,3 +8,14 @@ build.fxbuild
 build/
 .idea/
 src/hibernate.cfg.xml
+software/mysql-5.7.11-winx64.msi
+software/mysql-5.5.11-winx64.msi
+software/Russian.isl
+resources/WinFlag.skinproj
+readme.txt
+software/mysql-5.7.11-win32.msi
+resources/ISSkin.dll
+software/mysql-workbench-community-6.3.10-winx64.msi
+software/mysql-5.5.11-win32.msi
+software/English.isl
+software/mysql-workbench-community-6.3.8-win32.msi
