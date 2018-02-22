@@ -1,9 +1,12 @@
 package view.cashviews.sales;
 
 import application.Main;
+import dbhelpers.ProductsInStockDBHelper;
 import dbhelpers.SalesHeaderDBHelper;
 import dbhelpers.SalesLinesDBHelper;
+import entity.ProductsInStockEntity;
 import entity.SalesHeaderEntity;
+import entity.SalesLineEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,7 +23,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.SalesHeader;
+import model.SalesLine;
 import utils.MessagesUtils;
+import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
 
 import java.io.IOException;
@@ -79,17 +84,73 @@ public class SalesViewController extends AbstractController{
         SalesHeader header = salesHeaderTable.getSelectionModel().getSelectedItem();
 
         if(header != null){
-            String saleNumber = header.getSalesNumber();
-            int id = header.getId();
+            if(SettingsEngine.getInstance().getSettings().productsInStockEnabled &&
+                    SettingsEngine.getInstance().getSettings().sellsFromStock){
+                checkItems(header);
+            }else{
+                String saleNumber = header.getSalesNumber();
+                int id = header.getId();
 
-            deleteLines(saleNumber);
-            deleteHeader(id);
+                deleteLines(saleNumber);
+                deleteHeader(id);
+            }
 
             data.clear();
             loadSalesHeaders();
         }else{
             MessagesUtils.showAlert("Ошибка удаления продажи","Выберите чек продажи для удаления.");
         }
+    }
+
+    private boolean checkItems(SalesHeader salesHeader){
+        if(salesHeader.getSalesType().equalsIgnoreCase("возврат")){
+            // проверка наличия товара на складе в нужном количестве
+            List<SalesLineEntity> salesLines = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
+            for(SalesLineEntity line : salesLines){
+                int count = 0;
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
+                for(ProductsInStockEntity stockLine : inStockLines)
+                    count += stockLine.getItemsCount();
+
+                if(count < line.getCount()){
+                    MessagesUtils.showAlert("Ошибка проведения операции",
+                            "Проведение операции невозможно, товар для операции отсутствует в остатках на складе");
+
+                    return false;
+                }
+            }
+
+            // списание товара со склада
+            for(SalesLineEntity line : salesLines){
+                int count = line.getCount();
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
+                for(ProductsInStockEntity stockLine : inStockLines){
+                    if(count > stockLine.getItemsCount()){
+                        count -= stockLine.getItemsCount();
+                        ProductsInStockDBHelper.deleteEntity(sessFact, stockLine);
+                    }else{
+                        stockLine.setItemsCount(stockLine.getItemsCount() - count);
+                        ProductsInStockDBHelper.updateEntity(sessFact, stockLine);
+                        break;
+                    }
+                }
+            }
+        }else if(salesHeader.getSalesType().equalsIgnoreCase("покупка")){
+            // вернуть строки на склад
+            List<SalesLineEntity> salesLines = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
+            for(SalesLineEntity line : salesLines){
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
+                ProductsInStockEntity inStockLine = inStockLines.get(0);
+
+                inStockLine.setItemsCount(inStockLine.getItemsCount() + line.getCount());
+                ProductsInStockDBHelper.updateEntity(sessFact, inStockLine);
+            }
+        }
+
+        SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
+        SalesHeaderDBHelper.deleteHeaderById(sessFact, salesHeader.getId());
+
+        return true;
     }
 
     @FXML
