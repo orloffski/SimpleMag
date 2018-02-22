@@ -28,6 +28,7 @@ import model.*;
 import modes.AddEditMode;
 import utils.MessagesUtils;
 import utils.NumberUtils;
+import utils.SelectedObject;
 import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
 import view.stockviews.BarcodeItemsFromStockViewController;
@@ -161,7 +162,24 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				&& SettingsEngine.getInstance().getSettings().productsInStockEnabled
 				&& SettingsEngine.getInstance().getSettings().invoicesFromStock){
 			// добавляем товар из остатков склада
-			BarcodeItemsFromStock product = getItemFromStock();
+			getItemFromStock(invoice.getCounterpartyId());
+			BarcodeItemsFromStock product = (BarcodeItemsFromStock)SelectedObject.getObject();
+
+			lineEntity = new InvoicesLinesEntity(
+					0,
+					1,
+					invoice.getNumber(),
+					product.getItemId(),
+					0d,
+					(byte) 20,
+					(byte) 40,
+					0d,
+					product.getItemName(),
+					0,
+					0d,
+					0d,
+					""
+			);
 
 		}else{
 			// выбираем любой товар из системы
@@ -349,7 +367,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		return -1;
 	}
 
-	private BarcodeItemsFromStock getItemFromStock(){
+	private BarcodeItemsFromStock getItemFromStock(int counterpartyId){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsFromStockView.fxml"));
 		try {
@@ -364,6 +382,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			BarcodeItemsFromStockViewController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			controller.setCounterpartyId(counterpartyId);
 
 			dialogStage.showAndWait();
 

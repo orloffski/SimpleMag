@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.BarcodeItemsFromStock;
 import model.BarcodesItems;
@@ -26,6 +23,8 @@ public class BarcodeItemsFromStockViewController {
     private BarcodeItemsFromStock productFromStock;
 
     private Stage dialogStage;
+
+    private int counterpartyId;
 
     @FXML
     private TableView<BarcodeItemsFromStock> barcodeItemsFromStockTable;
@@ -56,27 +55,27 @@ public class BarcodeItemsFromStockViewController {
 
     @FXML
     private void initialize() {
-        barcodeColumn.setCellValueFactory(cellData -> cellData.getValue().barcodeProperty());
-        itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
-        itemCountColumn.setCellValueFactory(cellData -> cellData.getValue().itemCountProperty());
-        expireDateColumn.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
-        invoiceNumColumn.setCellValueFactory(cellData -> cellData.getValue().invoiceNumProperty());
 
-        try {
-            connection = new DBClass().getConnection();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        init();
     }
 
     private void init(){
         data = FXCollections.observableArrayList();
         try{
-            String SQL = "SELECT barcodes.barcode, products.item_name, products.items_count, products.expire_date, products.invoice_number, products.item_id\n" +
-                    "FROM barcodes, products_in_stock AS products\n" +
-                    "WHERE barcodes.item_id = products.item_id;";
-            ResultSet rs = connection.createStatement().executeQuery(SQL);
+            String SQL;
+            ResultSet rs;
+            if(counterpartyId != -1){
+                SQL = "SELECT barcodes.barcode, products.item_name, products.items_count, products.expire_date, products.invoice_number, products.item_id\n" +
+                        "FROM barcodes, products_in_stock AS products\n" +
+                        "WHERE barcodes.item_id = products.item_id " +
+                        "AND products.counterparty_id = " + counterpartyId + ";";
+                rs = connection.createStatement().executeQuery(SQL);
+            }else{
+                SQL = "SELECT barcodes.barcode, products.item_name, products.items_count, products.expire_date, products.invoice_number, products.item_id\n" +
+                        "FROM barcodes, products_in_stock AS products\n" +
+                        "WHERE barcodes.item_id = products.item_id;";
+                rs = connection.createStatement().executeQuery(SQL);
+            }
+
             while(rs.next()){
                 BarcodeItemsFromStock item = new BarcodeItemsFromStock(
                         rs.getString("barcode"),
@@ -138,6 +137,23 @@ public class BarcodeItemsFromStockViewController {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public void setCounterpartyId(int counterpartyId){
+        this.counterpartyId = counterpartyId;
+
+        barcodeColumn.setCellValueFactory(cellData -> cellData.getValue().barcodeProperty());
+        itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
+        itemCountColumn.setCellValueFactory(cellData -> cellData.getValue().itemCountProperty());
+        expireDateColumn.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
+        invoiceNumColumn.setCellValueFactory(cellData -> cellData.getValue().invoiceNumProperty());
+
+        try {
+            connection = new DBClass().getConnection();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        init();
     }
 
     public BarcodeItemsFromStock getStockLine(){

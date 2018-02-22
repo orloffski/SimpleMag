@@ -372,6 +372,7 @@ public class AddEditSaleViewController extends AbstractController {
 
             BarcodeItemsFromStockViewController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setCounterpartyId(-1);
 
             dialogStage.showAndWait();
 
