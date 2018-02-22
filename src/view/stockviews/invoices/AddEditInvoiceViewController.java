@@ -163,7 +163,6 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			// добавляем товар из остатков склада
 			BarcodeItemsFromStock product = getItemFromStock();
 
-
 		}else{
 			// выбираем любой товар из системы
 			itemId = getNewItemFromBarcode();

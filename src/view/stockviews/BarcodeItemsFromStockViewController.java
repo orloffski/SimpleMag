@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.BarcodeItemsFromStock;
 import model.BarcodesItems;
+import utils.SelectedObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -125,6 +126,7 @@ public class BarcodeItemsFromStockViewController {
     @FXML
     private void onSelect(){
         this.productFromStock = barcodeItemsFromStockTable.getSelectionModel().getSelectedItem();
+        SelectedObject.setObject(this.productFromStock);
         dialogStage.close();
     }
 

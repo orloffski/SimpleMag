@@ -1,14 +1,8 @@
 package view.cashviews.sales;
 
 import application.Main;
-import dbhelpers.ItemsDBHelper;
-import dbhelpers.PricesDBHelper;
-import dbhelpers.SalesHeaderDBHelper;
-import dbhelpers.SalesLinesDBHelper;
-import entity.ItemsEntity;
-import entity.PricesEntity;
-import entity.SalesHeaderEntity;
-import entity.SalesLineEntity;
+import dbhelpers.*;
+import entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +20,10 @@ import javafx.util.converter.IntegerStringConverter;
 import model.*;
 import utils.MessagesUtils;
 import utils.NumberUtils;
+import utils.SelectedObject;
+import utils.settingsEngine.SettingsEngine;
 import view.AbstractController;
+import view.stockviews.BarcodeItemsFromStockViewController;
 import view.stockviews.BarcodeItemsViewController;
 
 import java.io.IOException;
@@ -148,51 +145,132 @@ public class AddEditSaleViewController extends AbstractController {
                     "Для проведения чека сохраните его.");
             return;
         }
+        boolean docIsSet = false;
 
-        this.header.setSetHeader(this.header.getSetHeader().toLowerCase().equals("проведен") ? "не проведен" : "проведен");
-        setDocText.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "проведен" : "не проведен");
-        setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "отмена проведения" : "проведение");
+        if(SettingsEngine.getInstance().getSettings().productsInStockEnabled &&
+                SettingsEngine.getInstance().getSettings().sellsFromStock){
+            docIsSet = checkItems(saleType.getSelectionModel().getSelectedItem());
+        }else{
+            docIsSet = true;
+        }
 
-        SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+        if(docIsSet){
+            this.header.setSetHeader(this.header.getSetHeader().toLowerCase().equals("проведен") ? "не проведен" : "проведен");
+            setDocText.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "проведен" : "не проведен");
+            setDoc.setText(this.header.getSetHeader().toLowerCase().equals("проведен") ? "отмена проведения" : "проведение");
 
-        if(this.header.getSetHeader().toLowerCase().equals("не проведен")){
-            // need update form elements
-            saleType.setValue(this.header.getSalesType());
-            paymentType.setValue(this.header.getPaymentType());
-            checkNumber.setText(this.header.getSalesNumber());
+            SalesHeaderDBHelper.updateEntity(sessFact, SalesHeaderEntity.createSalesHeaderEntityFromSalesHeader(this.header));
+
+            if(this.header.getSetHeader().toLowerCase().equals("не проведен")){
+                // need update form elements
+                saleType.setValue(this.header.getSalesType());
+                paymentType.setValue(this.header.getPaymentType());
+                checkNumber.setText(this.header.getSalesNumber());
+            }
         }
     }
 
+    private boolean checkItems(String saleType){
+        // проверка наличия товара на складе в нужном количестве
+        if(saleType.equalsIgnoreCase("покупка")){
+            for(SalesLine salesLine : salesLinedata){
+                int count = 0;
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
+                for(ProductsInStockEntity line : inStockLines)
+                    count += line.getItemsCount();
+
+                if(count < salesLine.getCount()){
+                    MessagesUtils.showAlert("Ошибка проведения операции",
+                            "Проведение операции невозможно, товар для операции отсутствует в остатках на складе");
+
+                    return false;
+                }
+            }
+
+            // списание товара со склада
+            for(SalesLine salesLine : salesLinedata){
+                int count = salesLine.getCount();
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
+                for(ProductsInStockEntity line : inStockLines){
+                    if(count > line.getItemsCount()){
+                        count -= line.getItemsCount();
+                        ProductsInStockDBHelper.deleteEntity(sessFact, line);
+                    }else{
+                        line.setItemsCount(line.getItemsCount() - count);
+                        ProductsInStockDBHelper.updateEntity(sessFact, line);
+                        break;
+                    }
+                }
+            }
+        }else if(saleType.equalsIgnoreCase("возврат")){
+            // запись товара на склад
+            for(SalesLine salesLine : salesLinedata){
+                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
+                ProductsInStockEntity line = inStockLines.get(0);
+
+                line.setItemsCount(line.getItemsCount() + salesLine.getCount());
+                ProductsInStockDBHelper.updateEntity(sessFact, line);
+            }
+        }
+        return true;
+    }
+
     @FXML
-    private void addLine(){
-        int itemId = getNewItem();
-        Items item = null;
+    private int addLine(){
+        if(checkHeader(this.header))
+            return -1;
 
-        if(itemId != -1){
-            ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
+        BarcodeItemsFromStock product = null;
+        int itemId = -1;
 
+        if(SettingsEngine.getInstance().getSettings().productsInStockEnabled &&
+                SettingsEngine.getInstance().getSettings().sellsFromStock){
+            getItemFromStock();
+
+            product = (BarcodeItemsFromStock)SelectedObject.getObject();
+        }else{
+            itemId = getNewItem();
+
+            if(itemId != -1) {
+                ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
+                product = new BarcodeItemsFromStock("", itemsEntity.getName(), 0, "", "", itemId);
+            }
+        }
+
+        if(product != null){
             SalesLine salesLine = null;
 
-            if(itemsEntity != null) {
-                item = Items.createItemsFromItemsEntity(itemsEntity);
+            //get last item price
+            PricesEntity pricesEntity = PricesDBHelper.getLastPriceByItemId(sessFact, product.getItemId());
 
-                //get last item price
-                PricesEntity pricesEntity = PricesDBHelper.getLastPriceByItemId(sessFact, item.getId());
+            Double itemPrice = Double.parseDouble(pricesEntity.getPrice().replace(",", "."));
 
-                Double itemPrice = Double.parseDouble(pricesEntity.getPrice().replace(",", "."));
-
+            if(product.getInvoiceNum().equals("")) {
                 // add salesLine
                 salesLine = new SalesLine(
                         0,
                         checkNumber.getText(),
-                        item.getId(),
-                        item.getName(),
+                        product.getItemId(),
+                        product.getItemName(),
                         1,
                         itemPrice,
-                        1 * itemPrice
+                        1 * itemPrice,
+                        0
                 );
-                salesLinedata.add(salesLine);
+            }else{
+                int counterpartyId = InvoicesHeaderDBHelper.getCounterpartyIdByInvoiceNumber(sessFact, product.getInvoiceNum());
+                salesLine = new SalesLine(
+                        0,
+                        checkNumber.getText(),
+                        product.getItemId(),
+                        product.getItemName(),
+                        1,
+                        itemPrice,
+                        1 * itemPrice,
+                        counterpartyId
+                );
             }
+            salesLinedata.add(salesLine);
 
             salesLineTable.refresh();
 
@@ -201,7 +279,10 @@ public class AddEditSaleViewController extends AbstractController {
 
             Double newCheckSumm = NumberUtils.round(Double.parseDouble(checkSumm.getText()) + salesLine.getLinePrice());
             checkSumm.setText(String.valueOf(newCheckSumm));
-        }
+        }else
+            System.out.println("product is null");
+
+        return 0;
     }
 
     @FXML
@@ -251,9 +332,6 @@ public class AddEditSaleViewController extends AbstractController {
     }
 
     private int getNewItem() {
-        if(checkHeader(this.header))
-            return -1;
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsView.fxml"));
         try {
@@ -277,6 +355,32 @@ public class AddEditSaleViewController extends AbstractController {
         }
 
         return -1;
+    }
+
+    private BarcodeItemsFromStock getItemFromStock(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("/view/stockviews/BarcodeItemsFromStockView.fxml"));
+        try {
+            BorderPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Список товаров на складе");
+            dialogStage.getIcons().add(new Image("file:resources/images/barcode.png"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(main.getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            BarcodeItemsFromStockViewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+            return controller.getStockLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private void initTable(){

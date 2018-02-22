@@ -14,11 +14,12 @@ public class SalesLineEntity {
     private Integer count;
     private Double itemPrice;
     private Double fullLinePrice;
+    private Integer counterpartyId;
 
     public SalesLineEntity() {
     }
 
-    public SalesLineEntity(int id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double fullLinePrice) {
+    public SalesLineEntity(int id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double fullLinePrice, Integer counterpartyId) {
         this.id = id;
         this.salesNumber = salesNumber;
         this.itemId = itemId;
@@ -26,6 +27,7 @@ public class SalesLineEntity {
         this.count = count;
         this.itemPrice = itemPrice;
         this.fullLinePrice = fullLinePrice;
+        this.counterpartyId = counterpartyId;
     }
 
     @Id
@@ -99,6 +101,16 @@ public class SalesLineEntity {
         this.fullLinePrice = fullLinePrice;
     }
 
+    @Basic
+    @Column(name = "counterparty_id", nullable = true)
+    public Integer getCounterpartyId() {
+        return counterpartyId;
+    }
+
+    public void setCounterpartyId(Integer counterpartyId) {
+        this.counterpartyId = counterpartyId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,6 +126,7 @@ public class SalesLineEntity {
         if (itemPrice != null ? !itemPrice.equals(that.itemPrice) : that.itemPrice != null) return false;
         if (fullLinePrice != null ? !fullLinePrice.equals(that.fullLinePrice) : that.fullLinePrice != null)
             return false;
+        if (counterpartyId != null ? !counterpartyId.equals(that.counterpartyId) : that.counterpartyId != null) return false;
 
         return true;
     }
@@ -127,6 +140,7 @@ public class SalesLineEntity {
         result = 31 * result + (count != null ? count.hashCode() : 0);
         result = 31 * result + (itemPrice != null ? itemPrice.hashCode() : 0);
         result = 31 * result + (fullLinePrice != null ? fullLinePrice.hashCode() : 0);
+        result = 31 * result + (counterpartyId != null ? counterpartyId.hashCode() : 0);
         return result;
     }
 
@@ -138,7 +152,8 @@ public class SalesLineEntity {
                 line.getItemName(),
                 line.getCount(),
                 line.getItemPrice(),
-                line.getLinePrice()
+                line.getLinePrice(),
+                line.getCounterpartyId()
         );
     }
 }

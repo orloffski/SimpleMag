@@ -12,12 +12,13 @@ public class SalesLine {
     private final IntegerProperty count;
     private final DoubleProperty itemPrice;
     private final DoubleProperty linePrice;
+    private final IntegerProperty counterpartyId;
 
     public SalesLine(){
-        this(null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
 
-    public SalesLine(Integer id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double linePrice){
+    public SalesLine(Integer id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double linePrice, Integer counterpartyId){
         this.id = new SimpleIntegerProperty(id);
         this.salesNumber = new SimpleStringProperty(salesNumber);
         this.itemId = new SimpleIntegerProperty(itemId);
@@ -25,7 +26,21 @@ public class SalesLine {
         this.count = new SimpleIntegerProperty(count);
         this.itemPrice = new SimpleDoubleProperty(itemPrice);
         this.linePrice = new SimpleDoubleProperty(linePrice);
+        this.counterpartyId = new SimpleIntegerProperty(counterpartyId);
     }
+
+    public int getCounterpartyId() {
+        return counterpartyId.get();
+    }
+
+    public IntegerProperty counterpartyIdProperty() {
+        return counterpartyId;
+    }
+
+    public void setCounterpartyId(int counterpartyId) {
+        this.counterpartyId.set(counterpartyId);
+    }
+
 
     public int getId() {
         return id.get();
@@ -119,7 +134,8 @@ public class SalesLine {
                 entity.getItemName(),
                 entity.getCount(),
                 entity.getItemPrice(),
-                entity.getFullLinePrice()
+                entity.getFullLinePrice(),
+                entity.getCounterpartyId()
         );
     }
 }

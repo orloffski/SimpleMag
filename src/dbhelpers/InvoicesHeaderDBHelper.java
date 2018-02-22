@@ -76,4 +76,23 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
 
         return null;
     }
+
+    public static int getCounterpartyIdByInvoiceNumber(SessionFactory sessFact, String invoiceNumber){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery("FROM InvoicesHeadersEntity WHERE number =:invoiceNumber");
+        query.setParameter("invoiceNumber", invoiceNumber);
+        query.setMaxResults(1);
+
+        List<InvoicesHeadersEntity> invoicesList = query.list();
+
+        tr.commit();
+        session.close();
+
+        if(invoicesList.size() > 0)
+            return invoicesList.get(0).getCounterpartyId();
+
+        return 0;
+    }
 }
