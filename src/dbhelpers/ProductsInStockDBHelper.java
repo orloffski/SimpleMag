@@ -1,12 +1,19 @@
 package dbhelpers;
 
+import application.DBClass;
 import entity.ProductsInStockEntity;
+import model.ItemsCount;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProductsInStockDBHelper extends AbstractDBHelper {
 
@@ -71,6 +78,32 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
 
         if(list.size() > 0)
             return list.get(0);
+
+        return null;
+    }
+
+    // получение товаров поставщика на складе
+    public static List<ItemsCount> getStockItemsByCounterparty(int counterpartyId){
+        Connection connection;
+        List<ItemsCount> items = new ArrayList<>();
+
+        try {
+            connection = new DBClass().getConnection();
+            String SQL = "SELECT products_in_stock.item_id as item, SUM(products_in_stock.items_count) as count " +
+                    "FROM products_in_stock " +
+                    "WHERE counterparty_id =" + counterpartyId + " " +
+                    "GROUP BY item";
+            ResultSet rs = connection.createStatement().executeQuery(SQL);
+            while(rs.next()){
+                items.add(new ItemsCount(rs.getInt("item"), rs.getInt("count")));
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(items.size() > 0)
+            return items;
 
         return null;
     }

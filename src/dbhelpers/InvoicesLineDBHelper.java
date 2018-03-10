@@ -47,4 +47,18 @@ public class InvoicesLineDBHelper extends AbstractDBHelper {
 
         return unitsList;
     }
+
+    public static List<InvoicesLinesEntity> getLinesByItemId(SessionFactory sessFact, int itemId){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery("FROM InvoicesLinesEntity WHERE itemId =:itemId ORDER BY id DESC");
+        query.setParameter("itemId", itemId);
+        List<InvoicesLinesEntity> unitsList = query.list();
+
+        tr.commit();
+        session.close();
+
+        return unitsList;
+    }
 }
