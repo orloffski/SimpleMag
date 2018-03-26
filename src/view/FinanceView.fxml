@@ -16,7 +16,7 @@
             <VBox alignment="TOP_RIGHT" prefHeight="600.0" prefWidth="150.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Отчеты остатков на складе" />
-                  <TableView fx:id="ItemsInStockTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="150.0">
+                  <TableView fx:id="ItemsInStockTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="450.0" prefWidth="150.0">
                     <columns>
                       <TableColumn fx:id="DateColumn" prefWidth="75.0" text="Дата" />
                     </columns>

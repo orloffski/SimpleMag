@@ -48,7 +48,8 @@ public class FinanceController extends AbstractController{
 		ItemsInStockData = FXCollections.observableArrayList();
 
 		for(ItemsInStockEntity itemsInStockEntity : ItemsInStockDBHelper.getAll(sessFact))
-			ItemsInStockData.add(ItemsInStock.createItemsInStockFromItemsInStockEntity(itemsInStockEntity));
+			ItemsInStockData.add(
+					ItemsInStock.createItemsInStockFromItemsInStockEntity(itemsInStockEntity));
 	}
 
 	private void loadTableView(){

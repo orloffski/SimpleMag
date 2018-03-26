@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utils.DateUtils;
 
 public class ItemsInStock {
 
@@ -30,7 +31,9 @@ public class ItemsInStock {
 
     public static ItemsInStock createItemsInStockFromItemsInStockEntity(ItemsInStockEntity itemsInStockEntity){
         return new ItemsInStock(
-                itemsInStockEntity.getDate()
+                DateUtils.transformDateFromDB(
+                        itemsInStockEntity.getDate()
+                )
         );
     }
 }
