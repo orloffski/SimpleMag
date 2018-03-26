@@ -32,7 +32,7 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="openItemsInStock" mnemonicParsing="false" text="Открыть остатки">
+                  <Button fx:id="openItemsInStock" mnemonicParsing="false" onMouseClicked="#openItemsInStock" text="Открыть остатки">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

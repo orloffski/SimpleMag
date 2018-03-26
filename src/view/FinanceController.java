@@ -14,7 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import model.ItemsInStock;
 import utils.HibernateUtil;
 import reports.ItemsInStockUtils;
+import utils.MessagesUtils;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class FinanceController extends AbstractController{
@@ -81,6 +84,26 @@ public class FinanceController extends AbstractController{
 
 		loadData();
 		loadTableView();
+	}
+
+	@FXML
+	private void openItemsInStock(){
+		ItemsInStock itemsInStock = ItemsInStockTable.getSelectionModel().getSelectedItem();
+
+		if(itemsInStock != null){
+			StringBuilder filename =
+					new StringBuilder("../items_in_stock/")
+							.append(itemsInStock.getDate())
+							.append(".xls");
+			try {
+				Desktop.getDesktop().open(new File(filename.toString()));
+			} catch (IOException e) {
+				MessagesUtils.showAlert("Ошибка открытия отчета",
+						"Для открытия отчета необходимо наличие установленного MicroSoft Excel либо аналога!");
+			}
+		}else
+			MessagesUtils.showAlert("Ошибка открытия отчета",
+					"Для открытия отчета выберите дату отчета из списка!");
 	}
 
 	@Override

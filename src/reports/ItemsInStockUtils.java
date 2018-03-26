@@ -150,10 +150,21 @@ public class ItemsInStockUtils {
         int Year = calendar.get(Calendar.YEAR);
 
         StringBuilder createdfilename =
-                new StringBuilder("../items_in_stock/")
-                        .append(Date).append(".")
-                        .append(Month).append(".")
-                        .append(Year).append(".xls");
+                new StringBuilder("../items_in_stock/");
+
+        if(Date >= 10)
+            createdfilename.append(Date);
+        else
+            createdfilename.append("0").append(Date);
+
+        createdfilename.append(".");
+
+        if(Month >= 10)
+            createdfilename.append(Month);
+        else
+            createdfilename.append("0").append(Month);
+
+        createdfilename.append(".").append(Year).append(".xls");
 
         return createdfilename.toString();
     }
