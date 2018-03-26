@@ -1,10 +1,7 @@
 package utils;
 
 import dbhelpers.*;
-import entity.CounterpartiesEntity;
-import entity.InvoicesHeadersEntity;
-import entity.InvoicesLinesEntity;
-import entity.ItemsEntity;
+import entity.*;
 import model.ItemsCount;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -21,6 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ItemsInStockUtils {
+
     public static final void getItemsInStock(SessionFactory sessFact) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         List<CounterpartiesEntity> counterpartiesList = CounterpartiesDBHelper.getCounterpartiesEntitiesList(sessFact);
@@ -40,6 +38,7 @@ public class ItemsInStockUtils {
         }
 
         saveToFile(workbook);
+        saveToDB(sessFact);
     }
 
     private static final List<ItemsCount> getItemsByCounterparty(int counterpartyId) {
@@ -175,5 +174,22 @@ public class ItemsInStockUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void saveToDB(SessionFactory sessFact){
+        Calendar calendar = Calendar.getInstance();
+
+        int Date = calendar.get(Calendar.DAY_OF_MONTH);
+        int Month = calendar.get(Calendar.MONTH) + 1;
+        int Year = calendar.get(Calendar.YEAR);
+
+        StringBuilder filename = new StringBuilder("")
+                        .append(Year).append(".")
+                        .append(Month).append(".")
+                        .append(Date);
+
+        ItemsInStockDBHelper.saveOrUpdate(
+                sessFact,
+                new ItemsInStockEntity(filename.toString()));
     }
 }

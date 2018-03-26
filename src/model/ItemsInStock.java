@@ -1,5 +1,6 @@
 package model;
 
+import entity.ItemsInStockEntity;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -7,26 +8,12 @@ import javafx.beans.property.StringProperty;
 
 public class ItemsInStock {
 
-    private final IntegerProperty id;
     private final StringProperty date;
 
-    public ItemsInStock(){this(null, null);}
+    public ItemsInStock(){this(null);}
 
-    public ItemsInStock(Integer id,String date){
-        this.id = new SimpleIntegerProperty(id);
+    public ItemsInStock(String date){
         this.date = new SimpleStringProperty(date);
-    }
-
-    public int getId() {
-        return id.get();
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
-    }
-
-    public IntegerProperty idProperty() {
-        return id;
     }
 
     public String getDate() {
@@ -39,5 +26,11 @@ public class ItemsInStock {
 
     public StringProperty dateProperty() {
         return date;
+    }
+
+    public static ItemsInStock createItemsInStockFromItemsInStockEntity(ItemsInStockEntity itemsInStockEntity){
+        return new ItemsInStock(
+                itemsInStockEntity.getDate()
+        );
     }
 }

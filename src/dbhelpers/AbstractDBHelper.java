@@ -35,4 +35,14 @@ public abstract class AbstractDBHelper {
         tr.commit();
         session.close();
     }
+
+    public static void saveOrUpdate(SessionFactory sessFact, Object item){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        session.saveOrUpdate(item);
+
+        tr.commit();
+        session.close();
+    }
 }
