@@ -1,4 +1,4 @@
-package utils;
+package reports;
 
 import dbhelpers.*;
 import entity.*;

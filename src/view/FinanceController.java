@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import model.ItemsInStock;
 import utils.HibernateUtil;
-import utils.ItemsInStockUtils;
+import reports.ItemsInStockUtils;
 
 import java.io.IOException;
 
