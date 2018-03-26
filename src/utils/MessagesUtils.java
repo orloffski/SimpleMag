@@ -12,4 +12,14 @@ public class MessagesUtils {
 
         alert.showAndWait();
     }
+
+    public static final void showShortInfo(String title, String messageText){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(messageText);
+
+        alert.showAndWait();
+    }
 }

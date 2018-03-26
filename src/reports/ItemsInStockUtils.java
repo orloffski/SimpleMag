@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.hibernate.SessionFactory;
+import utils.MessagesUtils;
 
 
 import java.io.*;
@@ -39,6 +40,9 @@ public class ItemsInStockUtils {
 
         saveToFile(workbook);
         saveToDB(sessFact);
+
+        MessagesUtils.showShortInfo("Завершение работы отчета",
+                "Работа отчета выполнена, вы можете открыть его для просмотра.");
     }
 
     private static final List<ItemsCount> getItemsByCounterparty(int counterpartyId) {
