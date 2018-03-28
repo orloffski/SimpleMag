@@ -49,6 +49,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	private Main main;
 	private ObservableList<String> counterpartiesData;
+	private ObservableList<String> printForms;
 	private ObservableList<InvoiceLine> InvoiceLineData;
 	private List<Counterparties> counterparties;
 	private InvoiceHeader invoice;
@@ -60,6 +61,9 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	
 	@FXML
 	private ComboBox<String> type;
+
+	@FXML
+	private ComboBox<String> print;
 	
 	@FXML
     private Text status;
@@ -143,6 +147,18 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		type.getSelectionModel().selectedItemProperty().addListener(this);
 
 		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+
+		getPrintForms();
+	}
+
+	private void getPrintForms(){
+		print.setItems(PrintForms.getTypes());
+		print.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				
+			}
+		});
 	}
 
 	@FXML
