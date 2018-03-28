@@ -13,7 +13,7 @@ public class ItemsInStockDBHelper extends AbstractDBHelper  {
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
 
-        Query query = session.createQuery("FROM ItemsInStockEntity");
+        Query query = session.createQuery("FROM ItemsInStockEntity ORDER BY date DESC");
 
         List<ItemsInStockEntity> datesList = query.list();
 
