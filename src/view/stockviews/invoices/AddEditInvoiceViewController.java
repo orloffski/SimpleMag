@@ -157,12 +157,15 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	private void getPrintForms(){
 		print.setItems(PrintForms.getTypes());
+		print.getSelectionModel().select(0);
 		print.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equalsIgnoreCase(RETAIL_PRICE_REGISTER.toString())){
 				new RetailPriceRegisterReport(HibernateUtil.getSessionFactory(), invoice);
             }else if(newValue.equalsIgnoreCase(PRICES.toString())){
 
             }
+
+            print.getSelectionModel().select(0);
         });
 	}
 

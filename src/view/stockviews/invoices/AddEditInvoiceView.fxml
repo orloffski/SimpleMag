@@ -179,7 +179,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="print" prefWidth="150.0" promptText="печатные формы" />
+            <ComboBox fx:id="print" prefWidth="150.0" />
             <Button fx:id="documentSave" mnemonicParsing="false" onMouseClicked="#saveDocument" text="Сохранить">
                <HBox.margin>
                   <Insets left="10.0" />
