@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public enum PrintForms {
-    PRICES_LIST("Реестр цен"),
+    RETAIL_PRICE_REGISTER("Реестр цен"),
     PRICES("Ценники");
 
     private final String type;
