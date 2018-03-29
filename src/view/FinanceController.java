@@ -12,8 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import model.ItemsInStock;
+import reports.ItemsInStockReport;
 import utils.HibernateUtil;
-import reports.ItemsInStockUtils;
 import utils.MessagesUtils;
 
 import java.awt.*;
@@ -79,7 +79,7 @@ public class FinanceController extends AbstractController{
 	@FXML
 	private void getItemsInStock(){
 
-		new ItemsInStockUtils(HibernateUtil.getSessionFactory());
+		new ItemsInStockReport(HibernateUtil.getSessionFactory());
 
 		ItemsInStockData.clear();
 		loadData();

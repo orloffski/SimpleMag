@@ -19,12 +19,12 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.List;
 
-public class ItemsInStockUtils implements Runnable{
+public class ItemsInStockReport implements Runnable{
 
     private Thread t;
     private SessionFactory sessFact;
 
-    public ItemsInStockUtils(SessionFactory sessFact) {
+    public ItemsInStockReport(SessionFactory sessFact) {
         this.sessFact = sessFact;
         t = new Thread(this);
         t.start();
