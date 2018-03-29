@@ -79,7 +79,7 @@ public class FinanceController extends AbstractController{
 	@FXML
 	private void getItemsInStock(){
 
-		ItemsInStockUtils.getItemsInStock(HibernateUtil.getSessionFactory());
+		new ItemsInStockUtils(HibernateUtil.getSessionFactory());
 
 		ItemsInStockData.clear();
 		loadData();

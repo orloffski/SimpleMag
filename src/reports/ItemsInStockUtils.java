@@ -2,6 +2,7 @@ package reports;
 
 import dbhelpers.*;
 import entity.*;
+import javafx.application.Platform;
 import model.ItemsCount;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -18,9 +19,23 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.List;
 
-public class ItemsInStockUtils {
+public class ItemsInStockUtils implements Runnable{
 
-    public static final void getItemsInStock(SessionFactory sessFact) {
+    private Thread t;
+    private SessionFactory sessFact;
+
+    public ItemsInStockUtils(SessionFactory sessFact) {
+        this.sessFact = sessFact;
+        t = new Thread(this);
+        t.start();
+    }
+
+    @Override
+    public void run() {
+        getItemsInStock(sessFact);
+    }
+
+    public void getItemsInStock(SessionFactory sessFact) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         List<CounterpartiesEntity> counterpartiesList = CounterpartiesDBHelper.getCounterpartiesEntitiesList(sessFact);
 
@@ -41,23 +56,25 @@ public class ItemsInStockUtils {
         saveToFile(workbook);
         saveToDB(sessFact);
 
-        MessagesUtils.showShortInfo("Завершение работы отчета",
-                "Работа отчета выполнена, вы можете открыть его для просмотра.");
+        Platform.runLater(() ->{
+            MessagesUtils.showShortInfo("Завершение работы отчета",
+                    "Отчет \"Остатки на складе\" успешно завершен.");
+        });
     }
 
-    private static final List<ItemsCount> getItemsByCounterparty(int counterpartyId) {
+    private List<ItemsCount> getItemsByCounterparty(int counterpartyId) {
         List<ItemsCount> items = ProductsInStockDBHelper.getStockItemsByCounterparty(counterpartyId);
 
         return items;
     }
 
-    private static final void getItemName(SessionFactory sessFact, ItemsCount item){
+    private void getItemName(SessionFactory sessFact, ItemsCount item){
         ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, item.getItemId());
 
         item.setItemName(itemsEntity.getName());
     }
 
-    private static final void getLastVendorPrice(SessionFactory sessFact, ItemsCount item) {
+    private void getLastVendorPrice(SessionFactory sessFact, ItemsCount item) {
         List<InvoicesLinesEntity> unitsList = InvoicesLineDBHelper.getLinesByItemId(sessFact, item.getItemId());
 
         for (InvoicesLinesEntity unit : unitsList) {
@@ -70,7 +87,7 @@ public class ItemsInStockUtils {
         }
     }
 
-    private static final void addToExcellSheet(List<ItemsCount> items, String counterpartiesName, HSSFWorkbook workbook) {
+    private void addToExcellSheet(List<ItemsCount> items, String counterpartiesName, HSSFWorkbook workbook) {
         HSSFSheet sheet = workbook.createSheet(counterpartiesName);
         int startRow = 0;
         int endRow = 0;
@@ -142,7 +159,7 @@ public class ItemsInStockUtils {
         cell.setCellStyle(style);
     }
 
-    private static final String createFileName(){
+    private String createFileName(){
         Calendar calendar = Calendar.getInstance();
 
         int Date = calendar.get(Calendar.DAY_OF_MONTH);
@@ -169,7 +186,7 @@ public class ItemsInStockUtils {
         return createdfilename.toString();
     }
 
-    private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
+    private HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
         font.setBold(true);
         HSSFCellStyle style = workbook.createCellStyle();
@@ -177,7 +194,7 @@ public class ItemsInStockUtils {
         return style;
     }
 
-    private static void saveToFile(HSSFWorkbook workbook){
+    private void saveToFile(HSSFWorkbook workbook){
         String filename = createFileName();
         File file = new File(new File("").getAbsolutePath(), filename);
 
@@ -191,7 +208,7 @@ public class ItemsInStockUtils {
         }
     }
 
-    private static void saveToDB(SessionFactory sessFact){
+    private void saveToDB(SessionFactory sessFact){
         Calendar calendar = Calendar.getInstance();
 
         int Date = calendar.get(Calendar.DAY_OF_MONTH);
