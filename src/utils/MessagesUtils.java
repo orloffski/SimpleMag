@@ -12,6 +12,9 @@ public class MessagesUtils {
         alert.setTitle(title);
         alert.setContentText(messageText);
 
+        Stage stage = (Stage)alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/alert.png"));
+
         alert.showAndWait();
     }
 
