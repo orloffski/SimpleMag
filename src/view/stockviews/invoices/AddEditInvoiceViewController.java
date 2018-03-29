@@ -26,6 +26,8 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import modes.AddEditMode;
+import reports.RetailPriceRegisterReport;
+import utils.HibernateUtil;
 import utils.MessagesUtils;
 import utils.NumberUtils;
 import utils.SelectedObject;
@@ -44,6 +46,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static model.PrintForms.*;
 
 public class AddEditInvoiceViewController extends AbstractController implements ChangeListener{
 
@@ -153,12 +157,13 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	private void getPrintForms(){
 		print.setItems(PrintForms.getTypes());
-		print.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				
-			}
-		});
+		print.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equalsIgnoreCase(RETAIL_PRICE_REGISTER.toString())){
+				new RetailPriceRegisterReport(HibernateUtil.getSessionFactory(), invoice);
+            }else if(newValue.equalsIgnoreCase(PRICES.toString())){
+
+            }
+        });
 	}
 
 	@FXML
