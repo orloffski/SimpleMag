@@ -1,6 +1,8 @@
 package utils;
 
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 public class MessagesUtils {
 
@@ -19,6 +21,9 @@ public class MessagesUtils {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(messageText);
+
+        Stage stage = (Stage)alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/success.png"));
 
         alert.showAndWait();
     }
