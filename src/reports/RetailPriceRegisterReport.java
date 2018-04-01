@@ -5,9 +5,9 @@ import dbhelpers.ItemsDBHelper;
 import dbhelpers.UnitsDBHelper;
 import entity.InvoicesLinesEntity;
 import model.InvoiceHeader;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.hibernate.SessionFactory;
 import utils.RowCopy;
 
@@ -78,11 +78,16 @@ public class RetailPriceRegisterReport implements Runnable{
     private void addTmpDocLines(Workbook workbook) {
         Sheet s = workbook.getSheetAt(0);
 
-        CellStyle cellStyle = getNumericCellStyle(workbook);
+//        CellStyle cellStyle = getNumericCellStyle(workbook);
 
         int startRowNum = 10;
         int sourceRowNo = 9;
         int number = 1;
+
+        double count = 0;
+        double vendorPrice = 0;
+        double summVat = 0;
+        double retailSumm = 0;
 
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, header.getNumber());
 
@@ -109,18 +114,22 @@ public class RetailPriceRegisterReport implements Runnable{
 
             // items count
             cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(createCellStyle(workbook, line.getCount(), false, (short)9));
             cell.setCellValue(line.getCount());
+
+            count += line.getCount();
 
             // vendor price
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);;
+            cell.setCellStyle(createCellStyle(workbook, line.getVendorPrice(), false, (short)9));
             cell.setCellValue(line.getVendorPrice());
 
             // vendor summ
             cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(createCellStyle(workbook, line.getVendorPrice() * line.getCount(), false, (short)9));
             cell.setCellValue(line.getVendorPrice() * line.getCount());
+
+            vendorPrice += line.getVendorPrice() * line.getCount();
 
             // extra price
             cell = row.getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -132,18 +141,22 @@ public class RetailPriceRegisterReport implements Runnable{
 
             // vat
             cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(createCellStyle(workbook, line.getSummVat(), false, (short)9));
             cell.setCellValue(line.getSummVat());
+
+            summVat += line.getSummVat();
 
             // retail price
             cell = row.getCell(20, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(createCellStyle(workbook, line.getRetailPrice(), false, (short)9));
             cell.setCellValue(line.getRetailPrice());
 
             // retail summ
             cell = row.getCell(21, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(cellStyle);
+            cell.setCellStyle(createCellStyle(workbook, line.getRetailPrice() * line.getCount(), false, (short)9));
             cell.setCellValue(line.getRetailPrice() * line.getCount());
+
+            retailSumm += line.getRetailPrice() * line.getCount();
 
             sourceRowNo += 1;
 
@@ -153,57 +166,53 @@ public class RetailPriceRegisterReport implements Runnable{
         s.removeRow(s.getRow(sourceRowNo));
 
         sourceRowNo += 2;
-        int endRowNum = sourceRowNo -2;
 
         Row row = s.getRow(sourceRowNo);
 
-        StringBuilder summCount = new StringBuilder();
-        StringBuilder vendorSumm = new StringBuilder();
-        StringBuilder retailVat = new StringBuilder();
-        StringBuilder retailSumm = new StringBuilder();
-        for(int i = startRowNum; i <= endRowNum; i++){
-            summCount.append("H").append(i);
-            vendorSumm.append("J").append(i);
-            retailVat.append("T").append(i);
-            retailSumm.append("V").append(i);
-            if(i != endRowNum) {
-                summCount.append("+");
-                vendorSumm.append("+");
-                retailVat.append("+");
-                retailSumm.append("+");
-            }
-        }
-
-        // count summ formula
+        // full count summ
         Cell cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellStyle(cellStyle);
-        cell.setCellFormula(summCount.toString());
+        cell.setCellStyle(createCellStyle(workbook, count, true, (short)11));
+        cell.setCellFormula(String.valueOf(count));
 
-        // vendor summ formula
+        // full vendor summ
         cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellStyle(cellStyle);
-        cell.setCellFormula(vendorSumm.toString());
+        cell.setCellStyle(createCellStyle(workbook, vendorPrice, true, (short)11));
+        cell.setCellFormula(String.valueOf(vendorPrice));
 
-        // retail vat summ formula
+        // full retail vat summ
         cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellStyle(cellStyle);
-        cell.setCellFormula(retailVat.toString());
+        cell.setCellStyle(createCellStyle(workbook, summVat, true, (short)11));
+        cell.setCellFormula(String.valueOf(summVat));
 
-        // retail summs formula
+        // full retail summs
         cell = row.getCell(21, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellStyle(cellStyle);
-        cell.setCellFormula(retailSumm.toString());
+        cell.setCellStyle(createCellStyle(workbook, retailSumm, true, (short)11));
+        cell.setCellFormula(String.valueOf(retailSumm));
 
     }
 
-    private CellStyle getNumericCellStyle(Workbook workbook){
+    private CellStyle createCellStyle(Workbook workbook, double number, boolean bold, short size){
         CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setDataFormat(
-                workbook.getCreationHelper().createDataFormat().getFormat("#.##"));
+        Font font = workbook.createFont();
+
+        if(!checkSumm(number)){
+            // double
+            cellStyle.setDataFormat(
+                    workbook.getCreationHelper().createDataFormat().getFormat("#.##"));
+        }
+
         cellStyle.setBorderBottom(BorderStyle.THIN);
         cellStyle.setBorderTop(BorderStyle.THIN);
         cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setBorderLeft(BorderStyle.THIN);
+
+        if(bold){
+            font.setBold(true);
+
+            cellStyle.setFont(font);
+        }
+
+        font.setFontHeightInPoints(size);
 
         return cellStyle;
     }
@@ -223,5 +232,15 @@ public class RetailPriceRegisterReport implements Runnable{
 
     private void openTmpDoc() throws IOException {
         Desktop.getDesktop().open(new File(TMP_FILE_PATH));
+    }
+
+    private boolean checkSumm(double summ){
+        if ((summ == Math.floor(summ)) && !Double.isInfinite(summ)) {
+            // integer type
+            return true;
+        }
+
+        // double type
+        return false;
     }
 }
