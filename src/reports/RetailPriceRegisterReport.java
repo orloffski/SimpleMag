@@ -7,23 +7,19 @@ import entity.InvoicesLinesEntity;
 import model.InvoiceHeader;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Font;
 import org.hibernate.SessionFactory;
 import utils.RowCopy;
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class RetailPriceRegisterReport implements Runnable{
+public class RetailPriceRegisterReport extends AbstractReport implements Runnable{
 
     public static final String HEAD_1 = "Реестр розничных цен к накладной № ";
     public static final String HEAD_2 = "Белыничское_РАЙПО, г.Круглое ТЦ \"Днепр\"";
 
     public static final String TEMPLATE_FILE_PATH = "../report_templates/retail_price_register_template.xls";
-    public static final String TMP_FILE_PATH = "../tmp/retail_price_register.xls";
 
     private Thread t;
     private SessionFactory sessFact;
@@ -38,28 +34,21 @@ public class RetailPriceRegisterReport implements Runnable{
 
     @Override
     public void run() {
-        createTmpDoc();
+        createTmpDoc(TEMPLATE_FILE_PATH);
     }
 
-    private void createTmpDoc(){
-        Workbook workbook;
+    @Override
+    protected Workbook createTmpDocHeader(String template) {
+        File file = new File(new File("").getAbsolutePath(), template);
 
+        Workbook workbook = null;
         try {
-            workbook = createTmpDocHeader();
-            addTmpDocLines(workbook);
-            saveTmpDoc(workbook);
-            openTmpDoc();
+            workbook = WorkbookFactory.create(file);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
-    }
-
-    private Workbook createTmpDocHeader() throws IOException, InvalidFormatException {
-        File file = new File(new File("").getAbsolutePath(), TEMPLATE_FILE_PATH);
-
-        Workbook workbook = WorkbookFactory.create(file);
         Sheet s = workbook.getSheetAt(0);
 
         Row row = s.getRow(1);
@@ -75,7 +64,7 @@ public class RetailPriceRegisterReport implements Runnable{
         return workbook;
     }
 
-    private void addTmpDocLines(Workbook workbook) {
+    protected void addTmpDocLines(Workbook workbook) {
         Sheet s = workbook.getSheetAt(0);
 
 //        CellStyle cellStyle = getNumericCellStyle(workbook);
@@ -215,23 +204,6 @@ public class RetailPriceRegisterReport implements Runnable{
         font.setFontHeightInPoints(size);
 
         return cellStyle;
-    }
-
-    private void saveTmpDoc(Workbook workbook){
-        File file = new File(new File("").getAbsolutePath(), TMP_FILE_PATH);
-
-        if(file.exists())
-            file.delete();
-
-        try(FileOutputStream outFile = new FileOutputStream(file)) {
-            workbook.write(outFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void openTmpDoc() throws IOException {
-        Desktop.getDesktop().open(new File(TMP_FILE_PATH));
     }
 
     private boolean checkSumm(double summ){
