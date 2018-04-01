@@ -26,6 +26,7 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import modes.AddEditMode;
+import reports.PriceListReport;
 import reports.RetailPriceRegisterReport;
 import utils.HibernateUtil;
 import utils.MessagesUtils;
@@ -162,7 +163,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
             if(newValue.equalsIgnoreCase(RETAIL_PRICE_REGISTER.toString())){
 				new RetailPriceRegisterReport(HibernateUtil.getSessionFactory(), invoice);
             }else if(newValue.equalsIgnoreCase(PRICES.toString())){
-
+                new PriceListReport(HibernateUtil.getSessionFactory(), invoice);
             }
 
             print.getSelectionModel().select(0);
