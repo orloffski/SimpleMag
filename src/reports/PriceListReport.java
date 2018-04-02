@@ -140,6 +140,10 @@ public class PriceListReport extends AbstractReport implements Runnable{
             );
 
             row = s.getRow(rowNum + 9);
+            cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(item.getVendorCode());
+
+            row = s.getRow(rowNum + 9);
             cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(
                     BarcodesDBHelper.getBarcodesByItemId(sessFact, item.getId()).get(0).getBarcode()
@@ -162,6 +166,10 @@ public class PriceListReport extends AbstractReport implements Runnable{
             cell.setCellValue(
                     getPriceString(PricesDBHelper.getLastPriceByItemId(sessFact, item.getId()).getPrice())
             );
+
+            row = s.getRow(rowNum + 9);
+            cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(item.getVendorCode());
 
             row = s.getRow(rowNum + 9);
             cell = row.getCell(10, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
