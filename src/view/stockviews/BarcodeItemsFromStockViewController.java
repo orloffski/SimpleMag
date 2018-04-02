@@ -1,6 +1,8 @@
 package view.stockviews;
 
 import application.DBClass;
+import dbhelpers.PricesDBHelper;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.BarcodeItemsFromStock;
 import model.BarcodesItems;
+import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
 import utils.SelectedObject;
 
 import java.sql.Connection;
@@ -45,6 +49,9 @@ public class BarcodeItemsFromStockViewController {
     private TableColumn<BarcodeItemsFromStock, String> invoiceNumColumn;
 
     @FXML
+    private TableColumn<BarcodeItemsFromStock, String> priceColumn;
+
+    @FXML
     private TextField filter;
 
     @FXML
@@ -77,13 +84,15 @@ public class BarcodeItemsFromStockViewController {
             }
 
             while(rs.next()){
+                String price = PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("item_id")).getPrice();
                 BarcodeItemsFromStock item = new BarcodeItemsFromStock(
                         rs.getString("barcode"),
                         rs.getString("item_name"),
                         rs.getInt("items_count"),
                         rs.getString("expire_date"),
                         rs.getString("invoice_number"),
-                        rs.getInt("item_id"));
+                        rs.getInt("item_id"),
+                        price);
                 data.add(item);
             }
             barcodeItemsFromStockTable.setItems(data);
@@ -112,7 +121,8 @@ public class BarcodeItemsFromStockViewController {
                     return true; // Filter matches name.
                 } else if (barcodeItemsFromStock.getInvoiceNum().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches invoice number.
-                }
+                } else if(barcodeItemsFromStock.getPrice().toLowerCase().contains(lowerCaseFilter))
+                    return true;
                 return false; // Does not match.
             });
         });
@@ -147,6 +157,7 @@ public class BarcodeItemsFromStockViewController {
         itemCountColumn.setCellValueFactory(cellData -> cellData.getValue().itemCountProperty());
         expireDateColumn.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
         invoiceNumColumn.setCellValueFactory(cellData -> cellData.getValue().invoiceNumProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
 
         try {
             connection = new DBClass().getConnection();

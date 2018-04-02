@@ -10,17 +10,19 @@ public class BarcodesItems {
     private final StringProperty barcode;
     private final StringProperty vendorCode;
     private final StringProperty name;
+    private final StringProperty price;
     private final IntegerProperty itemId;
 
     public BarcodesItems(){
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
-    public BarcodesItems(String barcode, String vendorCode, String name, Integer itemId){
+    public BarcodesItems(String barcode, String vendorCode, String name, Integer itemId, String price){
         this.barcode = new SimpleStringProperty(barcode);
         this.vendorCode = new SimpleStringProperty(vendorCode);
         this.name = new SimpleStringProperty(name);
         this.itemId = new SimpleIntegerProperty(itemId);
+        this.price = new SimpleStringProperty(price);
     }
 
     public int getItemId() {
@@ -69,5 +71,17 @@ public class BarcodesItems {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public String getPrice() {
+        return price.get();
+    }
+
+    public StringProperty priceProperty() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price.set(price);
     }
 }

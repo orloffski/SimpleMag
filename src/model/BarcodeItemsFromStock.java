@@ -12,19 +12,21 @@ public class BarcodeItemsFromStock {
     private final IntegerProperty itemCount;
     private final StringProperty expireDate;
     private final StringProperty invoiceNum;
+    private final StringProperty price;
     private final IntegerProperty itemId;
 
     public BarcodeItemsFromStock() {
-        this(null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
-    public BarcodeItemsFromStock(String barcode, String itemName, Integer itemCount, String expireDate, String invoiceNum, Integer itemId) {
+    public BarcodeItemsFromStock(String barcode, String itemName, Integer itemCount, String expireDate, String invoiceNum, Integer itemId, String price) {
         this.barcode = new SimpleStringProperty(barcode);
         this.itemName = new SimpleStringProperty(itemName);
         this.itemCount = new SimpleIntegerProperty(itemCount);
         this.expireDate = new SimpleStringProperty(expireDate);
         this.invoiceNum = new SimpleStringProperty(invoiceNum);
         this.itemId = new SimpleIntegerProperty(itemId);
+        this.price = new SimpleStringProperty(price);
     }
 
     public String getBarcode() {
@@ -97,5 +99,17 @@ public class BarcodeItemsFromStock {
 
     public void setItemId(int itemId) {
         this.itemId.set(itemId);
+    }
+
+    public String getPrice() {
+        return price.get();
+    }
+
+    public StringProperty priceProperty() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price.set(price);
     }
 }

@@ -1,6 +1,7 @@
 package view.stockviews;
 
 import application.DBClass;
+import dbhelpers.PricesDBHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +13,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.BarcodesItems;
+import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -38,6 +41,9 @@ public class BarcodeItemsViewController {
     private TableColumn<BarcodesItems, String> nameColumn;
 
     @FXML
+    private TableColumn<BarcodesItems, String> priceColumn;
+
+    @FXML
     private TextField filter;
 
     @FXML
@@ -51,6 +57,7 @@ public class BarcodeItemsViewController {
         barcodeColumn.setCellValueFactory(cellData -> cellData.getValue().barcodeProperty());
         vendorCodeColumn.setCellValueFactory(cellData -> cellData.getValue().vendorCodeProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
 
         try {
             connection = new DBClass().getConnection();
@@ -81,11 +88,13 @@ public class BarcodeItemsViewController {
                     "WHERE barcodes.item_id = items.id;";
             ResultSet rs = connection.createStatement().executeQuery(SQL);
             while(rs.next()){
+                String price = PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("id")).getPrice();
                 BarcodesItems item = new BarcodesItems(
                         rs.getString("barcode"),
                         rs.getString("vendor_code"),
                         rs.getString("name"),
-                        rs.getInt("id"));
+                        rs.getInt("id"),
+                        price);
                 data.add(item);
             }
             barcodesItemsTable.setItems(data);
@@ -114,7 +123,8 @@ public class BarcodeItemsViewController {
                     return true; // Filter matches name.
                 } else if (barcodeItem.getVendorCode().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches vendor code.
-                }
+                } else if (barcodeItem.getPrice().toLowerCase().contains(lowerCaseFilter))
+                    return true;
                 return false; // Does not match.
             });
         });

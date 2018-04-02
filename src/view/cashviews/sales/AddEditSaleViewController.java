@@ -3,6 +3,7 @@ package view.cashviews.sales;
 import application.Main;
 import dbhelpers.*;
 import entity.*;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -233,7 +234,8 @@ public class AddEditSaleViewController extends AbstractController {
 
             if(itemId != -1) {
                 ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
-                product = new BarcodeItemsFromStock("", itemsEntity.getName(), 0, "", "", itemId);
+                String price = PricesDBHelper.getLastPriceByItemId(sessFact, itemId).getPrice();
+                product = new BarcodeItemsFromStock("", itemsEntity.getName(), 0, "", "", itemId, price);
             }
         }
 
