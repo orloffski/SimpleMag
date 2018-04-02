@@ -160,6 +160,12 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		print.setItems(PrintForms.getTypes());
 		print.getSelectionModel().select(0);
 		print.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(invoice.getStatus().equalsIgnoreCase("не проведен")){
+                MessagesUtils.showAlert("Ошибка печати отчета",
+                        "Запрещена печать отчетов из непроведенных накладных!");
+                return;
+            }
+
             if(newValue.equalsIgnoreCase(RETAIL_PRICE_REGISTER.toString())){
 				new RetailPriceRegisterReport(HibernateUtil.getSessionFactory(), invoice);
             }else if(newValue.equalsIgnoreCase(PRICES.toString())){
