@@ -29,6 +29,9 @@ public class RowCopy {
                 continue;
             }
 
+            // copy row height
+            newRow.setHeightInPoints(sourceRow.getHeightInPoints());
+
             // Use old cell style
             newCell.setCellStyle(oldCell.getCellStyle());
 
