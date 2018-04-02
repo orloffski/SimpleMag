@@ -178,6 +178,8 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
         cell.setCellStyle(createCellStyle(workbook, retailSumm, true, (short)11));
         cell.setCellFormula(String.valueOf(retailSumm));
 
+        s.setFitToPage(true);
+
     }
 
     private CellStyle createCellStyle(Workbook workbook, double number, boolean bold, short size){
