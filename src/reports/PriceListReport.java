@@ -73,6 +73,9 @@ public class PriceListReport extends AbstractReport implements Runnable{
         for(ItemsEntity item : items){
             counter++;
 
+            if(counter%8 == 0)
+                s.setRowBreak(rowNum + 12);
+
             if(counter%2 != 0){
                 if(rowNum != 1) {
                     // create new prices row 1-13
