@@ -8,13 +8,13 @@ import entity.InvoicesLinesEntity;
 import entity.ItemsEntity;
 import model.InvoiceHeader;
 import model.Items;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.IOUtils;
 import org.hibernate.SessionFactory;
 import utils.RowCopy;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,10 +74,18 @@ public class PriceListReport extends AbstractReport implements Runnable{
             counter++;
 
             if(counter%2 != 0){
-                if(rowNum != 1)
+                if(rowNum != 1) {
                     // create new prices row 1-13
-                    for(int i = 0; i < 13; i++)
+                    for (int i = 0; i < 13; i++)
                         RowCopy.copyRow(s, startRowNum + i, rowNum + i);
+
+                    try {
+                        addPicture(workbook, rowNum, 1);
+                        addPicture(workbook, rowNum, 7);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 createPrice(counter, rowNum, item, s);
             }else{
@@ -165,5 +173,25 @@ public class PriceListReport extends AbstractReport implements Runnable{
             cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(item.getVendorCountry());
         }
+    }
+
+    private void addPicture(Workbook workbook, int startRow, int startCol) throws IOException {
+        Sheet sheet = workbook.getSheetAt(0);
+        FileInputStream stream = new FileInputStream("./resources/images/logo.png");
+        CreationHelper helper = workbook.getCreationHelper();
+        Drawing drawing = sheet.createDrawingPatriarch();
+
+        ClientAnchor anchor = helper.createClientAnchor();
+        anchor.setAnchorType( ClientAnchor.AnchorType.MOVE_AND_RESIZE );
+
+
+        int pictureIndex = workbook.addPicture(IOUtils.toByteArray(stream), Workbook.PICTURE_TYPE_PNG);
+
+        anchor.setCol1( startCol );
+        anchor.setRow1( startRow );
+        anchor.setRow2( startRow + 2 );
+        anchor.setCol2( startCol );
+        final Picture pict = drawing.createPicture( anchor, pictureIndex );
+        pict.resize();
     }
 }
