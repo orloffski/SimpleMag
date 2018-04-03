@@ -4,7 +4,7 @@ import model.InvoiceHeader;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.SessionFactory;
 
-public class TTNWithApplicationReport extends AbstractReport implements Runnable{
+public class TTNWithApplicationReport extends AbstractTTNReport implements Runnable{
 
     private Thread t;
     private SessionFactory sessFact;
@@ -26,6 +26,11 @@ public class TTNWithApplicationReport extends AbstractReport implements Runnable
 
     @Override
     protected void addTmpDocLines(Workbook workbook) {
+        // check summ rows height in point or twips
+        // if height after copy new row bigger then 297 - set rowbreak
+        // 1 point = 0.352mm
+        // 1 point = 20 twips
+        // 1 twip = 0.0176mm
 
     }
 }

@@ -4,9 +4,8 @@ import model.InvoiceHeader;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.SessionFactory;
-import utils.RowCopy;
 
-public class TTNOneListReport extends AbstractReport implements Runnable{
+public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
     private Thread t;
     private SessionFactory sessFact;
