@@ -28,6 +28,8 @@ import model.*;
 import modes.AddEditMode;
 import reports.PriceListReport;
 import reports.RetailPriceRegisterReport;
+import reports.TTNOneListReport;
+import reports.TTNWithApplicationReport;
 import utils.HibernateUtil;
 import utils.MessagesUtils;
 import utils.NumberUtils;
@@ -170,7 +172,11 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				new RetailPriceRegisterReport(HibernateUtil.getSessionFactory(), invoice);
             }else if(newValue.equalsIgnoreCase(PRICES.toString())){
                 new PriceListReport(HibernateUtil.getSessionFactory(), invoice);
-            }
+            }else if(newValue.equalsIgnoreCase(TTN_ONE_LIST.toString())) {
+				new TTNOneListReport(HibernateUtil.getSessionFactory(), invoice);
+			}else if(newValue.equalsIgnoreCase(TTN_WITH_APPLICATION.toString())){
+            	new TTNWithApplicationReport(HibernateUtil.getSessionFactory(), invoice);
+			}
 
             print.getSelectionModel().select(0);
         });

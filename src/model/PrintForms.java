@@ -6,7 +6,9 @@ import javafx.collections.ObservableList;
 public enum PrintForms {
     PRINT_FORMS("Печатные формы"),
     RETAIL_PRICE_REGISTER("Реестр цен"),
-    PRICES("Ценники");
+    PRICES("Ценники"),
+    TTN_ONE_LIST("ТТН-1 На одном листе"),
+    TTN_WITH_APPLICATION("ТТН-1 С приложением");
 
     private final String type;
 
