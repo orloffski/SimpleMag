@@ -126,11 +126,11 @@ public class RussianMoney {
                     break;
                 default:
                     if (thch.d == '1' || thch.u == '0' || thch.u > '4') {
-                        result.append("рублей");
+                        result.append("белорусских рублей");
                     } else if (thch.u > '1') {
-                        result.append("рубля");
+                        result.append("белорусских рубля");
                     } else {
-                        result.append("рубль");
+                        result.append("белорусский рубль");
                     }
             }
             result.append(' ');
