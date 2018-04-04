@@ -4,6 +4,7 @@ import dbhelpers.InvoicesLineDBHelper;
 import dbhelpers.ItemsDBHelper;
 import dbhelpers.UnitsDBHelper;
 import entity.InvoicesLinesEntity;
+import entity.ItemsEntity;
 import model.InvoiceHeader;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
@@ -92,6 +93,11 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             // item name
             cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getItemName());
+
+            // item article
+            ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, line.getItemId());
+            cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(itemsEntity.getVendorCode());
 
             // unit name
             cell = row.getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
