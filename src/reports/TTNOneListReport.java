@@ -42,6 +42,7 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
         int rowNum = 42;
         int counter = 0;
         double summVat = 0;
+        double summRetailPrices =0;
         Row row;
         Cell cell;
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoice.getNumber());
@@ -97,6 +98,8 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
                 cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 cell.setCellValue(line.getRetailPrice() * line.getCount());
 
+                summRetailPrices += line.getRetailPrice() * line.getCount();
+
                 cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 cell.setCellValue("Цена поставщика: " + line.getVendorPrice() + "\n" +
                 "торговая надбавка: " + (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount()));
@@ -126,9 +129,11 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
         cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
         cell.setCellValue(invoice.getCount());
 
-        row = s.getRow(43 + counter);
-        cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellValue(invoice.getFullSumm() - summVat);
+        if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+            row = s.getRow(43 + counter);
+            cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(summRetailPrices);
+        }
 
         row = s.getRow(43 + counter);
         cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
