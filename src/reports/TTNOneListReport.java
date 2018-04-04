@@ -3,6 +3,7 @@ package reports;
 import dbhelpers.InvoicesLineDBHelper;
 import entity.InvoicesLinesEntity;
 import model.InvoiceHeader;
+import model.InvoicesTypes;
 import org.apache.poi.ss.usermodel.*;
 import org.hibernate.SessionFactory;
 import utils.DateUtils;
@@ -89,11 +90,19 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getCount());
 
-            cell = row.getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getRetailPrice() * line.getCount() - line.getSummVat());
+            if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+                cell = row.getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(line.getRetailPrice());
 
-            cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getRetailPrice() * line.getCount() - line.getSummVat());
+                cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(line.getRetailPrice() * line.getCount());
+
+                cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue("Цена поставщика: " + line.getVendorPrice() + "\n" +
+                "торговая надбавка: " + (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount()));
+
+                row.setHeightInPoints((2*s.getDefaultRowHeightInPoints()));
+            }
 
             cell = row.getCell(17, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getVat());
@@ -106,9 +115,6 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
             cell = row.getCell(25, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getCount());
-
-            cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue("Розничная цена: " + line.getRetailPrice());
 
             summVat += line.getSummVat();
 
