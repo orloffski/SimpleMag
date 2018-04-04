@@ -95,4 +95,27 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
 
         return 0;
     }
+
+    public static List<InvoicesHeadersEntity> getHeadersByCounterpartyId(SessionFactory sessFact, int counterpartyId){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery(
+                "FROM InvoicesHeadersEntity " +
+                "WHERE counterpartyId =:counterpartyId " +
+                    "AND type ='Поступление' OR type ='Ввод начальных остатков' " +
+                "ORDER BY id DESC"
+        );
+        query.setParameter("counterpartyId", counterpartyId);
+
+        List<InvoicesHeadersEntity> invoicesList = query.list();
+
+        tr.commit();
+        session.close();
+
+        if(invoicesList.size() > 0)
+            return invoicesList;
+
+        return null;
+    }
 }

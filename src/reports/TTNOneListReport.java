@@ -1,6 +1,8 @@
 package reports;
 
+import dbhelpers.InvoicesHeaderDBHelper;
 import dbhelpers.InvoicesLineDBHelper;
+import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import model.InvoiceHeader;
 import model.InvoicesTypes;
@@ -10,6 +12,8 @@ import utils.DateUtils;
 import utils.MoneyInWords;
 import utils.RowCopy;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class TTNOneListReport extends AbstractTTNReport implements Runnable{
@@ -43,6 +47,7 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
         int counter = 0;
         double summVat = 0;
         double summRetailPrices =0;
+        double summIncludeVat =0;
         Row row;
         Cell cell;
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoice.getNumber());
@@ -105,21 +110,46 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
                 "торговая надбавка: " + (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount()));
 
                 row.setHeightInPoints((2*s.getDefaultRowHeightInPoints()));
+
+                cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(line.getSummVat());
+
+                cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(line.getRetailPrice() * line.getCount());
+
+                summVat += line.getSummVat();
+
+            }else if(invoice.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
+                // get last vendor price
+                List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeadersByCounterpartyId(sessFact, invoice.getCounterpartyId());
+                InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, line.getItemId(), headersEntities);
+
+                cell = row.getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(linesEntity.getVendorPrice());
+
+                cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(linesEntity.getVendorPrice() * line.getCount());
+
+                summRetailPrices += linesEntity.getVendorPrice() * line.getCount();
+
+                double vatFromVendor = (linesEntity.getVendorPrice() * (line.getVat())/100) * line.getCount();
+                vatFromVendor = new BigDecimal(vatFromVendor).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+                cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(vatFromVendor);
+
+                cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(linesEntity.getVendorPrice() * line.getCount() + vatFromVendor);
+
+                summIncludeVat += linesEntity.getVendorPrice() * line.getCount() + vatFromVendor;
+                summVat += vatFromVendor;
             }
 
             cell = row.getCell(17, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getVat());
 
-            cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getSummVat());
-
-            cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getRetailPrice() * line.getCount());
-
             cell = row.getCell(25, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(line.getCount());
-
-            summVat += line.getSummVat();
 
             rowNum++;
         }
@@ -129,11 +159,9 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
         cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
         cell.setCellValue(invoice.getCount());
 
-        if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
-            row = s.getRow(43 + counter);
-            cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(summRetailPrices);
-        }
+        row = s.getRow(43 + counter);
+        cell = row.getCell(14, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+        cell.setCellValue(summRetailPrices);
 
         row = s.getRow(43 + counter);
         cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -141,20 +169,34 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
         row = s.getRow(43 + counter);
         cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellValue(invoice.getFullSumm());
+        if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+            cell.setCellValue(invoice.getFullSumm());
+        }else if(invoice.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
+            cell.setCellValue(summIncludeVat);
+        }
 
         row = s.getRow(43 + counter);
         cell = row.getCell(25, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
         cell.setCellValue(invoice.getCount());
 
         // print footer
-        row = s.getRow(46 + counter);
-        cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellValue(MoneyInWords.inwords(summVat));
+        if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+            row = s.getRow(46 + counter);
+            cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(MoneyInWords.inwords(summVat));
 
-        row = s.getRow(48 + counter);
-        cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-        cell.setCellValue(MoneyInWords.inwords(invoice.getFullSumm()));
+            row = s.getRow(48 + counter);
+            cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(MoneyInWords.inwords(invoice.getFullSumm()));
+        }else if(invoice.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
+            row = s.getRow(46 + counter);
+            cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(MoneyInWords.inwords(summVat));
+
+            row = s.getRow(48 + counter);
+            cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            cell.setCellValue(MoneyInWords.inwords(summIncludeVat));
+        }
 
         row = s.getRow(50 + counter);
         cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
