@@ -1,11 +1,14 @@
 package reports;
 
+import dbhelpers.InvoicesHeaderDBHelper;
 import dbhelpers.InvoicesLineDBHelper;
 import dbhelpers.ItemsDBHelper;
 import dbhelpers.UnitsDBHelper;
+import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import entity.ItemsEntity;
 import model.InvoiceHeader;
+import model.InvoicesTypes;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.hibernate.SessionFactory;
@@ -81,7 +84,19 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
 
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, header.getNumber());
 
-        for(InvoicesLinesEntity line : lines){
+        for(InvoicesLinesEntity docLine : lines){
+            InvoicesLinesEntity line;
+            int countItems;
+
+            if(header.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
+                List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeadersByCounterpartyId(sessFact, header.getCounterpartyId());
+                line = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, docLine.getItemId(), headersEntities);
+                countItems = docLine.getCount();
+            }else{
+                line = docLine;
+                countItems = line.getCount();
+            }
+
             RowCopy.copyRow(s, sourceRowNo, sourceRowNo + 1);
 
             Row row = s.getRow(sourceRowNo);
@@ -110,9 +125,9 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             // items count
             cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellStyle(createCellStyle(workbook, line.getCount(), false, (short)9));
-            cell.setCellValue(line.getCount());
+            cell.setCellValue(countItems);
 
-            count += line.getCount();
+            count += countItems;
 
             // vendor price
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -122,9 +137,9 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             // vendor summ
             cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellStyle(createCellStyle(workbook, line.getVendorPrice() * line.getCount(), false, (short)9));
-            cell.setCellValue(line.getVendorPrice() * line.getCount());
+            cell.setCellValue(line.getVendorPrice() * countItems);
 
-            vendorPrice += line.getVendorPrice() * line.getCount();
+            vendorPrice += line.getVendorPrice() * countItems;
 
             // extra price
             cell = row.getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -137,9 +152,9 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             // vat
             cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellStyle(createCellStyle(workbook, line.getSummVat(), false, (short)9));
-            cell.setCellValue(line.getSummVat());
+            cell.setCellValue(line.getVendorPrice() * line.getVat() * countItems / 100);
 
-            summVat += line.getSummVat();
+            summVat += line.getVendorPrice() * line.getVat() * countItems / 100;
 
             // retail price
             cell = row.getCell(20, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -149,9 +164,9 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             // retail summ
             cell = row.getCell(21, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellStyle(createCellStyle(workbook, line.getRetailPrice() * line.getCount(), false, (short)9));
-            cell.setCellValue(line.getRetailPrice() * line.getCount());
+            cell.setCellValue(line.getRetailPrice() * countItems);
 
-            retailSumm += line.getRetailPrice() * line.getCount();
+            retailSumm += line.getRetailPrice() * countItems;
 
             sourceRowNo += 1;
 
