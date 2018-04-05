@@ -27,10 +27,12 @@ public class PriceListReport extends AbstractReport implements Runnable{
     private Thread t;
     private SessionFactory sessFact;
     private List<ItemsEntity> items;
+    private InvoiceHeader header;
 
     // print from InvoiceHeader
     public PriceListReport(SessionFactory sessFact, InvoiceHeader header) {
         this.sessFact = sessFact;
+        this.header = header;
 
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, header.getNumber());
 
@@ -134,7 +136,7 @@ public class PriceListReport extends AbstractReport implements Runnable{
 
             row = s.getRow(rowNum + 1);
             cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getName());
+            cell.setCellValue(item.getName() + "\n" + item.getVendorCode());
 
             row = s.getRow(rowNum + 3);
             cell = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -144,7 +146,7 @@ public class PriceListReport extends AbstractReport implements Runnable{
 
             row = s.getRow(rowNum + 9);
             cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getVendorCode());
+            cell.setCellValue(header.getTtnNo() + " от " + header.getTtnDate());
 
             row = s.getRow(rowNum + 9);
             cell = row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -162,7 +164,7 @@ public class PriceListReport extends AbstractReport implements Runnable{
 
             row = s.getRow(rowNum + 1);
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getName());
+            cell.setCellValue(item.getName() + "\n" + item.getVendorCode());
 
             row = s.getRow(rowNum + 3);
             cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -172,7 +174,7 @@ public class PriceListReport extends AbstractReport implements Runnable{
 
             row = s.getRow(rowNum + 9);
             cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getVendorCode());
+            cell.setCellValue(header.getTtnNo() + " от " + header.getTtnDate());
 
             row = s.getRow(rowNum + 9);
             cell = row.getCell(10, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
