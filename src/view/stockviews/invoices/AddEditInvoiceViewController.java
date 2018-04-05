@@ -195,7 +195,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		int itemId;
 		Items item;
 		InvoicesLinesEntity lineEntity = null;
-		if((type.getValue().toLowerCase().equals("перемещение") || type.getValue().toLowerCase().equals("возврат"))
+		if(type.getValue().toLowerCase().equals("возврат")
 				&& SettingsEngine.getInstance().getSettings().productsInStockEnabled
 				&& SettingsEngine.getInstance().getSettings().invoicesFromStock){
 			// добавляем товар из остатков склада
