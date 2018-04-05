@@ -88,7 +88,10 @@ public class BarcodeItemsViewController {
                     "WHERE barcodes.item_id = items.id;";
             ResultSet rs = connection.createStatement().executeQuery(SQL);
             while(rs.next()){
-                String price = PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("id")).getPrice();
+                String price = PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("id"))
+                        == null ? "0.0" :
+                        PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("id")).getPrice();
+
                 BarcodesItems item = new BarcodesItems(
                         rs.getString("barcode"),
                         rs.getString("vendor_code"),
