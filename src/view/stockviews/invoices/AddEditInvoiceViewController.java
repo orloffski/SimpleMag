@@ -195,7 +195,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		int itemId;
 		Items item;
 		InvoicesLinesEntity lineEntity = null;
-		if(type.getValue().toLowerCase().equals("возврат")
+		if(type.getValue().toLowerCase().equalsIgnoreCase(InvoicesTypes.RETURN.toString())
 				&& SettingsEngine.getInstance().getSettings().productsInStockEnabled
 				&& SettingsEngine.getInstance().getSettings().invoicesFromStock){
 			// добавляем товар из остатков склада
@@ -227,6 +227,19 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			// выбираем любой товар из системы
 			itemId = getNewItemFromBarcode();
 
+			double vendorPrice = 0d;
+			byte vat = 20;
+			byte extraPrice = 40;
+
+			if(type.getValue().toLowerCase().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+				List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeaders(sessFact);
+				InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, itemId, headersEntities);
+
+				vendorPrice = linesEntity == null ? 0d : linesEntity.getVendorPrice();
+				vat = linesEntity == null ? 20 : linesEntity.getVat();
+				extraPrice = linesEntity == null ? 40 : linesEntity.getExtraPrice();
+			}
+
 			if(itemId != -1){
 				ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
 
@@ -243,9 +256,9 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 							1,
 							invoice.getNumber(),
 							item.getId(),
-							0d,
-							(byte) 20,
-							(byte) 40,
+							vendorPrice,
+							vat,
+							extraPrice,
 							0d,
 							item.getName(),
 							0,

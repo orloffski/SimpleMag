@@ -118,4 +118,26 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
 
         return null;
     }
+
+    public static List<InvoicesHeadersEntity> getHeaders(SessionFactory sessFact){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        Query query = session.createQuery(
+                "FROM InvoicesHeadersEntity " +
+                        "WHERE status ='проведен'" +
+                        "AND type ='Поступление' OR type ='Ввод начальных остатков' " +
+                        "ORDER BY id DESC"
+        );
+
+        List<InvoicesHeadersEntity> invoicesList = query.list();
+
+        tr.commit();
+        session.close();
+
+        if(invoicesList.size() > 0)
+            return invoicesList;
+
+        return null;
+    }
 }
