@@ -14,7 +14,7 @@ public class PricesDBHelper extends AbstractDBHelper{
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
 
-        Query query = session.createQuery("FROM PricesEntity WHERE itemId =:itemId ORDER BY lastcreated DESC");
+        Query query = session.createQuery("FROM PricesEntity WHERE itemId =:itemId ORDER BY id DESC");
         query.setParameter("itemId", itemId);
         query.setMaxResults(1);
 
