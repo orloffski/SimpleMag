@@ -202,14 +202,19 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			getItemFromStock(invoice.getCounterpartyId());
 			BarcodeItemsFromStock product = (BarcodeItemsFromStock)SelectedObject.getObject();
 
+			List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeadersByCounterpartyId(sessFact, invoice.getCounterpartyId());
+			InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, product.getItemId(), headersEntities);
+
+			double vendorPrice = linesEntity == null ? 0d : linesEntity.getVendorPrice();
+
 			lineEntity = new InvoicesLinesEntity(
 					0,
 					1,
 					invoice.getNumber(),
 					product.getItemId(),
-					0d,
-					(byte) 20,
-					(byte) 40,
+					vendorPrice,
+					(byte) 0,
+					(byte) 0,
 					0d,
 					product.getItemName(),
 					0,
