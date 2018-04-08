@@ -126,8 +126,8 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
 
         Query query = session.createQuery(
                 "FROM InvoicesHeadersEntity " +
-                        "WHERE status ='проведен'" +
-                        "AND type ='Поступление' OR type ='Ввод начальных остатков' " +
+                        "WHERE status ='проведен' " +
+                        "AND (type ='Поступление' OR type ='Ввод начальных остатков') " +
                         "ORDER BY id DESC"
         );
 
