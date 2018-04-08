@@ -206,6 +206,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, product.getItemId(), headersEntities);
 
 			double vendorPrice = linesEntity == null ? 0d : linesEntity.getVendorPrice();
+			byte vat = linesEntity == null ? 0 : linesEntity.getVat();
 
 			lineEntity = new InvoicesLinesEntity(
 					0,
@@ -213,7 +214,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 					invoice.getNumber(),
 					product.getItemId(),
 					vendorPrice,
-					(byte) 0,
+					vat,
 					(byte) 0,
 					0d,
 					product.getItemName(),
