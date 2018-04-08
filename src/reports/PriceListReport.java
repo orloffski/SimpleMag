@@ -1,12 +1,11 @@
 package reports;
 
-import dbhelpers.BarcodesDBHelper;
-import dbhelpers.InvoicesLineDBHelper;
-import dbhelpers.ItemsDBHelper;
-import dbhelpers.PricesDBHelper;
+import dbhelpers.*;
+import entity.CounterpartiesEntity;
 import entity.InvoicesLinesEntity;
 import entity.ItemsEntity;
 import model.InvoiceHeader;
+import model.InvoicesTypes;
 import model.Items;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;
@@ -20,7 +19,8 @@ import java.util.List;
 
 public class PriceListReport extends AbstractReport implements Runnable{
 
-    public static final String HEADER_ONE = "Белыничское_РАЙПО";
+    public static final String HEADER_ONE = "Белыничское_РАЙПО, ТЦ \"Днепр\", г. Круглое";
+    public static final String HEADER_TWO = "Белыничское_РАЙПО";
 
     public static final String TEMPLATE_FILE_PATH = "../report_templates/prices_list_template.xls";
 
@@ -130,13 +130,25 @@ public class PriceListReport extends AbstractReport implements Runnable{
         Row row;
 
         if(counter%2 != 0){
-            row = s.getRow(rowNum);
-            cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(HEADER_ONE);
+            if(header != null && header.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())){
+                CounterpartiesEntity counterpartiesEntity = CounterpartiesDBHelper.getCounterpartyBiId(sessFact, header.getCounterpartyId());
+
+                row = s.getRow(rowNum);
+                cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(HEADER_TWO +
+                        ", " +
+                        counterpartiesEntity.getName() +
+                        ", " +
+                        counterpartiesEntity.getAdress());
+            }else {
+                row = s.getRow(rowNum);
+                cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(HEADER_ONE);
+            }
 
             row = s.getRow(rowNum + 1);
             cell = row.getCell(2, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getName() + "\n" + item.getVendorCode());
+            cell.setCellValue(item.getName() + " " + item.getVendorCode());
 
             row = s.getRow(rowNum + 3);
             cell = row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -158,13 +170,25 @@ public class PriceListReport extends AbstractReport implements Runnable{
             cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(item.getVendorCountry());
         }else{
-            row = s.getRow(rowNum);
-            cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(HEADER_ONE);
+            if(header != null && header.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())){
+                CounterpartiesEntity counterpartiesEntity = CounterpartiesDBHelper.getCounterpartyBiId(sessFact, header.getCounterpartyId());
+
+                row = s.getRow(rowNum);
+                cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(HEADER_TWO +
+                        ", " +
+                        counterpartiesEntity.getName() +
+                        ", " +
+                        counterpartiesEntity.getAdress());
+            }else {
+                row = s.getRow(rowNum);
+                cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                cell.setCellValue(HEADER_ONE);
+            }
 
             row = s.getRow(rowNum + 1);
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(item.getName() + "\n" + item.getVendorCode());
+            cell.setCellValue(item.getName() + " " + item.getVendorCode());
 
             row = s.getRow(rowNum + 3);
             cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
