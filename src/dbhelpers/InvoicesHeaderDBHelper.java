@@ -103,7 +103,8 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
         Query query = session.createQuery(
                 "FROM InvoicesHeadersEntity " +
                 "WHERE counterpartyId =:counterpartyId " +
-                    "AND type ='Поступление' OR type ='Ввод начальных остатков' " +
+                    "AND (type ='Поступление' OR type ='Ввод начальных остатков') " +
+                        "AND status ='проведен' " +
                 "ORDER BY id DESC"
         );
         query.setParameter("counterpartyId", counterpartyId);
