@@ -1,14 +1,11 @@
 package reports;
 
-import dbhelpers.InvoicesHeaderDBHelper;
 import dbhelpers.InvoicesLineDBHelper;
 import dbhelpers.ItemsDBHelper;
 import dbhelpers.UnitsDBHelper;
-import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import entity.ItemsEntity;
 import model.InvoiceHeader;
-import model.InvoicesTypes;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.hibernate.SessionFactory;
@@ -85,17 +82,7 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, header.getNumber());
 
         for(InvoicesLinesEntity docLine : lines){
-            InvoicesLinesEntity line;
-            int countItems;
-
-            if(header.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
-                List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeadersByCounterpartyId(sessFact, header.getCounterpartyId());
-                line = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, docLine.getItemId(), headersEntities);
-                countItems = docLine.getCount();
-            }else{
-                line = docLine;
-                countItems = line.getCount();
-            }
+            int countItems = docLine.getCount();
 
             RowCopy.copyRow(s, sourceRowNo, sourceRowNo + 1);
 
@@ -107,10 +94,10 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
 
             // item name
             cell = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getItemName());
+            cell.setCellValue(docLine.getItemName());
 
             // item article
-            ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, line.getItemId());
+            ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, docLine.getItemId());
             cell = row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             cell.setCellValue(itemsEntity.getVendorCode());
 
@@ -119,54 +106,54 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
             cell.setCellValue(
                     UnitsDBHelper.getUnitById(
                             sessFact,
-                            ItemsDBHelper.getItemsEntityById(sessFact, line.getItemId()).getUnitId()
+                            ItemsDBHelper.getItemsEntityById(sessFact, docLine.getItemId()).getUnitId()
                     ));
 
             // items count
             cell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getCount(), false, (short)9));
+            cell.setCellStyle(createCellStyle(workbook, docLine.getCount(), false, (short)9));
             cell.setCellValue(countItems);
 
             count += countItems;
 
             // vendor price
             cell = row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getVendorPrice(), false, (short)9));
-            cell.setCellValue(line.getVendorPrice());
+            cell.setCellStyle(createCellStyle(workbook, docLine.getVendorPrice(), false, (short)9));
+            cell.setCellValue(docLine.getVendorPrice());
 
             // vendor summ
             cell = row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getVendorPrice() * line.getCount(), false, (short)9));
-            cell.setCellValue(line.getVendorPrice() * countItems);
+            cell.setCellStyle(createCellStyle(workbook, docLine.getVendorPrice() * docLine.getCount(), false, (short)9));
+            cell.setCellValue(docLine.getVendorPrice() * countItems);
 
-            vendorPrice += line.getVendorPrice() * countItems;
+            vendorPrice += docLine.getVendorPrice() * countItems;
 
             // extra price
             cell = row.getCell(16, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getExtraPrice().toString() + "%");
+            cell.setCellValue(docLine.getExtraPrice().toString() + "%");
 
             // vat
             cell = row.getCell(18, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellValue(line.getVat() + "%");
+            cell.setCellValue(docLine.getVat() + "%");
 
             // vat
             cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getSummVat(), false, (short)9));
-            cell.setCellValue(line.getVendorPrice() * line.getVat() * countItems / 100);
+            cell.setCellStyle(createCellStyle(workbook, docLine.getSummVat(), false, (short)9));
+            cell.setCellValue(docLine.getVendorPrice() * docLine.getVat() * countItems / 100);
 
-            summVat += line.getVendorPrice() * line.getVat() * countItems / 100;
+            summVat += docLine.getVendorPrice() * docLine.getVat() * countItems / 100;
 
             // retail price
             cell = row.getCell(20, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getRetailPrice(), false, (short)9));
-            cell.setCellValue(line.getRetailPrice());
+            cell.setCellStyle(createCellStyle(workbook, docLine.getRetailPrice(), false, (short)9));
+            cell.setCellValue(docLine.getRetailPrice());
 
             // retail summ
             cell = row.getCell(21, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-            cell.setCellStyle(createCellStyle(workbook, line.getRetailPrice() * line.getCount(), false, (short)9));
-            cell.setCellValue(line.getRetailPrice() * countItems);
+            cell.setCellStyle(createCellStyle(workbook, docLine.getRetailPrice() * docLine.getCount(), false, (short)9));
+            cell.setCellValue(docLine.getRetailPrice() * countItems);
 
-            retailSumm += line.getRetailPrice() * countItems;
+            retailSumm += docLine.getRetailPrice() * countItems;
 
             sourceRowNo += 1;
 

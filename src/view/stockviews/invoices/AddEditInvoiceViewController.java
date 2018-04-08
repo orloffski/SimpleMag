@@ -207,6 +207,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			double vendorPrice = linesEntity == null ? 0d : linesEntity.getVendorPrice();
 			byte vat = linesEntity == null ? 0 : linesEntity.getVat();
+			byte extraPrice = linesEntity == null ? 40 : linesEntity.getExtraPrice();
 
 			lineEntity = new InvoicesLinesEntity(
 					0,
@@ -215,7 +216,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 					product.getItemId(),
 					vendorPrice,
 					vat,
-					(byte) 0,
+					extraPrice,
 					0d,
 					product.getItemName(),
 					0,
