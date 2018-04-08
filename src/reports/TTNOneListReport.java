@@ -107,7 +107,11 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
                 cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 cell.setCellValue("Цена поставщика: " + line.getVendorPrice() + "\n" +
-                "торговая надбавка: " + (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount()));
+                "торговая надбавка: " +
+                        new BigDecimal(
+                                (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount())
+                        ).setScale(2, RoundingMode.HALF_UP).doubleValue()
+                );
 
                 row.setHeightInPoints((2*s.getDefaultRowHeightInPoints()));
 
