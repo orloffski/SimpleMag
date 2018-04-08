@@ -6,6 +6,7 @@ import dbhelpers.ProductsInStockDBHelper;
 import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import entity.ProductsInStockEntity;
+import model.InvoicesTypes;
 import org.hibernate.SessionFactory;
 import utils.MessagesUtils;
 
@@ -73,13 +74,15 @@ public class ProductsInStockController {
     // удаление товара из остатков склада - возврат и перемещение
     private static void returnAndDeliveryFromStock(SessionFactory sessFact, String invoiceNum){
         InvoicesHeadersEntity invoice = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(sessFact, invoiceNum);
+        int counterpartyId = invoice.getType().equalsIgnoreCase("Перемещение")
+                ? -1 : invoice.getCounterpartyId();
 
         List<InvoicesLinesEntity> linesEntities = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNum);
         for(InvoicesLinesEntity line : linesEntities){
             int itemId = line.getItemId();
             String expireDate = line.getExpireDate();
 
-            ProductsInStockEntity lineInStock = ProductsInStockDBHelper.fullFindLines(sessFact, itemId, invoice.getCounterpartyId(), expireDate);
+            ProductsInStockEntity lineInStock = ProductsInStockDBHelper.fullFindLines(sessFact, itemId, counterpartyId, expireDate);
             int count = line.getCount();
 
             if(lineInStock.getItemsCount().intValue() > count){
@@ -91,7 +94,7 @@ public class ProductsInStockController {
                         count -= lineInStock.getItemsCount().intValue();
                         ProductsInStockDBHelper.deleteEntity(sessFact, lineInStock);
 
-                        lineInStock = ProductsInStockDBHelper.fullFindLines(sessFact, itemId, invoice.getCounterpartyId(), expireDate);
+                        lineInStock = ProductsInStockDBHelper.fullFindLines(sessFact, itemId, counterpartyId, expireDate);
                     }else{
                         lineInStock.setItemsCount(lineInStock.getItemsCount() - Double.valueOf(count));
                         if(lineInStock.getItemsCount() > 0)
@@ -158,7 +161,14 @@ public class ProductsInStockController {
     // проверка соответствия количества товара на складе и в накладной возврата/перемещения - для возврата и перемещения
     private static boolean checkCount(SessionFactory sessFact, String invoiceNum){
         boolean isChecked = true;
-        int counterpartyId = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(sessFact, invoiceNum).getCounterpartyId();
+
+        int counterpartyId = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(
+                sessFact, invoiceNum
+                ).getType().equalsIgnoreCase("Перемещение")
+                ? -1
+                : InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(
+                        sessFact, invoiceNum
+                    ).getCounterpartyId();
 
         List<InvoicesLinesEntity> linesEntities = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNum);
         for(InvoicesLinesEntity line : linesEntities){

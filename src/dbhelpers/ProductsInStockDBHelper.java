@@ -32,19 +32,15 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
     public static List<ProductsInStockEntity> findItemCountFromCounterparty(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
+        StringBuilder queryString = new StringBuilder();
 
-        Query query;
+        queryString.append("FROM ProductsInStockEntity WHERE itemId =").append(itemId);
+        if(counerpartyId != -1)
+            queryString.append(" AND counterpartyId =").append(counerpartyId);
+        if(!expireDate.equalsIgnoreCase(""))
+            queryString.append(" AND expireDate =").append(expireDate);
 
-        if(!expireDate.equalsIgnoreCase("")) {
-            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId AND expireDate =:expireDate");
-            query.setParameter("itemId", itemId);
-            query.setParameter("counerpartyId", counerpartyId);
-            query.setParameter("expireDate", expireDate);
-        }else{
-            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId");
-            query.setParameter("itemId", itemId);
-            query.setParameter("counerpartyId", counerpartyId);
-        }
+        Query query = session.createQuery(queryString.toString());
 
         List<ProductsInStockEntity> list = query.list();
 
@@ -57,19 +53,16 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
     public static ProductsInStockEntity fullFindLines(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
+        StringBuilder queryString = new StringBuilder();
 
-        Query query;
+        queryString.append("FROM ProductsInStockEntity WHERE itemId =").append(itemId);
+        if(counerpartyId != -1)
+            queryString.append(" AND counterpartyId =").append(counerpartyId);
+        if(!expireDate.equalsIgnoreCase(""))
+            queryString.append(" AND expireDate =").append(expireDate);
+        queryString.append(" ORDER BY id DESC");
 
-        if(!expireDate.equalsIgnoreCase("")) {
-            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId AND expireDate =:expireDate ORDER BY id DESC");
-            query.setParameter("itemId", itemId);
-            query.setParameter("counerpartyId", counerpartyId);
-            query.setParameter("expireDate", expireDate);
-        }else{
-            query = session.createQuery("FROM ProductsInStockEntity WHERE itemId =:itemId AND counterpartyId =:counerpartyId ORDER BY id DESC");
-            query.setParameter("itemId", itemId);
-            query.setParameter("counerpartyId", counerpartyId);
-        }
+        Query query = session.createQuery(queryString.toString());
 
         List<ProductsInStockEntity> list = query.list();
 
