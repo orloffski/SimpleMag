@@ -71,15 +71,29 @@ public class BarcodeItemsFromStockViewController {
             String SQL;
             ResultSet rs;
             if(counterpartyId != -1){
-                SQL = "SELECT barcodes.barcode, products.item_name, products.items_count, products.expire_date, products.invoice_number, products.item_id\n" +
-                        "FROM barcodes, products_in_stock AS products\n" +
-                        "WHERE barcodes.item_id = products.item_id " +
-                        "AND products.counterparty_id = " + counterpartyId + ";";
+                SQL = "SELECT b.barcode, p.item_name, p.items_count, p.expire_date, p.invoice_number, p.item_id " +
+                        "FROM barcodes b JOIN" +
+                        "(SELECT products.item_name, " +
+                        "        SUM(products.items_count) AS items_count, " +
+                        "        products.expire_date, " +
+                        "        products.invoice_number, " +
+                        "        products.item_id " +
+                        "FROM products_in_stock AS products " +
+                        "WHERE products.counterparty_id = " + counterpartyId + " " +
+                        "GROUP BY products.item_id) " +
+                        "p ON b.item_id = p.item_id;";
                 rs = connection.createStatement().executeQuery(SQL);
             }else{
-                SQL = "SELECT barcodes.barcode, products.item_name, products.items_count, products.expire_date, products.invoice_number, products.item_id\n" +
-                        "FROM barcodes, products_in_stock AS products\n" +
-                        "WHERE barcodes.item_id = products.item_id;";
+                SQL = "SELECT b.barcode, p.item_name, p.items_count, p.expire_date, p.invoice_number, p.item_id " +
+                        "FROM barcodes b JOIN" +
+                        "(SELECT products.item_name, " +
+                        "        SUM(products.items_count) AS items_count, " +
+                        "        products.expire_date, " +
+                        "        products.invoice_number, " +
+                        "        products.item_id " +
+                        "FROM products_in_stock AS products " +
+                        "GROUP BY products.item_id) " +
+                        "p ON b.item_id = p.item_id;";
                 rs = connection.createStatement().executeQuery(SQL);
             }
 
