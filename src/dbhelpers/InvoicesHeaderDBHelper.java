@@ -29,16 +29,24 @@ public class InvoicesHeaderDBHelper extends AbstractDBHelper {
         return null;
     }
 
-    public static List<InvoicesHeadersEntity> getInvoicesHeadersEntitiesList(SessionFactory sessFact, boolean reverse){
+    public static List<InvoicesHeadersEntity> getInvoicesHeadersEntitiesList(SessionFactory sessFact, boolean reverse, String viewType){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
+        StringBuilder stringBuilder = new StringBuilder();
 
         List<InvoicesHeadersEntity> invoicesHeadersList;
 
+        stringBuilder.append("FROM InvoicesHeadersEntity");
+        if(viewType.equalsIgnoreCase("проведенные"))
+            stringBuilder.append(" WHERE status = 'проведен'");
+        if(viewType.equalsIgnoreCase("не проведенные"))
+            stringBuilder.append(" WHERE status = 'не проведен'");
         if(reverse)
-            invoicesHeadersList = session.createQuery("FROM InvoicesHeadersEntity ORDER BY id DESC").list();
-        else
-            invoicesHeadersList = session.createQuery("FROM InvoicesHeadersEntity").list();
+            stringBuilder.append(" ORDER BY id DESC");
+
+        Query query = session.createQuery(stringBuilder.toString());
+
+        invoicesHeadersList = query.list();
 
         tr.commit();
         session.close();
