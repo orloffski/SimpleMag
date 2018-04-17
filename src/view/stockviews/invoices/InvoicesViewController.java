@@ -5,6 +5,8 @@ import dbhelpers.InvoicesHeaderDBHelper;
 import dbhelpers.InvoicesLineDBHelper;
 import dbhelpers.ProductsInStockDBHelper;
 import entity.InvoicesHeadersEntity;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,6 +41,9 @@ public class InvoicesViewController extends AbstractController{
 	
 	@FXML
 	private TableView<InvoiceHeader> invoicesTable;
+
+	@FXML
+	private ComboBox<String> invoicesView;
 	
 	@FXML
     private TableColumn<InvoiceHeader, String> numberColumn;
@@ -88,6 +94,7 @@ public class InvoicesViewController extends AbstractController{
 		countColumn.setCellValueFactory(cellData -> cellData.getValue().countProperty());
 		summColumn.setCellValueFactory(cellData -> cellData.getValue().fullSummProperty());
 
+		addInvoicesView();
 		buildData();
 	}
 	
@@ -169,9 +176,14 @@ public class InvoicesViewController extends AbstractController{
 	}
 	
 	private void buildData(){
+		String viewType = "";
+
+		if(invoicesView.getSelectionModel().getSelectedItem() != null)
+			viewType = invoicesView.getSelectionModel().getSelectedItem();
+
 		data = FXCollections.observableArrayList();
 
-		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact, true);
+		List<InvoicesHeadersEntity> invoicesList = InvoicesHeaderDBHelper.getInvoicesHeadersEntitiesList(sessFact, true, viewType);
 
 		for (InvoicesHeadersEntity invHeader : invoicesList) {
 			InvoiceHeader headerItem = InvoiceHeader.createHeaderFromEntity(invHeader);
@@ -224,5 +236,23 @@ public class InvoicesViewController extends AbstractController{
 
 		InvoicesHeaderDBHelper.deleteHeaderById(sessFact, id);
         ProductsInStockDBHelper.deleteByInvoiceNumber(sessFact, invoiceNum);
+	}
+
+	private void addInvoicesView(){
+		ObservableList<String> options =
+				FXCollections.observableArrayList(
+						"все",
+						"проведенные",
+						"не проведенные"
+				);
+		invoicesView.getItems().addAll(options);
+
+		invoicesView.valueProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				data.clear();
+				buildData();
+			}
+		});
 	}
 }
