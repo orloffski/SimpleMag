@@ -7,6 +7,8 @@ import dbhelpers.SalesLinesDBHelper;
 import entity.ProductsInStockEntity;
 import entity.SalesHeaderEntity;
 import entity.SalesLineEntity;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,6 +16,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,6 +38,9 @@ public class SalesViewController extends AbstractController{
 
     private Main main;
     private ObservableList<SalesHeader> data;
+
+    @FXML
+    private ComboBox<String> salesView;
 
     @FXML
     private TextField filter;
@@ -76,6 +82,7 @@ public class SalesViewController extends AbstractController{
         salesType.setCellValueFactory(cellData -> cellData.getValue().salesTypeProperty());
         paymentType.setCellValueFactory(cellData -> cellData.getValue().paymentTypeProperty());
 
+        loadSalesView();
         loadSalesHeaders();
     }
 
@@ -169,9 +176,14 @@ public class SalesViewController extends AbstractController{
     }
 
     private void loadSalesHeaders(){
+        String viewType = "";
+
+        if(salesView.getSelectionModel().getSelectedItem() != null)
+            viewType = salesView.getSelectionModel().getSelectedItem();
+
         data = FXCollections.observableArrayList();
 
-        List<SalesHeaderEntity> salesList = SalesHeaderDBHelper.getSalesHeadersEntitiesList(sessFact);
+        List<SalesHeaderEntity> salesList = SalesHeaderDBHelper.getSalesHeadersEntitiesList(sessFact, viewType);
 
         for (SalesHeaderEntity saleHeader : salesList) {
             SalesHeader headerItem = SalesHeader.createHeaderFromEntity(saleHeader);
@@ -225,5 +237,23 @@ public class SalesViewController extends AbstractController{
     @Override
     protected void clearForm() {
 
+    }
+
+    private void loadSalesView(){
+        ObservableList<String> options =
+                FXCollections.observableArrayList(
+                        "все",
+                        "проведенные",
+                        "не проведенные"
+                );
+        salesView.getItems().addAll(options);
+
+        salesView.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                data.clear();
+                loadSalesHeaders();
+            }
+        });
     }
 }

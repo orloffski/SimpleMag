@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -67,6 +68,11 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
+            <ComboBox fx:id="salesView" prefWidth="150.0" promptText="фильтр по статусу">
+               <HBox.margin>
+                  <Insets left="170.0" />
+               </HBox.margin>
+            </ComboBox>
          </children>
          <BorderPane.margin>
             <Insets top="10.0" />

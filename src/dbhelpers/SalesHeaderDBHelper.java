@@ -29,11 +29,20 @@ public class SalesHeaderDBHelper extends AbstractDBHelper{
         return null;
     }
 
-    public static List<SalesHeaderEntity> getSalesHeadersEntitiesList(SessionFactory sessFact){
+    public static List<SalesHeaderEntity> getSalesHeadersEntitiesList(SessionFactory sessFact, String salesType){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
+        StringBuilder stringBuilder = new StringBuilder();
 
-        List<SalesHeaderEntity> invoicesHeadersList = session.createQuery("FROM SalesHeaderEntity ").list();
+        stringBuilder.append("FROM SalesHeaderEntity");
+        if(salesType.equalsIgnoreCase("проведенные"))
+            stringBuilder.append(" WHERE setHeader = 'проведен'");
+        if(salesType.equalsIgnoreCase("не проведенные"))
+            stringBuilder.append(" WHERE setHeader = 'не проведен'");
+
+        Query query = session.createQuery(stringBuilder.toString());
+
+        List<SalesHeaderEntity> invoicesHeadersList = query.list();
 
         tr.commit();
         session.close();
