@@ -68,7 +68,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
-            <ComboBox fx:id="invoicesView" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0">
+            <ComboBox fx:id="invoicesView" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" promptText="фильтр по статусу">
                <HBox.margin>
                   <Insets left="190.0" />
                </HBox.margin>
