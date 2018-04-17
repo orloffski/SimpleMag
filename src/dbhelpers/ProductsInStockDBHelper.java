@@ -1,8 +1,12 @@
 package dbhelpers;
 
 import application.DBClass;
+import entity.InvoicesHeadersEntity;
+import entity.InvoicesLinesEntity;
 import entity.ProductsInStockEntity;
+import model.InvoicesTypes;
 import model.ItemsCount;
+import model.StatusTypes;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ProductsInStockDBHelper extends AbstractDBHelper {
 
@@ -48,6 +51,35 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
         session.close();
 
         return list;
+    }
+
+    public static double getItemsCount(SessionFactory sessFact, InvoicesLinesEntity line, InvoicesHeadersEntity header){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+        StringBuilder queryString = new StringBuilder();
+        boolean needCounterparty = false;
+
+        if(header.getType().equalsIgnoreCase(InvoicesTypes.RECEIPT.toString()) &&
+                header.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString()) ||
+                header.getType().equalsIgnoreCase(InvoicesTypes.INITIAL.toString()) &&
+                        header.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString()) ||
+                header.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString()))
+            needCounterparty = true;
+
+        queryString.append("SELECT SUM(itemsCount) FROM ProductsInStockEntity WHERE itemId =").append(line.getItemId());
+        if(needCounterparty)
+            queryString.append(" AND counterpartyId =").append(header.getCounterpartyId());
+        if(!line.getExpireDate().equalsIgnoreCase(""))
+            queryString.append(" AND expireDate =").append(line.getExpireDate());
+
+        Query query = session.createQuery(queryString.toString());
+
+        double counts = (double)query.list().get(0);
+
+        tr.commit();
+        session.close();
+
+        return counts;
     }
 
     public static ProductsInStockEntity fullFindLines(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
