@@ -7,6 +7,7 @@ import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import entity.ProductsInStockEntity;
 import model.InvoicesTypes;
+import model.StatusTypes;
 import org.hibernate.SessionFactory;
 import utils.MessagesUtils;
 
@@ -16,12 +17,14 @@ public class ProductsInStockController {
 
     public static boolean checkItemsInStock(String invoiceType, String status, SessionFactory sessFact, String invoiceNum){
         // при проведении попадает статус "проведен", при отмене - "не проведен"
-        if(status.equals("проведен")){
-            if (invoiceType.equalsIgnoreCase("поступление") || invoiceType.equalsIgnoreCase("ввод начальных остатков")){
+        if(status.equalsIgnoreCase(StatusTypes.ENTERED.toString())){
+            if (invoiceType.equalsIgnoreCase(InvoicesTypes.RECEIPT.toString()) ||
+                    invoiceType.equalsIgnoreCase(InvoicesTypes.INITIAL.toString())){
                 // записываем в остатки и даем добро на проведение документа
                 receiveAndInitialToStock(sessFact, invoiceNum);
                 return true;
-            } else if(invoiceType.equalsIgnoreCase("возврат") || invoiceType.equalsIgnoreCase("перемещение")){
+            } else if(invoiceType.equalsIgnoreCase(InvoicesTypes.RETURN.toString()) ||
+                    invoiceType.equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())){
                 // проверка наличия товара от поставщика в остатках
                 if(checkCount(sessFact, invoiceNum)){
                     // снимаем товар из остатков и даем добро на проведение документа
@@ -30,8 +33,9 @@ public class ProductsInStockController {
                 }else
                     return false;
             }
-        } else if (status.equals("не проведен")){
-            if (invoiceType.equalsIgnoreCase("поступление") || invoiceType.equalsIgnoreCase("ввод начальных остатков")){
+        } else if (status.equalsIgnoreCase(StatusTypes.NOENTERED.toString())){
+            if (invoiceType.equalsIgnoreCase(InvoicesTypes.RECEIPT.toString()) ||
+                    invoiceType.equalsIgnoreCase(InvoicesTypes.INITIAL.toString())){
                 // проверяем количество товара по накладной и в остатках
                 if(checkStock(sessFact, invoiceNum)){
                     // снимаем товар из остатков и даем добро на проведение документа
@@ -40,7 +44,8 @@ public class ProductsInStockController {
                 }else{
                     return false;
                 }
-            } else if(invoiceType.equalsIgnoreCase("возврат") || invoiceType.equalsIgnoreCase("перемещение")){
+            } else if(invoiceType.equalsIgnoreCase(InvoicesTypes.RETURN.toString()) ||
+                    invoiceType.equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())){
                 // возвращаем товар в остатки и проводим документ
                 returnAndDeliveryToStock(sessFact, invoiceNum);
                 return true;
@@ -74,7 +79,7 @@ public class ProductsInStockController {
     // удаление товара из остатков склада - возврат и перемещение
     private static void returnAndDeliveryFromStock(SessionFactory sessFact, String invoiceNum){
         InvoicesHeadersEntity invoice = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(sessFact, invoiceNum);
-        int counterpartyId = invoice.getType().equalsIgnoreCase("Перемещение")
+        int counterpartyId = invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())
                 ? -1 : invoice.getCounterpartyId();
 
         List<InvoicesLinesEntity> linesEntities = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, invoiceNum);
@@ -164,7 +169,7 @@ public class ProductsInStockController {
 
         int counterpartyId = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(
                 sessFact, invoiceNum
-                ).getType().equalsIgnoreCase("Перемещение")
+                ).getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())
                 ? -1
                 : InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(
                         sessFact, invoiceNum

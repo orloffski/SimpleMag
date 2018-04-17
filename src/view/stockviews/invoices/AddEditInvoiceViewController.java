@@ -153,7 +153,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		
 		type.getSelectionModel().selectedItemProperty().addListener(this);
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+		documentSet.setText(status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?"отмена проведения":"проведение");
 
 		getPrintForms();
 	}
@@ -162,7 +162,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		print.setItems(PrintForms.getTypes());
 		print.getSelectionModel().select(0);
 		print.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(invoice.getStatus().equalsIgnoreCase("не проведен")){
+            if(invoice.getStatus().equalsIgnoreCase(StatusTypes.NOENTERED.toString())){
                 MessagesUtils.showAlert("Ошибка печати отчета",
                         "Запрещена печать отчетов из непроведенных накладных!");
                 return;
@@ -184,7 +184,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	@FXML
 	private void addLine(){
-		if(invoice.getStatus().toLowerCase().equals("проведен")){
+		if(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
 
@@ -195,7 +195,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		int itemId;
 		Items item;
 		InvoicesLinesEntity lineEntity = null;
-		if(type.getValue().toLowerCase().equalsIgnoreCase(InvoicesTypes.RETURN.toString())
+		if(type.getValue().equalsIgnoreCase(InvoicesTypes.RETURN.toString())
 				&& SettingsEngine.getInstance().getSettings().productsInStockEnabled
 				&& SettingsEngine.getInstance().getSettings().invoicesFromStock){
 			// добавляем товар из остатков склада
@@ -233,7 +233,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			byte vat = 20;
 			byte extraPrice = 40;
 
-			if(type.getValue().toLowerCase().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
+			if(type.getValue().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
 				List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeaders(sessFact);
 				InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, itemId, headersEntities);
 
@@ -282,7 +282,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	@FXML
 	private void deleteLine(){
-		if(invoice.getStatus().toLowerCase().equals("проведен")){
+		if(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
 
@@ -314,7 +314,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	@FXML
 	private void saveDocument(){
-		if(ttnDate.getEditor().getText().equals("") || type.getValue() == null || counterparty.getValue() == null){
+		if(ttnDate.getEditor().getText().equalsIgnoreCase("") || type.getValue() == null || counterparty.getValue() == null){
 			MessagesUtils.showAlert("Ошибка сохранения накладной",
 					"Укажите тип документа, контрагента и дату для сохранения.");
 			return;
@@ -331,7 +331,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				number.getText(),
 				type.getValue(),
 				counterparty.getValue(),
-				status.getText().toLowerCase().equals("проведен")?"проведен":"не проведен",
+				status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?StatusTypes.ENTERED.toString():StatusTypes.NOENTERED.toString(),
 				ttnNo.getText(),
 				ttnDate.getEditor().getText());
 
@@ -339,7 +339,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		}
 
 		documentSet.setDisable(false);
-		updateElements("проведен");
+		updateElements(StatusTypes.ENTERED.toString());
 	}
 	
 	@FXML
@@ -348,13 +348,14 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		if(SettingsEngine.getInstance().getSettings().productsInStockEnabled) {
 			// проверка документа на возможность проведения/отмены проведения
 			if (!ProductsInStockController.checkItemsInStock(type.getValue(),
-					status.getText().toLowerCase().equals("проведен") ? "не проведен" : "проведен",
+					status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString()) ? StatusTypes.NOENTERED.toString() : StatusTypes.ENTERED.toString(),
 					sessFact,
 					number.getText()))
 				return;
 
-			if (type.getValue().toLowerCase().equals("поступление") || type.getValue().toLowerCase().equals("ввод начальных остатков"))
-				if (status.getText().toLowerCase().equals("проведен")) {
+			if (type.getValue().equalsIgnoreCase(InvoicesTypes.RECEIPT.toString()) ||
+                    type.getValue().equalsIgnoreCase(InvoicesTypes.INITIAL.toString()))
+				if (status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())) {
 					setPrices(false, invoice.getNumber());
 				} else {
 					setPrices(true, invoice.getNumber());
@@ -366,15 +367,15 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				number.getText(),
 				type.getValue(),
 				counterparty.getValue(),
-				status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен",
+				status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?StatusTypes.NOENTERED.toString():StatusTypes.ENTERED.toString(),
 				ttnNo.getText(),
 				ttnDate.getEditor().getText());
 
 		setHeaderToDB(this.invoice);
 
-		status.setText(status.getText().toLowerCase().equals("проведен")?"не проведен":"проведен");
+		status.setText(status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?StatusTypes.NOENTERED.toString():StatusTypes.ENTERED.toString());
 
-		documentSet.setText(status.getText().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+		documentSet.setText(status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?"отмена проведения":"проведение");
 		this.invoice.setStatus(status.getText());
 
 		updateElements(this.invoice.getStatus());
@@ -462,7 +463,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 			initInvoiceLineTable();
 			
-			documentSet.setText(invoice.getStatus().toLowerCase().equals("проведен")?"отмена проведения":"проведение");
+			documentSet.setText(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())?"отмена проведения":"проведение");
 			ttnNo.setText(invoice.getTtnNo());
 			ttnDate.getEditor().setText(invoice.getTtnDate());
 
@@ -482,7 +483,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	}
 
 	private void updateElements(String status){
-		if(status.toLowerCase().equals("проведен")){
+		if(status.equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			documentSave.setDisable(true);
 			type.setDisable(true);
 			counterparty.setDisable(true);
@@ -574,7 +575,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	}
 
 	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine, String expireDate){
-		if(invoice.getStatus().toLowerCase().equals("проведен")){
+		if(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
 
