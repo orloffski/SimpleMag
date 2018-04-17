@@ -1,5 +1,9 @@
 package entity;
 
+import dbhelpers.ProductsInStockDBHelper;
+import model.SalesLine;
+import org.hibernate.SessionFactory;
+
 import javax.persistence.*;
 
 @Entity
@@ -150,6 +154,20 @@ public class ProductsInStockEntity {
                 invoiceDate,
                 counterpartyId,
                 line.getExpireDate()
+        );
+    }
+
+    public static ProductsInStockEntity createProductsInStockEntityFromSalesLine(SalesLine line, SessionFactory sessFact){
+        int counterpartyId = ProductsInStockDBHelper.getFirstCounterpartyByItemId(sessFact, line.getItemId());
+        return new ProductsInStockEntity(
+                0,
+                line.getItemId(),
+                line.getItemName(),
+                Double.valueOf(line.getCount()),
+                line.getSalesNumber(),
+                "",
+                counterpartyId,
+                ""
         );
     }
 }

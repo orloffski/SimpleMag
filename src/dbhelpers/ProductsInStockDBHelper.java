@@ -82,29 +82,21 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
         return counts;
     }
 
-    public static ProductsInStockEntity fullFindLines(SessionFactory sessFact, int itemId, int counerpartyId, String expireDate){
+    public static double getCount(SessionFactory sessFact, int itemId){
         Session session = sessFact.openSession();
         Transaction tr = session.beginTransaction();
         StringBuilder queryString = new StringBuilder();
 
-        queryString.append("FROM ProductsInStockEntity WHERE itemId =").append(itemId);
-        if(counerpartyId != -1)
-            queryString.append(" AND counterpartyId =").append(counerpartyId);
-        if(!expireDate.equalsIgnoreCase(""))
-            queryString.append(" AND expireDate =").append(expireDate);
-        queryString.append(" ORDER BY id DESC");
+        queryString.append("SELECT SUM(itemsCount) FROM ProductsInStockEntity WHERE itemId =").append(itemId);
 
         Query query = session.createQuery(queryString.toString());
 
-        List<ProductsInStockEntity> list = query.list();
+        double counts = (double)query.list().get(0);
 
         tr.commit();
         session.close();
 
-        if(list.size() > 0)
-            return list.get(0);
-
-        return null;
+        return counts;
     }
 
     // получение товаров поставщика на складе
@@ -131,5 +123,23 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
             return items;
 
         return null;
+    }
+
+    public static int getFirstCounterpartyByItemId(SessionFactory sessFact, int itemId){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+        StringBuilder queryString = new StringBuilder();
+
+        queryString.append("FROM ProductsInStockEntity WHERE itemId =").append(itemId);
+
+        Query query = session.createQuery(queryString.toString());
+
+        List<ProductsInStockEntity> list = query.list();
+        int count = list.get(0).getCounterpartyId();
+
+        tr.commit();
+        session.close();
+
+        return count;
     }
 }

@@ -175,10 +175,7 @@ public class AddEditSaleViewController extends AbstractController {
         // проверка наличия товара на складе в нужном количестве
         if(saleType.equalsIgnoreCase("покупка")){
             for(SalesLine salesLine : salesLinedata){
-                int count = 0;
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
-                for(ProductsInStockEntity line : inStockLines)
-                    count += line.getItemsCount();
+                double count = ProductsInStockDBHelper.getCount(sessFact, salesLine.getItemId());
 
                 if(count < salesLine.getCount()){
                     MessagesUtils.showAlert("Ошибка проведения операции",
@@ -190,27 +187,15 @@ public class AddEditSaleViewController extends AbstractController {
 
             // списание товара со склада
             for(SalesLine salesLine : salesLinedata){
-                int count = salesLine.getCount();
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
-                for(ProductsInStockEntity line : inStockLines){
-                    if(count > line.getItemsCount()){
-                        count -= line.getItemsCount();
-                        ProductsInStockDBHelper.deleteEntity(sessFact, line);
-                    }else{
-                        line.setItemsCount(line.getItemsCount() - count);
-                        ProductsInStockDBHelper.updateEntity(sessFact, line);
-                        break;
-                    }
-                }
+                ProductsInStockEntity productsInStockEntity = ProductsInStockEntity.createProductsInStockEntityFromSalesLine(salesLine, sessFact);
+                productsInStockEntity.setItemsCount(productsInStockEntity.getItemsCount() * -1);
+                ProductsInStockDBHelper.saveEntity(sessFact, productsInStockEntity);
             }
         }else if(saleType.equalsIgnoreCase("возврат")){
             // запись товара на склад
             for(SalesLine salesLine : salesLinedata){
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, salesLine.getItemId(), salesLine.getCounterpartyId(), "");
-                ProductsInStockEntity line = inStockLines.get(0);
-
-                line.setItemsCount(line.getItemsCount() + salesLine.getCount());
-                ProductsInStockDBHelper.updateEntity(sessFact, line);
+                ProductsInStockEntity productsInStockEntity = ProductsInStockEntity.createProductsInStockEntityFromSalesLine(salesLine, sessFact);
+                ProductsInStockDBHelper.saveEntity(sessFact, productsInStockEntity);
             }
         }
         return true;

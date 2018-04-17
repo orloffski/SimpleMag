@@ -86,7 +86,12 @@ public class SalesViewController extends AbstractController{
         if(header != null){
             if(SettingsEngine.getInstance().getSettings().productsInStockEnabled &&
                     SettingsEngine.getInstance().getSettings().sellsFromStock){
-                checkItems(header);
+                if(checkItems(header)){
+                    ProductsInStockDBHelper.deleteByInvoiceNumber(sessFact, header.getSalesNumber());
+
+                    SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, header.getSalesNumber());
+                    SalesHeaderDBHelper.deleteHeaderById(sessFact, header.getId());
+                }
             }else{
                 String saleNumber = header.getSalesNumber();
                 int id = header.getId();
@@ -106,49 +111,17 @@ public class SalesViewController extends AbstractController{
         if(salesHeader.getSalesType().equalsIgnoreCase("возврат")){
             // проверка наличия товара на складе в нужном количестве
             List<SalesLineEntity> salesLines = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
-            for(SalesLineEntity line : salesLines){
-                int count = 0;
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
-                for(ProductsInStockEntity stockLine : inStockLines)
-                    count += stockLine.getItemsCount();
+            for(SalesLineEntity salesLine : salesLines){
+                double count = ProductsInStockDBHelper.getCount(sessFact, salesLine.getItemId());
 
-                if(count < line.getCount()){
+                if(count < salesLine.getCount()){
                     MessagesUtils.showAlert("Ошибка проведения операции",
                             "Проведение операции невозможно, товар для операции отсутствует в остатках на складе");
 
                     return false;
                 }
             }
-
-            // списание товара со склада
-            for(SalesLineEntity line : salesLines){
-                int count = line.getCount();
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
-                for(ProductsInStockEntity stockLine : inStockLines){
-                    if(count > stockLine.getItemsCount()){
-                        count -= stockLine.getItemsCount();
-                        ProductsInStockDBHelper.deleteEntity(sessFact, stockLine);
-                    }else{
-                        stockLine.setItemsCount(stockLine.getItemsCount() - count);
-                        ProductsInStockDBHelper.updateEntity(sessFact, stockLine);
-                        break;
-                    }
-                }
-            }
-        }else if(salesHeader.getSalesType().equalsIgnoreCase("покупка")){
-            // вернуть строки на склад
-            List<SalesLineEntity> salesLines = SalesLinesDBHelper.getLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
-            for(SalesLineEntity line : salesLines){
-                List<ProductsInStockEntity> inStockLines = ProductsInStockDBHelper.findItemCountFromCounterparty(sessFact, line.getItemId(), line.getCounterpartyId(), "");
-                ProductsInStockEntity inStockLine = inStockLines.get(0);
-
-                inStockLine.setItemsCount(inStockLine.getItemsCount() + line.getCount());
-                ProductsInStockDBHelper.updateEntity(sessFact, inStockLine);
-            }
         }
-
-        SalesLinesDBHelper.deleteLinesBySalesNumber(sessFact, salesHeader.getSalesNumber());
-        SalesHeaderDBHelper.deleteHeaderById(sessFact, salesHeader.getId());
 
         return true;
     }
