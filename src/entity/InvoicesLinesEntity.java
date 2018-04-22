@@ -13,7 +13,7 @@ public class InvoicesLinesEntity {
     private int itemId;
     private Double vendorPrice;
     private Double vat;
-    private Byte extraPrice;
+    private Double extraPrice;
     private Double retailPrice;
     private String itemName;
     private Double count;
@@ -24,7 +24,7 @@ public class InvoicesLinesEntity {
     public InvoicesLinesEntity() {
     }
 
-    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Double vat, Byte extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summInclVat, String expireDate) {
+    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Double vat, Double extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summInclVat, String expireDate) {
         this.id = id;
         this.lineNumber = lineNumber;
         this.invoiceNumber = invoiceNumber;
@@ -103,11 +103,11 @@ public class InvoicesLinesEntity {
 
     @Basic
     @Column(name = "extra_price", nullable = true)
-    public Byte getExtraPrice() {
+    public Double getExtraPrice() {
         return extraPrice;
     }
 
-    public void setExtraPrice(Byte extraPrice) {
+    public void setExtraPrice(Double extraPrice) {
         this.extraPrice = extraPrice;
     }
 
@@ -227,7 +227,7 @@ public class InvoicesLinesEntity {
                 line.getItemId(),
                 line.getVendorPrice(),
                 line.getVat(),
-                (byte)line.getExtraPrice(),
+                line.getExtraPrice(),
                 line.getRetailPrice(),
                 line.getItemName(),
                 line.getCount(),

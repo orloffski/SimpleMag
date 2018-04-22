@@ -14,7 +14,7 @@ public class InvoiceLine {
 	private final IntegerProperty lineNumber;
 	private final IntegerProperty itemId;
 	private final DoubleProperty vat;
-	private final IntegerProperty extraPrice;
+	private final DoubleProperty extraPrice;
 	private final StringProperty invoiceNumber;
 	private final StringProperty itemName;
 	private final DoubleProperty vendorPrice;
@@ -28,12 +28,12 @@ public class InvoiceLine {
 		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Double vat, Integer extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summIncludeVat, String expareDate) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Double vat, Double extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summIncludeVat, String expareDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
 		this.vat = new SimpleDoubleProperty(vat);
-		this.extraPrice = new SimpleIntegerProperty(extraPrice);
+		this.extraPrice = new SimpleDoubleProperty(extraPrice);
 		this.invoiceNumber = new SimpleStringProperty(invoiceNumber);
 		this.itemName = new SimpleStringProperty(itemName);
 		this.vendorPrice = new SimpleDoubleProperty(vendorPrice);
@@ -128,15 +128,15 @@ public class InvoiceLine {
         return vat;
     }
     
-    public int getExtraPrice() {
+    public Double getExtraPrice() {
         return extraPrice.get();
     }
 
-    public void setExtraPrice(int extraPrice) {
+    public void setExtraPrice(double extraPrice) {
         this.extraPrice.set(extraPrice);
     }
 
-    public IntegerProperty extraPriceProperty() {
+    public DoubleProperty extraPriceProperty() {
         return extraPrice;
     }
     
@@ -208,7 +208,7 @@ public class InvoiceLine {
                 line.getItemId(),
                 line.getVendorPrice(),
                 line.getVat().doubleValue(),
-                line.getExtraPrice().intValue(),
+                line.getExtraPrice(),
                 line.getRetailPrice(),
                 line.getItemName(),
                 line.getCount(),
