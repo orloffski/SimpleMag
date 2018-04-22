@@ -102,6 +102,9 @@ public class BarcodeItemsFromStockViewController {
                         == null ? "0.0" :
                         PricesDBHelper.getLastPriceByItemId(HibernateUtil.getSessionFactory(), rs.getInt("item_id")).getPrice();
 
+                if(rs.getDouble("items_count") == 0.d)
+                    continue;
+
                 BarcodeItemsFromStock item = new BarcodeItemsFromStock(
                         rs.getString("barcode"),
                         rs.getString("item_name"),
