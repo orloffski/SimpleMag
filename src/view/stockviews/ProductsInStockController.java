@@ -76,6 +76,11 @@ public class ProductsInStockController {
                     invoice.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString()))
                 productsInStockEntity.setItemsCount(productsInStockEntity.getItemsCount() * -1);
 
+            // для перемещений подменяем поставщика
+            if(invoice.getType().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString()))
+                productsInStockEntity.setCounterpartyId(ProductsInStockDBHelper.getFirstCounterpartyByItemId(sessFact, line.getItemId()));
+
+
             ProductsInStockDBHelper.saveEntity(sessFact, productsInStockEntity);
         }
     }
