@@ -2,17 +2,17 @@ package view.stockviews;
 
 import application.DBClass;
 import dbhelpers.PricesDBHelper;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.BarcodeItemsFromStock;
-import model.BarcodesItems;
-import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 import utils.SelectedObject;
 
@@ -40,7 +40,7 @@ public class BarcodeItemsFromStockViewController {
     private TableColumn<BarcodeItemsFromStock, String> itemNameColumn;
 
     @FXML
-    private TableColumn<BarcodeItemsFromStock, Number> itemCountColumn;
+    private TableColumn<BarcodeItemsFromStock, Double> itemCountColumn;
 
     @FXML
     private TableColumn<BarcodeItemsFromStock, String> expireDateColumn;
@@ -105,7 +105,7 @@ public class BarcodeItemsFromStockViewController {
                 BarcodeItemsFromStock item = new BarcodeItemsFromStock(
                         rs.getString("barcode"),
                         rs.getString("item_name"),
-                        rs.getInt("items_count"),
+                        rs.getDouble("items_count"),
                         rs.getString("expire_date"),
                         rs.getString("invoice_number"),
                         rs.getInt("item_id"),
@@ -171,7 +171,7 @@ public class BarcodeItemsFromStockViewController {
 
         barcodeColumn.setCellValueFactory(cellData -> cellData.getValue().barcodeProperty());
         itemNameColumn.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
-        itemCountColumn.setCellValueFactory(cellData -> cellData.getValue().itemCountProperty());
+        itemCountColumn.setCellValueFactory(cellData -> cellData.getValue().itemCountProperty().asObject());
         expireDateColumn.setCellValueFactory(cellData -> cellData.getValue().expireDateProperty());
         invoiceNumColumn.setCellValueFactory(cellData -> cellData.getValue().invoiceNumProperty());
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());

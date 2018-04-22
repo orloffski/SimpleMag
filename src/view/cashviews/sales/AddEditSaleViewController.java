@@ -221,7 +221,7 @@ public class AddEditSaleViewController extends AbstractController {
             if(itemId != -1) {
                 ItemsEntity itemsEntity = ItemsDBHelper.getItemsEntityById(sessFact, itemId);
                 String price = PricesDBHelper.getLastPriceByItemId(sessFact, itemId).getPrice();
-                product = new BarcodeItemsFromStock("", itemsEntity.getName(), 0, "", "", itemId, price);
+                product = new BarcodeItemsFromStock("", itemsEntity.getName(), 0d, "", "", itemId, price);
             }
         }
 

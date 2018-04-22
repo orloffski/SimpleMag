@@ -1,15 +1,12 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class BarcodeItemsFromStock {
 
     private final StringProperty barcode;
     private final StringProperty itemName;
-    private final IntegerProperty itemCount;
+    private final DoubleProperty itemCount;
     private final StringProperty expireDate;
     private final StringProperty invoiceNum;
     private final StringProperty price;
@@ -19,10 +16,10 @@ public class BarcodeItemsFromStock {
         this(null, null, null, null, null, null, null);
     }
 
-    public BarcodeItemsFromStock(String barcode, String itemName, Integer itemCount, String expireDate, String invoiceNum, Integer itemId, String price) {
+    public BarcodeItemsFromStock(String barcode, String itemName, Double itemCount, String expireDate, String invoiceNum, Integer itemId, String price) {
         this.barcode = new SimpleStringProperty(barcode);
         this.itemName = new SimpleStringProperty(itemName);
-        this.itemCount = new SimpleIntegerProperty(itemCount);
+        this.itemCount = new SimpleDoubleProperty(itemCount);
         this.expireDate = new SimpleStringProperty(expireDate);
         this.invoiceNum = new SimpleStringProperty(invoiceNum);
         this.itemId = new SimpleIntegerProperty(itemId);
@@ -53,11 +50,11 @@ public class BarcodeItemsFromStock {
         this.itemName.set(itemName);
     }
 
-    public int getItemCount() {
+    public Double getItemCount() {
         return itemCount.get();
     }
 
-    public IntegerProperty itemCountProperty() {
+    public DoubleProperty itemCountProperty() {
         return itemCount;
     }
 
