@@ -121,7 +121,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	private TableColumn<InvoiceLine, Number> vendorSummInclVat;
 	
 	@FXML
-    private TableColumn<InvoiceLine, Number> vat;
+    private TableColumn<InvoiceLine, Double> vat;
 	
 	@FXML
     private TableColumn<InvoiceLine, Number> extraPrice;
@@ -206,7 +206,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			InvoicesLinesEntity linesEntity = InvoicesLineDBHelper.getLastInvoiceLineByItemId(sessFact, product.getItemId(), headersEntities);
 
 			double vendorPrice = linesEntity == null ? 0d : linesEntity.getVendorPrice();
-			byte vat = linesEntity == null ? 0 : linesEntity.getVat();
+			double vat = linesEntity == null ? 0 : linesEntity.getVat();
 			byte extraPrice = linesEntity == null ? 40 : linesEntity.getExtraPrice();
 
 			lineEntity = new InvoicesLinesEntity(
@@ -230,7 +230,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			itemId = getNewItemFromBarcode();
 
 			double vendorPrice = 0d;
-			byte vat = 20;
+			double vat = 20;
 			byte extraPrice = 40;
 
 			if(type.getValue().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
@@ -525,12 +525,12 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		vendorSummInclVat.setCellValueFactory(cellData -> cellData.getValue().summIncludeVatProperty());
 
-		vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty());
-		vat.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		vat.setCellValueFactory(cellData -> cellData.getValue().vatProperty().asObject());
+		vat.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		vat.setOnEditCommit(t -> updateInvoiceLine(
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getCount(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
-				t.getNewValue().intValue(),
+				t.getNewValue().doubleValue(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExpireDate()));
@@ -574,7 +574,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		}
 	}
 
-	private void updateInvoiceLine(double count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine, String expireDate){
+	private void updateInvoiceLine(double count, double vendorPrice, double vat, int extraPrice, InvoiceLine oldLine, String expireDate){
 		if(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
@@ -669,7 +669,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 						line.getInvoiceNumber(),
 						line.getItemId(),
 						line.getVendorPrice(),
-						(byte)line.getVat(),
+						line.getVat(),
 						(byte)line.getExtraPrice(),
 						line.getRetailPrice(),
 						line.getItemName(),
@@ -758,7 +758,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 					invoicesLinesItem.getInvoiceNumber(),
 					invoicesLinesItem.getItemId(),
 					invoicesLinesItem.getVendorPrice(),
-					invoicesLinesItem.getVat().intValue(),
+					invoicesLinesItem.getVat(),
 					invoicesLinesItem.getExtraPrice().intValue(),
 					invoicesLinesItem.getRetailPrice(),
 					invoicesLinesItem.getItemName(),

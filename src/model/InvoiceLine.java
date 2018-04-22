@@ -13,7 +13,7 @@ public class InvoiceLine {
 	private final IntegerProperty id;
 	private final IntegerProperty lineNumber;
 	private final IntegerProperty itemId;
-	private final IntegerProperty vat;
+	private final DoubleProperty vat;
 	private final IntegerProperty extraPrice;
 	private final StringProperty invoiceNumber;
 	private final StringProperty itemName;
@@ -28,11 +28,11 @@ public class InvoiceLine {
 		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summIncludeVat, String expareDate) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Double vat, Integer extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summIncludeVat, String expareDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
-		this.vat = new SimpleIntegerProperty(vat);
+		this.vat = new SimpleDoubleProperty(vat);
 		this.extraPrice = new SimpleIntegerProperty(extraPrice);
 		this.invoiceNumber = new SimpleStringProperty(invoiceNumber);
 		this.itemName = new SimpleStringProperty(itemName);
@@ -116,15 +116,15 @@ public class InvoiceLine {
         return itemId;
     }
     
-    public int getVat() {
+    public Double getVat() {
         return vat.get();
     }
 
-    public void setVat(int vat) {
+    public void setVat(Double vat) {
         this.vat.set(vat);
     }
 
-    public IntegerProperty vatProperty() {
+    public DoubleProperty vatProperty() {
         return vat;
     }
     
@@ -207,7 +207,7 @@ public class InvoiceLine {
                 line.getInvoiceNumber(),
                 line.getItemId(),
                 line.getVendorPrice(),
-                line.getVat().intValue(),
+                line.getVat().doubleValue(),
                 line.getExtraPrice().intValue(),
                 line.getRetailPrice(),
                 line.getItemName(),
