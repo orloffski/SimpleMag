@@ -15,7 +15,7 @@ public class InvoiceHeader {
 	private final StringProperty type;
 	private final StringProperty status;
 	private final StringProperty counterparty;
-	private final IntegerProperty count;
+	private final DoubleProperty count;
 	private final DoubleProperty summ;
 	private final IntegerProperty counterpartyId;
 	private final StringProperty lastcreated;
@@ -29,13 +29,13 @@ public class InvoiceHeader {
 		this(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNo, String ttnDate) {
+	public InvoiceHeader(Integer id, String number, String type, String status, String counterparty, Double count, Double summ, Integer counterpartyId, String lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNo, String ttnDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.number = new SimpleStringProperty(number);
 		this.type = new SimpleStringProperty(type);
 		this.status = new SimpleStringProperty(status);
 		this.counterparty = new SimpleStringProperty(counterparty);
-		this.count = new SimpleIntegerProperty(count);
+		this.count = new SimpleDoubleProperty(count);
 		this.summ = new SimpleDoubleProperty(summ);
 		this.counterpartyId = new SimpleIntegerProperty(counterpartyId);
 		this.lastcreated = new SimpleStringProperty(lastcreated);
@@ -110,15 +110,15 @@ public class InvoiceHeader {
         return id;
     }
     
-    public int getCount() {
+    public double getCount() {
         return count.get();
     }
 
-    public void setCount(int count) {
+    public void setCount(double count) {
         this.count.set(count);
     }
 
-    public IntegerProperty countProperty() {
+    public DoubleProperty countProperty() {
         return count;
     }
     

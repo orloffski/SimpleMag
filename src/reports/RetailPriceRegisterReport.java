@@ -82,7 +82,7 @@ public class RetailPriceRegisterReport extends AbstractReport implements Runnabl
         List<InvoicesLinesEntity> lines = InvoicesLineDBHelper.getLinesByInvoiceNumber(sessFact, header.getNumber());
 
         for(InvoicesLinesEntity docLine : lines){
-            int countItems = docLine.getCount();
+            double countItems = docLine.getCount();
 
             RowCopy.copyRow(s, sourceRowNo, sourceRowNo + 1);
 

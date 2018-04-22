@@ -16,7 +16,7 @@ public class InvoicesLinesEntity {
     private Byte extraPrice;
     private Double retailPrice;
     private String itemName;
-    private Integer count;
+    private Double count;
     private Double summVat;
     private Double summInclVat;
     private String expireDate;
@@ -24,7 +24,7 @@ public class InvoicesLinesEntity {
     public InvoicesLinesEntity() {
     }
 
-    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Byte vat, Byte extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summInclVat, String expireDate) {
+    public InvoicesLinesEntity(int id, Integer lineNumber, String invoiceNumber, int itemId, Double vendorPrice, Byte vat, Byte extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summInclVat, String expireDate) {
         this.id = id;
         this.lineNumber = lineNumber;
         this.invoiceNumber = invoiceNumber;
@@ -133,11 +133,11 @@ public class InvoicesLinesEntity {
 
     @Basic
     @Column(name = "count", nullable = true)
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 

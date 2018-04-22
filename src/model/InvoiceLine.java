@@ -19,7 +19,7 @@ public class InvoiceLine {
 	private final StringProperty itemName;
 	private final DoubleProperty vendorPrice;
 	private final DoubleProperty retailPrice;
-	private final IntegerProperty count;
+	private final DoubleProperty count;
 	private final DoubleProperty summVat;
 	private final DoubleProperty summIncludeVat;
     private final StringProperty expireDate;
@@ -28,7 +28,7 @@ public class InvoiceLine {
 		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Integer count, Double summVat, Double summIncludeVat, String expareDate) {
+	public InvoiceLine(Integer id, Integer lineNumber, String invoiceNumber, Integer itemId, Double vendorPrice, Integer vat, Integer extraPrice, Double retailPrice, String itemName, Double count, Double summVat, Double summIncludeVat, String expareDate) {
 		this.id = new SimpleIntegerProperty(id);
 		this.lineNumber = new SimpleIntegerProperty(lineNumber);
 		this.itemId = new SimpleIntegerProperty(itemId);
@@ -38,7 +38,7 @@ public class InvoiceLine {
 		this.itemName = new SimpleStringProperty(itemName);
 		this.vendorPrice = new SimpleDoubleProperty(vendorPrice);
 		this.retailPrice = new SimpleDoubleProperty(retailPrice);
-		this.count = new SimpleIntegerProperty(count);
+		this.count = new SimpleDoubleProperty(count);
 		this.summVat = new SimpleDoubleProperty(summVat);
 		this.summIncludeVat = new SimpleDoubleProperty(summIncludeVat);
 		this.expireDate = new SimpleStringProperty(expareDate);
@@ -68,15 +68,15 @@ public class InvoiceLine {
         this.summVat.set(summVat);
     }
 
-    public int getCount() {
+    public double getCount() {
         return count.get();
     }
 
-    public void setCount(int count) {
+    public void setCount(double count) {
         this.count.set(count);
     }
 
-    public IntegerProperty countProperty() {
+    public DoubleProperty countProperty() {
         return count;
     }
     

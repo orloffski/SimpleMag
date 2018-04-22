@@ -11,7 +11,7 @@ public class InvoicesHeadersEntity {
     private String type;
     private String status;
     private String counterparty;
-    private Integer count;
+    private Double count;
     private Double summ;
     private Integer counterpartyId;
     private Timestamp lastcreated;
@@ -24,7 +24,7 @@ public class InvoicesHeadersEntity {
     public InvoicesHeadersEntity() {
     }
 
-    public InvoicesHeadersEntity(int id, String number, String type, String status, String counterparty, Integer count, Double summ, Integer counterpartyId, Timestamp lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNumber, String ttnDate) {
+    public InvoicesHeadersEntity(int id, String number, String type, String status, String counterparty, Double count, Double summ, Integer counterpartyId, Timestamp lastcreated, Integer recipientId, String recipientName, Double fullSumm, String ttnNumber, String ttnDate) {
         this.id = id;
         this.number = number;
         this.type = type;
@@ -94,11 +94,11 @@ public class InvoicesHeadersEntity {
 
     @Basic
     @Column(name = "count", nullable = true)
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 

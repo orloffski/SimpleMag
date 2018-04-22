@@ -109,7 +109,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
     private TableColumn<InvoiceLine, String> itemName;
 	
 	@FXML
-    private TableColumn<InvoiceLine, Number> itemCount;
+    private TableColumn<InvoiceLine, Double> itemCount;
 	
 	@FXML
     private TableColumn<InvoiceLine, Double> vendorPrice;
@@ -219,7 +219,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 					extraPrice,
 					0d,
 					product.getItemName(),
-					0,
+					0d,
 					0d,
 					0d,
 					""
@@ -263,7 +263,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 							extraPrice,
 							0d,
 							item.getName(),
-							0,
+							0d,
 							0d,
 							0d,
 							""
@@ -501,10 +501,10 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 		itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
 
-		itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty());
-		itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		itemCount.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
+		itemCount.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		itemCount.setOnEditCommit(t -> updateInvoiceLine(
-				t.getNewValue().intValue(),
+				t.getNewValue().doubleValue(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVendorPrice(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getVat(),
 				invoiceLinesTable.getSelectionModel().getSelectedItem().getExtraPrice(),
@@ -574,7 +574,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		}
 	}
 
-	private void updateInvoiceLine(int count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine, String expireDate){
+	private void updateInvoiceLine(double count, double vendorPrice, int vat, int extraPrice, InvoiceLine oldLine, String expireDate){
 		if(invoice.getStatus().equalsIgnoreCase(StatusTypes.ENTERED.toString())){
 			MessagesUtils.showAlert("Ошибка редактирования",
 					"Ошибка редактирования документа, для редактирования отмените проведение");
@@ -582,7 +582,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			return;
 		}
 
-		int oldCount = oldLine.getCount();
+		double oldCount = oldLine.getCount();
 		double oldVendorPrice = oldLine.getVendorPrice();
 		double oldVatSumm = oldLine.getSummVat();
 		double oldSummInclVat = oldLine.getSummIncludeVat();
@@ -622,7 +622,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		updateForm(
 				Double.parseDouble(this.summIncludeVat.getText()) - oldSummInclVat + oldLine.getSummIncludeVat(),
 				Double.parseDouble(this.summVat.getText()) - oldVatSumm + oldLine.getSummVat(),
-				Integer.parseInt(this.count.getText()) - oldCount + oldLine.getCount(),
+				Double.parseDouble(this.count.getText()) - oldCount + oldLine.getCount(),
 				invoice.getSumm(),
 				invoice.getFullSumm()
 		);
@@ -681,7 +681,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 	
 	private void loadInvoiceLines(String invoiceNumber) {
 		InvoiceLineData = FXCollections.observableArrayList();
-		int itemsCount = 0;
+		double itemsCount = 0;
 		double itemsSumm = 0;
 		double summVat = 0;
 		double summIncludeVat = 0;
@@ -738,7 +738,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
         return okClicked;
     }
 
-    private void updateForm(double summIncludeVat, double summVat, int itemsCount, double itemsSumm, double fullDocSumm){
+    private void updateForm(double summIncludeVat, double summVat, double itemsCount, double itemsSumm, double fullDocSumm){
 		this.summIncludeVat.setText(String.format( "%.2f", summIncludeVat ).replace(",","."));
 		this.summVat.setText(String.format( "%.2f", summVat ).replace(",","."));
 		this.count.setText(String.valueOf(itemsCount));
@@ -803,7 +803,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 				type.getValue(),
 				status.getText(),
 				counterparty.getValue(),
-				count.getText().equals("") ? 0 : Integer.parseInt(count.getText()),
+				count.getText().equals("") ? 0 : Double.parseDouble(count.getText()),
 				summ.getText().equals("") ? 0 : Double.parseDouble(summ.getText()),
 				Counterparties.getCounterpartyIdByName(counterparties, counterparty.getValue()),
 				String.valueOf(new Timestamp(new Date().getTime())),
