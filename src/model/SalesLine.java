@@ -9,7 +9,7 @@ public class SalesLine {
     private final StringProperty salesNumber;
     private final IntegerProperty itemId;
     private final StringProperty itemName;
-    private final IntegerProperty count;
+    private final DoubleProperty count;
     private final DoubleProperty itemPrice;
     private final DoubleProperty linePrice;
     private final IntegerProperty counterpartyId;
@@ -18,12 +18,12 @@ public class SalesLine {
         this(null, null, null, null, null, null, null, null);
     }
 
-    public SalesLine(Integer id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double linePrice, Integer counterpartyId){
+    public SalesLine(Integer id, String salesNumber, Integer itemId, String itemName, Double count, Double itemPrice, Double linePrice, Integer counterpartyId){
         this.id = new SimpleIntegerProperty(id);
         this.salesNumber = new SimpleStringProperty(salesNumber);
         this.itemId = new SimpleIntegerProperty(itemId);
         this.itemName = new SimpleStringProperty(itemName);
-        this.count = new SimpleIntegerProperty(count);
+        this.count = new SimpleDoubleProperty(count);
         this.itemPrice = new SimpleDoubleProperty(itemPrice);
         this.linePrice = new SimpleDoubleProperty(linePrice);
         this.counterpartyId = new SimpleIntegerProperty(counterpartyId);
@@ -90,15 +90,15 @@ public class SalesLine {
         this.itemName.set(itemName);
     }
 
-    public int getCount() {
+    public Double getCount() {
         return count.get();
     }
 
-    public IntegerProperty countProperty() {
+    public DoubleProperty countProperty() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(double count) {
         this.count.set(count);
     }
 

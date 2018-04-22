@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import model.*;
 import utils.MessagesUtils;
@@ -68,7 +69,7 @@ public class AddEditSaleViewController extends AbstractController {
     private TableColumn<SalesLine, String> itemName;
 
     @FXML
-    private TableColumn<SalesLine, Integer> count;
+    private TableColumn<SalesLine, Double> count;
 
     @FXML
     private TableColumn<SalesLine, Double> itemPrice;
@@ -239,7 +240,7 @@ public class AddEditSaleViewController extends AbstractController {
                         checkNumber.getText(),
                         product.getItemId(),
                         product.getItemName(),
-                        1,
+                        1d,
                         itemPrice,
                         1 * itemPrice,
                         0
@@ -251,7 +252,7 @@ public class AddEditSaleViewController extends AbstractController {
                         checkNumber.getText(),
                         product.getItemId(),
                         product.getItemName(),
-                        1,
+                        1d,
                         itemPrice,
                         1 * itemPrice,
                         counterpartyId
@@ -379,9 +380,9 @@ public class AddEditSaleViewController extends AbstractController {
         itemName.setCellValueFactory(cellData -> cellData.getValue().itemNameProperty());
 
         count.setCellValueFactory(cellData -> cellData.getValue().countProperty().asObject());
-        count.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        count.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         count.setOnEditCommit(t -> updateLine(
-                t.getNewValue().intValue()));
+                t.getNewValue().doubleValue()));
 
         itemPrice.setCellValueFactory(cellData -> cellData.getValue().itemPriceProperty().asObject());
         linePrice.setCellValueFactory(cellData -> cellData.getValue().linePriceProperty().asObject());
@@ -510,7 +511,7 @@ public class AddEditSaleViewController extends AbstractController {
         initTable();
     }
 
-    private void updateLine(int newCount){
+    private void updateLine(double newCount){
         SalesLine line = salesLineTable.getSelectionModel().getSelectedItem();
         Double oldLinePrice = line.getLinePrice();
         line.setLinePrice(NumberUtils.round(newCount * line.getItemPrice()));

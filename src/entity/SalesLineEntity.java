@@ -11,7 +11,7 @@ public class SalesLineEntity {
     private String salesNumber;
     private Integer itemId;
     private String itemName;
-    private Integer count;
+    private Double count;
     private Double itemPrice;
     private Double fullLinePrice;
     private Integer counterpartyId;
@@ -19,7 +19,7 @@ public class SalesLineEntity {
     public SalesLineEntity() {
     }
 
-    public SalesLineEntity(int id, String salesNumber, Integer itemId, String itemName, Integer count, Double itemPrice, Double fullLinePrice, Integer counterpartyId) {
+    public SalesLineEntity(int id, String salesNumber, Integer itemId, String itemName, Double count, Double itemPrice, Double fullLinePrice, Integer counterpartyId) {
         this.id = id;
         this.salesNumber = salesNumber;
         this.itemId = itemId;
@@ -73,11 +73,11 @@ public class SalesLineEntity {
 
     @Basic
     @Column(name = "count", nullable = true)
-    public Integer getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 
