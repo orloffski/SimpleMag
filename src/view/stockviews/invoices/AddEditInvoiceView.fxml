@@ -155,6 +155,26 @@
                   <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </DatePicker>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <children>
+                  <ComboBox fx:id="extraPriceVariants" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Торговая надбавка">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <children>
+                  <ComboBox fx:id="vatVariants" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="НДС">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </top>

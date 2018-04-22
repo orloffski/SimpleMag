@@ -4,5 +4,7 @@
         <productsInStockEnabled>true</productsInStockEnabled>
         <invoicesFromStock>true</invoicesFromStock>
         <sellsFromStock>true</sellsFromStock>
+        <autoVat>true</autoVat>
+        <autoExtraPrice>true</autoExtraPrice>
     </products_in_stock>
 </main_app_settings>

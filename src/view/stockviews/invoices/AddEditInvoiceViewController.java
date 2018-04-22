@@ -22,7 +22,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
 import modes.AddEditMode;
@@ -41,7 +40,7 @@ import view.stockviews.BarcodeItemsViewController;
 import view.stockviews.ProductsInStockController;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -65,6 +64,12 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
 	@FXML
     private TextField number;
+
+	@FXML
+	private ComboBox<Integer> vatVariants;
+
+	@FXML
+	private ComboBox<Integer> extraPriceVariants;
 	
 	@FXML
 	private ComboBox<String> type;
@@ -156,6 +161,7 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 		documentSet.setText(status.getText().equalsIgnoreCase(StatusTypes.ENTERED.toString())?"отмена проведения":"проведение");
 
 		getPrintForms();
+		loadAutoElements();
 	}
 
 	private void getPrintForms(){
@@ -180,6 +186,30 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 
             print.getSelectionModel().select(0);
         });
+	}
+
+	private void loadAutoElements(){
+		ObservableList<Integer> vats = FXCollections.observableArrayList();
+		ObservableList<Integer> extraPrices = FXCollections.observableArrayList();
+
+		for(int i = 0; i <= 100; i+=5){
+			vats.add(i);
+			extraPrices.add(i);
+		}
+
+		vatVariants.setItems(vats);
+		extraPriceVariants.setItems(extraPrices);
+
+		// включаем или отключаем элементы в зависимости от настроек
+		if(SettingsEngine.getInstance().getSettings().autoVat)
+			vatVariants.setDisable(false);
+		else
+			vatVariants.setDisable(true);
+
+		if(SettingsEngine.getInstance().getSettings().autoExtraPrice)
+			extraPriceVariants.setDisable(false);
+		else
+			extraPriceVariants.setDisable(true);
 	}
 
 	@FXML
@@ -232,6 +262,14 @@ public class AddEditInvoiceViewController extends AbstractController implements 
 			double vendorPrice = 0d;
 			double vat = 20;
 			double extraPrice = 40;
+
+			// если не выбран пункт - вернется индекс -1
+			if(SettingsEngine.getInstance().getSettings().autoVat)
+				if(vatVariants.getSelectionModel().getSelectedIndex() != -1)
+					vat = vatVariants.getSelectionModel().getSelectedItem();
+			if(SettingsEngine.getInstance().getSettings().autoExtraPrice)
+				if(extraPriceVariants.getSelectionModel().getSelectedIndex() != -1)
+					extraPrice = extraPriceVariants.getSelectionModel().getSelectedItem();
 
 			if(type.getValue().equalsIgnoreCase(InvoicesTypes.DELIVERY.toString())) {
 				List<InvoicesHeadersEntity> headersEntities = InvoicesHeaderDBHelper.getHeaders(sessFact);

@@ -18,6 +18,12 @@ public class ProductsInStockSettingsController extends AbstractController {
     private CheckBox sellsFromStock;
 
     @FXML
+    private CheckBox autoVat;
+
+    @FXML
+    private CheckBox autoExtraPrice;
+
+    @FXML
     public void initialize(){
         loadSettings(SettingsEngine.getInstance().getSettings());
         openSettings(productsInStock.isSelected());
@@ -40,6 +46,16 @@ public class ProductsInStockSettingsController extends AbstractController {
         SettingsEngine.getInstance().getSettings().sellsFromStock = sellsFromStock.isSelected();
     }
 
+    @FXML
+    private void setAutoVat(){
+        SettingsEngine.getInstance().getSettings().autoVat = autoVat.isSelected();
+    }
+
+    @FXML
+    private void setAutoExtraPrice(){
+        SettingsEngine.getInstance().getSettings().autoExtraPrice = autoExtraPrice.isSelected();
+    }
+
     @Override
     protected void clearForm() {
 
@@ -49,6 +65,8 @@ public class ProductsInStockSettingsController extends AbstractController {
         productsInStock.setSelected(settings.productsInStockEnabled);
         invoiceFromStock.setSelected(settings.invoicesFromStock);
         sellsFromStock.setSelected(settings.sellsFromStock);
+        autoVat.setSelected(settings.autoVat);
+        autoExtraPrice.setSelected(settings.autoExtraPrice);
     }
 
     private void openSettings(boolean isProductsInStockEnabled){

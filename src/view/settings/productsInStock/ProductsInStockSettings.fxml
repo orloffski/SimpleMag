@@ -25,6 +25,12 @@
                         </CheckBox>
                         <CheckBox fx:id="invoiceFromStock" mnemonicParsing="false" onAction="#setInvoicesFromStock" text="Включить выбор товаров в накладные из остатков склада" />
                         <CheckBox fx:id="sellsFromStock" mnemonicParsing="false" onAction="#setSellsFromStock" text="Включить выбор товара при продажах из остатков склада" />
+                        <CheckBox fx:id="autoVat" mnemonicParsing="false" onAction="#setAutoVat" text="Включить автозаполнение НДС">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <CheckBox fx:id="autoExtraPrice" mnemonicParsing="false" onAction="#setAutoExtraPrice" text="Включить автозаполнение торговой надбавки" />
                      </children>
                   </VBox>
                </children>
