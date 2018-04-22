@@ -123,6 +123,10 @@ public class ItemsInStockReport implements Runnable{
 
         // body
         for(ItemsCount item : items){
+
+            if(item.getItemCount() == 0.d)
+                continue;
+
             rownum++;
             row = sheet.createRow(rownum);
 

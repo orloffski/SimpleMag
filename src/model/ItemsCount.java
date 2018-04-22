@@ -2,15 +2,15 @@ package model;
 
 public class ItemsCount {
     private int itemId;
-    private int itemCount;
+    private double itemCount;
     private double vendor_price;
     private String itemName;
 
-    public ItemsCount(int id, int count){
+    public ItemsCount(int id, double count){
         this(id, count, -1, "");
     }
 
-    public ItemsCount(int id, int count, double vendor_price, String itemName){
+    public ItemsCount(int id, double count, double vendor_price, String itemName){
         this.itemId = id;
         this.itemCount = count;
         this.vendor_price = vendor_price;
@@ -25,11 +25,11 @@ public class ItemsCount {
         this.itemId = itemId;
     }
 
-    public int getItemCount() {
+    public double getItemCount() {
         return itemCount;
     }
 
-    public void setItemCount(int itemCount) {
+    public void setItemCount(double itemCount) {
         this.itemCount = itemCount;
     }
 

@@ -112,7 +112,7 @@ public class ProductsInStockDBHelper extends AbstractDBHelper {
                     "GROUP BY item";
             ResultSet rs = connection.createStatement().executeQuery(SQL);
             while(rs.next()){
-                items.add(new ItemsCount(rs.getInt("item"), rs.getInt("count")));
+                items.add(new ItemsCount(rs.getInt("item"), rs.getDouble("count")));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
