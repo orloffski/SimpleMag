@@ -2,7 +2,9 @@ package view;
 
 import application.Main;
 import dbhelpers.ItemsInStockDBHelper;
+import dbhelpers.SalesReportsDBHelper;
 import entity.ItemsInStockEntity;
+import entity.SalesReportsEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import model.ItemsInStock;
+import model.SalesReports;
 import reports.ItemsInStockReport;
 import utils.HibernateUtil;
 import utils.MessagesUtils;
@@ -23,6 +26,7 @@ import java.io.IOException;
 public class FinanceController extends AbstractController{
 
 	private ObservableList<ItemsInStock> ItemsInStockData;
+	private ObservableList<SalesReports> SalesReportsData;
 
 	@FXML
 	private Button checkItemsInStock;
@@ -31,10 +35,22 @@ public class FinanceController extends AbstractController{
 	private Button openItemsInStock;
 
 	@FXML
+	private Button salesReportStartBtn;
+
+	@FXML
+	private Button salesReportOpenBtn;
+
+	@FXML
 	private TableView<ItemsInStock> ItemsInStockTable;
 
 	@FXML
 	private TableColumn<ItemsInStock, String> DateColumn;
+
+	@FXML
+	private TableView<SalesReports> SalesReportsTable;
+
+	@FXML
+	private TableColumn<ItemsInStock, String> SalesReportDateColumn;
 	
 	public FinanceController() {
 	}
@@ -49,18 +65,26 @@ public class FinanceController extends AbstractController{
 
 	private void loadData(){
 		ItemsInStockData = FXCollections.observableArrayList();
+		SalesReportsData = FXCollections.observableArrayList();
 
 		for(ItemsInStockEntity itemsInStockEntity : ItemsInStockDBHelper.getAll(sessFact))
 			ItemsInStockData.add(
 					ItemsInStock.createItemsInStockFromItemsInStockEntity(itemsInStockEntity));
+
+		for(SalesReportsEntity salesReportsEntity : SalesReportsDBHelper.getAll(sessFact))
+			SalesReportsData.add(
+					SalesReports.createSalesReportsFromSalesReportsEntity(salesReportsEntity));
 	}
 
 	private void loadTableView(){
 		ItemsInStockTable.setEditable(false);
+		SalesReportsTable.setEditable(false);
 
 		DateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+		SalesReportDateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 
 		ItemsInStockTable.setItems(ItemsInStockData);
+		SalesReportsTable.setItems(SalesReportsData);
 	}
 
 	AnchorPane getRootNode() {
@@ -105,6 +129,16 @@ public class FinanceController extends AbstractController{
 		}else
 			MessagesUtils.showAlert("Ошибка открытия отчета",
 					"Для открытия отчета выберите дату отчета из списка!");
+	}
+
+	@FXML
+	private void salesReportStart(){
+
+	}
+
+	@FXML
+	private void salesReportOpen(){
+
 	}
 
 	@Override

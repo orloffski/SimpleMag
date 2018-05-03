@@ -54,9 +54,9 @@
                      </padding>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Отчеты о продажах" />
-                        <TableView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="450.0" prefWidth="150.0">
+                        <TableView fx:id="SalesReportsTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="450.0" prefWidth="150.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Дата" />
+                            <TableColumn fx:id="SalesReportDateColumn" prefWidth="75.0" text="Дата" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -65,12 +65,12 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TableView>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Рассчитать продажи">
+                        <Button fx:id="salesReportStartBtn" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#salesReportStart" text="Рассчитать продажи">
                            <VBox.margin>
                               <Insets top="15.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Открыть продажи">
+                        <Button fx:id="salesReportOpenBtn" mnemonicParsing="false" onMouseClicked="#salesReportOpen" text="Открыть продажи">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>

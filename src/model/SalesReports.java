@@ -1,17 +1,17 @@
 package model;
 
-import entity.ItemsInStockEntity;
+import entity.SalesReportsEntity;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import utils.DateUtils;
 
-public class ItemsInStock {
+public class SalesReports {
 
     private final StringProperty date;
 
-    public ItemsInStock(){this(null);}
+    public SalesReports(){this(null);}
 
-    public ItemsInStock(String date){
+    public SalesReports(String date){
         this.date = new SimpleStringProperty(date);
     }
 
@@ -27,10 +27,10 @@ public class ItemsInStock {
         return date;
     }
 
-    public static ItemsInStock createItemsInStockFromItemsInStockEntity(ItemsInStockEntity itemsInStockEntity){
-        return new ItemsInStock(
+    public static SalesReports createSalesReportsFromSalesReportsEntity(SalesReportsEntity salesReportsEntity){
+        return new SalesReports(
                 DateUtils.transformDateFromDB(
-                        itemsInStockEntity.getDate()
+                        salesReportsEntity.getDate()
                 )
         );
     }
