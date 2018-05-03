@@ -5,6 +5,8 @@ import dbhelpers.ItemsInStockDBHelper;
 import dbhelpers.SalesReportsDBHelper;
 import entity.ItemsInStockEntity;
 import entity.SalesReportsEntity;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import javafx.util.Pair;
 import model.ItemsInStock;
 import model.SalesReports;
@@ -54,11 +57,11 @@ public class FinanceController extends AbstractController{
 	private TableView<SalesReports> SalesReportsTable;
 
 	@FXML
-	private TableColumn<ItemsInStock, String> SalesReportDateColumn;
+	private TableColumn<SalesReports, String> SalesReportDateColumn;
 	
 	public FinanceController() {
 	}
-	
+
 	@FXML
 	private void initialize() {
 		getSessionData();
@@ -139,19 +142,35 @@ public class FinanceController extends AbstractController{
 				MessagesUtils.showAlert("Некорректный диапазон дат отчета", "Внимательно выберите диапазон дат для отчета");
 				return;
 			}else{
-				new SalesReport(HibernateUtil.getSessionFactory());
+				new SalesReport(HibernateUtil.getSessionFactory(), this, localDateLocalDatePair.getKey(), localDateLocalDatePair.getValue());
 			}
 		});
 	}
 
 	@FXML
 	private void salesReportOpen(){
+		SalesReports salesReports = SalesReportsTable.getSelectionModel().getSelectedItem();
 
+		if(salesReports != null){
+			StringBuilder filename =
+					new StringBuilder("../sales_reports/")
+							.append(salesReports.getDate())
+							.append(".xls");
+			try {
+				Desktop.getDesktop().open(new File(filename.toString()));
+			} catch (IOException e) {
+				MessagesUtils.showAlert("Ошибка открытия отчета",
+						"Для открытия отчета необходимо наличие установленного MicroSoft Excel либо аналога!");
+			}
+		}else
+			MessagesUtils.showAlert("Ошибка открытия отчета",
+					"Для открытия отчета выберите дату отчета из списка!");
 	}
 
 	@Override
 	public void updateForm() {
 		ItemsInStockData.clear();
+		SalesReportsData.clear();
 		loadData();
 		loadTableView();
 	}

@@ -29,9 +29,7 @@ public class SalesReports {
 
     public static SalesReports createSalesReportsFromSalesReportsEntity(SalesReportsEntity salesReportsEntity){
         return new SalesReports(
-                DateUtils.transformDateFromDB(
                         salesReportsEntity.getDate()
-                )
         );
     }
 }

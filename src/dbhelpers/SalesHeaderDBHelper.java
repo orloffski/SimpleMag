@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class SalesHeaderDBHelper extends AbstractDBHelper{
@@ -60,5 +61,26 @@ public class SalesHeaderDBHelper extends AbstractDBHelper{
 
         tr.commit();
         session.close();
+    }
+
+    public static List<SalesHeaderEntity> getSalesFromDateToDate(SessionFactory sessFact, LocalDate dateFrom, LocalDate dateTo){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        StringBuilder queryString = new StringBuilder();
+        queryString.append("FROM SalesHeaderEntity WHERE setHeader = 'проведен' AND DATE(lastcreateupdate) BETWEEN '");
+        queryString.append(dateFrom.toString());
+        queryString.append("' AND '");
+        queryString.append(dateTo.toString());
+        queryString.append("'");
+
+        Query query = session.createQuery(queryString.toString());
+
+        List<SalesHeaderEntity> salesList = query.list();
+
+        tr.commit();
+        session.close();
+
+        return salesList;
     }
 }
