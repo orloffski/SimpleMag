@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.hibernate.SessionFactory;
 import utils.MessagesUtils;
+import view.AbstractController;
 
 
 import java.io.*;
@@ -23,8 +24,10 @@ public class ItemsInStockReport implements Runnable{
 
     private Thread t;
     private SessionFactory sessFact;
+    private AbstractController controller;
 
-    public ItemsInStockReport(SessionFactory sessFact) {
+    public ItemsInStockReport(SessionFactory sessFact, AbstractController controller) {
+        this.controller = controller;
         this.sessFact = sessFact;
         t = new Thread(this);
         t.start();
@@ -59,6 +62,7 @@ public class ItemsInStockReport implements Runnable{
         Platform.runLater(() ->{
             MessagesUtils.showShortInfo("Завершение работы отчета",
                     "Отчет \"Остатки на складе\" успешно завершен.");
+            controller.updateForm();
         });
     }
 

@@ -12,7 +12,9 @@ public abstract class AbstractController extends AbstractRootController{
     protected SessionFactory sessFact;
     protected org.hibernate.Transaction tr;
 
-    protected abstract void clearForm();
+    protected void clearForm(){};
+
+    public void updateForm(){};
 
     protected void getSessionData(){
         sessFact = HibernateUtil.getSessionFactory();

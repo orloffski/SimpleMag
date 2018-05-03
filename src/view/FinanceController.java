@@ -13,15 +13,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 import model.ItemsInStock;
 import model.SalesReports;
 import reports.ItemsInStockReport;
+import reports.SalesReport;
 import utils.HibernateUtil;
 import utils.MessagesUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Optional;
 
 public class FinanceController extends AbstractController{
 
@@ -102,13 +106,7 @@ public class FinanceController extends AbstractController{
 
 	@FXML
 	private void getItemsInStock(){
-
-		ItemsInStockData.clear();
-
-		new ItemsInStockReport(HibernateUtil.getSessionFactory());
-
-		loadData();
-		loadTableView();
+		new ItemsInStockReport(HibernateUtil.getSessionFactory(), this);
 	}
 
 	@FXML
@@ -133,7 +131,17 @@ public class FinanceController extends AbstractController{
 
 	@FXML
 	private void salesReportStart(){
+		Optional<Pair<LocalDate, LocalDate>> interval = MessagesUtils.getReportIntervalFromDates("\"Отчет о продажах\"");
 
+		interval.ifPresent(localDateLocalDatePair -> {
+			if(localDateLocalDatePair.getKey() == null || localDateLocalDatePair.getValue() == null ||
+					localDateLocalDatePair.getKey().isAfter(localDateLocalDatePair.getValue())){
+				MessagesUtils.showAlert("Некорректный диапазон дат отчета", "Внимательно выберите диапазон дат для отчета");
+				return;
+			}else{
+				new SalesReport(HibernateUtil.getSessionFactory());
+			}
+		});
 	}
 
 	@FXML
@@ -142,7 +150,9 @@ public class FinanceController extends AbstractController{
 	}
 
 	@Override
-	protected void clearForm() {
-
+	public void updateForm() {
+		ItemsInStockData.clear();
+		loadData();
+		loadTableView();
 	}
 }
