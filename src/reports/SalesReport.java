@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SalesReport implements Runnable {
@@ -76,7 +75,6 @@ public class SalesReport implements Runnable {
         for(SalesLineEntity salesLineEntity : salesLines){
             if(counterpartyNum != salesLineEntity.getCounterpartyId()){
                 if(counterpartyNum != 0){
-                    System.out.println(startRowNum);
                     // add full summ of list
                     row = sheet.createRow(startRowNum);
                     cell = row.createCell(3, CellType.FORMULA);

@@ -105,23 +105,25 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
                 summRetailPrices += line.getRetailPrice() * line.getCount();
 
-                cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                cell.setCellValue("Цена поставщика: " + line.getVendorPrice() + "\n" +
-                "торговая надбавка: " +
-                        new BigDecimal(
-                                (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount())
-                        ).setScale(2, RoundingMode.HALF_UP).doubleValue()
-                );
+//                cell = row.getCell(31, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+//                cell.setCellValue("Цена поставщика: " + line.getVendorPrice() + "\n" +
+//                "торговая надбавка: " +
+//                        new BigDecimal(
+//                                (line.getRetailPrice() - line.getVendorPrice() - line.getSummVat()/line.getCount())
+//                        ).setScale(2, RoundingMode.HALF_UP).doubleValue()
+//                );
 
                 row.setHeightInPoints((2*s.getDefaultRowHeightInPoints()));
 
                 cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
-                cell.setCellValue(line.getSummVat());
+//                cell.setCellValue(line.getSummVat());
+                double vatSum = new BigDecimal(summRetailPrices * line.getVat() / (100 + line.getVat())).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                cell.setCellValue(vatSum);
 
                 cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 cell.setCellValue(line.getRetailPrice() * line.getCount());
 
-                summVat += line.getSummVat();
+                summVat += vatSum;
 
             }else if(invoice.getType().equalsIgnoreCase(InvoicesTypes.RETURN.toString())){
                 // get last vendor price
