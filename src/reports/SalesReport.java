@@ -1,9 +1,6 @@
 package reports;
 
-import dbhelpers.CounterpartiesDBHelper;
-import dbhelpers.SalesHeaderDBHelper;
-import dbhelpers.SalesLinesDBHelper;
-import dbhelpers.SalesReportsDBHelper;
+import dbhelpers.*;
 import entity.CounterpartiesEntity;
 import entity.SalesHeaderEntity;
 import entity.SalesLineEntity;
@@ -72,11 +69,19 @@ public class SalesReport implements Runnable {
         Sheet sheet = null;
         int counterpartyNum = 0;
         int startRowNum = 0;
+        int lastRow = 0;
         Row row = null;
         Cell cell;
 
         for(SalesLineEntity salesLineEntity : salesLines){
             if(counterpartyNum != salesLineEntity.getCounterpartyId()){
+                if(counterpartyNum != 0){
+                    System.out.println(startRowNum);
+                    // add full summ of list
+                    row = sheet.createRow(startRowNum);
+                    cell = row.createCell(3, CellType.FORMULA);
+                    cell.setCellFormula("SUM(D" + 3 + ":D" + (startRowNum) + ")");
+                }
                 String counterpartyName = CounterpartiesDBHelper.getCounterpartyBiId(sessFact, salesLineEntity.getCounterpartyId()).getName();
                 sheet = createSheet(workbook, counterpartyName);
                 counterpartyNum = salesLineEntity.getCounterpartyId();
@@ -90,6 +95,12 @@ public class SalesReport implements Runnable {
                 cell = row.createCell(1, CellType.STRING);
                 cell.setCellValue("Количество");
 
+                cell = row.createCell(2, CellType.STRING);
+                cell.setCellValue("Цена включая НДС");
+
+                cell = row.createCell(3, CellType.STRING);
+                cell.setCellValue("Сумма строки включая НДС");
+
                 startRowNum += 2;
             }
 
@@ -100,6 +111,14 @@ public class SalesReport implements Runnable {
 
             cell = row.createCell(1, CellType.NUMERIC);
             cell.setCellValue(salesLineEntity.getCount());
+
+            double itemVendorPriceInclVat = InvoicesLineDBHelper.getLastRetailPriceIncludeVat(sessFact, salesLineEntity.getItemId(), counterpartyNum, dateFrom, dateTo);
+
+            cell = row.createCell(2, CellType.NUMERIC);
+            cell.setCellValue(itemVendorPriceInclVat);
+
+            cell = row.createCell(3, CellType.NUMERIC);
+            cell.setCellValue(itemVendorPriceInclVat * salesLineEntity.getCount());
 
             startRowNum +=1;
         }

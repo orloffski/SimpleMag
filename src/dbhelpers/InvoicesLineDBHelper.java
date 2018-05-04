@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,5 +91,45 @@ public class InvoicesLineDBHelper extends AbstractDBHelper {
             return unitsList.get(0);
 
         return null;
+    }
+
+    public static double getLastRetailPriceIncludeVat(SessionFactory sessFact, int itemId, int counterpartyId, LocalDate dateFrom, LocalDate dateTo){
+        Session session = sessFact.openSession();
+        Transaction tr = session.beginTransaction();
+
+        List<InvoicesLinesEntity> invoicesLinesEntities;
+
+        StringBuilder queryString = new StringBuilder();
+
+        queryString.append("FROM InvoicesLinesEntity ");
+        queryString.append("WHERE invoiceNumber IN ");
+            queryString.append("(SELECT number ");
+            queryString.append("FROM InvoicesHeadersEntity ");
+            queryString.append("WHERE (number LIKE 'INI%' OR number LIKE 'REC%') AND ");
+            queryString.append("counterpartyId =:counterpartyId AND ");
+            queryString.append("lastcreated BETWEEN '");
+            queryString.append(dateFrom.toString());
+            queryString.append("' AND '");
+            queryString.append(dateTo.toString());
+            queryString.append("') " );
+        queryString.append("AND itemId =:itemId ");
+        queryString.append("ORDER BY id DESC");
+
+        Query query = session.createQuery(queryString.toString());
+        query.setParameter("counterpartyId", counterpartyId);
+        query.setParameter("itemId", itemId);
+
+        invoicesLinesEntities = query.list();
+
+        tr.commit();
+        session.close();
+
+        if(invoicesLinesEntities.size() > 0) {
+            double vendorPrice = invoicesLinesEntities.get(0).getVendorPrice();
+            double vat = invoicesLinesEntities.get(0).getVat();
+            return vendorPrice * ((vat + 100)/100);
+        }
+
+        return 0d;
     }
 }
