@@ -17,6 +17,8 @@ import view.AbstractController;
 
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.List;
 
@@ -85,7 +87,11 @@ public class ItemsInStockReport implements Runnable{
             InvoicesHeadersEntity header = InvoicesHeaderDBHelper.getInvoiceHeaderEntityByNum(sessFact, unit.getInvoiceNumber());
 
             if (header.getStatus().equalsIgnoreCase("проведен")) {
-                item.setVendor_price(unit.getVendorPrice());
+                item.setVendor_price(unit.getVendorPrice() + unit.getSummVat()/unit.getCount());
+                if(!Double.isNaN(item.getVendor_price()))
+                    item.setVendor_price(new BigDecimal(item.getVendor_price()).setScale(2, RoundingMode.HALF_UP).doubleValue());
+                else
+                    item.setVendor_price(0d);
                 break;
             }
         }
@@ -115,7 +121,7 @@ public class ItemsInStockReport implements Runnable{
         cell.setCellStyle(style);
         // vendor price
         cell = row.createCell(2, CellType.STRING);
-        cell.setCellValue("цена поставщика без НДС");
+        cell.setCellValue("цена поставщика с НДС");
         cell.setCellStyle(style);
         // line price
         cell = row.createCell(3, CellType.STRING);
