@@ -18,6 +18,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
+import model.types.PaymentTypes;
+import model.types.SaleTypes;
 import utils.MessagesUtils;
 import utils.NumberUtils;
 import utils.SelectedObject;

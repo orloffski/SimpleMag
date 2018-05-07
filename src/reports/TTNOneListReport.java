@@ -5,7 +5,7 @@ import dbhelpers.InvoicesLineDBHelper;
 import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import model.InvoiceHeader;
-import model.InvoicesTypes;
+import model.types.InvoicesTypes;
 import org.apache.poi.ss.usermodel.*;
 import org.hibernate.SessionFactory;
 import utils.DateUtils;

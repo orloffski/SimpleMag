@@ -7,8 +7,8 @@ import entity.InvoicesHeadersEntity;
 import entity.InvoicesLinesEntity;
 import entity.ProductsInStockEntity;
 import javafx.scene.control.ButtonType;
-import model.InvoicesTypes;
-import model.StatusTypes;
+import model.types.InvoicesTypes;
+import model.types.StatusTypes;
 import org.hibernate.SessionFactory;
 import utils.MessagesUtils;
 

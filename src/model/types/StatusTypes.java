@@ -1,17 +1,16 @@
-package model;
+package model.types;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public enum InvoicesTypes {
-	RECEIPT("Поступление"),
-	RETURN("Возврат"),
-	DELIVERY("Перемещение"),
-	INITIAL("Ввод начальных остатков");
+public enum StatusTypes {
+
+	ENTERED("Проведен"),
+	NOENTERED("Не проведен");
 	
 	private final String type;
 	
-	InvoicesTypes(final String type) {
+	StatusTypes(final String type) {
         this.type = type;
     }
 	
@@ -21,10 +20,10 @@ public enum InvoicesTypes {
     }
 	
 	public static ObservableList<String> getTypes() {
-		InvoicesTypes[] states = values();
+		StatusTypes[] states = values();
 		ObservableList<String> names = FXCollections.observableArrayList();
 
-		for (InvoicesTypes state : states) {
+		for (StatusTypes state : states) {
 			names.add(state.toString());
 		}
 

@@ -5,7 +5,7 @@ import entity.CounterpartiesEntity;
 import entity.InvoicesLinesEntity;
 import entity.ItemsEntity;
 import model.InvoiceHeader;
-import model.InvoicesTypes;
+import model.types.InvoicesTypes;
 import model.Items;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.IOUtils;

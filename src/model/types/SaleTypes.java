@@ -1,17 +1,16 @@
-package model;
+package model.types;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public enum PaymentTypes {
+public enum SaleTypes {
 
-    CASH("наличный"),
-    NONCASH("безналичный"),
-    COMBINECASH("сложная оплата");
+    PURCHASE("покупка"),
+    RETURN("возврат");
 
     private final String type;
 
-    PaymentTypes(final String type) {
+    SaleTypes(final String type) {
         this.type = type;
     }
 
@@ -21,10 +20,10 @@ public enum PaymentTypes {
     }
 
     public static ObservableList<String> getTypes() {
-        PaymentTypes[] states = values();
+        SaleTypes[] states = values();
         ObservableList<String> names = FXCollections.observableArrayList();
 
-        for (PaymentTypes state : states) {
+        for (SaleTypes state : states) {
             names.add(state.toString());
         }
 

@@ -24,6 +24,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import model.*;
+import model.types.InvoicesTypes;
+import model.types.StatusTypes;
 import modes.AddEditMode;
 import reports.PriceListReport;
 import reports.RetailPriceRegisterReport;
