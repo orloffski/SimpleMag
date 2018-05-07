@@ -124,6 +124,11 @@ public class SalesReport implements Runnable {
             cell = row.createCell(3, CellType.NUMERIC);
             cell.setCellValue(itemVendorPriceInclVat * salesLineEntity.getCount());
 
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(2);
+            sheet.autoSizeColumn(3);
+
             startRowNum +=1;
         }
 

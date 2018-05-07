@@ -155,6 +155,11 @@ public class ItemsInStockReport implements Runnable{
             endRow = rownum + 1;
         }
 
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(2);
+        sheet.autoSizeColumn(3);
+
         // add footer
         rownum++;
         rownum++;
