@@ -15,6 +15,7 @@ import view.AbstractController;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -110,7 +111,12 @@ public class SalesReport implements Runnable {
             cell = row.createCell(1, CellType.NUMERIC);
             cell.setCellValue(salesLineEntity.getCount());
 
-            double itemVendorPriceInclVat = InvoicesLineDBHelper.getLastRetailPriceIncludeVat(sessFact, salesLineEntity.getItemId(), counterpartyNum, dateFrom, dateTo);
+            // передать в поиск цены дату продажи как конечную для выбора цен
+            LocalDate dateTo = LocalDate.now();
+            SalesHeaderEntity salesHeaderEntity = SalesHeaderDBHelper.getSalesHeaderEntityBySaleNumber(sessFact, salesLineEntity.getSalesNumber());
+            if(salesHeaderEntity != null)
+                dateTo = salesHeaderEntity.getLastcreateupdate().toLocalDateTime().toLocalDate();
+            double itemVendorPriceInclVat = InvoicesLineDBHelper.getLastRetailPriceIncludeVat(sessFact, salesLineEntity.getItemId(), counterpartyNum, LocalDate.MIN, dateTo);
 
             cell = row.createCell(2, CellType.NUMERIC);
             cell.setCellValue(itemVendorPriceInclVat);
