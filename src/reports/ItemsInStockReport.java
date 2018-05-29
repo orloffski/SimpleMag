@@ -161,6 +161,9 @@ public class ItemsInStockReport implements Runnable{
         sheet.autoSizeColumn(3);
 
         // add footer
+        if(endRow == 0) // остатки в нуле
+            return;
+
         rownum++;
         rownum++;
         row = sheet.createRow(rownum);
