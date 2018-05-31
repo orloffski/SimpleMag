@@ -117,7 +117,7 @@ public class TTNOneListReport extends AbstractTTNReport implements Runnable{
 
                 cell = row.getCell(19, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
 //                cell.setCellValue(line.getSummVat());
-                double vatSum = new BigDecimal(summRetailPrices * line.getVat() / (100 + line.getVat())).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                double vatSum = new BigDecimal(line.getRetailPrice() * line.getCount() * line.getVat() / (100 + line.getVat())).setScale(2, RoundingMode.HALF_UP).doubleValue();
                 cell.setCellValue(vatSum);
 
                 cell = row.getCell(22, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
