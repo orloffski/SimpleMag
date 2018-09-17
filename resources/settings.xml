@@ -6,5 +6,9 @@
         <sellsFromStock>true</sellsFromStock>
         <autoVat>true</autoVat>
         <autoExtraPrice>true</autoExtraPrice>
+        <autoBackupEnabled>true</autoBackupEnabled>
+        <autoBackupOnStart>true</autoBackupOnStart>
+        <autoBackupOnStop>true</autoBackupOnStop>
+        <autoBackupPath>E:\clips\F1</autoBackupPath>
     </products_in_stock>
 </main_app_settings>

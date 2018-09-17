@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.productsInStock.ProductsInStockSettingsController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.settings.productsInStock.ProductsInStockSettingsController">
    <center>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
@@ -31,6 +33,26 @@
                            </VBox.margin>
                         </CheckBox>
                         <CheckBox fx:id="autoExtraPrice" mnemonicParsing="false" onAction="#setAutoExtraPrice" text="Включить автозаполнение торговой надбавки" />
+                        <CheckBox fx:id="autoBackupEnabled" mnemonicParsing="false" onAction="#setAutoBackupEnabled" text="Включить автосохранение БД">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <CheckBox fx:id="autoBackupOnStart" mnemonicParsing="false" onAction="#setAutoBackupOnStart" text="автосохранение при старте программы" />
+                        <CheckBox fx:id="autoBackupOnStop" mnemonicParsing="false" onAction="#setAutoBackupOnStop" text="автосохранение при завершении программы" />
+                        <HBox>
+                           <children>
+                              <TextField fx:id="autoBackupPath" prefWidth="250.0" promptText="Путь для сохранения резервных копий" />
+                              <Button fx:id="autoBackupPathButton" mnemonicParsing="false" onAction="#setAutoBackupPath" text="Выбрать">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
