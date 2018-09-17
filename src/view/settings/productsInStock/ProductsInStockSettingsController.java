@@ -44,6 +44,9 @@ public class ProductsInStockSettingsController extends AbstractController {
     private TextField autoBackupPath;
 
     @FXML
+    private Button backupDatabaseNow;
+
+    @FXML
     public void initialize(){
         loadSettings(SettingsEngine.getInstance().getSettings());
         openSettings(productsInStock.isSelected(), autoBackupEnabled.isSelected());
@@ -96,6 +99,11 @@ public class ProductsInStockSettingsController extends AbstractController {
     @FXML
     private void setAutoBackupOnStop(){
         SettingsEngine.getInstance().getSettings().autoBackupOnStop = autoBackupOnStop.isSelected();
+    }
+
+    @FXML
+    private void setBackupDatabaseNow(){
+        
     }
 
     @FXML

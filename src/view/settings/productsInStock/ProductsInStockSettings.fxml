@@ -53,6 +53,11 @@
                               <Insets top="3.0" />
                            </VBox.margin>
                         </HBox>
+                        <Button fx:id="backupDatabaseNow" mnemonicParsing="false" onAction="#setBackupDatabaseNow" text="Сделать резервную копию данных немедленно">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>
