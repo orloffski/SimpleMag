@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utils.DatabaseBackupEngine.DatabaseBackuper;
 import utils.settingsEngine.SettingsEngine;
 import utils.settingsEngine.SettingsModel;
 import view.MainController;
@@ -24,6 +25,10 @@ public class Main extends Application {
         SettingsEngine settingsEngine = SettingsEngine.getInstance();
         settings = settingsEngine.getSettings();
 
+        // backup data
+        if(SettingsEngine.getInstance().getSettings().autoBackupOnStart)
+            DatabaseBackuper.backupDatabase();
+
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("МиниМаг");
         
@@ -35,6 +40,11 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
+
+        // backup data
+        if(SettingsEngine.getInstance().getSettings().autoBackupOnStop)
+            DatabaseBackuper.backupDatabase();
+
         HibernateSession.closeSession();
         SettingsEngine.getInstance().saveSettingsDataToFile(settings);
     }

@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import utils.DatabaseBackupEngine.DatabaseBackuper;
 import utils.settingsEngine.SettingsEngine;
 import utils.settingsEngine.SettingsModel;
 import view.AbstractController;
@@ -103,7 +104,7 @@ public class ProductsInStockSettingsController extends AbstractController {
 
     @FXML
     private void setBackupDatabaseNow(){
-        
+        DatabaseBackuper.backupDatabase();
     }
 
     @FXML
