@@ -1,6 +1,7 @@
 package utils.DatabaseBackupEngine;
 
 import application.HibernateSession;
+import utils.ZipUtils;
 import utils.settingsEngine.SettingsEngine;
 
 import java.io.File;
@@ -42,7 +43,12 @@ public class DatabaseBackuper {
 
             /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
             if (processComplete == 0) {
-                System.out.println("Backup Complete");
+
+                /* zip database backup */
+                ZipUtils.zipFolder(f1, new File(folderPath + ".zip"));
+
+                /* delete directory - we have zip archive*/
+                deleteDirectory(f1);
             } else {
                 System.out.println("Backup Failure");
             }
@@ -50,5 +56,11 @@ public class DatabaseBackuper {
         } catch (IOException | InterruptedException ex) {
 
         }
+    }
+
+    public static void deleteDirectory(File outputFolder){
+        final File[] files = outputFolder.listFiles();
+        for (File f: files) f.delete();
+        outputFolder.delete();
     }
 }
