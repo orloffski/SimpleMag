@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class DatabaseBackuper {
 
-    public static void backupDatabase() {
+    public static String backupDatabase() {
         try {
             /* Get database url */
             String dbName = HibernateSession.getSessFact().getProperties()
@@ -49,13 +49,17 @@ public class DatabaseBackuper {
 
                 /* delete directory - we have zip archive*/
                 deleteDirectory(f1);
+
+                return folderPath + ".zip";
             } else {
-                System.out.println("Backup Failure");
+                return null;
             }
 
         } catch (IOException | InterruptedException ex) {
-
+            ex.printStackTrace();
         }
+
+        return null;
     }
 
     public static void deleteDirectory(File outputFolder){

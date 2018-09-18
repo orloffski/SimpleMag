@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utils.DatabaseBackupEngine.DatabaseBackuper;
+import utils.EmailAttachmentSenderUtils;
 import utils.settingsEngine.SettingsEngine;
 import utils.settingsEngine.SettingsModel;
 import view.MainController;
@@ -25,9 +26,11 @@ public class Main extends Application {
         SettingsEngine settingsEngine = SettingsEngine.getInstance();
         settings = settingsEngine.getSettings();
 
+        String databaseBackup = null;
+
         // backup data
         if(SettingsEngine.getInstance().getSettings().autoBackupOnStart)
-            DatabaseBackuper.backupDatabase();
+            databaseBackup = DatabaseBackuper.backupDatabase();
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("МиниМаг");
@@ -35,6 +38,11 @@ public class Main extends Application {
         this.primaryStage.getIcons().add(new Image("file:resources/images/shop.png"));
 
         showMainView();
+
+        /* send backup to E-mail*/
+        if(databaseBackup != null)
+            if(SettingsEngine.getInstance().getSettings().sendBackupToEmail)
+                new EmailAttachmentSenderUtils(databaseBackup).start();
     }
 
     @Override

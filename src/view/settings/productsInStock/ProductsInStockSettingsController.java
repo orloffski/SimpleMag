@@ -48,16 +48,43 @@ public class ProductsInStockSettingsController extends AbstractController {
     private Button backupDatabaseNow;
 
     @FXML
+    private CheckBox sendBackupToEmail;
+
+    @FXML
+    private TextField smtpHostAdress;
+
+    @FXML
+    private TextField smtpHostPort;
+
+    @FXML
+    private TextField senderLogin;
+
+    @FXML
+    private TextField senderPassword;
+
+    @FXML
+    private TextField sendTo;
+
+    @FXML
+    private Button savePostData;
+
+    @FXML
     public void initialize(){
         loadSettings(SettingsEngine.getInstance().getSettings());
-        openSettings(productsInStock.isSelected(), autoBackupEnabled.isSelected());
+        openSettings(
+                productsInStock.isSelected(),
+                autoBackupEnabled.isSelected(),
+                sendBackupToEmail.isSelected());
     }
 
     @FXML
     private void setProductsInStock(){
         SettingsEngine.getInstance().getSettings().productsInStockEnabled = productsInStock.isSelected();
 
-        openSettings(productsInStock.isSelected(), autoBackupEnabled.isSelected());
+        openSettings(
+                productsInStock.isSelected(),
+                autoBackupEnabled.isSelected(),
+                autoBackupEnabled.isSelected());
     }
 
     @FXML
@@ -89,7 +116,10 @@ public class ProductsInStockSettingsController extends AbstractController {
     private void setAutoBackupEnabled(){
         SettingsEngine.getInstance().getSettings().autoBackupEnabled = autoBackupEnabled.isSelected();
 
-        openSettings(productsInStock.isSelected(), autoBackupEnabled.isSelected());
+        openSettings(
+                productsInStock.isSelected(),
+                autoBackupEnabled.isSelected(),
+                sendBackupToEmail.isSelected());
     }
 
     @FXML
@@ -120,6 +150,25 @@ public class ProductsInStockSettingsController extends AbstractController {
         SettingsEngine.getInstance().getSettings().autoBackupPath = autoBackupPath.getText();
     }
 
+    @FXML
+    private void setSendBackupToEmailEnabled(){
+        SettingsEngine.getInstance().getSettings().sendBackupToEmail = sendBackupToEmail.isSelected();
+
+        openSettings(
+                productsInStock.isSelected(),
+                autoBackupEnabled.isSelected(),
+                sendBackupToEmail.isSelected());
+    }
+
+    @FXML
+    private void setSavePostData(){
+        SettingsEngine.getInstance().getSettings().smtpHostAdress = smtpHostAdress.getText();
+        SettingsEngine.getInstance().getSettings().smtpHostPort = smtpHostPort.getText();
+        SettingsEngine.getInstance().getSettings().senderLogin = senderLogin.getText();
+        SettingsEngine.getInstance().getSettings().senderPassword = senderPassword.getText();
+        SettingsEngine.getInstance().getSettings().sendTo = sendTo.getText();
+    }
+
     private void loadSettings(SettingsModel settings){
         productsInStock.setSelected(settings.productsInStockEnabled);
         invoiceFromStock.setSelected(settings.invoicesFromStock);
@@ -132,9 +181,16 @@ public class ProductsInStockSettingsController extends AbstractController {
         autoBackupOnStart.setSelected(settings.autoBackupOnStart);
         autoBackupOnStop.setSelected(settings.autoBackupOnStop);
         autoBackupPath.setText(settings.autoBackupPath);
+
+        sendBackupToEmail.setSelected(settings.sendBackupToEmail);
+        smtpHostAdress.setText(settings.smtpHostAdress);
+        smtpHostPort.setText(settings.smtpHostPort);
+        senderLogin.setText(settings.senderLogin);
+        senderPassword.setText(settings.senderPassword);
+        sendTo.setText(settings.sendTo);
     }
 
-    private void openSettings(boolean isProductsInStockEnabled, boolean isAutoBackupEnabled){
+    private void openSettings(boolean isProductsInStockEnabled, boolean isAutoBackupEnabled, boolean isSendBackupToEmail){
         if(isProductsInStockEnabled){
             invoiceFromStock.setDisable(false);
             sellsFromStock.setDisable(false);
@@ -153,6 +209,20 @@ public class ProductsInStockSettingsController extends AbstractController {
             autoBackupOnStop.setDisable(true);
             autoBackupPath.setEditable(false);
             autoBackupPathButton.setDisable(true);
+        }
+
+        if(isSendBackupToEmail){
+            smtpHostAdress.setEditable(true);
+            smtpHostPort.setEditable(true);
+            senderLogin.setEditable(true);
+            senderPassword.setEditable(true);
+            sendTo.setEditable(true);
+        }else{
+            smtpHostAdress.setEditable(false);
+            smtpHostPort.setEditable(false);
+            senderLogin.setEditable(false);
+            senderPassword.setEditable(false);
+            sendTo.setEditable(false);
         }
     }
 }

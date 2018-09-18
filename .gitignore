@@ -19,3 +19,5 @@ software/mysql-workbench-community-6.3.10-winx64.msi
 software/mysql-5.5.11-win32.msi
 software/English.isl
 software/mysql-workbench-community-6.3.8-win32.msi
+
+resources/settings\.xml

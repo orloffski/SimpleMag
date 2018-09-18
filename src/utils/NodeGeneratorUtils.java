@@ -69,7 +69,7 @@ public class NodeGeneratorUtils {
                 paneView = loader.load();
                 break;
             case PRODUCTS_IN_STOCK_SETTINGS:
-                tabTitle = "Настройка контроля остатков на складе";
+                tabTitle = "Общие настройки приложения";
                 loader.setLocation(Main.class.getResource("/view/settings/productsInStock/ProductsInStockSettings.fxml"));
                 paneView = loader.load();
                 break;

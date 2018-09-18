@@ -33,9 +33,16 @@
                            </VBox.margin>
                         </CheckBox>
                         <CheckBox fx:id="autoExtraPrice" mnemonicParsing="false" onAction="#setAutoExtraPrice" text="Включить автозаполнение торговой надбавки" />
+                     </children>
+                  </VBox>
+                  <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="385.0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                     <children>
                         <CheckBox fx:id="autoBackupEnabled" mnemonicParsing="false" onAction="#setAutoBackupEnabled" text="Включить автосохранение БД">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets />
                            </VBox.margin>
                         </CheckBox>
                         <CheckBox fx:id="autoBackupOnStart" mnemonicParsing="false" onAction="#setAutoBackupOnStart" text="автосохранение при старте программы" />
@@ -56,6 +63,41 @@
                         <Button fx:id="backupDatabaseNow" mnemonicParsing="false" onAction="#setBackupDatabaseNow" text="Сделать резервную копию данных немедленно">
                            <VBox.margin>
                               <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <CheckBox fx:id="sendBackupToEmail" mnemonicParsing="false" onAction="#setSendBackupToEmailEnabled" text="Отправлять копию на почту (при запуске программы)">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <TextField fx:id="smtpHostAdress" maxWidth="250.0" promptText="SMTP host adress">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="smtpHostPort" maxWidth="250.0" promptText="SMTP port adress">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="senderLogin" maxWidth="250.0" promptText="Адрес отправителя - только Gmail!!!">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="senderPassword" maxWidth="250.0" promptText="Пароль отправителя">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="sendTo" maxWidth="250.0" promptText="Адрес получателя">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button fx:id="savePostData" mnemonicParsing="false" onAction="#setSavePostData" text="Сохранить настройки почты">
+                           <VBox.margin>
+                              <Insets top="4.0" />
                            </VBox.margin>
                         </Button>
                      </children>

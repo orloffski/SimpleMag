@@ -12,4 +12,11 @@ public class SettingsModel {
     public boolean autoBackupOnStart;
     public boolean autoBackupOnStop;
     public String autoBackupPath;
+
+    public boolean sendBackupToEmail;
+    public String smtpHostAdress;
+    public String smtpHostPort;
+    public String senderLogin;
+    public String senderPassword;
+    public String sendTo;
 }
