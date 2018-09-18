@@ -3,6 +3,7 @@ package view.settings.productsInStock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import utils.DatabaseBackupEngine.DatabaseBackuper;
@@ -60,7 +61,7 @@ public class ProductsInStockSettingsController extends AbstractController {
     private TextField senderLogin;
 
     @FXML
-    private TextField senderPassword;
+    private PasswordField senderPassword;
 
     @FXML
     private TextField sendTo;
